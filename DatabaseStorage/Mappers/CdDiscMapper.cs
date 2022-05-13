@@ -8,12 +8,32 @@ namespace DatabaseStorage.Mappers
     {
         public CdDisc MapToEntity(CdDiscReqDto reqDto)
         {
-            throw new NotImplementedException();
+            var entity = new CdDisc
+            {
+                Id = reqDto.Id ?? 0,
+                Title = reqDto.Title ?? string.Empty,
+                DiscType = reqDto.DiscType ?? BusinessLogic.Enums.DiscType.CD,
+                DateOfRelease = reqDto.DateOfRelease ?? DateTime.Now,
+                Performer = reqDto.Performer,
+                Genre = reqDto.Genre,
+                NumberOfTracks = reqDto.NumberOfTracks ?? 0
+            };
+            return entity;
         }
 
         public CdDiscResDto MapToRes(CdDisc entity)
         {
-            throw new NotImplementedException();
+            var resDto = new CdDiscResDto
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                DiscType = entity.DiscType,
+                DateOfRelease = entity.DateOfRelease,
+                Performer = entity.Performer,
+                Genre = entity.Genre,
+                NumberOfTracks = entity.NumberOfTracks
+            };
+            return resDto;
         }
     }
 }

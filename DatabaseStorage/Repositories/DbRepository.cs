@@ -8,9 +8,9 @@ namespace DatabaseStorage.Repositories
 {
     public class DbRepository<Req, Res, T> : IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
     {
-        private readonly DiscRentalDb _db;
-        private readonly DbSet<T> _set;
-        private readonly IDbMapper<Req, Res, T> _mapper;
+        protected readonly DiscRentalDb _db;
+        protected readonly DbSet<T> _set;
+        protected readonly IDbMapper<Req, Res, T> _mapper;
 
         public DbRepository(DiscRentalDb db, IDbMapper<Req, Res, T> mapper)
         {
@@ -64,7 +64,7 @@ namespace DatabaseStorage.Repositories
         public virtual Res GetById(Req reqDto)
         {
             T? entity = _set.SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
-            if (entity is null)
+            if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Запись не найдена");
             }

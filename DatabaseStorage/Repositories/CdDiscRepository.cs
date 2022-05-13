@@ -3,6 +3,7 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
@@ -10,6 +11,12 @@ namespace DatabaseStorage.Repositories
     {
         public CdDiscRepository(DiscRentalDb db, CdDiscMapper mapper) : base(db, mapper)
         {
+        }
+
+        public override void DeleteById(CdDiscReqDto reqDto)
+        {
+            //base.DeleteById(reqDto);
+            /// Удаление каскодное по всем
         }
     }
 }

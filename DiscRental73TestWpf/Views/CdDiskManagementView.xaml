@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.fontawesome.com/icons/"
              xmlns:local="clr-namespace:DiscRental73TestWpf.Views"
-             xmlns:m="clr-namespace:BusinessLogic.DtoModels.RequestDto;assembly=BusinessLogic"
+             xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"
              DataContext="{Binding CdDiskManagementViewModel, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -30,14 +30,13 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="m:CdDiscResDto">
                             <TextBlock>
-                                <TextBlock.ToolTip>
+                                <!--<TextBlock.ToolTip>
                                     <TextBlock>
-                                        Оценка: <TextBlock Text="Binding Rating"/>
+                                        Оценка: <TextBlock Text="{Binding Rating}"/>
                                     </TextBlock>
-                                </TextBlock.ToolTip>
-                                <TextBlock Text="Binding Surname"/>
-                                <TextBlock Text="Binding Name"/>
-                                <TextBlock Text="Binding Patronymic"/>
+                                </TextBlock.ToolTip>-->
+                                <TextBlock Text="{Binding Performer}"/>
+                                <TextBlock Text="{Binding Title}"/>
                             </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -70,24 +69,23 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Фамилия:"/>
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:"/>
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Отчество:"/>
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Рейтинг:"/>
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата рождения:"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Название:"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Тип диска:"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата выпуска:"/>
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Исполнитель"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Жанр:"/>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Кол-во треков:"/>
 
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Surname}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Patronymic}"/>
-                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Rating, StringFormat=0.##}"/>
-                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="Surname"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="Name"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" Text="Binding Patronymic"/>
-                <TextBlock Grid.Column="1" Grid.Row="3" Text="Binding Rating, StringFormat=0.##"/>
-                <TextBlock Grid.Column="1" Grid.Row="4" Text="Binding Birthday, StringFormat=dd.MM.yyyy"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding DiscType}"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding DateOfRelease, StringFormat=dd.MM.yyyy}"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Performer}"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Genre}"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfTracks}"/>
+
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>

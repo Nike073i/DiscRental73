@@ -13,19 +13,74 @@ namespace BusinessLogic.BusinessLogics
         }
         public CdDiscResDto GetById(CdDiscReqDto reqDto)
         {
-            return new CdDiscResDto();
+            if (reqDto == null)
+            {
+                throw new ArgumentNullException(nameof(reqDto));
+            }
+
+            if (reqDto.Id == null)
+            {
+                throw new Exception("Ошибка получения записи по Id: Id не указан");
+            }
+
+            try
+            {
+                var cdDisk = _repository.GetById(reqDto);
+                return cdDisk;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
+            }
         }
-        public List<CdDiscResDto> GetAll()
+        public ICollection<CdDiscResDto> GetAll()
         {
-            return new List<CdDiscResDto>();
+            var listItems = _repository.GetAll();
+            return listItems;
         }
         public void Save(CdDiscReqDto reqDto)
         {
-
+            if (reqDto == null)
+            {
+                throw new ArgumentNullException(nameof(reqDto));
+            }
+            try
+            {
+                if (reqDto.Id.HasValue)
+                {
+                    _repository.Update(reqDto);
+                }
+                else
+                {
+                    _repository.Insert(reqDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при сохранении записи:" + ex.Message);
+            }
         }
+
         public void DeleteById(CdDiscReqDto reqDto)
         {
+            if (reqDto == null)
+            {
+                throw new ArgumentNullException(nameof(reqDto));
+            }
 
+            if (reqDto.Id == null)
+            {
+                throw new Exception("Ошибка удаления записи по Id: Id не указан");
+            }
+
+            try
+            {
+                _repository.DeleteById(reqDto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при удалении записи по Id:" + ex.Message);
+            }
         }
     }
 }
