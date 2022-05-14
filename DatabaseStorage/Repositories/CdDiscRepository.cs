@@ -13,10 +13,10 @@ namespace DatabaseStorage.Repositories
         {
         }
 
-        public override void DeleteById(CdDiscReqDto reqDto)
-        {
-            //base.DeleteById(reqDto);
-            /// Удаление каскодное по всем
-        }
+        //public override void DeleteById(CdDiscReqDto reqDto)
+        //{
+        //    //base.DeleteById(reqDto);
+        //    /// Удаление каскодное по всем
+        //}
     }
 }

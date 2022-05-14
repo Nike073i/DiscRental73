@@ -5,9 +5,9 @@ namespace DiscRental73TestWpf.ViewModels
 {
     public class DirectoryCrudViewModel : ViewModel
     {
-        private readonly CdDiscLogic _logic;
+        private readonly CdDiscService _logic;
 
-        public DirectoryCrudViewModel(CdDiscLogic logic)
+        public DirectoryCrudViewModel(CdDiscService logic)
         {
             _logic = logic;
         }

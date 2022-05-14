@@ -16,11 +16,23 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="CD-диски" Margin="3">
             <DockPanel>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="-3,3">
-                    <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Padding="0,5" Margin="3,0"
-                            Command="{Binding CreateNewCommand}"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Blue" Padding="0,5" Margin="3,0"/>
-                </UniformGrid>
+                <Grid DockPanel.Dock="Bottom" Margin="-3,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green" Padding="0,5" Margin="3,0"
+                            Command="{Binding CreateNewItemCommand}"/>
+                    <Button fa:Awesome.Content="Solid_UserEdit" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditItemCommand}" CommandParameter="{Binding SelectedDisc}"/>
+                    
+                    <Button fa:Awesome.Content="Solid_Ban" Grid.Column="0" Grid.Row="1" Foreground="Red" Padding="0,5" Margin="3,0"
+                            Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDisc}"/>
+                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0"/>
+                </Grid>
                 <ListBox ItemsSource="{Binding Discs}" SelectedItem="{Binding SelectedDisc}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">

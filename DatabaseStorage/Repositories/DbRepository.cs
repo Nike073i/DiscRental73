@@ -21,14 +21,25 @@ namespace DatabaseStorage.Repositories
 
         public virtual ICollection<Res> GetAll()
         {
-            return _set.Select(rec => _mapper.MapToRes(rec)).ToList();
+            return _set.Where(entity => !entity.IsDeleted).Select(rec => _mapper.MapToRes(rec)).ToList();
         }
 
         public virtual void Insert(Req reqDto)
         {
             try
             {
-                _set.Add(_mapper.MapToEntity(reqDto));
+                T? entity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
+                if (entity is not null && entity.IsDeleted)
+                {
+                    var newEntity = _mapper.MapToEntity(reqDto);
+                    newEntity.IsDeleted = false;
+                    newEntity.Id = entity.Id;
+                    _db.Update(entity);
+                }
+                else
+                {
+                    _set.Add(_mapper.MapToEntity(reqDto));
+                }
                 _db.SaveChanges();
             }
             catch (Exception ex)
@@ -40,7 +51,7 @@ namespace DatabaseStorage.Repositories
         public virtual void DeleteById(Req reqDto)
         {
             T? entity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
-            if (entity == null)
+            if (entity == null || entity.IsDeleted)
             {
                 throw new Exception("Ошибка удаления по Id: Запись не найдена");
             }
@@ -56,11 +67,6 @@ namespace DatabaseStorage.Repositories
             }
         }
 
-        public virtual ICollection<Res> GetByFilter(Req reqDto)
-        {
-            return new List<Res>();
-        }
-
         public virtual Res GetById(Req reqDto)
         {
             T? entity = _set.SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
@@ -73,8 +79,8 @@ namespace DatabaseStorage.Repositories
 
         public virtual void Update(Req reqDto)
         {
-            T? searchEntity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto));
-            if (searchEntity is null)
+            T? searchEntity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            if (searchEntity is null || searchEntity.IsDeleted)
             {
                 throw new Exception("Ошибка обновления записи: Запись не найдена");
             }

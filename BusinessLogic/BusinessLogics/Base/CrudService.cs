@@ -1,17 +1,15 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.Interfaces.Storages;
 
-namespace BusinessLogic.BusinessLogics
+namespace BusinessLogic.BusinessLogics.Base
 {
-    public class CdDiscLogic
+    public class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
     {
-        private readonly IRepository<CdDiscReqDto, CdDiscResDto> _repository;
-        public CdDiscLogic(IRepository<CdDiscReqDto, CdDiscResDto> repository)
+        private readonly IRepository<Req, Res> _repository;
+        public CrudService(IRepository<Req, Res> repository)
         {
             _repository = repository;
         }
-        public CdDiscResDto GetById(CdDiscReqDto reqDto)
+        public Res GetById(Req reqDto)
         {
             if (reqDto == null)
             {
@@ -25,20 +23,20 @@ namespace BusinessLogic.BusinessLogics
 
             try
             {
-                var cdDisk = _repository.GetById(reqDto);
-                return cdDisk;
+                var item = _repository.GetById(reqDto);
+                return item;
             }
             catch (Exception ex)
             {
                 throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
             }
         }
-        public ICollection<CdDiscResDto> GetAll()
+        public IEnumerable<Res> GetAll()
         {
             var listItems = _repository.GetAll();
             return listItems;
         }
-        public void Save(CdDiscReqDto reqDto)
+        public void Save(Req reqDto)
         {
             if (reqDto == null)
             {
@@ -61,7 +59,7 @@ namespace BusinessLogic.BusinessLogics
             }
         }
 
-        public void DeleteById(CdDiscReqDto reqDto)
+        public void DeleteById(Req reqDto)
         {
             if (reqDto == null)
             {

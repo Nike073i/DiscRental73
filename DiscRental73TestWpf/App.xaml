@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Templates/ModelMainView.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Templates/ModelMainView.xaml"/>
             </ResourceDictionary.MergedDictionaries> 
             <vm:ViewModelLocator x:Key="Locator"/>
         </ResourceDictionary>
