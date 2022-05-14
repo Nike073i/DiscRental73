@@ -10,7 +10,7 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection AddRepositoriesInDB(this IServiceCollection services)
         {
-            return services.AddSingleton<IRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
+            return services.AddTransient<IRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
         }
     }
 }

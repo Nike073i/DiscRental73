@@ -17,7 +17,6 @@ namespace DiscRental73TestWpf
     //opt.UseSqlServer(Configuration.GetConnectionString(type));
     opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDb;Integrated Security=True;MultipleActiveResultSets=True;");
 })
-.AddRepositoriesInDB()
 ;
         }
     }
