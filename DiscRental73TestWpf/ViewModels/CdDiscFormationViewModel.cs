@@ -13,7 +13,7 @@ namespace DiscRental73TestWpf.ViewModels
         public string Title
         {
             get => _Title;
-            private set => Set(ref _Title, value);
+            set => Set(ref _Title, value);
         }
 
         #endregion
@@ -25,7 +25,7 @@ namespace DiscRental73TestWpf.ViewModels
         public DateTime DateOfRelease
         {
             get => _DateOfRelease;
-            private set => Set(ref _DateOfRelease, value);
+            set => Set(ref _DateOfRelease, value);
         }
 
         #endregion
@@ -37,7 +37,7 @@ namespace DiscRental73TestWpf.ViewModels
         public string Performer
         {
             get => _Performer;
-            private set => Set(ref _Performer, value);
+            set => Set(ref _Performer, value);
         }
 
         #endregion
@@ -49,7 +49,7 @@ namespace DiscRental73TestWpf.ViewModels
         public string Genre
         {
             get => _Genre;
-            private set => Set(ref _Genre, value);
+            set => Set(ref _Genre, value);
         }
 
         #endregion
@@ -58,9 +58,10 @@ namespace DiscRental73TestWpf.ViewModels
 
         private int _NumberOfTracks;
         /// <summary>Количество треков</summary>
-        public int NumberOfTracks { 
+        public int NumberOfTracks
+        {
             get => _NumberOfTracks;
-            private set => Set(ref _NumberOfTracks, value);
+            set => Set(ref _NumberOfTracks, value);
         }
 
         #endregion

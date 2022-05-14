@@ -31,7 +31,7 @@
                     
                     <Button fa:Awesome.Content="Solid_Ban" Grid.Column="0" Grid.Row="1" Foreground="Red" Padding="0,5" Margin="3,0"
                             Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDisc}"/>
-                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0"/>
+                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0" Command="{Binding RefreshCommand}"/>
                 </Grid>
                 <ListBox ItemsSource="{Binding Discs}" SelectedItem="{Binding SelectedDisc}">
                     <ListBox.ItemContainerStyle>

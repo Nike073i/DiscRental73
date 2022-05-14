@@ -1,5 +1,7 @@
 ﻿using DiscRental73TestWpf.Infrastructure.Commands;
+using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels
@@ -26,6 +28,14 @@ namespace DiscRental73TestWpf.ViewModels
         {
             _CloseDialogCommand = new CloseDialogCommand();
             _CloseWindowCommand = new CloseWindowCommand();
+        }
+
+        private ICommand _LoadViewData;
+
+        public ICommand LoadViewData => _LoadViewData ??= new LambdaCommand(OnLoadViewData);
+        private void OnLoadViewData(object? p)
+        {
+            CurrentModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
         }
     }
 }

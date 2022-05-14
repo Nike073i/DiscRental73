@@ -4,6 +4,7 @@ using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Mappers;
 using DiscRental73TestWpf.Infrastructure.Commands;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
+using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly IFormationService _dialogService;
         private readonly ICommand _DeleteCommand;
         private readonly ICommand _SaveCommand;
+        private readonly ICommand _RefreshCommand;
 
         public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper, IFormationService formationService)
         {
@@ -26,6 +28,7 @@ namespace DiscRental73TestWpf.ViewModels
             _dialogService = formationService;
             _DeleteCommand = new DeleteDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
             _SaveCommand = new SaveDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
+            _RefreshCommand = new LambdaCommand(OnRefreshCommand,CanRefreshCommand);
         }
 
         private CdDiscResDto _SelectedDisc;
@@ -91,6 +94,23 @@ namespace DiscRental73TestWpf.ViewModels
                 }
             }
         }
+        #endregion
+
+        #region RefreshCommand - обновление списка
+
+        public ICommand RefreshCommand => _RefreshCommand;
+
+        public void OnRefreshCommand(object? p)
+        {
+            var dlg = new EntityFormationWindow();
+            if (dlg.ShowDialog()== true)
+            {
+                _dialogService.ShowInformation("ДА", "АГА");
+            }
+        }
+
+        public bool CanRefreshCommand(object? p) => true;
+
         #endregion
     }
 }
