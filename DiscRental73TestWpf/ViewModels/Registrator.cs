@@ -7,7 +7,7 @@ namespace DiscRental73TestWpf.ViewModels
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<CdDiskManagementViewModel>();
+            services.AddSingleton<CdDiscManagementViewModel>();
 
             return services;
         }

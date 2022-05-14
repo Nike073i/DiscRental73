@@ -9,7 +9,7 @@ namespace BusinessLogic.Mappers
         {
             var reqDto = new CdDiscReqDto
             {
-                Id = resDto.Id,
+                Id = resDto.Id == 0? null : resDto.Id,
                 Title = resDto.Title,
                 DiscType = resDto.DiscType,
                 DateOfRelease = resDto.DateOfRelease,

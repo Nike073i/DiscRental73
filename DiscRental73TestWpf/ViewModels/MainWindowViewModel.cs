@@ -28,7 +28,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnShowBooksViewCommandExecuted()
         {
-            CurrentModel = App.Host.Services.GetRequiredService<CdDiskManagementViewModel>();
+            CurrentModel = App.Host.Services.GetRequiredService<CdDiscManagementViewModel>();
         }
     }
 }

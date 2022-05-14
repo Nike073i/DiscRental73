@@ -17,7 +17,7 @@ namespace DiscRental73TestWpf.Views.Windows
                 nameof(TitleDisc),
                 typeof(string),
                 typeof(CdDiscFormationWindow),
-                new PropertyMetadata(null));
+                new PropertyMetadata(default(string)));
 
 
         /// <summary>Название диска</summary>
