@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="DiscRental73TestWpf.Views.CdDiscFormationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiscRental73TestWpf.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300">
+    <Grid Margin="3">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Style.Triggers>
+                    <Trigger Property="Grid.Column" Value="0">
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Margin" Value="0,3"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Название:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Дата выпуска:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Исполнитель"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Жанр:"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Кол-во треков:"/>
+
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding DateOfRelease}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Performer}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Genre}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding NumberOfTracks}"/>
+    </Grid>
+</UserControl>

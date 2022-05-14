@@ -8,7 +8,8 @@ namespace DiscRental73TestWpf.ViewModels
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CdDiscManagementViewModel>();
-
+            services.AddSingleton<EntityFormationWindowViewModel>();
+            services.AddSingleton<CdDiscFormationViewModel>();
             return services;
         }
     }
