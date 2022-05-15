@@ -10,8 +10,6 @@ namespace DiscRental73TestWpf
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<CdDiscService>();
-            services.AddTransient<IFormationService, WindowCdDiscFormationService>();
-
             return services;
         }
     }

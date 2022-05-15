@@ -3,6 +3,7 @@ using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Mappers;
 using DiscRental73TestWpf.Infrastructure.Commands;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
@@ -17,15 +18,18 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly CdDiscService _service;
         private readonly CdDiscMapper _mapper;
         private readonly IFormationService _dialogService;
+        private readonly IFormationService _dialogServiceTest;
         private readonly ICommand _DeleteCommand;
         private readonly ICommand _SaveCommand;
         private readonly ICommand _RefreshCommand;
 
         public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper, IFormationService formationService)
+        //, ViewCdDiscFormationService formationServiceTest
         {
             _service = service;
             _mapper = mapper;
             _dialogService = formationService;
+            _dialogServiceTest = new ViewCdDiscFormationService();
             _DeleteCommand = new DeleteDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
             _SaveCommand = new SaveDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
             _RefreshCommand = new LambdaCommand(OnRefreshCommand,CanRefreshCommand);
@@ -102,10 +106,17 @@ namespace DiscRental73TestWpf.ViewModels
 
         public void OnRefreshCommand(object? p)
         {
-            var dlg = new EntityFormationWindow();
-            if (dlg.ShowDialog()== true)
+            var item = new CdDiscResDto();
+            if (_dialogService.Edit(item))
             {
-                _dialogService.ShowInformation("ДА", "АГА");
+            //    var dlg = new EntityFormationWindow();
+            //if (dlg.ShowDialog()== true)
+            //{
+                _dialogServiceTest.ShowInformation("ДА", "АГА");
+            }
+            else
+            {
+                _dialogServiceTest.ShowInformation("НЕТ", "ВАЩЕ");
             }
         }
 
