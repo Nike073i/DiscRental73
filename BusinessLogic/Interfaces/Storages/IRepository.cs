@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogic.Interfaces.Storages
+﻿namespace BusinessLogic.Interfaces.Storages
 {
     public interface IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
     {

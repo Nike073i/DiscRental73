@@ -17,7 +17,6 @@ namespace DiscRental73TestWpf
                 .RegisterDbMappers()
                 .AddRepositoriesInDB()
                 .RegisterServices()
-                .RegisterDtoMappers()
                 .RegisterDialogServices()
                 .RegisterViewModels();
         }

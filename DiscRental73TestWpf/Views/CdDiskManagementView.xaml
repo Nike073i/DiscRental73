@@ -27,13 +27,13 @@
                     </Grid.RowDefinitions>
                     <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green" Padding="0,5" Margin="3,0"
                             Command="{Binding CreateNewItemCommand}"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditItemCommand}" CommandParameter="{Binding SelectedDisc}"/>
+                    <Button fa:Awesome.Content="Solid_UserEdit" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditItemCommand}" CommandParameter="{Binding SelectedItem}"/>
                     
                     <Button fa:Awesome.Content="Solid_Ban" Grid.Column="0" Grid.Row="1" Foreground="Red" Padding="0,5" Margin="3,0"
-                            Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDisc}"/>
+                            Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem}"/>
                     <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0" Command="{Binding RefreshCommand}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Discs}" SelectedItem="{Binding SelectedDisc}">
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -55,7 +55,7 @@
                 </ListBox>
             </DockPanel>
         </GroupBox>
-        <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedDisc}">
+        <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">
             <Grid Margin="3">
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -94,9 +94,9 @@
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding DiscType}"/>
                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding DateOfRelease, StringFormat=dd.MM.yyyy}"/>
-                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Performer}"/>
-                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Genre}"/>
-                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfTracks}"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Performer, TargetNullValue=PerformerNull}"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Genre, TargetNullValue='Не указан'}"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfTracks, TargetNullValue='Не указано'}"/>
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>

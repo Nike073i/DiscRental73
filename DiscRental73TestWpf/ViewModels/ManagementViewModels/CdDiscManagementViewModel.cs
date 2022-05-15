@@ -1,110 +1,51 @@
 ﻿using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Mappers;
-using DiscRental73TestWpf.Infrastructure.Commands;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
-using MathCore.WPF.Commands;
-using MathCore.WPF.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Windows.Input;
+using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels
 {
-    public class CdDiscManagementViewModel : ViewModel
+    public class CdDiscManagementViewModel : EntityManagemenetViewModel<CdDiscReqDto, CdDiscResDto>
     {
-        private readonly CdDiscService _service;
-        private readonly CdDiscMapper _mapper;
-        private readonly IFormationService _dialogService;
-        private readonly ICommand _DeleteCommand;
-        private readonly ICommand _SaveCommand;
-
-        public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper, ViewCdDiscFormationService dialogService)
+        public CdDiscManagementViewModel(CdDiscService service, ViewCdDiscFormationService dialogService) : base(service, dialogService)
         {
-            _service = service;
-            _mapper = mapper;
-            _dialogService = dialogService;
-            _DeleteCommand = new DeleteDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
-            _SaveCommand = new SaveDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
         }
 
-        private CdDiscResDto _SelectedDisc;
-
-        public IEnumerable<CdDiscResDto> Discs => _service.GetAll();
-
-        public CdDiscResDto SelectedDisc { get => _SelectedDisc; set => Set(ref _SelectedDisc, value); }
-
-        public ICommand SaveDataCommand => _SaveCommand;
-        public ICommand DeleteCommand => _DeleteCommand;
-
-        #region EditItemCommand - редактирование элемента
-
-        private ICommand _EditItemCommand;
-
-        public ICommand EditItemCommand => _EditItemCommand ??= new LambdaCommand(OnEditItemCommand, CanEditItemCommand);
-
-        private bool CanEditItemCommand(object? p) => p is CdDiscResDto;
-
-        private void OnEditItemCommand(object? p)
+        protected override CdDiscReqDto CreateReqDtoToCreate(CdDiscResDto resDto)
         {
-            if (p is not CdDiscResDto item)
+            var reqDto = new CdDiscReqDto
             {
-                return;
-            }
-
-            if (_dialogService.Edit(p))
-            {
-                var req = _mapper.MapToReq(item);
-                _service.Save(req);
-                _dialogService.ShowInformation("Диск отредактирован", "CD-диск");
-            }
-            else
-            {
-                _dialogService.ShowWarning("Отказ от редактирования", "CD-диск");
-            }
+                Title = resDto.Title,
+                DateOfRelease = resDto.DateOfRelease,
+                Performer = resDto.Performer,
+                Genre = resDto.Genre,
+                NumberOfTracks = resDto.NumberOfTracks
+            };
+            return reqDto;
         }
 
-        #endregion
-
-        #region CreateNewItemCommand - создание элемента
-        private ICommand _CreateNewItemCommand;
-        public ICommand CreateNewItemCommand => _CreateNewItemCommand ??= new LambdaCommand(OnCreateNewItemCommand);
-
-        private void OnCreateNewItemCommand(object? p)
+        protected override CdDiscReqDto CreateReqDtoToDelete(CdDiscResDto resDto)
         {
-            var item = new CdDiscResDto();
-            if (_dialogService.Edit(item))
+            var reqDto = new CdDiscReqDto
             {
-                try
-                {
-                    var req = _mapper.MapToReq(item);
-                    _service.Save(req);
-                    OnPropertyChanged(nameof(Discs));
-                    return;
-                }
-                catch
-                {
-                    if (_dialogService.Confirm("Не удалось создать сд-диск. Повторить?", "Менеджер сд-дисков"))
-                    {
-                        OnCreateNewItemCommand(p);
-                    }
-                }
-            }
+                Id = resDto?.Id
+            };
+            return reqDto;
         }
-        #endregion
 
-        #region RefreshCommand - обновление списка элементов
-
-        private ICommand _RefreshCommand;
-
-        public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand, CanRefreshCommand);
-
-        private bool CanRefreshCommand(object? p) => _service is not null;
-
-        private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Discs));
-
-        #endregion
+        protected override CdDiscReqDto CreateReqDtoToUpdate(CdDiscResDto resDto)
+        {
+            var reqDto = new CdDiscReqDto
+            {
+                Id = resDto.Id,
+                Title = resDto.Title,
+                DateOfRelease = resDto.DateOfRelease,
+                Performer = resDto.Performer,
+                Genre = resDto.Genre,
+                NumberOfTracks = resDto.NumberOfTracks
+            };
+            return reqDto;
+        }
     }
 }

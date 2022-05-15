@@ -1,6 +1,4 @@
 ﻿using BusinessLogic.BusinessLogics;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf
