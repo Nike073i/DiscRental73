@@ -4,7 +4,7 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.ViewModels.Base;
 
-namespace DiscRental73TestWpf.ViewModels
+namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
     public class CdDiscManagementViewModel : EntityManagemenetViewModel<CdDiscReqDto, CdDiscResDto>
     {

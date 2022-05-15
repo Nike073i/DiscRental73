@@ -1,9 +1,10 @@
-﻿using MathCore.WPF.Commands;
+﻿using DiscRental73TestWpf.ViewModels.ManagementViewModels;
+using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
-namespace DiscRental73TestWpf.ViewModels
+namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 {
     public class MainWindowViewModel : ViewModel
     {

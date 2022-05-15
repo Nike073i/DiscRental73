@@ -6,7 +6,7 @@ namespace DatabaseStorage.Mappers
 {
     public class BluRayDiscMapper : IDbMapper<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
     {
-        public BluRayDisc MapToEntity(BluRayDiscReqDto reqDto)
+        public void MapToEntity(in BluRayDisc entity, BluRayDiscReqDto reqDto)
         {
             throw new NotImplementedException();
         }

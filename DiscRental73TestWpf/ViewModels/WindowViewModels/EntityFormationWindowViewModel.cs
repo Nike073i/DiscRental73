@@ -2,7 +2,7 @@
 using MathCore.WPF.ViewModels;
 using System.Windows.Input;
 
-namespace DiscRental73TestWpf.ViewModels
+namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 {
     public class EntityFormationWindowViewModel : ViewModel
     {

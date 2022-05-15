@@ -1,24 +1,21 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Enums;
 using DatabaseStorage.Entityes;
 
 namespace DatabaseStorage.Mappers
 {
     public class CdDiscMapper : IDbMapper<CdDiscReqDto, CdDiscResDto, CdDisc>
     {
-        public CdDisc MapToEntity(CdDiscReqDto reqDto)
+        public void MapToEntity(in CdDisc entity,CdDiscReqDto reqDto)
         {
-            var entity = new CdDisc
-            {
-                Id = reqDto.Id ?? 0,
-                Title = reqDto.Title ?? string.Empty,
-                DiscType = reqDto.DiscType ?? BusinessLogic.Enums.DiscType.CD,
-                DateOfRelease = reqDto.DateOfRelease ?? DateTime.Now,
-                Performer = reqDto.Performer,
-                Genre = reqDto.Genre,
-                NumberOfTracks = reqDto.NumberOfTracks ?? 0
-            };
-            return entity;
+            entity.Id = reqDto.Id ?? 0;
+            entity.Title = reqDto.Title ?? string.Empty;
+            entity.DiscType = reqDto.DiscType ?? DiscType.CD;
+            entity.DateOfRelease = reqDto.DateOfRelease ?? DateTime.Now;
+            entity.Performer = reqDto.Performer;
+            entity.Genre = reqDto.Genre;
+            entity.NumberOfTracks = reqDto.NumberOfTracks;
         }
 
         public CdDiscResDto MapToRes(CdDisc entity)

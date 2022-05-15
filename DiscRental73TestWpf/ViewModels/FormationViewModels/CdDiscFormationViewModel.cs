@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using MathCore.WPF.ViewModels;
 
-namespace DiscRental73TestWpf.ViewModels
+namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class CdDiscFormationViewModel : ViewModel
     {

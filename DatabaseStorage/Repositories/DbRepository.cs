@@ -28,18 +28,9 @@ namespace DatabaseStorage.Repositories
         {
             try
             {
-                T? entity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
-                if (entity is not null && entity.IsDeleted)
-                {
-                    var newEntity = _mapper.MapToEntity(reqDto);
-                    newEntity.IsDeleted = false;
-                    newEntity.Id = entity.Id;
-                    _db.Update(entity);
-                }
-                else
-                {
-                    _set.Add(_mapper.MapToEntity(reqDto));
-                }
+                var entity = new T();
+                _mapper.MapToEntity(entity, reqDto);
+                _set.Add(entity);
                 _db.SaveChanges();
             }
             catch (Exception ex)
@@ -86,8 +77,8 @@ namespace DatabaseStorage.Repositories
             }
             try
             {
-                T? entity = _mapper.MapToEntity(reqDto);
-                _db.Update(entity);
+                _mapper.MapToEntity(searchEntity, reqDto);
+                _db.Entry(searchEntity).State = EntityState.Modified;
                 _db.SaveChanges();
             }
             catch (Exception ex)

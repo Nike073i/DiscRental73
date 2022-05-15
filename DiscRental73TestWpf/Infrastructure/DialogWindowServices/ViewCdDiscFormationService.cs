@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.ViewModels;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.ManagementViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf.ViewModels
 {

@@ -5,7 +5,7 @@ namespace DatabaseStorage.Mappers
 {
     public interface IDbMapper<Req, Res, T> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
     {
-        T MapToEntity(Req reqDto);
+        void MapToEntity(in T entity, Req reqDto);
         Res MapToRes(T entity);
     }
 }
