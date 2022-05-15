@@ -97,7 +97,6 @@
                 <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Performer}"/>
                 <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Genre}"/>
                 <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfTracks}"/>
-
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>

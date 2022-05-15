@@ -5,7 +5,6 @@ using BusinessLogic.Mappers;
 using DiscRental73TestWpf.Infrastructure.Commands;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
-using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
@@ -18,21 +17,16 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly CdDiscService _service;
         private readonly CdDiscMapper _mapper;
         private readonly IFormationService _dialogService;
-        private readonly IFormationService _dialogServiceTest;
         private readonly ICommand _DeleteCommand;
         private readonly ICommand _SaveCommand;
-        private readonly ICommand _RefreshCommand;
 
-        public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper, IFormationService formationService)
-        //, ViewCdDiscFormationService formationServiceTest
+        public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper)// ,ViewCdDiscFormationService formationService)
         {
             _service = service;
             _mapper = mapper;
-            _dialogService = formationService;
-            _dialogServiceTest = new ViewCdDiscFormationService();
+            _dialogService = new ViewCdDiscFormationService();
             _DeleteCommand = new DeleteDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
             _SaveCommand = new SaveDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
-            _RefreshCommand = new LambdaCommand(OnRefreshCommand,CanRefreshCommand);
         }
 
         private CdDiscResDto _SelectedDisc;
@@ -45,13 +39,12 @@ namespace DiscRental73TestWpf.ViewModels
         public ICommand DeleteCommand => _DeleteCommand;
 
         #region EditItemCommand - редактирование элемента
+
         private ICommand _EditItemCommand;
+
         public ICommand EditItemCommand => _EditItemCommand ??= new LambdaCommand(OnEditItemCommand, CanEditItemCommand);
 
-        private bool CanEditItemCommand(object? p)
-        {
-            return p is CdDiscResDto;
-        }
+        private bool CanEditItemCommand(object? p) => p is CdDiscResDto;
 
         private void OnEditItemCommand(object? p)
         {
@@ -64,13 +57,14 @@ namespace DiscRental73TestWpf.ViewModels
             {
                 var req = _mapper.MapToReq(item);
                 _service.Save(req);
-                _dialogService.ShowInformation("Студент отредактирован", "сд-дисков");
+                _dialogService.ShowInformation("Диск отредактирован", "CD-диск");
             }
             else
             {
-                _dialogService.ShowWarning("Отказ от редактирования", "сд-дисков");
+                _dialogService.ShowWarning("Отказ от редактирования", "CD-диск");
             }
         }
+
         #endregion
 
         #region CreateNewItemCommand - создание элемента
@@ -100,27 +94,15 @@ namespace DiscRental73TestWpf.ViewModels
         }
         #endregion
 
-        #region RefreshCommand - обновление списка
+        #region RefreshCommand - обновление списка элементов
 
-        public ICommand RefreshCommand => _RefreshCommand;
+        private ICommand _RefreshCommand;
 
-        public void OnRefreshCommand(object? p)
-        {
-            var item = new CdDiscResDto();
-            if (_dialogService.Edit(item))
-            {
-            //    var dlg = new EntityFormationWindow();
-            //if (dlg.ShowDialog()== true)
-            //{
-                _dialogServiceTest.ShowInformation("ДА", "АГА");
-            }
-            else
-            {
-                _dialogServiceTest.ShowInformation("НЕТ", "ВАЩЕ");
-            }
-        }
+        public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand, CanRefreshCommand);
 
-        public bool CanRefreshCommand(object? p) => true;
+        private bool CanRefreshCommand(object? p) => _service is not null;
+
+        private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Discs));
 
         #endregion
     }

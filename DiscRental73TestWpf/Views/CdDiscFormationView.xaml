@@ -44,10 +44,10 @@
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Жанр:"/>
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Кол-во треков:"/>
 
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
-        <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding DateOfRelease}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Performer}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Genre}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding NumberOfTracks}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding CdDisc.Title}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding CdDisc.DateOfRelease}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding CdDisc.Performer}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding CdDisc.Genre}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding CdDisc.NumberOfTracks}"/>
     </Grid>
 </UserControl>

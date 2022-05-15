@@ -22,7 +22,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
                 throw new NotSupportedException($"Редактирование объекта типа {item.GetType().Name} не поддерживается");
             }
 
-            return EditData(resDto);
+            return EditData(ref resDto);
         }
 
         public void ShowInformation(string Information, string Caption)
@@ -50,6 +50,6 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
                 == MessageBoxResult.Yes;
         }
 
-        protected abstract bool EditData(Res dto);
+        protected abstract bool EditData(ref Res dto);
     }
 }
