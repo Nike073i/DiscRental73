@@ -25,15 +25,6 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             return reqDto;
         }
 
-        protected override CdDiscReqDto CreateReqDtoToDelete(CdDiscResDto resDto)
-        {
-            var reqDto = new CdDiscReqDto
-            {
-                Id = resDto?.Id
-            };
-            return reqDto;
-        }
-
         protected override CdDiscReqDto CreateReqDtoToUpdate(CdDiscResDto resDto)
         {
             var reqDto = new CdDiscReqDto

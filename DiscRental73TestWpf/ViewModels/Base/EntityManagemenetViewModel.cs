@@ -127,7 +127,14 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         #endregion
 
-        protected abstract Req CreateReqDtoToDelete(Res resDto);
+        protected virtual Req CreateReqDtoToDelete(Res resDto)
+        {
+            var reqDto = new Req
+            {
+                Id = resDto?.Id
+            };
+            return reqDto;
+        }
 
         protected abstract Req CreateReqDtoToUpdate(Res resDto);
 

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DiscRental73TestWpf.Views
+namespace DiscRental73TestWpf.Views.FormationViews
 {
     /// <summary>
-    /// Логика взаимодействия для CdDiscFormationView.xaml
+    /// Логика взаимодействия для BluRayDiscFormationView.xaml
     /// </summary>
-    public partial class CdDiscFormationView : UserControl
+    public partial class BluRayDiscFormationView : UserControl
     {
-        public CdDiscFormationView()
+        public BluRayDiscFormationView()
         {
             InitializeComponent();
         }
