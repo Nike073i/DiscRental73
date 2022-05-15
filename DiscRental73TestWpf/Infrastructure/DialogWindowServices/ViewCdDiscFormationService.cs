@@ -19,7 +19,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             var viewModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
             viewModel.CdDisc = item;
 
-            var viewModelWindow = new EntityFormationWindowViewModel();
+            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
             viewModelWindow.Title = "Окно формирования CD-диска";
             viewModelWindow.Caption = "CD-диск";

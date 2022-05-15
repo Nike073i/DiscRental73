@@ -7,6 +7,7 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -20,11 +21,11 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly ICommand _DeleteCommand;
         private readonly ICommand _SaveCommand;
 
-        public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper)// ,ViewCdDiscFormationService formationService)
+        public CdDiscManagementViewModel(CdDiscService service, CdDiscMapper mapper, ViewCdDiscFormationService dialogService)
         {
             _service = service;
             _mapper = mapper;
-            _dialogService = new ViewCdDiscFormationService();
+            _dialogService = dialogService;
             _DeleteCommand = new DeleteDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
             _SaveCommand = new SaveDataCommand<CdDiscReqDto, CdDiscResDto>(_service, mapper);
         }

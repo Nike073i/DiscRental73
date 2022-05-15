@@ -1,5 +1,4 @@
 ﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf
@@ -8,7 +7,7 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection RegisterDialogServices(this IServiceCollection services)
         {
-            services.AddSingleton<IFormationService, ViewCdDiscFormationService>();
+            services.AddSingleton<ViewCdDiscFormationService>();
             return services;
         }
     }

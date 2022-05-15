@@ -2,7 +2,7 @@
 
 namespace DiscRental73TestWpf.ViewModels
 {
-    internal static class Registrator
+    internal static class ViewModelRegistrator
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
