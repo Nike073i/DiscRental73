@@ -8,7 +8,6 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection RegisterDialogServices(this IServiceCollection services)
         {
-            services.AddSingleton<IFormationService, WindowCdDiscFormationService>();
             services.AddSingleton<IFormationService, ViewCdDiscFormationService>();
             return services;
         }
