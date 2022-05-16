@@ -8,7 +8,7 @@
         Title="{Binding Title}" Height="450" Width="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ShowStatisticViewCommand}"/>
+            <i:InvokeCommandAction Command="{Binding ShowCdDiscManagementViewCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel>

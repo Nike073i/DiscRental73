@@ -1,8 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.ManagementViewModels"
-                    xmlns:view="clr-namespace:DiscRental73TestWpf.Views">
+                    xmlns:view="clr-namespace:DiscRental73TestWpf.Views.ManagementViews">
     <DataTemplate DataType="{x:Type vm:CdDiscManagementViewModel}">
         <view:CdDiscManagementView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DvdDiscManagementViewModel}">
+        <view:DvdDiscManagementView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:BluRayDiscManagementViewModel}">
+        <view:BluRayDiscManagementView DataContext="{Binding}"/>
     </DataTemplate>
 </ResourceDictionary>
