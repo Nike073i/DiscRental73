@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storages.Base;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes.Base;
 using DatabaseStorage.Mappers;

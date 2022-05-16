@@ -10,11 +10,11 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection AddRepositoriesInDB(this IServiceCollection services)
         {
-            services.AddTransient<IRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
-            services.AddTransient<IRepository<DvdDiscReqDto, DvdDiscResDto>, DvdDiscRepository>();
-            services.AddTransient<IRepository<BluRayDiscReqDto, BluRayDiscResDto>, BluRayDiscRepository>();
-            services.AddTransient<IRepository<ClientReqDto, ClientResDto>, ClientRepository>();
-            services.AddTransient<IRepository<EmployeeReqDto, EmployeeResDto>, EmployeeRepository>();
+            services.AddTransient<IDiscRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
+            services.AddTransient<IDiscRepository<DvdDiscReqDto, DvdDiscResDto>, DvdDiscRepository>();
+            services.AddTransient<IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>, BluRayDiscRepository>();
+            services.AddTransient<IPersonRepository<ClientReqDto, ClientResDto>, ClientRepository>();
+            services.AddTransient<IPersonRepository<EmployeeReqDto, EmployeeResDto>, EmployeeRepository>();
 
             return services;
         }

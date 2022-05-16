@@ -1,8 +1,10 @@
-﻿using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.DtoModels.RequestDto;
+using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics.Base
 {
-    public abstract class DiscCrudService<Req, Res> : CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+    public abstract class DiscCrudService<Req, Res> : CrudService<Req, Res> where Req : DiscReqDto, new() where Res : DiscResDto, new()
     {
         #region Ограничения для сущности Disc
 
@@ -13,7 +15,8 @@ namespace BusinessLogic.BusinessLogics.Base
         protected readonly DateTime _DateOfReleaseMinDate = new DateTime(1900, 1, 1);
 
         #endregion
-        protected DiscCrudService(IRepository<Req, Res> repository) : base(repository)
+
+        protected DiscCrudService(IDiscRepository<Req, Res> repository) : base(repository)
         {
         }
     }

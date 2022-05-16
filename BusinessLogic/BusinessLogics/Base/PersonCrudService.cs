@@ -1,8 +1,10 @@
-﻿using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.DtoModels.RequestDto;
+using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics.Base
 {
-    public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+    public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res> where Req : PersonReqDto, new() where Res : PersonResDto, new()
     {
         #region Ограничения для сущности Person
 
@@ -16,8 +18,32 @@ namespace BusinessLogic.BusinessLogics.Base
 
         #endregion
 
-        protected PersonCrudService(IRepository<Req, Res> repository) : base(repository)
+        protected PersonCrudService(IPersonRepository<Req, Res> repository) : base(repository)
         {
+        }
+
+        public Res GetByContactNumber(Req reqDto)
+        {
+            if (reqDto is null)
+            {
+                throw new ArgumentNullException(nameof(reqDto));
+            }
+
+            if (string.IsNullOrEmpty(reqDto.ContactNumber))
+            {
+                throw new Exception("Ошибка получения записи по номеру: Номер не указан");
+            }
+
+            try
+            {
+                var personRepos = _repository as IPersonRepository<Req, Res>;
+                var item = personRepos.GetByContactNumber(reqDto);
+                return item;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BusinessLogic.BusinessLogics
 
         #endregion
 
-        public EmployeeService(IRepository<EmployeeReqDto, EmployeeResDto> repository) : base(repository)
+        public EmployeeService(IPersonRepository<EmployeeReqDto, EmployeeResDto> repository) : base(repository)
         {
         }
 

@@ -14,7 +14,7 @@ namespace BusinessLogic.BusinessLogics
 
         #endregion
 
-        public ClientService(IRepository<ClientReqDto, ClientResDto> repository) : base(repository)
+        public ClientService(IPersonRepository<ClientReqDto, ClientResDto> repository) : base(repository)
         {
         }
 

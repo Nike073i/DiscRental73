@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Interfaces.Storages
+﻿namespace BusinessLogic.Interfaces.Storages.Base
 {
     public interface IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
     {

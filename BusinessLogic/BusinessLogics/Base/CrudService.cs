@@ -1,10 +1,11 @@
 ﻿using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.BusinessLogics.Base
 {
     public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
     {
-        private readonly IRepository<Req, Res> _repository;
+        protected readonly IRepository<Req, Res> _repository;
 
         public CrudService(IRepository<Req, Res> repository)
         {
