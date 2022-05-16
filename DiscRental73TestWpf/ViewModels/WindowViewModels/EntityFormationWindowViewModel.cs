@@ -1,6 +1,4 @@
-﻿using DiscRental73TestWpf.Infrastructure.Commands;
-using MathCore.WPF.ViewModels;
-using System.Windows.Input;
+﻿using MathCore.WPF.ViewModels;
 
 namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 {
@@ -32,20 +30,16 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 
         #endregion
 
+        #region CurrentModel - ViewModel Текущее представление для формирования записи
+
         private ViewModel _CurrentModel;
 
-        public ViewModel CurrentModel { get => _CurrentModel; set => Set(ref _CurrentModel, value); }
-
-        private readonly ICommand _CloseDialogCommand;
-        private readonly ICommand _CloseWindowCommand;
-
-        public ICommand CloseDialogCommand => _CloseDialogCommand;
-        public ICommand CloseWindowCommand => _CloseWindowCommand;
-
-        public EntityFormationWindowViewModel()
+        public ViewModel CurrentModel
         {
-            _CloseDialogCommand = new CloseDialogCommand();
-            _CloseWindowCommand = new CloseWindowCommand();
+            get => _CurrentModel;
+            set => Set(ref _CurrentModel, value);
         }
+
+        #endregion
     }
 }

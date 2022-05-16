@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 {
-    internal class IntValueValidationRule : ValidationRule
+    public class IntValueValidationRule : ValidationRule
     {
         #region MaxValue - int - максимальное число
 

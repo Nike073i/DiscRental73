@@ -6,9 +6,9 @@ using DatabaseStorage.Mappers;
 
 namespace DatabaseStorage.Repositories
 {
-    public class BlyRayDiscRepository : DbRepository<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
+    public class BluRayDiscRepository : DbRepository<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
     {
-        public BlyRayDiscRepository(DiscRentalDb db, BluRayDiscMapper mapper) : base(db, mapper)
+        public BluRayDiscRepository(DiscRentalDb db, BluRayDiscMapper mapper) : base(db, mapper)
         {
         }
     }

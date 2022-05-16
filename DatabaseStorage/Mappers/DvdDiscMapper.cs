@@ -5,7 +5,7 @@ using DatabaseStorage.Entityes;
 
 namespace DatabaseStorage.Mappers
 {
-    internal class DvdDiscMapper : IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
+    public class DvdDiscMapper : IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
     {
         public void MapToEntity(in DvdDisc entity, DvdDiscReqDto reqDto)
         {

@@ -9,11 +9,11 @@ using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
 {
-    public class ViewCdDiscFormationService : WindowDataFormationService<CdDiscResDto>
+    public class ViewDvdDiscFormationService : WindowDataFormationService<DvdDiscResDto>
     {
-        protected override bool EditData(ref CdDiscResDto dto)
+        protected override bool EditData(ref DvdDiscResDto dto)
         {
-            if (dto is not CdDiscResDto item)
+            if (dto is not DvdDiscResDto item)
             {
                 return false;
             }
@@ -23,13 +23,13 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 item.DateOfRelease = DateTime.Now;
             }
 
-            var viewModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
-            viewModel.CdDisc = item;
+            var viewModel = App.Host.Services.GetRequiredService<DvdDiscFormationViewModel>();
+            viewModel.DvdDisc = item;
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования CD-диска";
-            viewModelWindow.Caption = "CD-диск";
+            viewModelWindow.Title = "Окно формирования DVD-диска";
+            viewModelWindow.Caption = "DVD-диск";
 
             var dlg = new EntityFormationWindow
             {
@@ -43,7 +43,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.CdDisc;
+            dto = viewModel.DvdDisc;
             return true;
         }
     }

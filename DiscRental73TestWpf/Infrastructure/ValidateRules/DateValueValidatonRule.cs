@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 {
-    internal class DateValueValidatonRule : ValidationRule
+    public class DateValueValidatonRule : ValidationRule
     {
         #region MaxDate - DateTime - максимальная дата
 

@@ -8,6 +8,9 @@ namespace DiscRental73TestWpf
         public static IServiceCollection RegisterDbMappers(this IServiceCollection services)
         {
             services.AddSingleton<CdDiscMapper>();
+            services.AddSingleton<DvdDiscMapper>();
+            services.AddSingleton<BluRayDiscMapper>();
+
             return services;
         }
     }

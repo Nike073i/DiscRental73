@@ -1,5 +1,7 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
+﻿using BusinessLogic.BusinessLogics;
+using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels

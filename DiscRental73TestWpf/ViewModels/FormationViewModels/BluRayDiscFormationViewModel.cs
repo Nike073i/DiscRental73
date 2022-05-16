@@ -3,7 +3,7 @@ using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
-    public class BluRayFormationViewModel : FormationViewModel
+    public class BluRayDiscFormationViewModel : FormationViewModel
     {
         #region FormationData - BluRayDiscResDto - модель BluRay-диска
 

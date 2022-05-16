@@ -2,9 +2,9 @@
 
 namespace DiscRental73TestWpf.Views.FormationViews
 {
-    public partial class BluRayDiscFormationView : UserControl
+    public partial class DvdDiscFormationView : UserControl
     {
-        public BluRayDiscFormationView()
+        public DvdDiscFormationView()
         {
             InitializeComponent();
         }

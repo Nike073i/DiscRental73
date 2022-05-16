@@ -6,7 +6,7 @@ using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics
 {
-    internal class DvdDiscService : DiscCrudService<DvdDiscReqDto, DvdDiscResDto>
+    public class DvdDiscService : DiscCrudService<DvdDiscReqDto, DvdDiscResDto>
     {
         #region Ограничения для сущности DvdDisc
 

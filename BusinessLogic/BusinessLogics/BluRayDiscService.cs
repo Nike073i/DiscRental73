@@ -6,7 +6,7 @@ using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics
 {
-    public class BluRayService : DiscCrudService<BluRayDiscReqDto, BluRayDiscResDto>
+    public class BluRayDiscService : DiscCrudService<BluRayDiscReqDto, BluRayDiscResDto>
     {
         #region Ограничения для сущности BluRayDisc
 
@@ -23,7 +23,7 @@ namespace BusinessLogic.BusinessLogics
 
         #endregion
 
-        public BluRayService(IRepository<BluRayDiscReqDto, BluRayDiscResDto> repository) : base(repository)
+        public BluRayDiscService(IRepository<BluRayDiscReqDto, BluRayDiscResDto> repository) : base(repository)
         {
         }
 

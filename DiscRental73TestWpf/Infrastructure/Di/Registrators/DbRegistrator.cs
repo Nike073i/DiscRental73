@@ -9,15 +9,15 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration Configuration)
         {
-            return services
-.AddDbContext<DiscRentalDb>(opt =>
-{
-    //string? type = Configuration["Type"];
-    //
-    //opt.UseSqlServer(Configuration.GetConnectionString(type));
-    opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDb;Integrated Security=True;MultipleActiveResultSets=True;");
-})
-;
+            services.AddDbContext<DiscRentalDb>(opt =>
+            {
+                //string? type = Configuration["Type"];
+                //
+                //opt.UseSqlServer(Configuration.GetConnectionString(type));
+                opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDb;Integrated Security=True;MultipleActiveResultSets=True;");
+            });
+
+            return services;
         }
     }
 }

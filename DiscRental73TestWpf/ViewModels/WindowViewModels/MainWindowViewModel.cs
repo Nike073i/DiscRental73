@@ -8,6 +8,8 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
+        #region CurrentModel - ViewModel Текущее представление
+
         private ViewModel _CurrentModel;
         public ViewModel CurrentModel
         {
@@ -15,21 +17,60 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
             private set => Set(ref _CurrentModel, value);
         }
 
-        public string Title { get; set; } = "Прокат дисков 73";
+        #endregion
 
-        private ICommand _ShowStatisticViewCommand;
+        #region Title - string Название окна
 
-        public ICommand ShowStatisticViewCommand => _ShowStatisticViewCommand
-            ??= new LambdaCommand(OnShowBooksViewCommandExecuted, CanShowBooksViewCommandExecute);
+        private string _Title = "Прокат дисков 73";
 
-        private bool CanShowBooksViewCommandExecute()
+        public string Title
         {
-            return true;
+            get => _Title;
+            set => Set(ref _Title, value);
         }
 
-        private void OnShowBooksViewCommandExecuted()
+        #endregion
+
+        #region ShowCdDiscManagementViewCommand - ICommand - команда для вызова менеджера CD-дисков
+
+        private ICommand _ShowCdDiscManagementViewCommand;
+
+        public ICommand ShowCdDiscManagementViewCommand => _ShowCdDiscManagementViewCommand
+            ??= new LambdaCommand(OnShowCdDiscManagementViewCommand);
+
+        private void OnShowCdDiscManagementViewCommand()
         {
             CurrentModel = App.Host.Services.GetRequiredService<CdDiscManagementViewModel>();
         }
+
+        #endregion
+
+        #region ShowDvdDiscManagementViewCommand - ICommand - команда для вызова менеджера DVD-дисков
+
+        private ICommand _ShowDvdDiscManagementViewCommand;
+
+        public ICommand ShowDvdDiscManagementViewCommand => _ShowDvdDiscManagementViewCommand
+            ??= new LambdaCommand(OnShowDvdDiscManagementViewCommand);
+
+        private void OnShowDvdDiscManagementViewCommand()
+        {
+            CurrentModel = App.Host.Services.GetRequiredService<DvdDiscManagementViewModel>();
+        }
+
+        #endregion
+
+        #region ShowBluRayDiscManagementViewCommand - ICommand - команда для вызова менеджера BluRay-дисков
+
+        private ICommand _ShowBluRayDiscManagementViewCommand;
+
+        public ICommand ShowBluRayDiscManagementViewCommand => _ShowBluRayDiscManagementViewCommand
+            ??= new LambdaCommand(OnShowBluRayDiscManagementViewCommand);
+
+        private void OnShowBluRayDiscManagementViewCommand()
+        {
+            CurrentModel = App.Host.Services.GetRequiredService<BluRayDiscManagementViewModel>();
+        }
+
+        #endregion
     }
 }
