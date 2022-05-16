@@ -3,19 +3,14 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
+using DatabaseStorage.Repositories.Base;
 
 namespace DatabaseStorage.Repositories
 {
-    public class CdDiscRepository : DbRepository<CdDiscReqDto, CdDiscResDto, CdDisc>
+    public class CdDiscRepository : DiscRepository<CdDiscReqDto, CdDiscResDto, CdDisc>
     {
         public CdDiscRepository(DiscRentalDb db, CdDiscMapper mapper) : base(db, mapper)
         {
         }
-
-        //public override void DeleteById(CdDiscReqDto reqDto)
-        //{
-        //    //base.DeleteById(reqDto);
-        //    /// Удаление каскодное по всем
-        //}
     }
 }

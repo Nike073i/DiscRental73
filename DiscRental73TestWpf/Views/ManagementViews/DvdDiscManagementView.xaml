@@ -82,7 +82,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Тип диска:"/>
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата выпуска:"/>
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Режиссер"/>
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Инфорамция:"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Информация:"/>
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Стиль:"/>
 
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
