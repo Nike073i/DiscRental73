@@ -10,6 +10,8 @@ namespace DiscRental73TestWpf
             services.AddSingleton<CdDiscService>();
             services.AddSingleton<DvdDiscService>();
             services.AddSingleton<BluRayDiscService>();
+            services.AddSingleton<ClientService>();
+            services.AddSingleton<EmployeeService>();
 
             return services;
         }
