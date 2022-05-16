@@ -13,6 +13,8 @@ namespace DiscRental73TestWpf
             services.AddTransient<IRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
             services.AddTransient<IRepository<DvdDiscReqDto, DvdDiscResDto>, DvdDiscRepository>();
             services.AddTransient<IRepository<BluRayDiscReqDto, BluRayDiscResDto>, BluRayDiscRepository>();
+            services.AddTransient<IRepository<ClientReqDto, ClientResDto>, ClientRepository>();
+            services.AddTransient<IRepository<EmployeeReqDto, EmployeeResDto>, EmployeeRepository>();
 
             return services;
         }
