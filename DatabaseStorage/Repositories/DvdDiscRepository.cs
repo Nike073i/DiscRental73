@@ -8,7 +8,7 @@ namespace DatabaseStorage.Repositories
 {
     public class DvdDiscRepository : DbRepository<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
     {
-        public DvdDiscRepository(DiscRentalDb db, IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc> mapper) : base(db, mapper)
+        public DvdDiscRepository(DiscRentalDb db, DvdDiscMapper mapper) : base(db, mapper)
         {
         }
     }

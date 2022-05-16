@@ -44,6 +44,9 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             }
 
             dto = viewModel.DvdDisc;
+            if (string.IsNullOrEmpty(dto.Info)) dto.Info = null;
+            if (string.IsNullOrEmpty(dto.Plot)) dto.Plot = null;
+
             return true;
         }
     }

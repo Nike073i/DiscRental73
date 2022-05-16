@@ -1,7 +1,6 @@
 ﻿using BusinessLogic.BusinessLogics.Base;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Enums;
 using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics
@@ -9,8 +8,6 @@ namespace BusinessLogic.BusinessLogics
     public class CdDiscService : DiscCrudService<CdDiscReqDto, CdDiscResDto>
     {
         #region Ограничения для сущности CdDisc
-
-        private const DiscType _DiscType = DiscType.CD;
 
         private const int _PerformerMaxLength = 50;
         private const int _PerformerMinLength = 1;
@@ -40,12 +37,11 @@ namespace BusinessLogic.BusinessLogics
             #region Проверка области допустимых значений
 
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
-            if (reqDto.DiscType != _DiscType) return false;
             if (reqDto.DateOfRelease < _DateOfReleaseMinDate || reqDto.DateOfRelease > _DateOfReleaseMaxDate) return false;
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
 
             if (reqDto.Performer.Length < _PerformerMinLength || reqDto.Performer.Length > _PerformerMaxLength) return false;
-            if (reqDto.Genre is not null && (reqDto.Genre.Length < _GenreMinLength || reqDto.Genre.Length > _GenreMaxLength)) return false;
+            if (!string.IsNullOrEmpty(reqDto.Genre) && (reqDto.Genre.Length < _GenreMinLength || reqDto.Genre.Length > _GenreMaxLength)) return false;
             if (reqDto.NumberOfTracks is not null && (reqDto.NumberOfTracks < _NumberOfTracksMinValue || reqDto.NumberOfTracks > _NumberOfTracksMaxValue)) return false;
 
             #endregion

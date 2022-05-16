@@ -44,6 +44,9 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             }
 
             dto = viewModel.BluRayDisc;
+            if (string.IsNullOrEmpty(dto.Info)) dto.Info = null;
+            if (string.IsNullOrEmpty(dto.SystemRequirements)) dto.SystemRequirements = null;
+
             return true;
         }
     }

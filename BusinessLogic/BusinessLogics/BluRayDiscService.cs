@@ -1,7 +1,6 @@
 ﻿using BusinessLogic.BusinessLogics.Base;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Enums;
 using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics
@@ -9,8 +8,6 @@ namespace BusinessLogic.BusinessLogics
     public class BluRayDiscService : DiscCrudService<BluRayDiscReqDto, BluRayDiscResDto>
     {
         #region Ограничения для сущности BluRayDisc
-
-        private const DiscType _DiscType = DiscType.BluRay;
 
         private const int _PublisherMaxLength = 50;
         private const int _PublisherMinLength = 1;
@@ -40,13 +37,12 @@ namespace BusinessLogic.BusinessLogics
             #region Проверка области допустимых значений
 
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
-            if (reqDto.DiscType != _DiscType) return false;
             if (reqDto.DateOfRelease < _DateOfReleaseMinDate || reqDto.DateOfRelease > _DateOfReleaseMaxDate) return false;
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
 
             if (reqDto.Publisher.Length < _PublisherMinLength || reqDto.Publisher.Length > _PublisherMaxLength) return false;
-            if (reqDto.Info is not null && (reqDto.Info.Length < _InfoMinLength || reqDto.Info.Length > _InfoMaxLength)) return false;
-            if (reqDto.SystemRequirements is not null && (reqDto.SystemRequirements.Length < _SystemRequirementsMinLength || reqDto.SystemRequirements.Length > _SystemRequirementsMaxLength)) return false;
+            if (!string.IsNullOrEmpty(reqDto.Info) && (reqDto.Info.Length < _InfoMinLength || reqDto.Info.Length > _InfoMaxLength)) return false;
+            if (!string.IsNullOrEmpty(reqDto.SystemRequirements) && (reqDto.SystemRequirements.Length < _SystemRequirementsMinLength || reqDto.SystemRequirements.Length > _SystemRequirementsMaxLength)) return false;
 
             #endregion
 

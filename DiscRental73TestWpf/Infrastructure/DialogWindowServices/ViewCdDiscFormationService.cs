@@ -44,6 +44,8 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             }
 
             dto = viewModel.CdDisc;
+            if (string.IsNullOrEmpty(dto.Genre)) dto.Genre = null;
+
             return true;
         }
     }

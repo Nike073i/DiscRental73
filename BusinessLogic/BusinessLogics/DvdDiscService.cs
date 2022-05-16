@@ -1,7 +1,6 @@
 ﻿using BusinessLogic.BusinessLogics.Base;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Enums;
 using BusinessLogic.Interfaces.Storages;
 
 namespace BusinessLogic.BusinessLogics
@@ -9,8 +8,6 @@ namespace BusinessLogic.BusinessLogics
     public class DvdDiscService : DiscCrudService<DvdDiscReqDto, DvdDiscResDto>
     {
         #region Ограничения для сущности DvdDisc
-
-        private const DiscType _DiscType = DiscType.DVD;
 
         private const int _DirectorMaxLength = 50;
         private const int _DirectorMinLength = 1;
@@ -40,13 +37,12 @@ namespace BusinessLogic.BusinessLogics
             #region Проверка области допустимых значений
 
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
-            if (reqDto.DiscType != _DiscType) return false;
             if (reqDto.DateOfRelease < _DateOfReleaseMinDate || reqDto.DateOfRelease > _DateOfReleaseMaxDate) return false;
             if (reqDto.Title.Length < _TitleMinLength || reqDto.Title.Length > _TitleMaxLength) return false;
 
             if (reqDto.Director.Length < _DirectorMinLength || reqDto.Director.Length > _DirectorMaxLength) return false;
-            if (reqDto.Info is not null && (reqDto.Info.Length < _InfoMinLength || reqDto.Info.Length > _InfoMaxLength)) return false;
-            if (reqDto.Plot is not null && (reqDto.Plot.Length < _PlotMinLength || reqDto.Plot.Length > _PlotMaxLength)) return false;
+            if (!string.IsNullOrEmpty(reqDto.Info) && (reqDto.Info.Length < _InfoMinLength || reqDto.Info.Length > _InfoMaxLength)) return false;
+            if (!string.IsNullOrEmpty(reqDto.Plot) && (reqDto.Plot.Length < _PlotMinLength || reqDto.Plot.Length > _PlotMaxLength)) return false;
 
             #endregion
 
