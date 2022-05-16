@@ -9,8 +9,13 @@ namespace DatabaseStorage.Repositories
 {
     public class DvdDiscRepository : DiscRepository<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
     {
-        public DvdDiscRepository(DiscRentalDb db, DvdDiscMapper mapper) : base(db, mapper)
+        public DvdDiscRepository(DiscRentalDb db) : base(db)
         {
+        }
+
+        protected override IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc> CreateMapper()
+        {
+            return new DvdDiscMapper();
         }
     }
 }

@@ -7,18 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
-    public class DbRepository<Req, Res, T> : IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
+    public abstract class DbRepository<Req, Res, T> : IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
     {
         protected readonly DiscRentalDb _db;
         protected readonly DbSet<T> _set;
         protected readonly IDbMapper<Req, Res, T> _mapper;
 
-        public DbRepository(DiscRentalDb db, IDbMapper<Req, Res, T> mapper)
+        public DbRepository(DiscRentalDb db)
         {
             _db = db;
             _set = db.Set<T>();
-            _mapper = mapper;
+            _mapper = CreateMapper();
         }
+
+        protected abstract IDbMapper<Req, Res, T> CreateMapper();
 
         public virtual ICollection<Res> GetAll()
         {

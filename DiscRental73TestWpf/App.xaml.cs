@@ -14,7 +14,6 @@ namespace DiscRental73TestWpf
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddDatabase(host.Configuration.GetSection("Database"))
-                .RegisterDbMappers()
                 .AddRepositoriesInDB()
                 .RegisterServices()
                 .RegisterDialogServices()

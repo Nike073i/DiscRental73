@@ -9,8 +9,13 @@ namespace DatabaseStorage.Repositories
 {
     public class EmployeeRepository : PersonRepository<EmployeeReqDto, EmployeeResDto, Employee>
     {
-        public EmployeeRepository(DiscRentalDb db, EmployeeMapper mapper) : base(db, mapper)
+        public EmployeeRepository(DiscRentalDb db) : base(db)
         {
+        }
+
+        protected override IDbMapper<EmployeeReqDto, EmployeeResDto, Employee> CreateMapper()
+        {
+            return new EmployeeMapper();
         }
     }
 }
