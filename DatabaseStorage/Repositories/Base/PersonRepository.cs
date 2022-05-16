@@ -30,7 +30,7 @@ namespace DatabaseStorage.Repositories.Base
             {
                 throw new Exception("Ошибка обновления записи: Запись не найдена");
             }
-            T? entityWithNumber = _set.FirstOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
+            Person? entityWithNumber = _db.Persons.FirstOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
             if (entityWithNumber is not null) throw new Exception("Ошибка обновления записи: Номер уже занят");
             try
             {
@@ -46,7 +46,7 @@ namespace DatabaseStorage.Repositories.Base
 
         public override void Insert(Req reqDto)
         {
-            T? entityFromDb = _set.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
+            Person? entityFromDb = _db.Persons.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
             if (entityFromDb is not null) throw new Exception("Ошибка добавления записи: Номер уже занят");
 
             try

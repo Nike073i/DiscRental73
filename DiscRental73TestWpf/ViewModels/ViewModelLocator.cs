@@ -18,5 +18,11 @@ namespace DiscRental73TestWpf.ViewModels
 
         public BluRayDiscFormationViewModel BluRayDiscFormationViewModel => App.Host.Services.GetRequiredService<BluRayDiscFormationViewModel>();
         public BluRayDiscManagementViewModel BluRayDiscManagementViewModel => App.Host.Services.GetRequiredService<BluRayDiscManagementViewModel>();
+
+        public ClientManagementViewModel ClientManagementViewModel => App.Host.Services.GetRequiredService<ClientManagementViewModel>();
+        public ClientFormationViewModel ClientFormationViewModel => App.Host.Services.GetRequiredService<ClientFormationViewModel>();
+
+        public EmployeeManagementViewModel EmployeeManagementViewModel => App.Host.Services.GetRequiredService<EmployeeManagementViewModel>();
+        public EmployeeFormationViewModel EmployeeFormationViewModel => App.Host.Services.GetRequiredService<EmployeeFormationViewModel>();
     }
 }

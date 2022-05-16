@@ -10,6 +10,8 @@ namespace DiscRental73TestWpf
             services.AddSingleton<ViewCdDiscFormationService>();
             services.AddSingleton<ViewDvdDiscFormationService>();
             services.AddSingleton<ViewBluRayDiscFormationService>();
+            services.AddSingleton<ViewClientFormationService>();
+            services.AddSingleton<ViewEmployeeFormationService>();
 
             return services;
         }

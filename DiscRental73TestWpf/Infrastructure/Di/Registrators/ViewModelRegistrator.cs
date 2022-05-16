@@ -13,11 +13,15 @@ namespace DiscRental73TestWpf.ViewModels
             services.AddSingleton<CdDiscManagementViewModel>();
             services.AddSingleton<DvdDiscManagementViewModel>();
             services.AddSingleton<BluRayDiscManagementViewModel>();
+            services.AddSingleton<ClientManagementViewModel>();
+            services.AddSingleton<EmployeeManagementViewModel>();
 
             services.AddSingleton<EntityFormationWindowViewModel>();
             services.AddSingleton<CdDiscFormationViewModel>();
             services.AddSingleton<DvdDiscFormationViewModel>();
             services.AddSingleton<BluRayDiscFormationViewModel>();
+            services.AddSingleton<ClientFormationViewModel>();
+            services.AddSingleton<EmployeeFormationViewModel>();
 
             return services;
         }

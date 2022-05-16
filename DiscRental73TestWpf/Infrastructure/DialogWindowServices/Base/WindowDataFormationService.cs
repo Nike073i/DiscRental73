@@ -16,7 +16,6 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
             {
                 throw new ArgumentNullException(nameof(item));
             }
-
             if (item is not Res resDto)
             {
                 throw new NotSupportedException($"Редактирование объекта типа {item.GetType().Name} не поддерживается");

@@ -11,4 +11,10 @@
     <DataTemplate DataType="{x:Type vm:BluRayDiscManagementViewModel}">
         <view:BluRayDiscManagementView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ClientManagementViewModel}">
+        <view:ClientManagementView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EmployeeManagementViewModel}">
+        <view:EmployeeManagementView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>
