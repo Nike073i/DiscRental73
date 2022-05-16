@@ -29,7 +29,7 @@ namespace DatabaseStorage.Repositories
             try
             {
                 var entity = new T();
-                _mapper.MapToEntity(entity, reqDto);
+                _mapper.MapToEntity(in entity, reqDto);
                 _set.Add(entity);
                 _db.SaveChanges();
             }
@@ -42,14 +42,14 @@ namespace DatabaseStorage.Repositories
         public virtual void DeleteById(Req reqDto)
         {
             T? entity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
-            if (entity == null || entity.IsDeleted)
+            if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Ошибка удаления по Id: Запись не найдена");
             }
             try
             {
                 entity.IsDeleted = true;
-                _db.Update(entity);
+                _db.Entry(entity).State = EntityState.Modified;
                 _db.SaveChanges();
             }
             catch (Exception ex)
@@ -70,15 +70,15 @@ namespace DatabaseStorage.Repositories
 
         public virtual void Update(Req reqDto)
         {
-            T? searchEntity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
-            if (searchEntity is null || searchEntity.IsDeleted)
+            T? entity = _set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Ошибка обновления записи: Запись не найдена");
             }
             try
             {
-                _mapper.MapToEntity(searchEntity, reqDto);
-                _db.Entry(searchEntity).State = EntityState.Modified;
+                _mapper.MapToEntity(in entity, reqDto);
+                _db.Entry(entity).State = EntityState.Modified;
                 _db.SaveChanges();
             }
             catch (Exception ex)

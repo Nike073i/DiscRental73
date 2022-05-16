@@ -3,7 +3,6 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {

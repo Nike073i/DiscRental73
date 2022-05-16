@@ -5,30 +5,30 @@ using DatabaseStorage.Entityes;
 
 namespace DatabaseStorage.Mappers
 {
-    public class CdDiscMapper : IDbMapper<CdDiscReqDto, CdDiscResDto, CdDisc>
+    internal class DvdDiscMapper : IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
     {
-        public void MapToEntity(in CdDisc entity, CdDiscReqDto reqDto)
+        public void MapToEntity(in DvdDisc entity, DvdDiscReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.Title = reqDto.Title;
-            entity.DiscType = DiscType.CD;
+            entity.DiscType = DiscType.DVD;
             entity.DateOfRelease = reqDto.DateOfRelease;
-            entity.Performer = reqDto.Performer;
-            entity.Genre = reqDto.Genre;
-            entity.NumberOfTracks = reqDto.NumberOfTracks;
+            entity.Director = reqDto.Director;
+            entity.Info = reqDto.Info;
+            entity.Plot = reqDto.Plot;
         }
 
-        public CdDiscResDto MapToRes(CdDisc entity)
+        public DvdDiscResDto MapToRes(DvdDisc entity)
         {
-            var resDto = new CdDiscResDto
+            var resDto = new DvdDiscResDto
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 DiscType = entity.DiscType,
                 DateOfRelease = entity.DateOfRelease,
-                Performer = entity.Performer,
-                Genre = entity.Genre,
-                NumberOfTracks = entity.NumberOfTracks
+                Director = entity.Director,
+                Info = entity.Info,
+                Plot = entity.Plot
             };
             return resDto;
         }

@@ -4,7 +4,6 @@
     {
         ICollection<Res> GetAll();
         Res GetById(Req reqDto);
-        //ICollection<Res> GetByFilter(Req reqDto);
         void Insert(Req reqDto);
         void Update(Req reqDto);
         void DeleteById(Req reqDto);

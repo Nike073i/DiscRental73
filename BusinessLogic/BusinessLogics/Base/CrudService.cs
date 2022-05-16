@@ -2,21 +2,23 @@
 
 namespace BusinessLogic.BusinessLogics.Base
 {
-    public class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+    public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
     {
         private readonly IRepository<Req, Res> _repository;
+
         public CrudService(IRepository<Req, Res> repository)
         {
             _repository = repository;
         }
+
         public Res GetById(Req reqDto)
         {
-            if (reqDto == null)
+            if (reqDto is null)
             {
                 throw new ArgumentNullException(nameof(reqDto));
             }
 
-            if (reqDto.Id == null)
+            if (reqDto.Id is null)
             {
                 throw new Exception("Ошибка получения записи по Id: Id не указан");
             }
@@ -31,16 +33,18 @@ namespace BusinessLogic.BusinessLogics.Base
                 throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
             }
         }
+
         public IEnumerable<Res> GetAll()
         {
             var listItems = _repository.GetAll();
             return listItems;
         }
+
         public void Save(Req reqDto)
         {
-            if (reqDto == null)
+            if (!IsCorrectReqDto(reqDto))
             {
-                throw new ArgumentNullException(nameof(reqDto));
+                throw new Exception("Ошибка при сохранении записи: модель некорректна");
             }
             try
             {
@@ -61,12 +65,12 @@ namespace BusinessLogic.BusinessLogics.Base
 
         public void DeleteById(Req reqDto)
         {
-            if (reqDto == null)
+            if (reqDto is null)
             {
                 throw new ArgumentNullException(nameof(reqDto));
             }
 
-            if (reqDto.Id == null)
+            if (reqDto.Id is null)
             {
                 throw new Exception("Ошибка удаления записи по Id: Id не указан");
             }
@@ -80,5 +84,12 @@ namespace BusinessLogic.BusinessLogics.Base
                 throw new Exception("Ошибка при удалении записи по Id:" + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Проверка валидации значений модели для сохранения
+        /// </summary>
+        /// <param name="reqDto">Модель для сохранения</param>
+        /// <returns>bool - Результат валидации</returns>
+        protected abstract bool IsCorrectReqDto(Req reqDto);
     }
 }
