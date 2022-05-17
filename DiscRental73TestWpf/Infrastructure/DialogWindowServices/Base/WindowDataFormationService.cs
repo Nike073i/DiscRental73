@@ -8,7 +8,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
     {
         protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
 
-        public bool Edit<T>(object item)
+        public bool Edit(object item)
         {
             if (item is null)
             {

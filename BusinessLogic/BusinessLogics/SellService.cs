@@ -14,8 +14,8 @@ namespace BusinessLogic.BusinessLogics
         private readonly DateTime _DateMaxValue = new DateTime(2100, 1, 1);
         private readonly DateTime _DateMinValue = new DateTime(2000, 1, 1);
 
-        private const float _PriceSumMaxValue = 100000f;
-        private const float _PriceSumMinValue = 1f;
+        private const double _PriceSumMaxValue = 100000d;
+        private const double _PriceSumMinValue = 1d;
 
         #endregion
 

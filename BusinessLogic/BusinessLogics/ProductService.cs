@@ -14,8 +14,8 @@ namespace BusinessLogic.BusinessLogics
         private const int _QuantityMaxValue = 100000;
         private const int _QuantityMinValue = 0;
 
-        private const float _CostMaxValue = 100000f;
-        private const float _CostMinValue = 1f;
+        private const double _CostMaxValue = 100000d;
+        private const double _CostMinValue = 1d;
 
         #endregion
 

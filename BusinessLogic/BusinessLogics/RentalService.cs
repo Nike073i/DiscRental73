@@ -14,11 +14,11 @@ namespace BusinessLogic.BusinessLogics
         private readonly DateTime _DateMaxValue = new DateTime(2100, 1, 1);
         private readonly DateTime _DateMinValue = new DateTime(2000, 1, 1);
 
-        private const float _PledgeSumMaxValue = 100000f;
-        private const float _PledgeSumMinValue = 1f;
+        private const double _PledgeSumMaxValue = 100000d;
+        private const double _PledgeSumMinValue = 1d;
 
-        private const float _ReturnSumMaxValue = 100000f;
-        private const float _ReturnSumMinValue = 0f;
+        private const double _ReturnSumMaxValue = 100000d;
+        private const double _ReturnSumMinValue = 0d;
 
         #endregion
 
