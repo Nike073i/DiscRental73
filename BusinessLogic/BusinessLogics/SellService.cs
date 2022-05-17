@@ -33,7 +33,7 @@ namespace BusinessLogic.BusinessLogics
             }
             try
             {
-                _productService.EditProductQuantity(new ChangeProductQuantityReqDto { ProductId = reqDto.ProductId, EditQuantity = -1 });
+                _productService.EditProductQuantity(new EditProductQuantityReqDto { ProductId = reqDto.ProductId, EditQuantity = -1 });
                 _repository.Insert(reqDto);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace BusinessLogic.BusinessLogics
             {
                 var item = _repository.GetById(new SellReqDto { Id = reqDto.Id });
                 if (item == null) throw new Exception("Ошибка отмены продажи: Продажа не найдена");
-                _productService.EditProductQuantity(new ChangeProductQuantityReqDto { ProductId = item.ProductId, EditQuantity = +1 });
+                _productService.EditProductQuantity(new EditProductQuantityReqDto { ProductId = item.ProductId, EditQuantity = +1 });
                 _repository.DeleteById(reqDto);
             }
             catch (Exception ex)

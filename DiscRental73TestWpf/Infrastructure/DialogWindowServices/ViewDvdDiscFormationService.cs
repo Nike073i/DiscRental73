@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
@@ -9,7 +10,7 @@ using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
 {
-    public class ViewDvdDiscFormationService : WindowDataFormationService<DvdDiscResDto>
+    public class ViewDvdDiscFormationService : WindowDataFormationService<DvdDiscResDto>, IFormationService
     {
         protected override bool EditData(ref DvdDiscResDto dto)
         {

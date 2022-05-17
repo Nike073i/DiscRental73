@@ -5,32 +5,27 @@ using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
 {
-    public class ViewBluRayDiscFormationService : WindowDataFormationService<BluRayDiscResDto>, IFormationService
+    public class ViewProductFormationService : WindowProductFormationService, IFormationService
     {
-        protected override bool EditData(ref BluRayDiscResDto dto)
+        protected override bool EditData(ref ProductResDto dto)
         {
-            if (dto is not BluRayDiscResDto item)
+            if (dto is not ProductResDto item)
             {
                 return false;
             }
 
-            if (item.Id.Equals(0))
-            {
-                item.DateOfRelease = DateTime.Now;
-            }
-
-            var viewModel = App.Host.Services.GetRequiredService<BluRayDiscFormationViewModel>();
-            viewModel.BluRayDisc = item;
+            var viewModel = App.Host.Services.GetRequiredService<ProductFormationViewModel>();
+            viewModel.Product = item;
+            viewModel.Discs = Discs;
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования BluRay-диска";
-            viewModelWindow.Caption = "BluRay-диск";
+            viewModelWindow.Title = "Окно создания продукта";
+            viewModelWindow.Caption = "Продукт";
 
             var dlg = new EntityFormationWindow
             {
@@ -44,9 +39,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.BluRayDisc;
-            if (string.IsNullOrEmpty(dto.Info)) dto.Info = null;
-            if (string.IsNullOrEmpty(dto.SystemRequirements)) dto.SystemRequirements = null;
+            dto = viewModel.Product;
 
             return true;
         }

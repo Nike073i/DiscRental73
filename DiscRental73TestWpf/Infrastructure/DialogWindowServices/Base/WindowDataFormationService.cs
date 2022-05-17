@@ -1,22 +1,20 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
 {
-    public abstract class WindowDataFormationService<Res> : IFormationService where Res : ResDto, new()
+    public abstract class WindowDataFormationService<T> where T : class
     {
         protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
 
-        public bool Edit(object item)
+        public bool Edit<T>(object item)
         {
             if (item is null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
-            if (item is not Res resDto)
+            if (item is not T resDto)
             {
                 throw new NotSupportedException($"Редактирование объекта типа {item.GetType().Name} не поддерживается");
             }
@@ -49,6 +47,6 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
                 == MessageBoxResult.Yes;
         }
 
-        protected abstract bool EditData(ref Res dto);
+        protected abstract bool EditData(ref T dto);
     }
 }

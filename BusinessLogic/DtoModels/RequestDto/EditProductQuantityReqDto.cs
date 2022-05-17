@@ -1,6 +1,6 @@
 ﻿namespace BusinessLogic.DtoModels.RequestDto
 {
-    public class ChangeProductQuantityReqDto
+    public class EditProductQuantityReqDto
     {
         public int ProductId { get; set; }
         public int EditQuantity { get; set; }

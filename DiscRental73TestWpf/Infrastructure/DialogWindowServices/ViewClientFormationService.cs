@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
 {
-    public class ViewClientFormationService : WindowDataFormationService<ClientResDto>
+    public class ViewClientFormationService : WindowDataFormationService<ClientResDto>, IFormationService
     {
         protected override bool EditData(ref ClientResDto dto)
         {

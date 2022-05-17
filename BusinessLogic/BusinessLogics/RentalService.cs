@@ -36,7 +36,7 @@ namespace BusinessLogic.BusinessLogics
             }
             try
             {
-                _productService.EditProductQuantity(new ChangeProductQuantityReqDto { ProductId = reqDto.ProductId, EditQuantity = -1 });
+                _productService.EditProductQuantity(new EditProductQuantityReqDto { ProductId = reqDto.ProductId, EditQuantity = -1 });
                 _repository.Insert(reqDto);
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace BusinessLogic.BusinessLogics
                     ReturnSum = reqDto.ReturnSum
                 };
                 if (!IsCorrectReqDto(issueReturnReqDto)) throw new Exception("Ошибка возврата проката: Модель имеет некорректное значение");
-                _productService.EditProductQuantity(new ChangeProductQuantityReqDto { ProductId = issueReturnReqDto.ProductId, EditQuantity = +1 });
+                _productService.EditProductQuantity(new EditProductQuantityReqDto { ProductId = issueReturnReqDto.ProductId, EditQuantity = +1 });
                 _repository.Update(issueReturnReqDto);
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace BusinessLogic.BusinessLogics
             {
                 var item = _repository.GetById(new RentalReqDto { Id = reqDto.Id });
                 if (item == null) throw new Exception("Ошибка отмены проката: Прокат не найден");
-                _productService.EditProductQuantity(new ChangeProductQuantityReqDto { ProductId = item.ProductId, EditQuantity = +1 });
+                _productService.EditProductQuantity(new EditProductQuantityReqDto { ProductId = item.ProductId, EditQuantity = +1 });
                 _repository.DeleteById(reqDto);
             }
             catch (Exception ex)

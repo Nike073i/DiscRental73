@@ -6,7 +6,7 @@ namespace BusinessLogic.BusinessLogics
 {
     public class ProductService
     {
-        protected readonly IProductRepository _repository;
+        private readonly IProductRepository _repository;
 
         #region Ограничения для сущности Product
         private const int _AvailableQuantityMinValue = 5;
@@ -24,7 +24,7 @@ namespace BusinessLogic.BusinessLogics
             _repository = repository;
         }
 
-        public void EditProductQuantity(ChangeProductQuantityReqDto reqDto)
+        public void EditProductQuantity(EditProductQuantityReqDto reqDto)
         {
             if (reqDto is null)
             {
