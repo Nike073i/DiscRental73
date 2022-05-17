@@ -2,6 +2,7 @@
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
 using DatabaseStorage.Entityes;
+using DatabaseStorage.Mappers.Base;
 
 namespace DatabaseStorage.Mappers
 {

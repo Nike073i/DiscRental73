@@ -13,6 +13,9 @@ namespace DatabaseStorage.Entityes
         public int Quantity { get; set; }
         public int DiscId { get; set; }
 
+        [Required]
+        public bool IsAvailable { get; set; }
+
         [ForeignKey("DiscId")]
         public virtual List<Rental> Rentals { get; set; }
         [ForeignKey("DiscId")]

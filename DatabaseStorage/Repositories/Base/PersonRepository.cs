@@ -1,13 +1,12 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories.Base
 {
-    public abstract class PersonRepository<Req, Res, T> : DbRepository<Req, Res, T>, IPersonRepository<Req, Res> where Req : PersonReqDto, new() where Res : PersonResDto, new() where T : Person, new()
+    public abstract class PersonRepository<Req, Res, T> : DbRepository<Req, Res, T> where Req : PersonReqDto, new() where Res : PersonResDto, new() where T : Person, new()
     {
         protected PersonRepository(DiscRentalDb db) : base(db)
         {

@@ -1,8 +1,7 @@
-﻿using BusinessLogic.Interfaces.Storages;
-using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes.Base;
-using DatabaseStorage.Mappers;
+using DatabaseStorage.Mappers.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories

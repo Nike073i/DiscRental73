@@ -20,7 +20,7 @@ namespace BusinessLogic.BusinessLogics
 
         #endregion
 
-        public CdDiscService(IDiscRepository<CdDiscReqDto, CdDiscResDto> repository) : base(repository)
+        public CdDiscService(ICdDiscRepository repository) : base(repository)
         {
         }
 

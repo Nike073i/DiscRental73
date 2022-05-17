@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using System;
 using System.Linq;

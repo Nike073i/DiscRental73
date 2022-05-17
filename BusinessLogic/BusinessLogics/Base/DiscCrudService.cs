@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.BusinessLogics.Base
 {

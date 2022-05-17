@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.DtoModels.RequestDto
 {

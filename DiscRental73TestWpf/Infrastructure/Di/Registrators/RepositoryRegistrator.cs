@@ -1,6 +1,4 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,11 +8,11 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection AddRepositoriesInDB(this IServiceCollection services)
         {
-            services.AddTransient<IDiscRepository<CdDiscReqDto, CdDiscResDto>, CdDiscRepository>();
-            services.AddTransient<IDiscRepository<DvdDiscReqDto, DvdDiscResDto>, DvdDiscRepository>();
-            services.AddTransient<IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>, BluRayDiscRepository>();
-            services.AddTransient<IPersonRepository<ClientReqDto, ClientResDto>, ClientRepository>();
-            services.AddTransient<IPersonRepository<EmployeeReqDto, EmployeeResDto>, EmployeeRepository>();
+            services.AddTransient<ICdDiscRepository, CdDiscRepository>();
+            services.AddTransient<IDvdDiscRepository, DvdDiscRepository>();
+            services.AddTransient<IBluRayDiscRepository, BluRayDiscRepository>();
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
             return services;
         }

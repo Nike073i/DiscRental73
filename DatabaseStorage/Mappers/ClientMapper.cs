@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Entityes;
+using DatabaseStorage.Mappers.Base;
 
 namespace DatabaseStorage.Mappers
 {

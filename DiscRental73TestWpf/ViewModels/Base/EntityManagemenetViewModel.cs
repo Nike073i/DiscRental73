@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.BusinessLogics.Base;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storages.Base;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;

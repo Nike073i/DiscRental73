@@ -4,8 +4,7 @@ using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.Interfaces.Storages
 {
-    public interface IPersonRepository<Req, Res> : IRepository<Req, Res> where Req : PersonReqDto, new() where Res : PersonResDto, new()
+    public interface IBluRayDiscRepository : IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>
     {
-        Res GetByContactNumber(Req reqDto);
     }
 }
