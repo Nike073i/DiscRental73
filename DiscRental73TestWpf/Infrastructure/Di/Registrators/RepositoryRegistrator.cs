@@ -13,6 +13,9 @@ namespace DiscRental73TestWpf
             services.AddTransient<IBluRayDiscRepository, BluRayDiscRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ISellRepository, SellRepository>();
+            services.AddTransient<IRentalRepository, RentalRepository>();
 
             return services;
         }

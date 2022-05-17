@@ -14,6 +14,32 @@ namespace DatabaseStorage.Repositories
         {
         }
 
+        public override void Insert(ProductReqDto reqDto)
+        {
+            try
+            {
+                Product? productInDb = _set.SingleOrDefault(rec => rec.DiscId.Equals(reqDto.DiscId));
+                if (productInDb is not null && !productInDb.IsDeleted) throw new Exception("Ошибка добавления записи: Диск уже привязан к другому продукту");
+                Product entity;
+                if (productInDb is null)
+                {
+                    entity = new Product();
+                }
+                else
+                {
+                    entity = productInDb;
+                    entity.IsDeleted = false;
+                }
+                _mapper.MapToEntity(in entity, reqDto);
+                _set.Add(entity);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка добавления записи: " + ex.Message);
+            }
+        }
+
         public override ICollection<ProductResDto> GetAll()
         {
             return _set.Include(rec => rec.Disc)
