@@ -19,6 +19,7 @@
                 <MenuItem Header="BluRay-диски" Command="{Binding ShowBluRayDiscManagementViewCommand}"/>
                 <MenuItem Header="Клиенты" Command="{Binding ShowClientManagementViewCommand}"/>
                 <MenuItem Header="Сотрудники" Command="{Binding ShowEmployeeManagementViewCommand}"/>
+                <MenuItem Header="Продукция" Command="{Binding ShowProductManagementViewCommand}"/>
             </MenuItem>
             <MenuItem Header="Оформление"/>
             <MenuItem Header="Администратор"/>

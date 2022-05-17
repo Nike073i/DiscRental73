@@ -12,6 +12,7 @@ namespace DiscRental73TestWpf
             services.AddSingleton<BluRayDiscService>();
             services.AddSingleton<ClientService>();
             services.AddSingleton<EmployeeService>();
+            services.AddSingleton<DiscService>();
             services.AddSingleton<ProductService>();
             services.AddSingleton<SellService>();
             services.AddSingleton<RentalService>();

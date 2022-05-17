@@ -17,4 +17,7 @@
     <DataTemplate DataType="{x:Type vm:EmployeeManagementViewModel}">
         <view:EmployeeManagementView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProductManagementViewModel}">
+        <view:ProductManagementView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

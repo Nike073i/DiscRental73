@@ -22,6 +22,13 @@
             </Style>
             <Style TargetType="ComboBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
+                         Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>

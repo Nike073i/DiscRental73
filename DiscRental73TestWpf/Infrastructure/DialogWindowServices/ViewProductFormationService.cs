@@ -18,6 +18,11 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
+            if (item.Id.Equals(0))
+            {
+                item.IsAvailable = true;
+            }
+
             var viewModel = App.Host.Services.GetRequiredService<ProductFormationViewModel>();
             viewModel.Product = item;
             viewModel.Discs = Discs;

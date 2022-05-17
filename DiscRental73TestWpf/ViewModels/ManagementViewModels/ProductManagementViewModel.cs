@@ -22,7 +22,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         private readonly IFormationService _EditProductCostDialogService;
 
         public ProductManagementViewModel(ProductService productService,
-            WindowProductFormationService dialogService, DiscService discService,
+            ViewProductFormationService dialogService, DiscService discService,
             ViewEditProductQuantityFormationService editProductQuantityService,
             ViewEditProductCostFormationService editProductCostService)
         {
@@ -106,13 +106,13 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         #region ChangeQuantityCommand - изменение количества элемента
 
-        private ICommand _ChangeQuantityCommand;
+        private ICommand _EditQuantityCommand;
 
-        public ICommand ChangeQuantityCommand => _ChangeQuantityCommand ??= new LambdaCommand(OnChangeQuantityCommand, CanChangeQuantityCommand);
+        public ICommand EditQuantityCommand => _EditQuantityCommand ??= new LambdaCommand(OnEditQuantityCommand, CanEditQuantityCommand);
 
-        private bool CanChangeQuantityCommand(object? p) => p is ProductResDto;
+        private bool CanEditQuantityCommand(object? p) => p is ProductResDto;
 
-        private void OnChangeQuantityCommand(object? p)
+        private void OnEditQuantityCommand(object? p)
         {
             var product = p as ProductResDto;
             var model = new EditProductQuantityModel
@@ -145,7 +145,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private ICommand _ChangeCostCommand;
 
-        public ICommand ChangeCostCommand => _ChangeQuantityCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
+        public ICommand ChangeCostCommand => _ChangeCostCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
 
         private bool CanChangeCostCommand(object? p) => p is ProductResDto;
 

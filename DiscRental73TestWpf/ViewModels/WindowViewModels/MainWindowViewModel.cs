@@ -100,5 +100,19 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         }
 
         #endregion
+
+        #region ShowProductManagementViewCommand - ICommand - команда для вызова менеджера продукции
+
+        private ICommand _ShowProductManagementViewCommand;
+
+        public ICommand ShowProductManagementViewCommand => _ShowProductManagementViewCommand
+            ??= new LambdaCommand(OnShowProductManagementViewCommand);
+
+        private void OnShowProductManagementViewCommand()
+        {
+            CurrentModel = App.Host.Services.GetRequiredService<ProductManagementViewModel>();
+        }
+
+        #endregion
     }
 }

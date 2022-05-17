@@ -13,6 +13,8 @@ namespace DiscRental73TestWpf
             services.AddSingleton<ViewClientFormationService>();
             services.AddSingleton<ViewEmployeeFormationService>();
             services.AddSingleton<ViewProductFormationService>();
+            services.AddSingleton<ViewEditProductCostFormationService>();
+            services.AddSingleton<ViewEditProductQuantityFormationService>();
 
             return services;
         }

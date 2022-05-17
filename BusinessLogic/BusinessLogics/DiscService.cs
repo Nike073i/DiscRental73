@@ -22,7 +22,7 @@ namespace BusinessLogic.BusinessLogics
 
             var cdDiscs = _cdDiscRepository.GetAll();
             var dvdDiscs = _dvdDiscRepository.GetAll();
-            var bluRayDiscs = _dvdDiscRepository.GetAll();
+            var bluRayDiscs = _bluRayDiscRepository.GetAll();
 
             discs.AddRange(cdDiscs);
             discs.AddRange(dvdDiscs);
