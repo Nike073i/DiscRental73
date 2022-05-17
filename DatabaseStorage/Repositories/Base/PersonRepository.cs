@@ -39,7 +39,7 @@ namespace DatabaseStorage.Repositories.Base
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка удаления по Id: " + ex.Message);
+                throw new Exception("Ошибка обновления записи: " + ex.Message);
             }
         }
 

@@ -10,6 +10,7 @@ namespace BusinessLogic.DtoModels.ResponseDto
         public DiscType DiscType { get; set; }
         public DateTime DiscDate { get; set; }
         public int DiscId { get; set; }
+        public bool IsAvailable { get; set; }
         public List<RentalResDto> Rentals { get; set; }
         public List<SellResDto> Sells { get; set; }
     }

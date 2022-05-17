@@ -8,43 +8,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
-    // НЕРЕАЛИЗОВАН //
-    public class RentalRepository : IRentalRepository
+    public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>, IRentalRepository
     {
-        protected readonly DiscRentalDb _db;
-        protected readonly DbSet<Rental> _set;
-        protected readonly RentalMapper _mapper;
-
-        public RentalRepository(DiscRentalDb db)
+        public RentalRepository(DiscRentalDb db) : base(db)
         {
-            _db = db;
-            _set = db.Set<Rental>();
-            _mapper = new RentalMapper();
         }
 
-        public void DeleteById(RentalReqDto reqDto)
+        public override ICollection<RentalResDto> GetAll()
         {
-            throw new NotImplementedException();
+            return _set.Include(rec => rec.Client)
+                    .Include(rec => rec.Employee)
+                    .Include(rec => rec.Product)
+                    .ThenInclude(rec => rec.Disc)
+                    .Where(entity => !entity.IsDeleted).
+                    Select(rec => _mapper.MapToRes(rec)).ToList();
         }
 
-        public ICollection<RentalResDto> GetAll()
+        public override RentalResDto GetById(RentalReqDto reqDto)
         {
-            throw new NotImplementedException();
+            Rental? entity = _set.Include(rec => rec.Client)
+                .Include(rec => rec.Employee)
+                .Include(rec => rec.Product)
+                .ThenInclude(rec => rec.Disc)
+                .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            if (entity is null || entity.IsDeleted)
+            {
+                throw new Exception("Запись не найдена");
+            }
+            return _mapper.MapToRes(entity);
         }
 
-        public RentalResDto GetById(RentalReqDto reqDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(RentalReqDto reqDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(RentalReqDto reqDto)
-        {
-            throw new NotImplementedException();
-        }
+        protected override RentalMapper CreateMapper() => new();
     }
 }

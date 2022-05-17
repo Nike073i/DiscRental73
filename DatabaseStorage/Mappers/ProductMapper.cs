@@ -22,6 +22,7 @@ namespace DatabaseStorage.Mappers
             entity.Cost = reqDto.Cost;
             entity.Quantity = reqDto.Quantity;
             entity.DiscId = reqDto.DiscId;
+            entity.IsAvailable = reqDto.IsAvailable;
         }
 
         public ProductResDto MapToRes(Product entity)
@@ -35,6 +36,7 @@ namespace DatabaseStorage.Mappers
                 DiscType = entity.Disc.DiscType,
                 DiscDate = entity.Disc.DateOfRelease,
                 DiscId = entity.DiscId,
+                IsAvailable = entity.IsAvailable,
                 Rentals = entity.Rentals.Select(rec => _rentalMapper.MapToRes(rec)).ToList(),
                 Sells = entity.Sells.Select(rec => _sellMapper.MapToRes(rec)).ToList(),
             };

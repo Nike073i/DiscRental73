@@ -7,5 +7,6 @@ namespace BusinessLogic.DtoModels.RequestDto
         public double Cost { get; set; }
         public int Quantity { get; set; }
         public int DiscId { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

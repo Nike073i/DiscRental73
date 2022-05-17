@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
-    public abstract class DbRepository<Req, Res, T> : IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
+    public abstract class DbRepository<Req, Res, T> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
     {
         protected readonly DiscRentalDb _db;
         protected readonly DbSet<T> _set;
@@ -23,7 +23,9 @@ namespace DatabaseStorage.Repositories
 
         public virtual ICollection<Res> GetAll()
         {
-            return _set.Where(entity => !entity.IsDeleted).Select(rec => _mapper.MapToRes(rec)).ToList();
+            return _set.Where(entity => !entity.IsDeleted)
+                .Select(rec => _mapper.MapToRes(rec))
+                .ToList();
         }
 
         public virtual void Insert(Req reqDto)
@@ -85,7 +87,7 @@ namespace DatabaseStorage.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка удаления по Id: " + ex.Message);
+                throw new Exception("Ошибка обновления записи: " + ex.Message);
             }
         }
     }

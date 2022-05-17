@@ -8,38 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
-    // НЕРЕАЛИЗОВАН //
-    public class SellRepository : ISellRepository
+    public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>, ISellRepository
     {
-        protected readonly DiscRentalDb _db;
-        protected readonly DbSet<Sell> _set;
-        protected readonly SellMapper _mapper;
-
-        public SellRepository(DiscRentalDb db)
+        public SellRepository(DiscRentalDb db) : base(db)
         {
-            _db = db;
-            _set = db.Set<Sell>();
-            _mapper = new SellMapper();
         }
 
-        public void DeleteById(SellReqDto reqDto)
+        public override ICollection<SellResDto> GetAll()
         {
-            throw new NotImplementedException();
+            return _set.Include(rec => rec.Employee)
+                    .Include(rec => rec.Product)
+                    .ThenInclude(rec => rec.Disc)
+                    .Where(entity => !entity.IsDeleted).
+                    Select(rec => _mapper.MapToRes(rec)).ToList();
         }
 
-        public ICollection<SellResDto> GetAll()
+        public override SellResDto GetById(SellReqDto reqDto)
         {
-            throw new NotImplementedException();
+            Sell? entity = _set.Include(rec => rec.Employee)
+                .Include(rec => rec.Product)
+                .ThenInclude(rec => rec.Disc)
+                .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            if (entity is null || entity.IsDeleted)
+            {
+                throw new Exception("Запись не найдена");
+            }
+            return _mapper.MapToRes(entity);
         }
 
-        public SellResDto GetById(SellReqDto reqDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(SellReqDto reqDto)
-        {
-            throw new NotImplementedException();
-        }
+        protected override SellMapper CreateMapper() => new();
     }
 }
