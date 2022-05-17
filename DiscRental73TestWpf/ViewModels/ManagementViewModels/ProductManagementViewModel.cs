@@ -158,7 +158,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 DiscTitle = product.DiscTitle,
                 CurrentCost = product.Cost,
             };
-            if (!_EditProductQuantityDialogService.Edit(model)) return;
+            if (!_EditProductCostDialogService.Edit(model)) return;
             try
             {
                 _service.ChangeProductCost(new ChangeProductCostReqDto
@@ -166,12 +166,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                     ProductId = model.ProductId,
                     Cost = model.NewCost
                 });
-                _EditProductQuantityDialogService.ShowInformation("Количество измененно", "Успех");
+                _EditProductCostDialogService.ShowInformation("Количество измененно", "Успех");
                 OnPropertyChanged(nameof(Products));
             }
             catch (Exception ex)
             {
-                _EditProductQuantityDialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                _EditProductCostDialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
 

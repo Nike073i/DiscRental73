@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
+             xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
              DataContext="{Binding EditProductCostFormationViewModel, Source={StaticResource Locator}}"
              d:DesignHeight="40" d:DesignWidth="400">
     <Grid Margin="3">
         <Grid.Resources>
-            <Style TargetType="tk:DoubleUpDown">
+            <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError"
@@ -31,15 +31,18 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Стоимость:"/>
-        <tk:DoubleUpDown Grid.Column="1" Grid.Row="0">
-            <tk:DoubleUpDown.Value>
+        <TextBox Grid.Column="1" Grid.Row="0">
+            <TextBox.Text>
                 <Binding Path="NewCost" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:DoubleValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{2})|(.\d{2}))?$" RegexExample="100.0" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
+                    <Binding.Converter>
+                        <cv:DoubleConverter/>
+                    </Binding.Converter>
                 </Binding>
-            </tk:DoubleUpDown.Value>
-        </tk:DoubleUpDown>
+             </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>
 
