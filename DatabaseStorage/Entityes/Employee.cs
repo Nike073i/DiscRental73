@@ -15,10 +15,10 @@ namespace DatabaseStorage.Entityes
 
         public double? Prize { get; set; }
 
-        [ForeignKey("PersonId")]
+        [ForeignKey("EmployeeId")]
         public virtual List<Rental> Rentals { get; set; }
 
-        [ForeignKey("PersonId")]
+        [ForeignKey("EmployeeId")]
         public virtual List<Sell> Sells { get; set; }
     }
 }

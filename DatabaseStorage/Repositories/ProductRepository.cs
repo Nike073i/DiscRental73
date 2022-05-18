@@ -10,15 +10,13 @@ namespace DatabaseStorage.Repositories
 {
     public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Product>, IProductRepository
     {
-        public ProductRepository(DiscRentalDb db) : base(db)
-        {
-        }
-
         public override void Insert(ProductReqDto reqDto)
         {
+            using var db = new DiscRentalDb();
+            var set = db.Set<Product>();
             try
             {
-                Product? productInDb = _set.SingleOrDefault(rec => rec.DiscId.Equals(reqDto.DiscId));
+                Product? productInDb = set.SingleOrDefault(rec => rec.DiscId.Equals(reqDto.DiscId));
                 if (productInDb is not null && !productInDb.IsDeleted) throw new Exception("Ошибка добавления записи: Диск уже привязан к другому продукту");
                 Product entity;
                 if (productInDb is null)
@@ -31,8 +29,8 @@ namespace DatabaseStorage.Repositories
                     entity.IsDeleted = false;
                 }
                 _mapper.MapToEntity(in entity, reqDto);
-                _set.Add(entity);
-                _db.SaveChanges();
+                set.Add(entity);
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -42,7 +40,10 @@ namespace DatabaseStorage.Repositories
 
         public override ICollection<ProductResDto> GetAll()
         {
-            return _set.Include(rec => rec.Disc)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Product>();
+
+            return set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
                 .Include(rec => rec.Rentals)
                 .Where(entity => !entity.IsDeleted).
@@ -51,7 +52,10 @@ namespace DatabaseStorage.Repositories
 
         public override ProductResDto GetById(ProductReqDto reqDto)
         {
-            Product? entity = _set.Include(rec => rec.Disc)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Product>();
+
+            Product? entity = set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
                 .Include(rec => rec.Rentals)
                 .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));

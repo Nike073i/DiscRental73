@@ -16,9 +16,9 @@ namespace DatabaseStorage.Entityes
         [Required]
         public bool IsAvailable { get; set; }
 
-        [ForeignKey("DiscId")]
+        [ForeignKey("ProductId")]
         public virtual List<Rental> Rentals { get; set; }
-        [ForeignKey("DiscId")]
+        [ForeignKey("ProductId")]
         public virtual List<Sell> Sells { get; set; }
 
         public virtual Disc Disc { get; set; }

@@ -10,13 +10,12 @@ namespace DatabaseStorage.Repositories
 {
     public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>, ISellRepository
     {
-        public SellRepository(DiscRentalDb db) : base(db)
-        {
-        }
-
         public override ICollection<SellResDto> GetAll()
         {
-            return _set.Include(rec => rec.Employee)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Sell>();
+
+            return set.Include(rec => rec.Employee)
                     .Include(rec => rec.Product)
                     .ThenInclude(rec => rec.Disc)
                     .Where(entity => !entity.IsDeleted).
@@ -25,7 +24,10 @@ namespace DatabaseStorage.Repositories
 
         public override SellResDto GetById(SellReqDto reqDto)
         {
-            Sell? entity = _set.Include(rec => rec.Employee)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Sell>();
+
+            Sell? entity = set.Include(rec => rec.Employee)
                 .Include(rec => rec.Product)
                 .ThenInclude(rec => rec.Disc)
                 .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));

@@ -10,13 +10,12 @@ namespace DatabaseStorage.Repositories
 {
     public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>, IRentalRepository
     {
-        public RentalRepository(DiscRentalDb db) : base(db)
-        {
-        }
-
         public override ICollection<RentalResDto> GetAll()
         {
-            return _set.Include(rec => rec.Client)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Rental>();
+
+            return set.Include(rec => rec.Client)
                     .Include(rec => rec.Employee)
                     .Include(rec => rec.Product)
                     .ThenInclude(rec => rec.Disc)
@@ -26,7 +25,10 @@ namespace DatabaseStorage.Repositories
 
         public override RentalResDto GetById(RentalReqDto reqDto)
         {
-            Rental? entity = _set.Include(rec => rec.Client)
+            using var db = new DiscRentalDb();
+            var set = db.Set<Rental>();
+
+            Rental? entity = set.Include(rec => rec.Client)
                 .Include(rec => rec.Employee)
                 .Include(rec => rec.Product)
                 .ThenInclude(rec => rec.Disc)

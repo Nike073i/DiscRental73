@@ -108,6 +108,7 @@ namespace DatabaseStorage.Migrations
                     Cost = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     DiscId = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -172,28 +173,26 @@ namespace DatabaseStorage.Migrations
                     DateOfRental = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PledgeSum = table.Column<double>(type: "float", nullable: false),
                     ReturnSum = table.Column<double>(type: "float", nullable: true),
-                    DiscId = table.Column<int>(type: "int", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rentals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rentals_Client_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Rentals_Client_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rentals_Employee_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Rentals_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rentals_Products_DiscId",
-                        column: x => x.DiscId,
+                        name: "FK_Rentals_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -209,22 +208,20 @@ namespace DatabaseStorage.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     DateOfSell = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    DiscId = table.Column<int>(type: "int", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sellls", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sellls_Employee_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Sellls_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sellls_Products_DiscId",
-                        column: x => x.DiscId,
+                        name: "FK_Sellls_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -242,24 +239,29 @@ namespace DatabaseStorage.Migrations
                 column: "DiscId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rentals_DiscId",
+                name: "IX_Rentals_ClientId",
                 table: "Rentals",
-                column: "DiscId");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rentals_PersonId",
+                name: "IX_Rentals_EmployeeId",
                 table: "Rentals",
-                column: "PersonId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellls_DiscId",
-                table: "Sellls",
-                column: "DiscId");
+                name: "IX_Rentals_ProductId",
+                table: "Rentals",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellls_PersonId",
+                name: "IX_Sellls_EmployeeId",
                 table: "Sellls",
-                column: "PersonId");
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sellls_ProductId",
+                table: "Sellls",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

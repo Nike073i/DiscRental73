@@ -21,7 +21,7 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowIssueRentalStrategy _IssueRentalStrategy;
         public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
 
-        public IssueViewModel(WindowDataFormationService dialogService, ClientService clientService, SellService sellService, RentalService rentalService)
+        public IssueViewModel(WindowDataFormationService dialogService,  SellService sellService, ClientService clientService,  RentalService rentalService)
         {
             _sellService = sellService;
             _clientService = clientService;

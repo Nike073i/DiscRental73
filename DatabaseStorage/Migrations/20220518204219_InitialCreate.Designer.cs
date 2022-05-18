@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseStorage.Migrations
 {
     [DbContext(typeof(DiscRentalDb))]
-    [Migration("20220517095503_ChangeProductEntity")]
-    partial class ChangeProductEntity
+    [Migration("20220518204219_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,17 +125,11 @@ namespace DatabaseStorage.Migrations
                     b.Property<DateTime>("DateOfRental")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DiscId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
 
                     b.Property<double>("PledgeSum")
                         .HasColumnType("float");
@@ -148,9 +142,11 @@ namespace DatabaseStorage.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscId");
+                    b.HasIndex("ClientId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Rentals");
                 });
@@ -165,17 +161,11 @@ namespace DatabaseStorage.Migrations
                     b.Property<DateTime>("DateOfSell")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DiscId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -185,9 +175,9 @@ namespace DatabaseStorage.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscId");
+                    b.HasIndex("EmployeeId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Sellls");
                 });
@@ -294,21 +284,21 @@ namespace DatabaseStorage.Migrations
 
             modelBuilder.Entity("DatabaseStorage.Entityes.Rental", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
-                        .WithMany("Rentals")
-                        .HasForeignKey("DiscId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DatabaseStorage.Entityes.Client", "Client")
                         .WithMany("Rentals")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DatabaseStorage.Entityes.Employee", "Employee")
                         .WithMany("Rentals")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
+                        .WithMany("Rentals")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -321,15 +311,15 @@ namespace DatabaseStorage.Migrations
 
             modelBuilder.Entity("DatabaseStorage.Entityes.Sell", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
+                    b.HasOne("DatabaseStorage.Entityes.Employee", "Employee")
                         .WithMany("Sells")
-                        .HasForeignKey("DiscId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DatabaseStorage.Entityes.Employee", "Employee")
+                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
                         .WithMany("Sells")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

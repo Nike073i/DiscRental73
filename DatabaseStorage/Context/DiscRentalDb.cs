@@ -16,18 +16,13 @@ namespace DatabaseStorage.Context
         public virtual DbSet<DvdDisc> DvdDiscs { get; set; }
         public virtual DbSet<BluRayDisc> BluRayDiscs { get; set; }
 
-        public DiscRentalDb(DbContextOptions<DiscRentalDb> options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            if (optionsBuilder.IsConfigured == false)
+            {
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDb;Integrated Security=True;MultipleActiveResultSets=True;");
+            }
+            base.OnConfiguring(optionsBuilder);
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (optionsBuilder.IsConfigured == false)
-        //    {
-        //        optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDb;Integrated Security=True;MultipleActiveResultSets=True;");
-        //    }
-        //    base.OnConfiguring(optionsBuilder);
-        //}
     }
 }

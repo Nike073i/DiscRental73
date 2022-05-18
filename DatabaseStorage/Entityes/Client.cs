@@ -9,7 +9,7 @@ namespace DatabaseStorage.Entityes
         [Required, MaxLength(255)]
         public string Address { get; set; }
 
-        [ForeignKey("PersonId")]
+        [ForeignKey("ClientId")]
         public virtual List<Rental> Rentals { get; set; }
     }
 }
