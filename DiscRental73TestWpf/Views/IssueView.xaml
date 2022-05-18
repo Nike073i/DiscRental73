@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             DataContext="{Binding IssueViewModel, Source={StaticResource Locator}}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+            DataContext="{Binding IssueViewModel, Source={StaticResource Locator}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Resources>
@@ -36,12 +36,12 @@
                             <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <TextBlock Text="Оформить продажу">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding IssueSellCommand}"/>
+                                        <MouseBinding Command="{Binding IssueSellCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                                 <TextBlock Text="Оформить возврат">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding CancelSellCommand}"/>
+                                        <MouseBinding Command="{Binding CancelSellCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                             </ListView>
@@ -53,17 +53,17 @@
                             <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <TextBlock Text="Оформить прокат">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding IssueRentalCommand}"/>
+                                        <MouseBinding Command="{Binding IssueRentalCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                                 <TextBlock Text="Оформить возврат">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding IssueRentalCommand}"/>
+                                        <MouseBinding Command="{Binding IssueReturnCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                                 <TextBlock Text="Отмена проката">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding CancelRentalCommand}"/>
+                                        <MouseBinding Command="{Binding CancelRentalCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                             </ListView>
@@ -75,12 +75,12 @@
                             <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <TextBlock Text="Администрирование" Visibility="Collapsed">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding ShowAdminViewCommand}"/>
+                                        <MouseBinding Command="{Binding ShowAdminViewCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                                 <TextBlock Text="Выход">
                                     <TextBlock.InputBindings>
-                                        <MouseBinding Command="{Binding ExitCommand}"/>
+                                        <MouseBinding Command="{Binding ExitCommand}" MouseAction="LeftClick"/>
                                     </TextBlock.InputBindings>
                                 </TextBlock>
                             </ListView>

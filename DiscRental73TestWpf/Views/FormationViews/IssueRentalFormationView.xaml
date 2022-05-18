@@ -5,23 +5,19 @@
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d"             
              d:DesignWidth="400"
              DataContext="{Binding IssueRentalFormationViewModel, Source={StaticResource Locator}}">
-    <Grid Margin="3">
+    <Grid Margin="3" Background="White">
         <Grid.Resources>
             <Style TargetType="ComboBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
             </Style>
             <Style TargetType="TextBlock">
-                <Style.Triggers>
-                    <Trigger Property="Grid.Column" Value="0">
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Margin" Value="0,3"/>
-                    </Trigger>
-                </Style.Triggers>
+                <Setter Property="Margin" Value="0,3"/>
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
@@ -54,15 +50,17 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Продукт:"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Клиент:"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата выдачи:"/>
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="Дата возврата:"/>
-        <TextBlock Grid.Column="0" Grid.Row="4" Text="Сумма залога:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Стоимость:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Клиент:"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Дата выдачи:"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата возврата:"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Сумма залога:"/>
 
-        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Products}" SelectedValuePath="Id">
+        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" SelectedValuePath="Id">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -78,7 +76,9 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Clients}" SelectedValuePath="Id">
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedProduct.Cost}"/>
+
+        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" SelectedValuePath="Id">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -94,7 +94,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <DatePicker Grid.Column="1" Grid.Row="2">
+        <DatePicker Grid.Column="1" Grid.Row="3">
             <DatePicker.SelectedDate>
                 <Binding Path="IssueRentalBindingModel.DateOfIssue" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -104,7 +104,7 @@
             </DatePicker.SelectedDate>
         </DatePicker>
 
-        <DatePicker Grid.Column="1" Grid.Row="3">
+        <DatePicker Grid.Column="1" Grid.Row="4">
             <DatePicker.SelectedDate>
                 <Binding Path="IssueRentalBindingModel.DateOfReturn" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -114,7 +114,7 @@
             </DatePicker.SelectedDate>
         </DatePicker>
 
-        <TextBox Grid.Column="1" Grid.Row="4">
+        <TextBox Grid.Column="1" Grid.Row="5">
             <TextBox.Text>
                 <Binding Path="IssueRentalBindingModel.PledgeSum" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>

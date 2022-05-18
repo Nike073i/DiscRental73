@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using System;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    internal class ShowIssueSellStrategy
+    public class ShowIssueSellStrategy : ShowContentWindowStrategy
     {
+        public override bool ShowDialog(ref object formationData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

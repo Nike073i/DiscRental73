@@ -76,7 +76,7 @@ namespace BusinessLogic.BusinessLogics
             }
         }
 
-        public IEnumerable<ProductResDto> GetProducts => _productService.GetAvailable();
+        public IEnumerable<ProductResDto> GetProducts() => _productService.GetAvailable();
 
         public void CancelRental(RentalReqDto reqDto)
         {

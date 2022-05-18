@@ -1,19 +1,32 @@
 ﻿using BusinessLogic.BusinessLogics;
+using BusinessLogic.DtoModels.RequestDto;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
+using DiscRental73TestWpf.Infrastructure.HelperModels;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using System;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels
 {
     public class IssueViewModel : ViewModel
     {
+        private readonly WindowDataFormationService _dialogService;
+
         private readonly SellService _sellService;
         private readonly RentalService _rentalService;
+        private readonly ClientService _clientService;
 
-        public IssueViewModel(SellService sellService, RentalService rentalService)
+        private ShowIssueRentalStrategy _IssueRentalStrategy;
+        public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
+
+        public IssueViewModel(WindowDataFormationService dialogService, ClientService clientService, SellService sellService, RentalService rentalService)
         {
             _sellService = sellService;
+            _clientService = clientService;
             _rentalService = rentalService;
+            _dialogService = dialogService;
         }
 
         #region IssueRentalCommand - команда оформления проката
@@ -24,19 +37,33 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnIssueRentalCommand(object? p)
         {
-            //if (!_dialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
-            //try
-            //{
-            //    var resDto = p as Res;
-            //    var reqDto = CreateReqDtoToDelete(resDto);
-            //    _service.DeleteById(reqDto);
-            //    _dialogService.ShowInformation("Запись удалена", "Успех");
-            //    OnPropertyChanged(nameof(Items));
-            //}
-            //catch (Exception ex)
-            //{
-            //    _dialogService.ShowWarning(ex.Message, "Ошибка удаления");
-            //}
+            object item = new IssueRentalBindingModel();
+            var strategy = IssueRentalStrategy;
+            strategy.Clients = _clientService.GetAll();
+            strategy.Products = _rentalService.GetProducts();
+            _dialogService.ShowStrategy = strategy;
+            if (!_dialogService.ShowContent(ref item)) return;
+            try
+            {
+                //
+                var employeeId = 3;
+                //
+                var model = item as IssueRentalBindingModel;
+                _rentalService.IssueRental(new RentalReqDto
+                {
+                    ProductId = model.ProductId,
+                    ClientId = model.ClientId,
+                    EmployeeId = employeeId,
+                    DateOfIssue = model.DateOfIssue,
+                    DateOfRental = model.DateOfReturn,
+                    PledgeSum = model.PledgeSum
+                });
+                _dialogService.ShowInformation("Прокат создан", "Успех");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowWarning(ex.Message, "Ошибка создания");
+            }
         }
 
         #endregion

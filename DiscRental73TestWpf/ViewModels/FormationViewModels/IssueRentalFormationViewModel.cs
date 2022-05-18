@@ -7,6 +7,28 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class IssueRentalFormationViewModel : FormationViewModel
     {
+        #region ProductResDto SelectedProduct - выбранный продукт
+
+        private ProductResDto _SelectedProduct;
+        public ProductResDto SelectedProduct
+        {
+            get => _SelectedProduct;
+            set => Set(ref _SelectedProduct, value);
+        }
+
+        #endregion
+
+        #region ClientResDto SelectedClient- выбранный клиент
+
+        private ClientResDto _SelectedClient;
+        public ClientResDto SelectedClient
+        {
+            get => _SelectedClient;
+            set => Set(ref _SelectedClient, value);
+        }
+
+        #endregion
+
         #region IssueRentalBindingModel IssueRentalBindingModel - модель оформления проката
 
         private IssueRentalBindingModel _IssueRentalBindingModel;

@@ -1,12 +1,61 @@
-﻿using System;
+﻿using BusinessLogic.DtoModels.ResponseDto;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.HelperModels;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
+using DiscRental73TestWpf.Views.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    internal class ShowIssueRentalStrategy
+    public class ShowIssueRentalStrategy : ShowContentWindowStrategy
     {
+        public IEnumerable<ProductResDto>? Products { get; set; }
+        public IEnumerable<ClientResDto>? Clients { get; set; }
+
+        public override bool ShowDialog(ref object formationData)
+        {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
+            if (formationData is not IssueRentalBindingModel item)
+            {
+                return false;
+            }
+
+            item.DateOfIssue = DateTime.Now;
+            item.DateOfReturn = DateTime.Now.AddDays(7);
+
+            var viewModel = App.Host.Services.GetRequiredService<IssueRentalFormationViewModel>();
+            viewModel.Products = Products ?? new List<ProductResDto>();
+            viewModel.Clients = Clients ?? new List<ClientResDto>();
+            viewModel.IssueRentalBindingModel = item;
+
+            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
+            viewModelWindow.CurrentModel = viewModel;
+            viewModelWindow.Title = "Окно оформления проката";
+            viewModelWindow.Caption = "Прокат";
+
+            var dlg = new EntityFormationWindow
+            {
+                DataContext = viewModelWindow,
+                Owner = ActiveWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            if (dlg.ShowDialog() != true)
+            {
+                return false;
+            }
+
+            var inputData = viewModel.IssueRentalBindingModel;
+            inputData.ProductId = viewModel.SelectedProduct.Id;
+            inputData.ClientId = viewModel.SelectedProduct.Id;
+
+            formationData = inputData;
+
+            return true;
+        }
     }
 }
