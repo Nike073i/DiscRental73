@@ -26,4 +26,19 @@
     <DataTemplate DataType="{x:Type vm:EditProductQuantityFormationViewModel}">
         <view:EditProductQuantityFormationView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:IssueRentalFormationViewModel}">
+        <view:IssueRentalFormationView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:IssueReturnFormationViewModel}">
+        <view:IssueReturnFormationView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:IssueSellFormationViewModel}">
+        <view:IssueSellFormationView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CancelSellFormationViewModel}">
+        <view:CancelSellFormationView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CancelRentalFormationViewModel}">
+        <view:CancelRentalFormationView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

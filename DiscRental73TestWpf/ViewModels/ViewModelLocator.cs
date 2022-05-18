@@ -10,6 +10,8 @@ namespace DiscRental73TestWpf.ViewModels
         public MainWindowViewModel MainWindowViewModel => App.Host.Services.GetRequiredService<MainWindowViewModel>();
         public EntityFormationWindowViewModel EntityFormationWindowViewModel => App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
 
+        public IssueViewModel IssueViewModel => App.Host.Services.GetRequiredService<IssueViewModel>();
+
         public CdDiscManagementViewModel CdDiscManagementViewModel => App.Host.Services.GetRequiredService<CdDiscManagementViewModel>();
         public CdDiscFormationViewModel CdDiscFormationViewModel => App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
 
@@ -30,6 +32,10 @@ namespace DiscRental73TestWpf.ViewModels
         public EditProductCostFormationViewModel EditProductCostFormationViewModel => App.Host.Services.GetRequiredService<EditProductCostFormationViewModel>();
         public EditProductQuantityFormationViewModel EditProductQuantityFormationViewModel => App.Host.Services.GetRequiredService<EditProductQuantityFormationViewModel>();
 
-        public IssueViewModel IssueViewModel => App.Host.Services.GetRequiredService<IssueViewModel>();
+        public IssueRentalFormationViewModel IssueRentalFormationViewModel => App.Host.Services.GetRequiredService<IssueRentalFormationViewModel>();
+        public IssueReturnFormationViewModel IssueReturnFormationViewModel => App.Host.Services.GetRequiredService<IssueReturnFormationViewModel>();
+        public IssueSellFormationViewModel IssueSellFormationViewModel => App.Host.Services.GetRequiredService<IssueSellFormationViewModel>();
+        public CancelSellFormationViewModel CancelSellFormationViewModel => App.Host.Services.GetRequiredService<CancelSellFormationViewModel>();
+        public CancelRentalFormationViewModel CancelRentalFormationViewModel => App.Host.Services.GetRequiredService<CancelRentalFormationViewModel>();
     }
 }

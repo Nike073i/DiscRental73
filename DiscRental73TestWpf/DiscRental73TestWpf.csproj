@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infrastructure\Assets\**" />
+    <EmbeddedResource Remove="Infrastructure\Assets\**" />
+    <None Remove="Infrastructure\Assets\**" />
+    <Page Remove="Infrastructure\Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\IconDisc.png" />
   </ItemGroup>
 
@@ -29,10 +36,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\DatabaseStorage\DatabaseStorage.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Assets\" />
   </ItemGroup>
 
   <ItemGroup>

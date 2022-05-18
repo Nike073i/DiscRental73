@@ -27,6 +27,11 @@ namespace DiscRental73TestWpf.ViewModels
             services.AddSingleton<ProductFormationViewModel>();
             services.AddSingleton<EditProductCostFormationViewModel>();
             services.AddSingleton<EditProductQuantityFormationViewModel>();
+            services.AddSingleton<IssueRentalFormationViewModel>();
+            services.AddSingleton<IssueReturnFormationViewModel>();
+            services.AddSingleton<IssueSellFormationViewModel>();
+            services.AddSingleton<CancelRentalFormationViewModel>();
+            services.AddSingleton<CancelSellFormationViewModel>();
 
             return services;
         }
