@@ -1,6 +1,5 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
@@ -8,13 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ViewDvdDiscFormationService : WindowDataFormationService<DvdDiscResDto>, IFormationService
+    public class ShowDvdDiscStrategy : ShowContentWindowStrategy
     {
-        protected override bool EditData(ref DvdDiscResDto dto)
+        public ShowDvdDiscStrategy(Window activeWindow) : base(activeWindow)
         {
-            if (dto is not DvdDiscResDto item)
+        }
+
+        public override bool ShowDialog(ref object formationData)
+        {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
+            if (formationData is not DvdDiscResDto item)
             {
                 return false;
             }
@@ -35,7 +39,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                Owner = _activeWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
@@ -44,9 +48,12 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.DvdDisc;
-            if (string.IsNullOrEmpty(dto.Info)) dto.Info = null;
-            if (string.IsNullOrEmpty(dto.Plot)) dto.Plot = null;
+            var InputData = viewModel.DvdDisc;
+
+            if (string.IsNullOrEmpty(InputData.Info)) InputData.Info = null;
+            if (string.IsNullOrEmpty(InputData.Plot)) InputData.Plot = null;
+
+            formationData = InputData;
 
             return true;
         }

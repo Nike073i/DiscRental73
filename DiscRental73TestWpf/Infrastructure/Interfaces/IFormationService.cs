@@ -2,7 +2,7 @@
 {
     public interface IFormationService
     {
-        bool Edit(object item);
+        bool ShowContent(ref object formationData);
 
         void ShowInformation(string Information, string Caption);
 

@@ -1,19 +1,27 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ViewProductFormationService : WindowProductFormationService, IFormationService
+    public class ShowProductStrategy : ShowContentWindowStrategy
     {
-        protected override bool EditData(ref ProductResDto dto)
+        public IEnumerable<DiscResDto>? Discs { get; set; }
+
+        public ShowProductStrategy(Window activeWindow) : base(activeWindow)
         {
-            if (dto is not ProductResDto item)
+        }
+
+        public override bool ShowDialog(ref object formationData)
+        {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
+            if (formationData is not ProductResDto item)
             {
                 return false;
             }
@@ -25,7 +33,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
 
             var viewModel = App.Host.Services.GetRequiredService<ProductFormationViewModel>();
             viewModel.Product = item;
-            viewModel.Discs = Discs;
+            viewModel.Discs = Discs ?? new List<DiscResDto>();
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -35,7 +43,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                Owner = _activeWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
@@ -44,7 +52,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.Product;
+            formationData = viewModel.Product;
 
             return true;
         }

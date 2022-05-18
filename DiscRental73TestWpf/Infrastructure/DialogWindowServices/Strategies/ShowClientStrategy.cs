@@ -1,19 +1,24 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ViewClientFormationService : WindowDataFormationService<ClientResDto>, IFormationService
+    public class ShowClientStrategy : ShowContentWindowStrategy
     {
-        protected override bool EditData(ref ClientResDto dto)
+        public ShowClientStrategy(Window activeWindow) : base(activeWindow)
         {
-            if (dto is not ClientResDto item)
+        }
+
+        public override bool ShowDialog(ref object formationData)
+        {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
+            if (formationData is not ClientResDto item)
             {
                 return false;
             }
@@ -29,7 +34,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                Owner = _activeWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
@@ -38,7 +43,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.Client;
+            formationData = viewModel.Client;
 
             return true;
         }

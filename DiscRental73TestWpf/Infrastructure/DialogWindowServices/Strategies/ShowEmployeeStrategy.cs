@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Enums;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
@@ -8,34 +8,39 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ViewCdDiscFormationService : WindowDataFormationService<CdDiscResDto>, IFormationService
+    public class ShowEmployeeStrategy : ShowContentWindowStrategy
     {
-        protected override bool EditData(ref CdDiscResDto dto)
+        public ShowEmployeeStrategy(Window activeWindow) : base(activeWindow)
         {
-            if (dto is not CdDiscResDto item)
+        }
+
+        public override bool ShowDialog(ref object formationData)
+        {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
+            if (formationData is not EmployeeResDto item)
             {
                 return false;
             }
 
             if (item.Id.Equals(0))
             {
-                item.DateOfRelease = DateTime.Now;
+                item.Position = UserPosition.Employee;
             }
 
-            var viewModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
-            viewModel.CdDisc = item;
+            var viewModel = App.Host.Services.GetRequiredService<EmployeeFormationViewModel>();
+            viewModel.Employee = item;
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования CD-диска";
-            viewModelWindow.Caption = "CD-диск";
+            viewModelWindow.Title = "Окно формирования сотрудника";
+            viewModelWindow.Caption = "Сотрудник";
 
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                Owner = _activeWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
@@ -44,8 +49,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices
                 return false;
             }
 
-            dto = viewModel.CdDisc;
-            if (string.IsNullOrEmpty(dto.Genre)) dto.Genre = null;
+            formationData = viewModel.Employee;
 
             return true;
         }

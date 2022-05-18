@@ -1,25 +1,18 @@
-﻿using System;
+﻿using DiscRental73TestWpf.Infrastructure.Interfaces;
 using System.Linq;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
 {
-    public abstract class WindowDataFormationService<T> where T : class
+    public class WindowDataFormationService : IFormationService
     {
         protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
+        public ShowContentWindowStrategy? ShowStrategy { get; set; }
 
-        public bool Edit(object item)
+        public bool ShowContent(ref object formationData)
         {
-            if (item is null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-            if (item is not T resDto)
-            {
-                throw new NotSupportedException($"Редактирование объекта типа {item.GetType().Name} не поддерживается");
-            }
-
-            return EditData(ref resDto);
+            if (ShowStrategy is null) return false;
+            return ShowStrategy.ShowDialog(ref formationData);
         }
 
         public void ShowInformation(string Information, string Caption)
@@ -46,7 +39,5 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
                 Exclamation ? MessageBoxImage.Exclamation : MessageBoxImage.Question)
                 == MessageBoxResult.Yes;
         }
-
-        protected abstract bool EditData(ref T dto);
     }
 }

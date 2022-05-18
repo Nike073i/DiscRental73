@@ -71,7 +71,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         private void OnEditItemCommand(object? p)
         {
-            if (!_dialogService.Edit(p)) return;
+            if (!_dialogService.ShowContent(ref p)) return;
 
             try
             {
@@ -98,7 +98,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
         private void OnCreateNewItemCommand(object? p)
         {
             var item = new Res();
-            if (!_dialogService.Edit(item)) return;
+            if (!_dialogService.ShowContent(ref item)) return;
             try
             {
                 var reqDto = CreateReqDtoToCreate(item);
