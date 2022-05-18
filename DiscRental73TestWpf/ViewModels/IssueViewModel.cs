@@ -1,11 +1,9 @@
 ﻿using BusinessLogic.BusinessLogics;
-using MathCore.WPF.Commands;
-using System;
-using System.Windows.Input;
+using MathCore.WPF.ViewModels;
 
 namespace DiscRental73TestWpf.ViewModels
 {
-    internal class IssueViewModel
+    public class IssueViewModel : ViewModel
     {
         private readonly SellService _sellService;
         private readonly RentalService _rentalService;

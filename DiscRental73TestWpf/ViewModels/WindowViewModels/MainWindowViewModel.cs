@@ -114,5 +114,19 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         }
 
         #endregion
+
+        #region ShowIssueViewCommand - ICommand - команда для вызова формы оформлений
+
+        private ICommand _ShowIssueViewCommand;
+
+        public ICommand ShowIssueViewCommand => _ShowIssueViewCommand
+            ??= new LambdaCommand(OnShowIssueViewCommand);
+
+        private void OnShowIssueViewCommand()
+        {
+            CurrentModel = App.Host.Services.GetRequiredService<IssueViewModel>();
+        }
+
+        #endregion
     }
 }

@@ -21,9 +21,9 @@
                 <MenuItem Header="Сотрудники" Command="{Binding ShowEmployeeManagementViewCommand}"/>
                 <MenuItem Header="Продукция" Command="{Binding ShowProductManagementViewCommand}"/>
             </MenuItem>
-            <MenuItem Header="Оформление"/>
-            <MenuItem Header="Администратор"/>
+            <MenuItem Header="Оформление" Command="{Binding ShowIssueViewCommand}"/>
             <MenuItem Header="Заставка"/>
+            <MenuItem Header="Администратор" Visibility="Collapsed"/>
         </Menu>
         <Grid>
             <ContentControl Content="{Binding CurrentModel}"/>

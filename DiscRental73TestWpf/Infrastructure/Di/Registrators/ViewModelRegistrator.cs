@@ -16,6 +16,7 @@ namespace DiscRental73TestWpf.ViewModels
             services.AddSingleton<ClientManagementViewModel>();
             services.AddSingleton<EmployeeManagementViewModel>();
             services.AddSingleton<ProductManagementViewModel>();
+            services.AddSingleton<IssueViewModel>();
 
             services.AddSingleton<EntityFormationWindowViewModel>();
             services.AddSingleton<CdDiscFormationViewModel>();

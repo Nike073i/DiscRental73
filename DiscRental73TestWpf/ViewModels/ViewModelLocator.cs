@@ -29,5 +29,7 @@ namespace DiscRental73TestWpf.ViewModels
         public ProductFormationViewModel ProductFormationViewModel => App.Host.Services.GetRequiredService<ProductFormationViewModel>();
         public EditProductCostFormationViewModel EditProductCostFormationViewModel => App.Host.Services.GetRequiredService<EditProductCostFormationViewModel>();
         public EditProductQuantityFormationViewModel EditProductQuantityFormationViewModel => App.Host.Services.GetRequiredService<EditProductQuantityFormationViewModel>();
+
+        public IssueViewModel IssueViewModel => App.Host.Services.GetRequiredService<IssueViewModel>();
     }
 }
