@@ -8,6 +8,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Style.Triggers>
+                    <Trigger Property="Grid.Column" Value="0">
+                        <Setter Property="Padding" Value="20 5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -19,7 +28,64 @@
             <Image Source="/Views/IconDisc.png" MaxHeight="400" MaxWidth="500"/>
         </DockPanel>
         <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Background="{StaticResource PrimaryHueMidBrush}">
-                <StackPanel x:Name="Menu" Margin="10"/>
+            <StackPanel Margin="3">
+                <DockPanel>
+                    <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Cart" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                    <Expander Header="Продажа" DockPanel.Dock="Right" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="White">
+                        <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Оформить продажу">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding IssueSellCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                            <TextBlock Text="Оформить возврат">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding CancelSellCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </ListView>
+                    </Expander>
+                </DockPanel>
+                <DockPanel>
+                    <materialDesign:PackIcon DockPanel.Dock="Left" Kind="BackupRestore" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                    <Expander Header="Прокат" DockPanel.Dock="Right" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="White">
+                        <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Оформить прокат">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding IssueRentalCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                            <TextBlock Text="Оформить возврат">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding IssueRentalCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                            <TextBlock Text="Отмена проката">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding CancelRentalCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </ListView>
+                    </Expander>
+                </DockPanel>
+                <DockPanel>
+                    <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Cog" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                    <Expander Header="Система" DockPanel.Dock="Right" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="White">
+                        <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Администрирование" Visibility="Collapsed">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ShowAdminViewCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                            <TextBlock Text="Выход">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ExitCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </ListView>
+                    </Expander>
+                </DockPanel>
+            </StackPanel>
             </ScrollViewer>
         </Grid>
 </UserControl>

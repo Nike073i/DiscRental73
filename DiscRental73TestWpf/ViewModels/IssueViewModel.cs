@@ -1,5 +1,7 @@
 ﻿using BusinessLogic.BusinessLogics;
+using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels
 {
@@ -14,32 +16,102 @@ namespace DiscRental73TestWpf.ViewModels
             _rentalService = rentalService;
         }
 
-        //#region DeleteCommand - удаление элемента
+        #region IssueRentalCommand - команда оформления проката
 
-        //private ICommand _DeleteCommand;
+        private ICommand _IssueRentalCommand;
 
-        //public ICommand DeleteCommand => _DeleteCommand ??= new LambdaCommand(OnDeleteCommand, CanDeleteCommand);
+        public ICommand IssueRentalCommand => _IssueRentalCommand ??= new LambdaCommand(OnIssueRentalCommand);
 
-        //private bool CanDeleteCommand(object? p) => p is Res;
+        private void OnIssueRentalCommand(object? p)
+        {
+            //if (!_dialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
+            //try
+            //{
+            //    var resDto = p as Res;
+            //    var reqDto = CreateReqDtoToDelete(resDto);
+            //    _service.DeleteById(reqDto);
+            //    _dialogService.ShowInformation("Запись удалена", "Успех");
+            //    OnPropertyChanged(nameof(Items));
+            //}
+            //catch (Exception ex)
+            //{
+            //    _dialogService.ShowWarning(ex.Message, "Ошибка удаления");
+            //}
+        }
 
-        //private void OnDeleteCommand(object? p)
-        //{
-        //    if (!_dialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
-        //    try
-        //    {
-        //        var resDto = p as Res;
-        //        var reqDto = CreateReqDtoToDelete(resDto);
-        //        _service.DeleteById(reqDto);
-        //        _dialogService.ShowInformation("Запись удалена", "Успех");
-        //        OnPropertyChanged(nameof(Items));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _dialogService.ShowWarning(ex.Message, "Ошибка удаления");
-        //    }
-        //}
+        #endregion
 
-        //#endregion
+        #region IssueReturnCommand - команда оформления возврата
+
+        private ICommand _IssueReturnCommand;
+
+        public ICommand IssueReturnCommand => _IssueReturnCommand ??= new LambdaCommand(OnIssueReturnCommand);
+
+        private void OnIssueReturnCommand(object? p)
+        {
+        }
+
+        #endregion
+
+        #region CancelRentalCommand - команда отмены проката
+
+        private ICommand _CancelRentalCommand;
+
+        public ICommand CancelRentalCommand => _CancelRentalCommand ??= new LambdaCommand(OnCancelRentalCommand);
+
+        private void OnCancelRentalCommand(object? p)
+        {
+        }
+
+        #endregion
+
+        #region IssueSellCommand - команда оформления продажи
+
+        private ICommand _IssueSellCommand;
+
+        public ICommand IssueSellCommand => _IssueSellCommand ??= new LambdaCommand(OnIssueSellCommand);
+
+        private void OnIssueSellCommand(object? p)
+        {
+        }
+
+        #endregion
+
+        #region CancelSellCommand - команда отмены продажи
+
+        private ICommand _CancelSellCommand;
+
+        public ICommand CancelSellCommand => _CancelSellCommand ??= new LambdaCommand(OnCancelSellCommand);
+
+        private void OnCancelSellCommand(object? p)
+        {
+        }
+
+        #endregion
+
+        #region ExitCommand - команда выхода из текущего пользователя
+
+        private ICommand _ExitCommand;
+
+        public ICommand ExitCommand => _ExitCommand ??= new LambdaCommand(OnExitCommand);
+
+        private void OnExitCommand(object? p)
+        {
+        }
+
+        #endregion
+
+        #region ShowAdminViewCommand - команда вызова окна администратора
+
+        private ICommand _ShowAdminViewCommand;
+
+        public ICommand ShowAdminViewCommand => _ShowAdminViewCommand ??= new LambdaCommand(OnShowAdminViewCommand);
+
+        private void OnShowAdminViewCommand(object? p)
+        {
+        }
+
+        #endregion
 
         //#region EditItemCommand - редактирование элемента
 
