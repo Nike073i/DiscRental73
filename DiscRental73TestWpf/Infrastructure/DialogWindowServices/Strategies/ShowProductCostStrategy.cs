@@ -20,6 +20,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             }
 
             var viewModel = App.Host.Services.GetRequiredService<EditProductCostFormationViewModel>();
+            viewModel.EditProductCostModel = item;
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -38,7 +39,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
                 return false;
             }
 
-            formationData = viewModel.NewCost;
+            formationData = viewModel.EditProductCostModel;
 
             return true;
         }

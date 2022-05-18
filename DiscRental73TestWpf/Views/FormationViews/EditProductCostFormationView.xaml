@@ -33,9 +33,10 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Стоимость:"/>
         <TextBox Grid.Column="1" Grid.Row="0">
             <TextBox.Text>
-                <Binding Path="NewCost" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="EditProductCostModel.NewCost" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{2})|(.\d{2}))?$" RegexExample="100.0" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{1,2})|(.\d{1,2}))?$" RegexExample="100.00" ValidatesOnTargetUpdated="True"/>
+                        <vr:DoubleValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                     <Binding.Converter>
                         <cv:DoubleConverter/>

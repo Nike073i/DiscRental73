@@ -27,14 +27,14 @@
                     </Grid.RowDefinitions>
                     <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green" Padding="0,5" Margin="3,0"
                             Command="{Binding CreateNewProductCommand}"/>
-                    <Button fa:Awesome.Content="Solid_Truck" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditQuantityCommand}" CommandParameter="{Binding SelectedProduct}"/>
+                    <Button fa:Awesome.Content="Solid_Truck" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditQuantityCommand}" CommandParameter="{Binding SelectedItem}"/>
 
                     <Button fa:Awesome.Content="Regular_Eye" Grid.Column="0" Grid.Row="1" Foreground="Red" Padding="0,5" Margin="3,0"
-                            Command="{Binding ChangeAvailableProductCommand}" CommandParameter="{Binding SelectedProduct}"/>
+                            Command="{Binding ChangeAvailableProductCommand}" CommandParameter="{Binding SelectedItem}"/>
                     <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0" Command="{Binding RefreshCommand}"/>
-                    <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan" Padding="0,5" Margin="3,0" Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedProduct}"/>
+                    <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan" Padding="0,5" Margin="3,0" Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedItem}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -51,7 +51,7 @@
                 </ListBox>
             </DockPanel>
         </GroupBox>
-        <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedProduct}">
+        <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">
             <Grid Margin="3">
                 <Grid.Resources>
                     <Style TargetType="TextBlock">

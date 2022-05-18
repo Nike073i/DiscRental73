@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                          xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
              mc:Ignorable="d" 
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              DataContext="{Binding EditProductQuantityFormationViewModel, Source={StaticResource Locator}}"
              d:DesignHeight="40" d:DesignWidth="400">
     <Grid Margin="3">
         <Grid.Resources>
-            <Style TargetType="tk:IntegerUpDown">
+            <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError"
@@ -31,15 +31,19 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="На сколько изменить:"/>
-        <tk:IntegerUpDown Grid.Column="1" Grid.Row="0">
-            <tk:IntegerUpDown.Value>
-                <Binding Path="EditQuantity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+        <TextBox Grid.Column="1" Grid.Row="0">
+            <TextBox.Text>
+                <Binding Path="EditQuantityModel.EditQuantity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:IntValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:IntValueValidationRule MinValue="-10000" MaxValue="10000" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^-?(\d+)$" RegexExample="100" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
+                    <Binding.Converter>
+                        <cv:IntegerConverter/>
+                    </Binding.Converter>
                 </Binding>
-            </tk:IntegerUpDown.Value>
-        </tk:IntegerUpDown>
+            </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>
 

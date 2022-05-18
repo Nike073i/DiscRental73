@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
              xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"   
             xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              DataContext="{Binding ProductFormationViewModel, Source={StaticResource Locator}}"
@@ -24,17 +24,7 @@
             <Style TargetType="ComboBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
             </Style>
-            <Style TargetType="tk:DoubleUpDown">
-                <Setter Property="Margin" Value="3,2,0,2"/>
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError"
-                         Value="True">
-                        <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="tk:IntegerUpDown">
+            <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError"
@@ -48,17 +38,7 @@
                 <Setter Property="Margin" Value="3,2,0,2"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
             </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="Margin" Value="3,2,0,2"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError"
-                         Value="True">
-                        <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
+           
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -92,25 +72,33 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <tk:DoubleUpDown Grid.Column="1" Grid.Row="1">
-            <tk:DoubleUpDown.Value>
+        <TextBox Grid.Column="1" Grid.Row="1">
+            <TextBox.Text>
                 <Binding Path="Product.Cost" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:DoubleValueValidationRule IsNullable="True" MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{1,2})|(.\d{1,2}))?$" RegexExample="100.0" ValidatesOnTargetUpdated="True"/>
+                        <vr:DoubleValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
+                    <Binding.Converter>
+                        <cv:DoubleConverter/>
+                    </Binding.Converter>
                 </Binding>
-            </tk:DoubleUpDown.Value>
-        </tk:DoubleUpDown>
+            </TextBox.Text>
+        </TextBox>
 
-        <tk:IntegerUpDown Grid.Column="1" Grid.Row="2">
-            <tk:IntegerUpDown.Value>
+        <TextBox Grid.Column="1" Grid.Row="2">
+            <TextBox.Text>
                 <Binding Path="Product.Quantity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:IntValueValidationRule IsNullable="True" MinValue="0" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^\d+$" RegexExample="100.0" ValidatesOnTargetUpdated="True"/>
+                        <vr:IntValueValidationRule MinValue="0" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
+                    <Binding.Converter>
+                        <cv:IntegerConverter/>
+                    </Binding.Converter>
                 </Binding>
-            </tk:IntegerUpDown.Value>
-        </tk:IntegerUpDown>
+            </TextBox.Text>
+        </TextBox>
         <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Product.IsAvailable}"/>
     </Grid>
 </UserControl>

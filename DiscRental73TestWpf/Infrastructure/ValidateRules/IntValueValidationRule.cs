@@ -30,7 +30,7 @@ namespace DiscRental73TestWpf.Infrastructure.ValidateRules
             get => _MinValue;
             set
             {
-                if (value > _MaxValue || value < 1) return;
+                if (value > _MaxValue) return;
                 _MinValue = value;
             }
         }

@@ -1,18 +1,19 @@
-﻿using DiscRental73TestWpf.ViewModels.Base;
+﻿using DiscRental73TestWpf.Infrastructure.HelperModels;
+using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class EditProductCostFormationViewModel : FormationViewModel
     {
-        #region double NewCost - Новая цена продукта
+        #region EditProductCostModel EditProductCostModel - модель измененич цены продукта
 
-        private double _NewCost;
+        private EditProductCostModel _EditProductCostModel;
 
         /// <summary>Новая цена продукта</summary>
-        public double NewCost
+        public EditProductCostModel EditProductCostModel
         {
-            get => _NewCost;
-            set => Set(ref _NewCost, value);
+            get => _EditProductCostModel;
+            set => Set(ref _EditProductCostModel, value);
         }
 
         #endregion

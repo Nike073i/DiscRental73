@@ -109,14 +109,15 @@
             </TextBox.Text>
         </TextBox>
 
-        <tk:IntegerUpDown Grid.Column="1" Grid.Row="4">
-            <tk:IntegerUpDown.Value>
+        <TextBox Grid.Column="1" Grid.Row="4">
+            <TextBox.Text>
                 <Binding Path="CdDisc.NumberOfTracks" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:IntValueValidationRule IsNullable="True" MinValue="1" MaxValue="100" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule IsNullable="True" RegexFormat="^\d+$" RegexExample="10" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
-            </tk:IntegerUpDown.Value>
-        </tk:IntegerUpDown>
+            </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>
