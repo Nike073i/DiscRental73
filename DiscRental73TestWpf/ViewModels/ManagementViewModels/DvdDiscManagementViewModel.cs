@@ -1,16 +1,19 @@
 ﻿using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
-    public class DvdDiscManagementViewModel : EntityManagemenetViewModel<DvdDiscReqDto, DvdDiscResDto>
+    public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto, DvdDiscResDto>
     {
-        public DvdDiscManagementViewModel(DvdDiscService service, ViewDvdDiscFormationService dialogService) : base(service, dialogService)
+        public DvdDiscManagementViewModel(DvdDiscService service, WindowDataFormationService dialogService) : base(service, dialogService)
         {
         }
+
+        protected override ShowDvdDiscStrategy CreateContentStrategy() => new();
 
         protected override DvdDiscReqDto CreateReqDtoToCreate(DvdDiscResDto resDto)
         {

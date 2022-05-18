@@ -1,51 +1,38 @@
 ﻿using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
+using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
-using MathCore.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
-    public class ProductManagementViewModel : ViewModel
+    public class ProductManagementViewModel : EntityManagementViewModel
     {
         private readonly ProductService _service;
         private readonly DiscService _discService;
-        private readonly WindowProductFormationService _productDialogService;
-        private readonly IFormationService _EditProductQuantityDialogService;
-        private readonly IFormationService _EditProductCostDialogService;
 
-        public ProductManagementViewModel(ProductService productService,
-            ViewProductFormationService dialogService, DiscService discService,
-            ViewEditProductQuantityFormationService editProductQuantityService,
-            ViewEditProductCostFormationService editProductCostService)
+        private ShowProductStrategy _ProductStrategy;
+        public ShowProductStrategy ProductStrategy => _ProductStrategy ??= new ShowProductStrategy();
+
+        private ShowProductCostStrategy _ProductCostStrategy;
+        public ShowProductCostStrategy ProductCostStrategy => _ProductCostStrategy ??= new ShowProductCostStrategy();
+
+        private ShowProductQuantityStrategy _ProductQuantityStrategy;
+        public ShowProductQuantityStrategy ProductQuantityStrategy => _ProductQuantityStrategy ??= new ShowProductQuantityStrategy();
+
+        public override IEnumerable<ProductResDto> Items => _service.GetAll();
+
+        public ProductManagementViewModel(ProductService productService, WindowDataFormationService dialogService, DiscService discService) : base(dialogService)
         {
             _service = productService;
-            _productDialogService = dialogService;
             _discService = discService;
-            _EditProductQuantityDialogService = editProductQuantityService;
-            _EditProductCostDialogService = editProductCostService;
         }
-
-        public IEnumerable<ProductResDto> Products => _service.GetAll();
-
-        #region SelectedProduct - ProductResDto - модель выбранного продукта
-
-        private ProductResDto _SelectedProduct;
-
-        public ProductResDto SelectedProduct
-        {
-            get => _SelectedProduct;
-            set => Set(ref _SelectedProduct, value);
-        }
-
-        #endregion
 
         #region CreateNewProductCommand - создание продукта
 
@@ -55,20 +42,23 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnCreateNewProductCommand(object? p)
         {
-            var item = new ProductResDto();
-            _productDialogService.Discs = _discService.GetDiscs();
+            object item = new ProductResDto();
+            var strategy = ProductStrategy;
+            strategy.Discs = _discService.GetDiscs();
 
-            if (!_productDialogService.Edit(item)) return;
+            _dialogService.ShowStrategy = strategy;
+
+            if (!_dialogService.ShowContent(ref item)) return;
             try
             {
-                var reqDto = CreateReqDtoToCreate(item);
+                var reqDto = CreateReqDtoToCreate(item as ProductResDto);
                 _service.Create(reqDto);
-                _productDialogService.ShowInformation("Запись создана", "Успех");
-                OnPropertyChanged(nameof(Products));
+                _dialogService.ShowInformation("Запись создана", "Успех");
+                OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _productDialogService.ShowWarning(ex.Message, "Ошибка создания");
+                _dialogService.ShowWarning(ex.Message, "Ошибка создания");
             }
         }
 
@@ -93,12 +83,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                     IsAvailable = !resDto.IsAvailable
                 };
                 _service.ChangeAvailable(reqDto);
-                _EditProductQuantityDialogService.ShowInformation("Доступность изменена", "Успех");
-                OnPropertyChanged(nameof(Products));
+                _dialogService.ShowInformation("Доступность изменена", "Успех");
+                OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _EditProductQuantityDialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
+                _dialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
             }
         }
 
@@ -115,27 +105,29 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         private void OnEditQuantityCommand(object? p)
         {
             var product = p as ProductResDto;
-            var model = new EditProductQuantityModel
+            object model = new EditProductQuantityModel
             {
                 ProductId = product.Id,
                 DiscTitle = product.DiscTitle,
                 CurrentQuantity = product.Quantity,
                 EditQuantity = 5
             };
-            if (!_EditProductQuantityDialogService.Edit(model)) return;
+            _dialogService.ShowStrategy = ProductQuantityStrategy;
+            if (!_dialogService.ShowContent(ref model)) return;
             try
             {
+                var reqDto = model as EditProductQuantityModel;
                 _service.EditProductQuantity(new EditProductQuantityReqDto
                 {
-                    ProductId = model.ProductId,
-                    EditQuantity = model.EditQuantity
+                    ProductId = reqDto.ProductId,
+                    EditQuantity = reqDto.EditQuantity
                 });
-                _EditProductQuantityDialogService.ShowInformation("Количество измененно", "Успех");
-                OnPropertyChanged(nameof(Products));
+                _dialogService.ShowInformation("Количество измененно", "Успех");
+                OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _EditProductQuantityDialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
 
@@ -151,41 +143,31 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnChangeCostCommand(object? p)
         {
+            _dialogService.ShowStrategy = ProductCostStrategy;
             var product = p as ProductResDto;
-            var model = new EditProductCostModel
+            object model = new EditProductCostModel
             {
                 ProductId = product.Id,
                 DiscTitle = product.DiscTitle,
                 CurrentCost = product.Cost,
             };
-            if (!_EditProductCostDialogService.Edit(model)) return;
+            if (!_dialogService.ShowContent(ref model)) return;
             try
             {
+                var reqDto = model as EditProductCostModel;
                 _service.ChangeProductCost(new ChangeProductCostReqDto
                 {
-                    ProductId = model.ProductId,
-                    Cost = model.NewCost
+                    ProductId = reqDto.ProductId,
+                    Cost = reqDto.NewCost
                 });
-                _EditProductCostDialogService.ShowInformation("Количество измененно", "Успех");
-                OnPropertyChanged(nameof(Products));
+                _dialogService.ShowInformation("Количество измененно", "Успех");
+                OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _EditProductCostDialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
-
-        #endregion
-
-        #region RefreshCommand - обновление списка элементов
-
-        private ICommand _RefreshCommand;
-
-        public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand, CanRefreshCommand);
-
-        private bool CanRefreshCommand(object? p) => _service is not null;
-
-        private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Products));
 
         #endregion
 

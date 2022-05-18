@@ -11,10 +11,6 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowClientStrategy : ShowContentWindowStrategy
     {
-        public ShowClientStrategy(Window activeWindow) : base(activeWindow)
-        {
-        }
-
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -34,7 +30,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = _activeWindow,
+                Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 

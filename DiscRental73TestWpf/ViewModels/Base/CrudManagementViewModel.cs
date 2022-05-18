@@ -1,38 +1,26 @@
 ﻿using BusinessLogic.BusinessLogics.Base;
 using BusinessLogic.Interfaces.Storages.Base;
-using DiscRental73TestWpf.Infrastructure.Interfaces;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using MathCore.WPF.Commands;
-using MathCore.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.Base
 {
-    public abstract class EntityManagemenetViewModel<Req, Res> : ViewModel where Req : ReqDto, new() where Res : ResDto, new()
+    public abstract class CrudManagementViewModel<Req, Res> : EntityManagementViewModel where Req : ReqDto, new() where Res : ResDto, new()
     {
         private readonly CrudService<Req, Res> _service;
-        private readonly IFormationService _dialogService;
 
-        public EntityManagemenetViewModel(CrudService<Req, Res> service, IFormationService dialogService)
+        private ShowContentWindowStrategy _ShowStrategy;
+        protected ShowContentWindowStrategy ShowStrategy => _ShowStrategy ??= CreateContentStrategy();
+
+        public CrudManagementViewModel(CrudService<Req, Res> service, WindowDataFormationService dialogService) : base(dialogService)
         {
             _service = service;
-            _dialogService = dialogService;
         }
 
-        public IEnumerable<Res> Items => _service.GetAll();
-
-        #region SelectedItem - Res - модель выбранного элемента
-
-        private Res _SelectedItem;
-
-        public Res SelectedItem
-        {
-            get => _SelectedItem;
-            set => Set(ref _SelectedItem, value);
-        }
-
-        #endregion
+        public override IEnumerable<Res> Items => _service.GetAll();
 
         #region DeleteCommand - удаление элемента
 
@@ -71,8 +59,8 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         private void OnEditItemCommand(object? p)
         {
+            _dialogService.ShowStrategy = ShowStrategy;
             if (!_dialogService.ShowContent(ref p)) return;
-
             try
             {
                 var resDto = p as Res;
@@ -97,11 +85,12 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         private void OnCreateNewItemCommand(object? p)
         {
-            var item = new Res();
+            _dialogService.ShowStrategy = ShowStrategy;
+            object item = new Res();
             if (!_dialogService.ShowContent(ref item)) return;
             try
             {
-                var reqDto = CreateReqDtoToCreate(item);
+                var reqDto = CreateReqDtoToCreate(item as Res);
                 _service.Save(reqDto);
                 _dialogService.ShowInformation("Запись создана", "Успех");
                 OnPropertyChanged(nameof(Items));
@@ -115,17 +104,6 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         #endregion
 
-        #region RefreshCommand - обновление списка элементов
-
-        private ICommand _RefreshCommand;
-
-        public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand, CanRefreshCommand);
-
-        private bool CanRefreshCommand(object? p) => _service is not null;
-
-        private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Items));
-
-        #endregion
 
         protected virtual Req CreateReqDtoToDelete(Res resDto)
         {
@@ -136,8 +114,9 @@ namespace DiscRental73TestWpf.ViewModels.Base
             return reqDto;
         }
 
+        protected abstract Req CreateReqDtoToCreate(Res resDto);
         protected abstract Req CreateReqDtoToUpdate(Res resDto);
 
-        protected abstract Req CreateReqDtoToCreate(Res resDto);
+        protected abstract ShowContentWindowStrategy CreateContentStrategy();
     }
 }

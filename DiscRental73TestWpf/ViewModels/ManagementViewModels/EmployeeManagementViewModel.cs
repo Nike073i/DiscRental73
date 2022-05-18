@@ -1,16 +1,19 @@
 ﻿using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
-    public class EmployeeManagementViewModel : EntityManagemenetViewModel<EmployeeReqDto, EmployeeResDto>
+    public class EmployeeManagementViewModel : CrudManagementViewModel<EmployeeReqDto, EmployeeResDto>
     {
-        public EmployeeManagementViewModel(EmployeeService service, ViewEmployeeFormationService dialogService) : base(service, dialogService)
+        public EmployeeManagementViewModel(EmployeeService service, WindowDataFormationService dialogService) : base(service, dialogService)
         {
         }
+
+        protected override ShowEmployeeStrategy CreateContentStrategy() => new();
 
         protected override EmployeeReqDto CreateReqDtoToCreate(EmployeeResDto resDto)
         {

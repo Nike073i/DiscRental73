@@ -12,6 +12,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
         public bool ShowContent(ref object formationData)
         {
             if (ShowStrategy is null) return false;
+            ShowStrategy.ActiveWindow = ActiveWindow;
             return ShowStrategy.ShowDialog(ref formationData);
         }
 

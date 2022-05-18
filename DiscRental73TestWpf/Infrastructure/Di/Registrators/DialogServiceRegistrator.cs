@@ -1,4 +1,4 @@
-﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf
@@ -7,14 +7,7 @@ namespace DiscRental73TestWpf
     {
         public static IServiceCollection RegisterDialogServices(this IServiceCollection services)
         {
-            services.AddSingleton<ViewCdDiscFormationService>();
-            services.AddSingleton<ViewDvdDiscFormationService>();
-            services.AddSingleton<ViewBluRayDiscFormationService>();
-            services.AddSingleton<ViewClientFormationService>();
-            services.AddSingleton<ViewEmployeeFormationService>();
-            services.AddSingleton<ViewProductFormationService>();
-            services.AddSingleton<ViewEditProductCostFormationService>();
-            services.AddSingleton<ViewEditProductQuantityFormationService>();
+            services.AddSingleton<WindowDataFormationService>();
 
             return services;
         }
