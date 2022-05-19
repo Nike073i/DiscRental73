@@ -3,10 +3,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DiscRental73TestWpf.Views.FormationViews"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
+             xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
+             mc:Ignorable="d"             
+             d:DesignWidth="400"
+             DataContext="{Binding IssueReturnFormationViewModel, Source={StaticResource Locator}}">
+    <Grid Margin="3" Background="White">
+        <Grid.Resources>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
+                         Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
+                         Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Прокат:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Сотрудник:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Залог:"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Дата выдачи:"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата возврата:"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Сумма возврата:"/>
+
+        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Rentals}" SelectedItem="{Binding SelectedRental}" SelectedValuePath="Id">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="m:RentalResDto">
+                    <TextBlock>
+                        <TextBlock Text="{Binding DateOfIssue, StringFormat=dd.MM.yyyy}"/>
+                        <TextBlock Text="{Binding DiscTitle}"/>
+                        <TextBlock Text="{Binding ClientCNumber}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRental.EmployeeFName}"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRental.PledgeSum}"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding SelectedRental.DateOfIssue, StringFormat=dd.MM.yyyy}"/>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SelectedRental.DateOfRental, StringFormat=dd.MM.yyyy}"/>
+
+        <TextBox Grid.Column="1" Grid.Row="5">
+            <TextBox.Text>
+                <Binding Path="IssueReturnBindingModel.ReturnSum" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <vr:DoubleValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{1,2})|(.\d{1,2}))?$" RegexExample="100.00" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                    <Binding.Converter>
+                        <cv:DoubleConverter/>
+                    </Binding.Converter>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>

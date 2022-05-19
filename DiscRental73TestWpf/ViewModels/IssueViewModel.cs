@@ -21,7 +21,10 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowIssueRentalStrategy _IssueRentalStrategy;
         public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
 
-        public IssueViewModel(WindowDataFormationService dialogService,  SellService sellService, ClientService clientService,  RentalService rentalService)
+        private ShowIssueReturnStrategy _IssueReturnStrategy;
+        public ShowIssueReturnStrategy IssueReturnStrategy => _IssueReturnStrategy ??= new ShowIssueReturnStrategy();
+
+        public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService)
         {
             _sellService = sellService;
             _clientService = clientService;
@@ -76,6 +79,25 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnIssueReturnCommand(object? p)
         {
+            object item = new IssueReturnBindingModel();
+            var strategy = IssueReturnStrategy;
+            strategy.Rentals = _rentalService.GetInRental();
+            _dialogService.ShowStrategy = strategy;
+            if (!_dialogService.ShowContent(ref item)) return;
+            try
+            {
+                var model = item as IssueReturnBindingModel;
+                _rentalService.IssueReturn(new IssueReturnReqDto
+                {
+                    RentalId = model.RentalId,
+                    ReturnSum = model.ReturnSum
+                });
+                _dialogService.ShowInformation("Прокат возвращен", "Успех");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowWarning(ex.Message, "Ошибка возврата");
+            }
         }
 
         #endregion

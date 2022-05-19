@@ -46,6 +46,9 @@ namespace DatabaseStorage.Repositories
             return set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
                 .Include(rec => rec.Rentals)
+                .ThenInclude(rec => rec.Client)
+                .Include(rec => rec.Rentals)
+                .ThenInclude(rec => rec.Employee)
                 .Where(entity => !entity.IsDeleted).
                 Select(rec => _mapper.MapToRes(rec)).ToList();
         }
@@ -58,6 +61,9 @@ namespace DatabaseStorage.Repositories
             Product? entity = set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
                 .Include(rec => rec.Rentals)
+                .ThenInclude(rec => rec.Client)
+                .Include(rec => rec.Rentals)
+                .ThenInclude(rec => rec.Employee)
                 .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
             if (entity is null || entity.IsDeleted)
             {

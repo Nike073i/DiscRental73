@@ -49,11 +49,21 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
                 return false;
             }
 
+            if (!IsCompletedData(viewModel)) return false;
+
             var inputData = viewModel.IssueRentalBindingModel;
             inputData.ProductId = viewModel.SelectedProduct.Id;
-            inputData.ClientId = viewModel.SelectedProduct.Id;
+            inputData.ClientId = viewModel.SelectedClient.Id;
 
             formationData = inputData;
+
+            return true;
+        }
+
+        private bool IsCompletedData(IssueRentalFormationViewModel viewModel)
+        {
+            if (viewModel.SelectedProduct is null) return false;
+            if (viewModel.SelectedClient is null) return false;
 
             return true;
         }

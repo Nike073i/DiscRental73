@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiscRental73TestWpf.Infrastructure.HelperModels
+﻿namespace DiscRental73TestWpf.Infrastructure.HelperModels
 {
     public class IssueReturnBindingModel
     {
-
+        public int RentalId { get; set; }
+        public double ReturnSum { get; set; }
     }
 }

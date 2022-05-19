@@ -29,7 +29,7 @@ namespace DatabaseStorage.Mappers
                 DateOfRental = entity.DateOfRental,
                 PledgeSum = entity.PledgeSum,
                 ReturnSum = entity.ReturnSum,
-                DiskTitle = entity.Product.Disc.Title,
+                DiscTitle = entity.Product.Disc.Title,
                 EmployeeFName = string.Concat(entity.Employee.SecondName, " ", entity.Employee.FirstName),
                 ProductId = entity.ProductId,
                 ClientId = entity.ClientId,

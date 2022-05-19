@@ -48,7 +48,16 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
                 return false;
             }
 
+            if (!IsCompletedData(viewModel)) return false;
+
             formationData = viewModel.Product;
+
+            return true;
+        }
+
+        private bool IsCompletedData(ProductFormationViewModel viewModel)
+        {
+            if (viewModel.Product is null) return false;
 
             return true;
         }
