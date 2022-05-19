@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"       
         mc:Ignorable="d"
+        xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.WindowViewModels"
         xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands"
-        DataContext="{Binding EntityFormationWindowViewModel, Source={StaticResource Locator}}"
+        d:DataContext="{d:DesignInstance Type=vm:EntityFormationWindowViewModel, IsDesignTimeCreatable=False}"
         Title="{Binding Title}" Height="450" Width="800">
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0,7,0,0" 

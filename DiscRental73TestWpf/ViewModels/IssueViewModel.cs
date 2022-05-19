@@ -22,6 +22,7 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly SellService _sellService;
         private readonly RentalService _rentalService;
         private readonly ClientService _clientService;
+        private readonly EmployeeService _employeeService;
 
         private ShowIssueRentalStrategy _IssueRentalStrategy;
         public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
@@ -38,12 +39,13 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowCancelSellStrategy _CancelSellStrategy;
         public ShowCancelSellStrategy CancelSellStrategy => _CancelSellStrategy ??= new ShowCancelSellStrategy();
 
-        public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService)
+        public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService, EmployeeService employeeService)
         {
             _sellService = sellService;
             _clientService = clientService;
             _rentalService = rentalService;
             _dialogService = dialogService;
+            _employeeService = employeeService;
         }
 
         #region IssueRentalCommand - команда оформления проката
@@ -241,7 +243,9 @@ namespace DiscRental73TestWpf.ViewModels
         {
             var manager = App.Host.Services.GetRequiredService<AdminPluginManager>();
             if (manager.AdminPlugin is null) return;
-            manager.AdminPlugin.ShowAdminView(Program.app);
+            var plugin = manager.AdminPlugin;
+            plugin.RegisterService(_rentalService, _employeeService, _sellService);
+            plugin.ShowAdminView();
         }
 
         #endregion
