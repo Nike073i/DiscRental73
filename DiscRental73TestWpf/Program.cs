@@ -6,10 +6,11 @@ namespace DiscRental73TestWpf
 {
     public static class Program
     {
+        public static App app;
         [STAThread]
         public static void Main()
         {
-            App? app = new App();
+            app = new App();
             app.InitializeComponent();
             app.Run();
         }

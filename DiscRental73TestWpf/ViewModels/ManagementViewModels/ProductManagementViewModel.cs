@@ -38,7 +38,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private ICommand _CreateNewProductCommand;
 
-        public ICommand CreateNewProductCommand => _CreateNewProductCommand ??= new LambdaCommand(OnCreateNewProductCommand);
+        public ICommand CreateNewProductCommand => _CreateNewProductCommand ??= new LambdaCommand(OnCreateNewProductCommand, IsLoginUser);
 
         private void OnCreateNewProductCommand(object? p)
         {
@@ -70,7 +70,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         public ICommand ChangeAvailableProductCommand => _ChangeAvailableProductCommand ??= new LambdaCommand(OnChangeAvailableProduct, CanChangeAvailableProduct);
 
-        private bool CanChangeAvailableProduct(object? p) => p is ProductResDto;
+        private bool CanChangeAvailableProduct(object? p) => p is ProductResDto && IsLoginUser(p);
 
         private void OnChangeAvailableProduct(object? p)
         {
@@ -100,7 +100,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         public ICommand EditQuantityCommand => _EditQuantityCommand ??= new LambdaCommand(OnEditQuantityCommand, CanEditQuantityCommand);
 
-        private bool CanEditQuantityCommand(object? p) => p is ProductResDto;
+        private bool CanEditQuantityCommand(object? p) => p is ProductResDto && IsLoginUser(p);
 
         private void OnEditQuantityCommand(object? p)
         {
@@ -139,7 +139,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         public ICommand ChangeCostCommand => _ChangeCostCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
 
-        private bool CanChangeCostCommand(object? p) => p is ProductResDto;
+        private bool CanChangeCostCommand(object? p) => p is ProductResDto && IsLoginUser(p);
 
         private void OnChangeCostCommand(object? p)
         {

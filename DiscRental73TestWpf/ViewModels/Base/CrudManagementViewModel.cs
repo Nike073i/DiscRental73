@@ -28,7 +28,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         public ICommand DeleteCommand => _DeleteCommand ??= new LambdaCommand(OnDeleteCommand, CanDeleteCommand);
 
-        private bool CanDeleteCommand(object? p) => p is Res;
+        private bool CanDeleteCommand(object? p) => p is Res && IsLoginUser(p);
 
         private void OnDeleteCommand(object? p)
         {
@@ -55,7 +55,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         public ICommand EditItemCommand => _EditItemCommand ??= new LambdaCommand(OnEditItemCommand, CanEditItemCommand);
 
-        private bool CanEditItemCommand(object? p) => p is Res;
+        private bool CanEditItemCommand(object? p) => p is Res && IsLoginUser(p);
 
         private void OnEditItemCommand(object? p)
         {
@@ -81,7 +81,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
 
         private ICommand _CreateNewItemCommand;
 
-        public ICommand CreateNewItemCommand => _CreateNewItemCommand ??= new LambdaCommand(OnCreateNewItemCommand);
+        public ICommand CreateNewItemCommand => _CreateNewItemCommand ??= new LambdaCommand(OnCreateNewItemCommand, IsLoginUser);
 
         private void OnCreateNewItemCommand(object? p)
         {

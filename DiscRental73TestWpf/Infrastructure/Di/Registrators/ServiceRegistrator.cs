@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.BusinessLogics;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DiscRental73TestWpf
+namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
 {
     internal static class ServiceRegistrator
     {

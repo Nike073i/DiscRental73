@@ -2,7 +2,7 @@
 using DatabaseStorage.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DiscRental73TestWpf
+namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
 {
     public static class RepositoryRegistrator
     {

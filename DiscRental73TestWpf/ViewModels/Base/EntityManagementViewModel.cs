@@ -9,6 +9,8 @@ namespace DiscRental73TestWpf.ViewModels.Base
     public abstract class EntityManagementViewModel : ViewModel
     {
         protected readonly WindowDataFormationService _dialogService;
+        protected bool IsLoginUser(object? p) => App.CurrentUser is not null;
+
 
         public EntityManagementViewModel(WindowDataFormationService dialogService)
         {

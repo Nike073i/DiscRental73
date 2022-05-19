@@ -2,5 +2,6 @@
 {
     public interface IAdminPlugin
     {
+        void ShowAdminView(App app);
     }
 }

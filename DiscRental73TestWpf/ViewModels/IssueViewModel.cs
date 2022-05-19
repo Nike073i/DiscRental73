@@ -1,11 +1,16 @@
 ﻿using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
+using BusinessLogic.Enums;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
+using DiscRental73TestWpf.Infrastructure.Plugins;
+using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels
@@ -45,7 +50,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _IssueRentalCommand;
 
-        public ICommand IssueRentalCommand => _IssueRentalCommand ??= new LambdaCommand(OnIssueRentalCommand);
+        public ICommand IssueRentalCommand => _IssueRentalCommand ??= new LambdaCommand(OnIssueRentalCommand, IsLoginUser);
 
         private void OnIssueRentalCommand(object? p)
         {
@@ -57,9 +62,8 @@ namespace DiscRental73TestWpf.ViewModels
             if (!_dialogService.ShowContent(ref item)) return;
             try
             {
-                //
-                var employeeId = 3;
-                //
+                var employeeId = App.CurrentUser.Id;
+
                 var model = item as IssueRentalBindingModel;
                 _rentalService.IssueRental(new RentalReqDto
                 {
@@ -84,7 +88,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _IssueReturnCommand;
 
-        public ICommand IssueReturnCommand => _IssueReturnCommand ??= new LambdaCommand(OnIssueReturnCommand);
+        public ICommand IssueReturnCommand => _IssueReturnCommand ??= new LambdaCommand(OnIssueReturnCommand, IsLoginUser);
 
         private void OnIssueReturnCommand(object? p)
         {
@@ -115,7 +119,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _CancelRentalCommand;
 
-        public ICommand CancelRentalCommand => _CancelRentalCommand ??= new LambdaCommand(OnCancelRentalCommand);
+        public ICommand CancelRentalCommand => _CancelRentalCommand ??= new LambdaCommand(OnCancelRentalCommand, IsLoginUser);
 
         private void OnCancelRentalCommand(object? p)
         {
@@ -146,7 +150,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _IssueSellCommand;
 
-        public ICommand IssueSellCommand => _IssueSellCommand ??= new LambdaCommand(OnIssueSellCommand);
+        public ICommand IssueSellCommand => _IssueSellCommand ??= new LambdaCommand(OnIssueSellCommand, IsLoginUser);
 
         private void OnIssueSellCommand(object? p)
         {
@@ -157,9 +161,7 @@ namespace DiscRental73TestWpf.ViewModels
             if (!_dialogService.ShowContent(ref item)) return;
             try
             {
-                //
-                var employeeId = 3;
-                //
+                var employeeId = App.CurrentUser.Id;
                 var model = item as IssueSellBindingModel;
                 _sellService.SellProduct(new SellReqDto()
                 {
@@ -182,7 +184,7 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _CancelSellCommand;
 
-        public ICommand CancelSellCommand => _CancelSellCommand ??= new LambdaCommand(OnCancelSellCommand);
+        public ICommand CancelSellCommand => _CancelSellCommand ??= new LambdaCommand(OnCancelSellCommand, IsLoginUser);
 
         private void OnCancelSellCommand(object? p)
         {
@@ -217,6 +219,11 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnExitCommand(object? p)
         {
+            if (p is not Window window) return;
+            if (IsLoginUser(null)) App.CurrentUser = null;
+            var authWindow = new AuthorizationWindow();
+            authWindow.Show();
+            window.Close();
         }
 
         #endregion
@@ -225,12 +232,45 @@ namespace DiscRental73TestWpf.ViewModels
 
         private ICommand _ShowAdminViewCommand;
 
-        public ICommand ShowAdminViewCommand => _ShowAdminViewCommand ??= new LambdaCommand(OnShowAdminViewCommand);
+        public ICommand ShowAdminViewCommand => _ShowAdminViewCommand ??= new LambdaCommand(OnShowAdminViewCommand, CanShowAdminViewCommandExecute);
+
+
+        private bool CanShowAdminViewCommandExecute(object? p) => IsAdminUser;
 
         private void OnShowAdminViewCommand(object? p)
         {
+            var manager = App.Host.Services.GetRequiredService<AdminPluginManager>();
+            if (manager.AdminPlugin is null) return;
+            manager.AdminPlugin.ShowAdminView(Program.app);
         }
 
         #endregion
+
+        #region IsAdminUser bool - бит прав администратора
+
+        private bool _IsAdminUser = false;
+        public bool IsAdminUser
+        {
+            get => _IsAdminUser;
+            set => Set(ref _IsAdminUser, value);
+        }
+
+        #endregion
+
+        #region IsAdminUserCommand - команда проверки прав администратора
+
+        private ICommand _IsAdminUserCommand;
+
+        public ICommand IsAdminUserCommand => _IsAdminUserCommand ??= new LambdaCommand(OnIsAdminUserCommandExecute, IsLoginUser);
+
+        private void OnIsAdminUserCommandExecute(object? p)
+        {
+            var employee = App.CurrentUser;
+            if (employee.Position.Equals(UserPosition.Administrator)) IsAdminUser = true;
+        }
+
+        #endregion
+
+        protected bool IsLoginUser(object? p) => App.CurrentUser is not null;
     }
 }

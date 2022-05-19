@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.ViewModels;
+using DiscRental73TestWpf.Infrastructure.Di.Registrators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -19,7 +19,8 @@ namespace DiscRental73TestWpf
             services.RegisterRepositories()
                 .RegisterServices()
                 .RegisterDialogServices()
-                .RegisterViewModels();
+                .RegisterViewModels()
+                .RegisterPlugins();
         }
 
         public static string CurrentDirectory => Environment.CurrentDirectory;

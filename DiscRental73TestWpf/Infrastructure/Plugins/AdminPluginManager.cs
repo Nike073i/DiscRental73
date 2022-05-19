@@ -1,17 +1,19 @@
 ﻿using DiscRental73TestWpf.Infrastructure.Plugins.Base;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
 
 namespace DiscRental73TestWpf.Infrastructure.Plugins
 {
     public class AdminPluginManager
     {
-        [Import(typeof(IAdminPlugin))]
-        private IAdminPlugin _AdminPlugin;
+        [ImportMany(typeof(IAdminPlugin))]
+        private List<IAdminPlugin> _AdminPlugin;
 
-        public IAdminPlugin AdminPlugin => _AdminPlugin;
+        public IAdminPlugin AdminPlugin => _AdminPlugin.FirstOrDefault();
 
         public AdminPluginManager()
         {

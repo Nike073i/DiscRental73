@@ -1,9 +1,10 @@
-﻿using DiscRental73TestWpf.ViewModels.FormationViewModels;
+﻿using DiscRental73TestWpf.ViewModels;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.ManagementViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DiscRental73TestWpf.ViewModels
+namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
 {
     internal static class ViewModelRegistrator
     {
