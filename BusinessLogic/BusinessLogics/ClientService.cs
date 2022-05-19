@@ -10,7 +10,10 @@ namespace BusinessLogic.BusinessLogics
         #region Ограничения для сущности Client
 
         private const int _AddressMaxLength = 255;
+        public int AddressMaxLength => _AddressMaxLength;
+
         private const int _AddressMinLength = 1;
+        public int AddressMinLength => _AddressMinLength;
 
         #endregion
 
@@ -31,11 +34,11 @@ namespace BusinessLogic.BusinessLogics
 
             #region Проверка области допустимых значений
 
-            if (reqDto.ContactNumber.Length != _ContactNumberLength) return false;
-            if (reqDto.FirstName.Length < _FirstNameMinLength || reqDto.FirstName.Length > _FirstNameMaxLength) return false;
-            if (reqDto.SecondName.Length < _SecondNameMinLength || reqDto.SecondName.Length > _SecondNameMaxLength) return false;
+            if (reqDto.ContactNumber.Length != ContactNumberLength) return false;
+            if (reqDto.FirstName.Length < FirstNameMinLength || reqDto.FirstName.Length > FirstNameMaxLength) return false;
+            if (reqDto.SecondName.Length < SecondNameMinLength || reqDto.SecondName.Length > SecondNameMaxLength) return false;
 
-            if (reqDto.Address.Length < _AddressMinLength || reqDto.Address.Length > _AddressMaxLength) return false;
+            if (reqDto.Address.Length < AddressMinLength || reqDto.Address.Length > AddressMaxLength) return false;
 
             #endregion
 

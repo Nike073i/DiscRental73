@@ -5,6 +5,13 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class EditProductQuantityFormationViewModel : FormationViewModel
     {
+        #region Ограничения на ввод данных 
+
+        public int QuantityMaxValue { get; set; }
+        public int QuantityMinValue { get; set; }
+
+        #endregion
+
         #region EditProductQuantityModel EditQuantityModel - модель для изменения количества
 
         private EditProductQuantityModel _EditQuantityModel;

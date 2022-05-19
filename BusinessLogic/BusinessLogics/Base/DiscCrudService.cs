@@ -9,10 +9,16 @@ namespace BusinessLogic.BusinessLogics.Base
         #region Ограничения для сущности Disc
 
         protected const int _TitleMaxLength = 50;
+        public int TitleMaxLength => _TitleMaxLength;
+
         protected const int _TitleMinLength = 1;
+        public int TitleMinLength => _TitleMinLength;
 
         protected readonly DateTime _DateOfReleaseMaxDate = new DateTime(2100, 1, 1);
+        public DateTime DateOfReleaseMaxDate => _DateOfReleaseMaxDate;
+
         protected readonly DateTime _DateOfReleaseMinDate = new DateTime(1900, 1, 1);
+        public DateTime DateOfReleaseMinDate => _DateOfReleaseMinDate;
 
         #endregion
 

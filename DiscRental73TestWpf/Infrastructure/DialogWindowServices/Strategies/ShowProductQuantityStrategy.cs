@@ -11,6 +11,13 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowProductQuantityStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int QuantityMaxValue { get; set; }
+        public int QuantityMinValue { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -21,6 +28,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<EditProductQuantityFormationViewModel>();
             viewModel.EditQuantityModel = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -42,6 +50,12 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = viewModel.EditQuantityModel;
 
             return true;
+        }
+
+        private void SetValueRange(EditProductQuantityFormationViewModel viewModel)
+        {
+            viewModel.QuantityMaxValue = QuantityMaxValue;
+            viewModel.QuantityMinValue = QuantityMinValue;
         }
     }
 }

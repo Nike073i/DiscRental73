@@ -12,13 +12,22 @@ namespace BusinessLogic.BusinessLogics
         #region Ограничения для сущности Rental
 
         private readonly DateTime _DateMaxValue = new DateTime(2100, 1, 1);
+        public DateTime DateMaxValue => _DateMaxValue;
+
         private readonly DateTime _DateMinValue = new DateTime(2000, 1, 1);
+        public DateTime DateMinValue => _DateMinValue;
 
         private const double _PledgeSumMaxValue = 100000d;
+        public double PledgeSumMaxValue => _PledgeSumMaxValue;
+
         private const double _PledgeSumMinValue = 1d;
+        public double PledgeSumMinValue => _PledgeSumMinValue;
 
         private const double _ReturnSumMaxValue = 100000d;
+        public double ReturnSumMaxValue => _ReturnSumMaxValue;
+
         private const double _ReturnSumMinValue = 0d;
+        public double ReturnSumMinValue => _ReturnSumMinValue;
 
         #endregion
 
@@ -108,11 +117,11 @@ namespace BusinessLogic.BusinessLogics
         {
             #region Проверка области допустимых значений
 
-            if (reqDto.DateOfIssue < _DateMinValue || reqDto.DateOfIssue > _DateMaxValue) return false;
-            if (reqDto.DateOfRental < reqDto.DateOfIssue || reqDto.DateOfRental < _DateMinValue || reqDto.DateOfIssue > _DateMaxValue) return false;
-            if (reqDto.PledgeSum < _PledgeSumMinValue || reqDto.ReturnSum > _PledgeSumMaxValue) return false;
+            if (reqDto.DateOfIssue < DateMinValue || reqDto.DateOfIssue > DateMaxValue) return false;
+            if (reqDto.DateOfRental < reqDto.DateOfIssue || reqDto.DateOfRental < DateMinValue || reqDto.DateOfIssue > DateMaxValue) return false;
+            if (reqDto.PledgeSum < PledgeSumMinValue || reqDto.ReturnSum > PledgeSumMaxValue) return false;
 
-            if (reqDto.ReturnSum is not null && (reqDto.ReturnSum < _ReturnSumMinValue || reqDto.ReturnSum > _ReturnSumMaxValue)) return false;
+            if (reqDto.ReturnSum is not null && (reqDto.ReturnSum < ReturnSumMinValue || reqDto.ReturnSum > ReturnSumMaxValue)) return false;
 
             #endregion
 

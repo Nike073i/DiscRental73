@@ -10,10 +10,16 @@ namespace BusinessLogic.BusinessLogics
         #region Ограничения для сущности Employee
 
         private const int _PasswordMaxLength = 25;
+        public int PasswordMaxLength => _PasswordMaxLength;
+
         private const int _PasswordMinLength = 5;
+        public int PasswordMinLength => _PasswordMinLength;
 
         private const float _PrizeMaxValue = 100000f;
+        public float PrizeMaxValue => _PrizeMaxValue;
+
         private const float _PrizeMinValue = 1f;
+        public float PrizeMinValue => _PrizeMinValue;
 
         #endregion
 
@@ -36,12 +42,12 @@ namespace BusinessLogic.BusinessLogics
 
             #region Проверка области допустимых значений
 
-            if (reqDto.ContactNumber.Length != _ContactNumberLength) return false;
-            if (reqDto.FirstName.Length < _FirstNameMinLength || reqDto.FirstName.Length > _FirstNameMaxLength) return false;
-            if (reqDto.SecondName.Length < _SecondNameMinLength || reqDto.SecondName.Length > _SecondNameMaxLength) return false;
+            if (reqDto.ContactNumber.Length != ContactNumberLength) return false;
+            if (reqDto.FirstName.Length < FirstNameMinLength || reqDto.FirstName.Length > FirstNameMaxLength) return false;
+            if (reqDto.SecondName.Length < SecondNameMinLength || reqDto.SecondName.Length > SecondNameMaxLength) return false;
 
-            if (reqDto.Password.Length < _PasswordMinLength || reqDto.Password.Length > _PasswordMaxLength) return false;
-            if (reqDto.Prize is not null && (reqDto.Prize < _PrizeMinValue || reqDto.Prize > _PrizeMaxValue)) return false;
+            if (reqDto.Password.Length < PasswordMinLength || reqDto.Password.Length > PasswordMaxLength) return false;
+            if (reqDto.Prize is not null && (reqDto.Prize < PrizeMinValue || reqDto.Prize > PrizeMaxValue)) return false;
 
             #endregion
 

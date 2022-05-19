@@ -13,6 +13,18 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowIssueRentalStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public DateTime DateMaxValue { get; set; }
+
+        public DateTime DateMinValue { get; set; }
+
+        public double PledgeSumMaxValue { get; set; }
+
+        public double PledgeSumMinValue { get; set; }
+
+        #endregion
+
         public IEnumerable<ProductResDto>? Products { get; set; }
         public IEnumerable<ClientResDto>? Clients { get; set; }
 
@@ -31,6 +43,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             viewModel.Products = Products ?? new List<ProductResDto>();
             viewModel.Clients = Clients ?? new List<ClientResDto>();
             viewModel.IssueRentalBindingModel = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -66,6 +79,14 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             if (viewModel.SelectedClient is null) return false;
 
             return true;
+        }
+        private void SetValueRange(IssueRentalFormationViewModel viewModel)
+        {
+
+            viewModel.DateMaxValue = DateMaxValue;
+            viewModel.DateMinValue = DateMinValue;
+            viewModel.PledgeSumMaxValue = PledgeSumMaxValue;
+            viewModel.PledgeSumMinValue = PledgeSumMinValue;
         }
     }
 }

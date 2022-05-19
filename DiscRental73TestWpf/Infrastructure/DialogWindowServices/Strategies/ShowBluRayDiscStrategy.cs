@@ -11,6 +11,22 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowBluRayDiscStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int TitleMaxLength { get; set; }
+        public int TitleMinLength { get; set; }
+        public DateTime DateOfReleaseMaxDate { get; set; }
+        public DateTime DateOfReleaseMinDate { get; set; }
+
+        public int PublisherMaxLength { get; set; }
+        public int PublisherMinLength { get; set; }
+        public int InfoMaxLength { get; set; }
+        public int InfoMinLength { get; set; }
+        public int SystemRequirementsMaxLength { get; set; }
+        public int SystemRequirementsMinLength { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -25,7 +41,9 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             }
 
             var viewModel = App.Host.Services.GetRequiredService<BluRayDiscFormationViewModel>();
+
             viewModel.BluRayDisc = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -52,6 +70,20 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = InputData;
 
             return true;
+        }
+
+        private void SetValueRange(BluRayDiscFormationViewModel viewModel)
+        {
+            viewModel.TitleMaxLength = TitleMaxLength;
+            viewModel.TitleMinLength = TitleMinLength;
+            viewModel.DateOfReleaseMaxDate = DateOfReleaseMaxDate;
+            viewModel.DateOfReleaseMinDate = DateOfReleaseMinDate;
+            viewModel.PublisherMaxLength = PublisherMaxLength;
+            viewModel.PublisherMinLength = PublisherMinLength;
+            viewModel.InfoMaxLength = InfoMaxLength;
+            viewModel.InfoMinLength = InfoMinLength;
+            viewModel.SystemRequirementsMaxLength = SystemRequirementsMaxLength;
+            viewModel.SystemRequirementsMinLength = SystemRequirementsMinLength;
         }
     }
 }

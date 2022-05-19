@@ -1,12 +1,25 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class IssueRentalFormationViewModel : FormationViewModel
     {
+        #region Ограничения на ввод данных 
+
+        public DateTime DateMaxValue { get; set; }
+
+        public DateTime DateMinValue { get; set; }
+
+        public double PledgeSumMaxValue { get; set; }
+
+        public double PledgeSumMinValue { get; set; }
+
+        #endregion
+
         #region ProductResDto SelectedProduct - выбранный продукт
 
         private ProductResDto _SelectedProduct;

@@ -9,12 +9,19 @@ namespace BusinessLogic.BusinessLogics.Base
         #region Ограничения для сущности Person
 
         protected const int _ContactNumberLength = 12;
+        public int ContactNumberLength => _ContactNumberLength;
 
         protected const int _FirstNameMaxLength = 25;
+        public int FirstNameMaxLength => _FirstNameMaxLength;
+
         protected const int _FirstNameMinLength = 1;
+        public int FirstNameMinLength => _FirstNameMinLength;
 
         protected const int _SecondNameMaxLength = 25;
+        public int SecondNameMaxLength => _SecondNameMaxLength;
+
         protected const int _SecondNameMinLength = 1;
+        public int SecondNameMinLength => _SecondNameMinLength;
 
         #endregion
 

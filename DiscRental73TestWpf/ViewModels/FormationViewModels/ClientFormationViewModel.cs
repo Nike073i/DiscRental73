@@ -17,5 +17,17 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
         }
 
         #endregion
+
+        #region Ограничения на ввод данных 
+
+        public int ContactNumberLength { get; set; }
+        public int FirstNameMaxLength { get; set; }
+        public int FirstNameMinLength { get; set; }
+        public int SecondNameMaxLength { get; set; }
+        public int SecondNameMinLength { get; set; }
+        public int AddressMaxLength { get; set; }
+        public int AddressMinLength { get; set; }
+
+        #endregion
     }
 }

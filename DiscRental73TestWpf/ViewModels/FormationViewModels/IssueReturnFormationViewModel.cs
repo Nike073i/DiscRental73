@@ -7,6 +7,13 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class IssueReturnFormationViewModel : FormationViewModel
     {
+        #region Ограничения на ввод данных 
+
+        public double ReturnSumMaxValue { get; set; }
+        public double ReturnSumMinValue { get; set; }
+
+        #endregion
+
         #region RentalResDto SelectedRental- выбранный прокат
 
         private RentalResDto _SelectedRental;

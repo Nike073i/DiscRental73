@@ -11,6 +11,22 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowDvdDiscStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int TitleMaxLength { get; set; }
+        public int TitleMinLength { get; set; }
+        public DateTime DateOfReleaseMaxDate { get; set; }
+        public DateTime DateOfReleaseMinDate { get; set; }
+
+        public int DirectorMaxLength { get; set; }
+        public int DirectorMinLength { get; set; }
+        public int InfoMaxLength { get; set; }
+        public int InfoMinLength { get; set; }
+        public int PlotMaxLength { get; set; }
+        public int PlotMinLength { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -26,6 +42,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<DvdDiscFormationViewModel>();
             viewModel.DvdDisc = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -52,6 +69,19 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = InputData;
 
             return true;
+        }
+        private void SetValueRange(DvdDiscFormationViewModel viewModel)
+        {
+            viewModel.TitleMaxLength = TitleMaxLength;
+            viewModel.TitleMinLength = TitleMinLength;
+            viewModel.DateOfReleaseMaxDate = DateOfReleaseMaxDate;
+            viewModel.DateOfReleaseMinDate = DateOfReleaseMinDate;
+            viewModel.DirectorMaxLength = DirectorMaxLength;
+            viewModel.DirectorMinLength = DirectorMinLength;
+            viewModel.InfoMaxLength = InfoMaxLength;
+            viewModel.InfoMinLength = InfoMinLength;
+            viewModel.PlotMaxLength = PlotMaxLength;
+            viewModel.PlotMinLength = PlotMinLength;
         }
     }
 }

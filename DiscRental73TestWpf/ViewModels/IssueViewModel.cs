@@ -24,6 +24,9 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowIssueReturnStrategy _IssueReturnStrategy;
         public ShowIssueReturnStrategy IssueReturnStrategy => _IssueReturnStrategy ??= new ShowIssueReturnStrategy();
 
+        private ShowCancelRentalStrategy _CancelRentalStrategy;
+        public ShowCancelRentalStrategy CancelRentalStrategy => _CancelRentalStrategy ??= new ShowCancelRentalStrategy();
+
         public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService)
         {
             _sellService = sellService;
@@ -110,6 +113,25 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnCancelRentalCommand(object? p)
         {
+            object item = new CancelRentalBindingModel();
+            var strategy = CancelRentalStrategy;
+            strategy.Rentals = _rentalService.GetInRental();
+            _dialogService.ShowStrategy = strategy;
+            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.Confirm("Вы уверены в отмене проката без возможности восстановления?", "Подтверждение отмены")) return;
+            try
+            {
+                var model = item as CancelRentalBindingModel;
+                _rentalService.CancelRental(new RentalReqDto
+                {
+                    Id = model.RentalId,
+                });
+                _dialogService.ShowInformation("Прокат отменен", "Успех");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowWarning(ex.Message, "Ошибка отмены");
+            }
         }
 
         #endregion

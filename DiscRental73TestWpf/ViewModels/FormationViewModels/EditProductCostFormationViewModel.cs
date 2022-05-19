@@ -5,7 +5,14 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class EditProductCostFormationViewModel : FormationViewModel
     {
-        #region EditProductCostModel EditProductCostModel - модель измененич цены продукта
+        #region Ограничения на ввод данных 
+
+        public double CostMaxValue { get; set; }
+        public double CostMinValue { get; set; }
+
+        #endregion
+
+        #region EditProductCostModel EditProductCostModel - модель изменения цены продукта
 
         private EditProductCostModel _EditProductCostModel;
 

@@ -11,6 +11,22 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowCdDiscStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int TitleMaxLength { get; set; }
+        public int TitleMinLength { get; set; }
+        public DateTime DateOfReleaseMaxDate { get; set; }
+        public DateTime DateOfReleaseMinDate { get; set; }
+
+        public int PerformerMaxLength { get; set; }
+        public int PerformerMinLength { get; set; }
+        public int GenreMaxLength { get; set; }
+        public int GenreMinLength { get; set; }
+        public int NumberOfTracksMaxValue { get; set; }
+        public int NumberOfTracksMinValue { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -26,6 +42,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
             viewModel.CdDisc = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -51,6 +68,21 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = InputData;
 
             return true;
+        }
+
+        private void SetValueRange(CdDiscFormationViewModel viewModel)
+        {
+            viewModel.TitleMaxLength = TitleMaxLength;
+            viewModel.TitleMinLength = TitleMinLength;
+            viewModel.DateOfReleaseMaxDate = DateOfReleaseMaxDate;
+            viewModel.DateOfReleaseMinDate = DateOfReleaseMinDate;
+
+            viewModel.PerformerMaxLength = PerformerMaxLength;
+            viewModel.PerformerMinLength = PerformerMinLength;
+            viewModel.GenreMaxLength = GenreMaxLength;
+            viewModel.GenreMinLength = GenreMinLength;
+            viewModel.NumberOfTracksMaxValue = NumberOfTracksMaxValue;
+            viewModel.NumberOfTracksMinValue = NumberOfTracksMinValue;
         }
     }
 }

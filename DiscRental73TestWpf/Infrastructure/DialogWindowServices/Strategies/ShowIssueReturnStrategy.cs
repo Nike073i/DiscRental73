@@ -13,6 +13,13 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowIssueReturnStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public double ReturnSumMaxValue { get; set; }
+        public double ReturnSumMinValue { get; set; }
+
+        #endregion
+
         public IEnumerable<RentalResDto>? Rentals { get; set; }
 
         public override bool ShowDialog(ref object formationData)
@@ -26,6 +33,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             var viewModel = App.Host.Services.GetRequiredService<IssueReturnFormationViewModel>();
             viewModel.Rentals = Rentals ?? new List<RentalResDto>();
             viewModel.IssueReturnBindingModel = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -59,6 +67,11 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             if (viewModel.SelectedRental is null) return false;
 
             return true;
+        }
+        private void SetValueRange(IssueReturnFormationViewModel viewModel)
+        {
+            viewModel.ReturnSumMaxValue = ReturnSumMaxValue;
+            viewModel.ReturnSumMinValue = ReturnSumMinValue;
         }
     }
 }

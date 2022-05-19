@@ -9,13 +9,21 @@ namespace BusinessLogic.BusinessLogics
         private readonly IProductRepository _repository;
 
         #region Ограничения для сущности Product
+
         private const int _AvailableQuantityMinValue = 5;
+        public int AvailableQuantityMinValue => _AvailableQuantityMinValue;
 
         private const int _QuantityMaxValue = 100000;
+        public int QuantityMaxValue => _QuantityMaxValue;
+
         private const int _QuantityMinValue = 0;
+        public int QuantityMinValue => _QuantityMinValue;
 
         private const double _CostMaxValue = 100000d;
+        public double CostMaxValue => _CostMaxValue;
+
         private const double _CostMinValue = 1d;
+        public double CostMinValue => _CostMinValue;
 
         #endregion
 
@@ -30,7 +38,7 @@ namespace BusinessLogic.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(reqDto));
             }
-            if (reqDto.EditQuantity > _QuantityMaxValue || reqDto.EditQuantity < -_QuantityMaxValue)
+            if (reqDto.EditQuantity > QuantityMaxValue || reqDto.EditQuantity < -QuantityMaxValue)
             {
                 throw new Exception("Ошибка изменения количества продукции: Указано некорректное значение");
             }
@@ -133,7 +141,7 @@ namespace BusinessLogic.BusinessLogics
 
         public IEnumerable<ProductResDto> GetAvailable()
         {
-            var listItems = _repository.GetAll().Where(rec => rec.IsAvailable && rec.Quantity >= _AvailableQuantityMinValue);
+            var listItems = _repository.GetAll().Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
             return listItems;
         }
 
@@ -164,8 +172,8 @@ namespace BusinessLogic.BusinessLogics
         {
             #region Проверка области допустимых значений
 
-            if (reqDto.Cost < _CostMinValue || reqDto.Cost > _CostMaxValue) return false;
-            if (reqDto.Quantity < _QuantityMinValue || reqDto.Quantity > _QuantityMaxValue) return false;
+            if (reqDto.Cost < CostMinValue || reqDto.Cost > CostMaxValue) return false;
+            if (reqDto.Quantity < QuantityMinValue || reqDto.Quantity > QuantityMaxValue) return false;
 
             #endregion
 

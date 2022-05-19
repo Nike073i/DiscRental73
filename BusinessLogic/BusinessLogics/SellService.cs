@@ -12,10 +12,16 @@ namespace BusinessLogic.BusinessLogics
         #region Ограничения для сущности Sell
 
         private readonly DateTime _DateMaxValue = new DateTime(2100, 1, 1);
+        public DateTime DateMaxValue => _DateMaxValue;
+
         private readonly DateTime _DateMinValue = new DateTime(2000, 1, 1);
+        public DateTime DateMinValue => _DateMinValue;
 
         private const double _PriceSumMaxValue = 100000d;
+        public double PriceSumMaxValue => _PriceSumMaxValue;
+
         private const double _PriceSumMinValue = 1d;
+        public double PriceSumMinValue => _PriceSumMinValue;
 
         #endregion
 
@@ -74,8 +80,8 @@ namespace BusinessLogic.BusinessLogics
         {
             #region Проверка области допустимых значений
 
-            if (reqDto.DateOfSell < _DateMinValue || reqDto.DateOfSell > _DateMaxValue) return false;
-            if (reqDto.Price < _PriceSumMinValue || reqDto.Price > _PriceSumMaxValue) return false;
+            if (reqDto.DateOfSell < DateMinValue || reqDto.DateOfSell > DateMaxValue) return false;
+            if (reqDto.Price < PriceSumMinValue || reqDto.Price > PriceSumMaxValue) return false;
 
             #endregion
 

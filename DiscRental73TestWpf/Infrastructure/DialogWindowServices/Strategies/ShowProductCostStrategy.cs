@@ -11,6 +11,13 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowProductCostStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public double CostMaxValue { get; set; }
+        public double CostMinValue { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -21,6 +28,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<EditProductCostFormationViewModel>();
             viewModel.EditProductCostModel = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -42,6 +50,12 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = viewModel.EditProductCostModel;
 
             return true;
+        }
+
+        private void SetValueRange(EditProductCostFormationViewModel viewModel)
+        {
+            viewModel.CostMaxValue = CostMaxValue;
+            viewModel.CostMinValue = CostMinValue;
         }
     }
 }

@@ -12,6 +12,15 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowProductStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int QuantityMaxValue { get; set; }
+        public int QuantityMinValue { get; set; }
+        public double CostMaxValue { get; set; }
+        public double CostMinValue { get; set; }
+
+        #endregion
+
         public IEnumerable<DiscResDto>? Discs { get; set; }
 
         public override bool ShowDialog(ref object formationData)
@@ -30,6 +39,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             var viewModel = App.Host.Services.GetRequiredService<ProductFormationViewModel>();
             viewModel.Product = item;
             viewModel.Discs = Discs ?? new List<DiscResDto>();
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -60,6 +70,15 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             if (viewModel.Product is null) return false;
 
             return true;
+        }
+
+
+        private void SetValueRange(ProductFormationViewModel viewModel)
+        {
+            viewModel.QuantityMaxValue = QuantityMaxValue;
+            viewModel.QuantityMinValue = QuantityMinValue;
+            viewModel.CostMaxValue = CostMaxValue;
+            viewModel.CostMinValue = CostMinValue;
         }
     }
 }

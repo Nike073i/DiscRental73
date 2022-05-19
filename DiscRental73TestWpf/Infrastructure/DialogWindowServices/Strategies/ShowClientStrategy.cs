@@ -11,6 +11,18 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowClientStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int ContactNumberLength { get; set; }
+        public int FirstNameMaxLength { get; set; }
+        public int FirstNameMinLength { get; set; }
+        public int SecondNameMaxLength { get; set; }
+        public int SecondNameMinLength { get; set; }
+        public int AddressMaxLength { get; set; }
+        public int AddressMinLength { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -21,6 +33,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<ClientFormationViewModel>();
             viewModel.Client = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -42,6 +55,17 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = viewModel.Client;
 
             return true;
+        }
+
+        private void SetValueRange(ClientFormationViewModel viewModel)
+        {
+            viewModel.ContactNumberLength = ContactNumberLength;
+            viewModel.FirstNameMaxLength = FirstNameMaxLength;
+            viewModel.FirstNameMinLength = FirstNameMinLength;
+            viewModel.SecondNameMaxLength = SecondNameMaxLength;
+            viewModel.SecondNameMinLength = SecondNameMinLength;
+            viewModel.AddressMaxLength = AddressMaxLength;
+            viewModel.AddressMinLength = AddressMinLength;
         }
     }
 }

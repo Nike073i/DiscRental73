@@ -12,6 +12,18 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowEmployeeStrategy : ShowContentWindowStrategy
     {
+        #region Ограничения на ввод данных 
+
+        public int ContactNumberLength { get; set; }
+        public int FirstNameMaxLength { get; set; }
+        public int FirstNameMinLength { get; set; }
+        public int SecondNameMaxLength { get; set; }
+        public int SecondNameMinLength { get; set; }
+        public int PasswordMaxLength { get; set; }
+        public int PasswordMinLength { get; set; }
+
+        #endregion
+
         public override bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
@@ -27,6 +39,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
             var viewModel = App.Host.Services.GetRequiredService<EmployeeFormationViewModel>();
             viewModel.Employee = item;
+            SetValueRange(viewModel);
 
             var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
             viewModelWindow.CurrentModel = viewModel;
@@ -48,6 +61,17 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             formationData = viewModel.Employee;
 
             return true;
+        }
+
+        private void SetValueRange(EmployeeFormationViewModel viewModel)
+        {
+            viewModel.ContactNumberLength = ContactNumberLength;
+            viewModel.FirstNameMaxLength = FirstNameMaxLength;
+            viewModel.FirstNameMinLength = FirstNameMinLength;
+            viewModel.SecondNameMinLength = SecondNameMinLength;
+            viewModel.SecondNameMaxLength = SecondNameMaxLength;
+            viewModel.PasswordMaxLength = PasswordMaxLength;
+            viewModel.PasswordMinLength = PasswordMinLength;
         }
     }
 }

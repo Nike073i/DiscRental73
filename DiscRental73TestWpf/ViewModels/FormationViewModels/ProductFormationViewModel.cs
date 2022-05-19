@@ -30,5 +30,14 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
         }
 
         #endregion
+
+        #region Ограничения на ввод данных 
+
+        public int QuantityMaxValue { get; set; }
+        public int QuantityMinValue { get; set; }
+        public double CostMaxValue { get; set; }
+        public double CostMinValue { get; set; }
+
+        #endregion
     }
 }
