@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AdminWpfPlugin.ViewModels.WindowViewModels;
 
 namespace AdminWpfPlugin.Infrastructure.Di
 {
     public class HostViewModels
     {
+        private MainWindowViewModel _MainWindowViewModel;
+        public MainWindowViewModel MainWindowViewModel => _MainWindowViewModel ??= new MainWindowViewModel();
     }
 }

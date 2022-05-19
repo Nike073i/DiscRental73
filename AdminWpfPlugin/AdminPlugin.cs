@@ -1,6 +1,6 @@
 using AdminWpfPlugin.Infrastructure.Di;
+using AdminWpfPlugin.Views.Windows;
 using BusinessLogic.BusinessLogics;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.Plugins.Base;
 using System.ComponentModel.Composition;
 
@@ -31,16 +31,17 @@ namespace AdminWpfPlugin
 
         private void IntitializeComponent()
         {
-            HostDialogServices = new HostDialogServices
-            {
-                WindowDataFormationService = new WindowDataFormationService()
-            };
+            HostDialogServices = new HostDialogServices();
             HostViewModels = new HostViewModels();
         }
 
         private void StartApp()
         {
-
+            var window = new MainWindow
+            {
+                DataContext = HostViewModels.MainWindowViewModel
+            };
+            window.Show();
         }
     }
 }

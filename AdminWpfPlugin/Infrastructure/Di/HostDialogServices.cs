@@ -4,6 +4,7 @@ namespace AdminWpfPlugin.Infrastructure.Di
 {
     public class HostDialogServices
     {
-        public WindowDataFormationService WindowDataFormationService { get; set; }
+        private WindowDataFormationService _WindowDataFormationService;
+        public WindowDataFormationService WindowDataFormationService => _WindowDataFormationService ??= new WindowDataFormationService();
     }
 }
