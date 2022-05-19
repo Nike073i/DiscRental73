@@ -42,6 +42,8 @@ namespace BusinessLogic.BusinessLogics
             }
         }
 
+        public IEnumerable<SellResDto> GetAll() => _repository.GetAll();
+
         public IEnumerable<ProductResDto> GetProducts() => _productService.GetAvailable();
 
         public void CancelSell(SellReqDto reqDto)

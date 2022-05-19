@@ -30,6 +30,9 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowIssueSellStrategy _IssueSellStrategy;
         public ShowIssueSellStrategy IssueSellStrategy => _IssueSellStrategy ??= new ShowIssueSellStrategy();
 
+        private ShowCancelSellStrategy _CancelSellStrategy;
+        public ShowCancelSellStrategy CancelSellStrategy => _CancelSellStrategy ??= new ShowCancelSellStrategy();
+
         public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService)
         {
             _sellService = sellService;
@@ -183,6 +186,25 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnCancelSellCommand(object? p)
         {
+            object item = new CancelSellBindingModel();
+            var strategy = CancelSellStrategy;
+            strategy.Sells = _sellService.GetAll();
+            _dialogService.ShowStrategy = strategy;
+            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.Confirm("Вы уверены в отмене продажи без возможности восстановления?", "Подтверждение отмены")) return;
+            try
+            {
+                var model = item as CancelSellBindingModel;
+                _sellService.CancelSell(new SellReqDto
+                {
+                    Id = model.SellId,
+                });
+                _dialogService.ShowInformation("Продажа отменена", "Успех");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowWarning(ex.Message, "Ошибка отмены");
+            }
         }
 
         #endregion

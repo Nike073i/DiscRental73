@@ -6,7 +6,7 @@ namespace BusinessLogic.DtoModels.ResponseDto
     {
         public DateTime DateOfSell { get; set; }
         public double Price { get; set; }
-        public string DiskTitle { get; set; }
+        public string DiscTitle { get; set; }
         public string EmployeeFName { get; set; }
         public int ProductId { get; set; }
         public int EmployeeId { get; set; }

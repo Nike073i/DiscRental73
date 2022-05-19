@@ -23,7 +23,7 @@ namespace DatabaseStorage.Mappers
                 Id = entity.Id,
                 DateOfSell = entity.DateOfSell,
                 Price = entity.Price,
-                DiskTitle = entity.Product.Disc.Title,
+                DiscTitle = entity.Product.Disc.Title,
                 EmployeeFName = string.Concat(entity.Employee.SecondName, " ", entity.Employee.FirstName),
                 ProductId = entity.ProductId,
                 EmployeeId = entity.EmployeeId,
