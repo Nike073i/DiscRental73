@@ -36,7 +36,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowCdDiscManagementViewCommand;
 
         public ICommand ShowCdDiscManagementViewCommand => _ShowCdDiscManagementViewCommand
-            ??= new LambdaCommand(OnShowCdDiscManagementViewCommand);
+            ??= new LambdaCommand(OnShowCdDiscManagementViewCommand, IsLoginUser);
 
         private void OnShowCdDiscManagementViewCommand()
         {
@@ -50,7 +50,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowDvdDiscManagementViewCommand;
 
         public ICommand ShowDvdDiscManagementViewCommand => _ShowDvdDiscManagementViewCommand
-            ??= new LambdaCommand(OnShowDvdDiscManagementViewCommand);
+            ??= new LambdaCommand(OnShowDvdDiscManagementViewCommand, IsLoginUser);
 
         private void OnShowDvdDiscManagementViewCommand()
         {
@@ -64,7 +64,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowBluRayDiscManagementViewCommand;
 
         public ICommand ShowBluRayDiscManagementViewCommand => _ShowBluRayDiscManagementViewCommand
-            ??= new LambdaCommand(OnShowBluRayDiscManagementViewCommand);
+            ??= new LambdaCommand(OnShowBluRayDiscManagementViewCommand, IsLoginUser);
 
         private void OnShowBluRayDiscManagementViewCommand()
         {
@@ -78,7 +78,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowClientManagementViewCommand;
 
         public ICommand ShowClientManagementViewCommand => _ShowClientManagementViewCommand
-            ??= new LambdaCommand(OnShowClientManagementViewCommand);
+            ??= new LambdaCommand(OnShowClientManagementViewCommand, IsLoginUser);
 
         private void OnShowClientManagementViewCommand()
         {
@@ -92,7 +92,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowEmployeeManagementViewCommand;
 
         public ICommand ShowEmployeeManagementViewCommand => _ShowEmployeeManagementViewCommand
-            ??= new LambdaCommand(OnShowEmployeeManagementViewCommand);
+            ??= new LambdaCommand(OnShowEmployeeManagementViewCommand, IsLoginUser);
 
         private void OnShowEmployeeManagementViewCommand()
         {
@@ -106,7 +106,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowProductManagementViewCommand;
 
         public ICommand ShowProductManagementViewCommand => _ShowProductManagementViewCommand
-            ??= new LambdaCommand(OnShowProductManagementViewCommand);
+            ??= new LambdaCommand(OnShowProductManagementViewCommand, IsLoginUser);
 
         private void OnShowProductManagementViewCommand()
         {
@@ -120,7 +120,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         private ICommand _ShowIssueViewCommand;
 
         public ICommand ShowIssueViewCommand => _ShowIssueViewCommand
-            ??= new LambdaCommand(OnShowIssueViewCommand);
+            ??= new LambdaCommand(OnShowIssueViewCommand, IsLoginUser);
 
         private void OnShowIssueViewCommand()
         {
@@ -128,5 +128,7 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
         }
 
         #endregion
+
+        private bool IsLoginUser(object? p) => App.CurrentUser is not null;
     }
 }

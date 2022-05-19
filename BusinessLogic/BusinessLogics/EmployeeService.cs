@@ -53,5 +53,37 @@ namespace BusinessLogic.BusinessLogics
 
             return true;
         }
+
+        public EmployeeResDto? Authorization(EmployeeReqDto reqDto)
+        {
+            if (reqDto is null)
+            {
+                throw new ArgumentNullException(nameof(reqDto));
+            }
+
+            if (string.IsNullOrEmpty(reqDto.Password))
+            {
+                throw new Exception("Ошибка авторизации: Не указан пароль");
+            }
+
+            try
+            {
+                var employee = GetByContactNumber(reqDto);
+                if (employee == null)
+                {
+                    throw new Exception("Ошибка авторизации: Пользователь не найден");
+                }
+                EmployeeResDto? currentEmployee = null;
+                if (reqDto.Password.ToLower().Equals(employee.Password.ToLower()))
+                {
+                    currentEmployee = employee;
+                }
+                return currentEmployee;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка авторизации:" + ex.Message);
+            }
+        }
     }
 }

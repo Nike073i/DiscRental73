@@ -33,6 +33,8 @@ namespace DiscRental73TestWpf.ViewModels
             services.AddSingleton<CancelRentalFormationViewModel>();
             services.AddSingleton<CancelSellFormationViewModel>();
 
+            services.AddSingleton<AuthorizationWindowViewModel>();
+
             return services;
         }
     }

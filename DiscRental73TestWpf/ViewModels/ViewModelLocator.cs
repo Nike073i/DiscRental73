@@ -9,6 +9,7 @@ namespace DiscRental73TestWpf.ViewModels
     {
         public MainWindowViewModel MainWindowViewModel => App.Host.Services.GetRequiredService<MainWindowViewModel>();
         public EntityFormationWindowViewModel EntityFormationWindowViewModel => App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
+        public AuthorizationWindowViewModel AuthorizationWindowViewModel => App.Host.Services.GetRequiredService<AuthorizationWindowViewModel>();
 
         public IssueViewModel IssueViewModel => App.Host.Services.GetRequiredService<IssueViewModel>();
 

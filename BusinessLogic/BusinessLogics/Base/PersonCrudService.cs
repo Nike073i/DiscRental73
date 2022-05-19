@@ -49,7 +49,7 @@ namespace BusinessLogic.BusinessLogics.Base
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
+                throw new Exception("Ошибка при получении записи по номеру:" + ex.Message);
             }
         }
     }
