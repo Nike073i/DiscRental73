@@ -27,6 +27,9 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowCancelRentalStrategy _CancelRentalStrategy;
         public ShowCancelRentalStrategy CancelRentalStrategy => _CancelRentalStrategy ??= new ShowCancelRentalStrategy();
 
+        private ShowIssueSellStrategy _IssueSellStrategy;
+        public ShowIssueSellStrategy IssueSellStrategy => _IssueSellStrategy ??= new ShowIssueSellStrategy();
+
         public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService)
         {
             _sellService = sellService;
@@ -144,6 +147,30 @@ namespace DiscRental73TestWpf.ViewModels
 
         private void OnIssueSellCommand(object? p)
         {
+            object item = new IssueSellBindingModel();
+            var strategy = IssueSellStrategy;
+            strategy.Products = _sellService.GetProducts();
+            _dialogService.ShowStrategy = strategy;
+            if (!_dialogService.ShowContent(ref item)) return;
+            try
+            {
+                //
+                var employeeId = 3;
+                //
+                var model = item as IssueSellBindingModel;
+                _sellService.SellProduct(new SellReqDto()
+                {
+                    ProductId = model.ProductId,
+                    EmployeeId = employeeId,
+                    DateOfSell = model.DateOfSell,
+                    Price = model.Price
+                });
+                _dialogService.ShowInformation("Продажа создана", "Успех");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowWarning(ex.Message, "Ошибка создания");
+            }
         }
 
         #endregion
@@ -183,71 +210,5 @@ namespace DiscRental73TestWpf.ViewModels
         }
 
         #endregion
-
-        //#region EditItemCommand - редактирование элемента
-
-        //private ICommand _EditItemCommand;
-
-        //public ICommand EditItemCommand => _EditItemCommand ??= new LambdaCommand(OnEditItemCommand, CanEditItemCommand);
-
-        //private bool CanEditItemCommand(object? p) => p is Res;
-
-        //private void OnEditItemCommand(object? p)
-        //{
-        //    if (!_dialogService.Edit(p)) return;
-
-        //    try
-        //    {
-        //        var resDto = p as Res;
-        //        var reqDto = CreateReqDtoToUpdate(resDto);
-        //        _service.Save(reqDto);
-        //        _dialogService.ShowInformation("Запись отредактирована", "Успех");
-        //        OnPropertyChanged(nameof(Items));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _dialogService.ShowWarning(ex.Message, "Ошибка редактирования");
-        //    }
-        //}
-
-        //#endregion
-
-        //#region CreateNewItemCommand - создание элемента
-
-        //private ICommand _CreateNewItemCommand;
-
-        //public ICommand CreateNewItemCommand => _CreateNewItemCommand ??= new LambdaCommand(OnCreateNewItemCommand);
-
-        //private void OnCreateNewItemCommand(object? p)
-        //{
-        //    var item = new Res();
-        //    if (!_dialogService.Edit(item)) return;
-        //    try
-        //    {
-        //        var reqDto = CreateReqDtoToCreate(item);
-        //        _service.Save(reqDto);
-        //        _dialogService.ShowInformation("Запись создана", "Успех");
-        //        OnPropertyChanged(nameof(Items));
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _dialogService.ShowWarning(ex.Message, "Ошибка создания");
-        //    }
-        //}
-
-        //#endregion
-
-        //#region RefreshCommand - обновление списка элементов
-
-        //private ICommand _RefreshCommand;
-
-        //public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand, CanRefreshCommand);
-
-        //private bool CanRefreshCommand(object? p) => _service is not null;
-
-        //private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Items));
-
-        //#endregion
     }
 }

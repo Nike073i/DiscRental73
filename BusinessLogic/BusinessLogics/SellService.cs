@@ -17,12 +17,6 @@ namespace BusinessLogic.BusinessLogics
         private readonly DateTime _DateMinValue = new DateTime(2000, 1, 1);
         public DateTime DateMinValue => _DateMinValue;
 
-        private const double _PriceSumMaxValue = 100000d;
-        public double PriceSumMaxValue => _PriceSumMaxValue;
-
-        private const double _PriceSumMinValue = 1d;
-        public double PriceSumMinValue => _PriceSumMinValue;
-
         #endregion
 
         public SellService(ISellRepository repository, ProductService productService)
@@ -48,8 +42,7 @@ namespace BusinessLogic.BusinessLogics
             }
         }
 
-
-        public IEnumerable<ProductResDto> GetProducts => _productService.GetAvailable();
+        public IEnumerable<ProductResDto> GetProducts() => _productService.GetAvailable();
 
         public void CancelSell(SellReqDto reqDto)
         {
@@ -81,7 +74,6 @@ namespace BusinessLogic.BusinessLogics
             #region Проверка области допустимых значений
 
             if (reqDto.DateOfSell < DateMinValue || reqDto.DateOfSell > DateMaxValue) return false;
-            if (reqDto.Price < PriceSumMinValue || reqDto.Price > PriceSumMaxValue) return false;
 
             #endregion
 

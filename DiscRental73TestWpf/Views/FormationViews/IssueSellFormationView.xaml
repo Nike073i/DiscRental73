@@ -3,10 +3,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DiscRental73TestWpf.Views.FormationViews"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
+             mc:Ignorable="d"             
+             d:DesignWidth="400"
+             DataContext="{Binding IssueSellFormationViewModel, Source={StaticResource Locator}}">
+    <Grid Margin="3" Background="White">
+        <Grid.Resources>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
+                         Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="Margin" Value="3,2,0,2"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
+                         Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Продукт:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Стоимость:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата продажи:"/>
+
+        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" SelectedValuePath="Id">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="m:ProductResDto">
+                    <TextBlock>
+                        <TextBlock Text="{Binding DiscTitle}"/>
+                        <TextBlock Text="{Binding DiscType}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedProduct.Cost}"/>
+
+        <DatePicker Grid.Column="1" Grid.Row="2">
+            <DatePicker.SelectedDate>
+                <Binding Path="IssueSellBindingModel.DateOfSell" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <vr:DateValueValidatonRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+        </DatePicker>
     </Grid>
 </UserControl>
