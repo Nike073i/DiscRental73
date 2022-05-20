@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\IconDisc.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="MathCore.WPF" Version="0.0.25" />
     <PackageReference Include="PDFsharp-MigraDoc-WPF" Version="1.50.5147" />
@@ -16,6 +20,10 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\DatabaseStorage\DatabaseStorage.csproj" />
     <ProjectReference Include="..\DiscRental73TestWpf\DiscRental73TestWpf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\IconDisc.png" />
   </ItemGroup>
 
 </Project>

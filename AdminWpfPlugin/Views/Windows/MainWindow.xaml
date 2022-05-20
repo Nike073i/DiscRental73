@@ -3,17 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModel="clr-namespace:AdminWpfPlugin.ViewModels.WindowViewModels"
+        xmlns:winViewModel="clr-namespace:AdminWpfPlugin.ViewModels.WindowViewModels"
+        xmlns:viewModel="clr-namespace:AdminWpfPlugin.ViewModels"
+        xmlns:view="clr-namespace:AdminWpfPlugin.Views"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"             
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
+        d:DataContext="{d:DesignInstance Type=winViewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
         Title="{Binding Title}" Height="450" Width="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ShowImageViewCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type viewModel:ImageViewModel}">
+                <view:ImageView DataContext="{Binding}"/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.Resources>
             <Style TargetType="TextBlock">
@@ -35,23 +44,27 @@
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Background="{StaticResource PrimaryHueMidBrush}">
                 <StackPanel Margin="3">
                     <DockPanel>
-                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="BackupRestore" Width="15" Height="15" Margin="10 16" Foreground="White"/>
-                        <TextBlock Text="Отчеты">
-                            <TextBlock.InputBindings>
-                                <MouseBinding Command="{Binding ShowReportViewCommand}" MouseAction="LeftClick"/>
-                            </TextBlock.InputBindings>
-                        </TextBlock>
+                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="ChartBox" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                        <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Отчеты">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ShowReportViewCommand}" MouseAction="LeftClick"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </ListView>
                     </DockPanel>
                     <DockPanel>
-                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="BackupRestore" Width="15" Height="15" Margin="10 16" Foreground="White"/>
-                        <TextBlock Text="Сотрудники">
-                            <TextBlock.InputBindings>
-                                <MouseBinding Command="{Binding ShowEmployeeViewCommand}" MouseAction="LeftClick"/>
-                            </TextBlock.InputBindings>
-                        </TextBlock>
+                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Account" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                        <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Сотрудники">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ShowEmployeeViewCommand}" MouseAction="LeftClick"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </ListView>
                     </DockPanel>
                     <DockPanel>
-                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Cog" Width="15" Height="15" Margin="10 16" Foreground="White"/>
+                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="ImageFilterHdr" Width="15" Height="15" Margin="10 16" Foreground="White"/>
                         <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <TextBlock Text="Заставка">
                                 <TextBlock.InputBindings>
