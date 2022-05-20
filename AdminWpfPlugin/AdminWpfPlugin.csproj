@@ -16,8 +16,4 @@
     <ProjectReference Include="..\DiscRental73TestWpf\DiscRental73TestWpf.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
