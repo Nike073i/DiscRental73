@@ -22,6 +22,7 @@ namespace AdminWpfPlugin
         {
             IntitializeComponent();
             StartApp();
+            TestMethod();
         }
 
         private void IntitializeComponent()
@@ -37,6 +38,11 @@ namespace AdminWpfPlugin
                 DataContext = HostViewModels.MainWindowViewModel
             };
             window.Show();
+        }
+
+        private void TestMethod()
+        {
+            HostService.ReportService.GetSellsData(null,null);
         }
     }
 }

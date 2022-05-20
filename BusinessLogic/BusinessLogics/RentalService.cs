@@ -87,6 +87,7 @@ namespace BusinessLogic.BusinessLogics
 
         public IEnumerable<ProductResDto> GetProducts() => _productService.GetAvailable();
         public IEnumerable<RentalResDto> GetInRental() => _repository.GetAll().Where(rec => rec.ReturnSum is null);
+        public IEnumerable<RentalResDto> GetAll() => _repository.GetAll();
 
         public void CancelRental(RentalReqDto reqDto)
         {
