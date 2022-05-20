@@ -1,4 +1,6 @@
 using AdminWpfPlugin.Infrastructure.Di;
+using AdminWpfPlugin.Services.DocumentBuilders;
+using AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders;
 using AdminWpfPlugin.Views.Windows;
 using BusinessLogic.BusinessLogics;
 using DiscRental73TestWpf.Infrastructure.Plugins.Base;
@@ -42,7 +44,13 @@ namespace AdminWpfPlugin
 
         private void TestMethod()
         {
-            HostService.ReportService.GetSellsData(null,null);
+            var adminService = HostService.AdminService;
+            adminService.DocumentDirector = new PdfDocumentDirector
+            {
+                DocumentBuilder = new PdfReportRentalBuilder()
+            };
+            adminService.CreateRentalsReport("testPdf.pdf", null, null);
+            int x = 5;
         }
     }
 }

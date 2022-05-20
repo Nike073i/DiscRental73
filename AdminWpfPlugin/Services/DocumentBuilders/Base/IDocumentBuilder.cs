@@ -3,7 +3,7 @@
     public interface IDocumentBuilder
     {
         void CreateDocument();
-        void SaveDocument(string path);
+        bool SaveDocument(string path);
         void InsertData(object data);
     }
 }

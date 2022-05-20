@@ -4,12 +4,12 @@ namespace AdminWpfPlugin.Services.DocumentBuilders
 {
     public class PdfDocumentDirector : DocumentDirector
     {
-        public override void Construct()
+        public override void Construct(string path, object data)
         {
             if (!CanConstruct()) return;
             DocumentBuilder.CreateDocument();
-            DocumentBuilder.InsertData(null);
-            DocumentBuilder.SaveDocument("");
+            DocumentBuilder.InsertData(data);
+            DocumentBuilder.SaveDocument(path);
         }
     }
 }

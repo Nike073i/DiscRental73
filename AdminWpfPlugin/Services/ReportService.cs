@@ -1,5 +1,4 @@
 ﻿using AdminWpfPlugin.Models;
-using AdminWpfPlugin.Services.DocumentBuilders.Base;
 using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.ResponseDto;
 using System;
@@ -12,7 +11,6 @@ namespace AdminWpfPlugin.Services
     {
         private readonly SellService _sellService;
         private readonly RentalService _rentalService;
-        public DocumentDirector DocumentDirector { get; set; }
 
         public ReportService(RentalService rentalService, SellService sellService)
         {
@@ -26,9 +24,23 @@ namespace AdminWpfPlugin.Services
             var sells = _sellService.GetAll();
             var sellsByDateRange = sells.Where(sell => SellInRange(sell, dateStart, dateEnd));
             if (!sellsByDateRange.Any()) return data;
-            var test = sellsByDateRange.OrderBy(sell => sell.DateOfSell).GroupBy(sell => sell.DateOfSell).ToList();
-            int x = 5;
-            return new List<SellReportData>();
+            var groups = sellsByDateRange.OrderBy(sell => sell.DateOfSell).GroupBy(sell => sell.DateOfSell).Select(group => new
+            {
+                DateOfSell = group.Key,
+                Sells = group.ToList(),
+            });
+            groups.Foreach(group =>
+            {
+                double income = 0;
+                group.Sells.ForEach(sell => income += sell.Price);
+                data.Add(new SellReportData
+                {
+                    DateOfSell = group.DateOfSell,
+                    Sells = group.Sells,
+                    Income = income
+                });
+            });
+            return data;
         }
 
         private bool SellInRange(SellResDto sell, DateTime? dateStart, DateTime? dateEnd)
@@ -44,19 +56,54 @@ namespace AdminWpfPlugin.Services
             return true;
         }
 
-        public void CreateSellsReport(string path)
+        public List<RentalReportData> GetRentalsData(DateTime? dateStart, DateTime? dateEnd)
         {
-
+            var data = new List<RentalReportData>();
+            var rentals = _rentalService.GetAll();
+            var rentalsByDateRange = rentals.Where(rental => RentalInRange(rental, dateStart, dateEnd));
+            if (!rentalsByDateRange.Any()) return data;
+            var groups = rentalsByDateRange.OrderBy(rental => rental.DateOfIssue).GroupBy(sell => sell.DateOfIssue).Select(group => new
+            {
+                DateOfIssue = group.Key,
+                Rentals = group.ToList(),
+            });
+            groups.Foreach(group =>
+            {
+                double generalIncome = 0;
+                double incomeFromReturns = 0;
+                int countReturns = 0;
+                group.Rentals.ForEach(rental =>
+                {
+                    generalIncome += rental.PledgeSum;
+                    if (rental.ReturnSum.HasValue)
+                    {
+                        incomeFromReturns += (rental.PledgeSum - rental.ReturnSum.Value);
+                        countReturns++;
+                    }
+                });
+                data.Add(new RentalReportData
+                {
+                    DateOfRental = group.DateOfIssue,
+                    Rentals = group.Rentals,
+                    IncomeFromReturns = incomeFromReturns,
+                    GeneralIncome = generalIncome,
+                    CountReturn = countReturns
+                });
+            });
+            return data;
         }
 
-        public List<RentalReportData> GetRentalsData()
+        private bool RentalInRange(RentalResDto rental, DateTime? dateStart, DateTime? dateEnd)
         {
-            return new List<RentalReportData>();
-        }
-
-        public void CreateRentalsReport(string path)
-        {
-
+            if (dateStart is not null)
+            {
+                if (rental.DateOfIssue < dateStart) return false;
+            }
+            if (dateEnd is not null)
+            {
+                if (rental.DateOfIssue > dateEnd) return false;
+            }
+            return true;
         }
     }
 }

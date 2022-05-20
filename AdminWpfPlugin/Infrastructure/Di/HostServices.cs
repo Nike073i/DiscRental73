@@ -15,7 +15,7 @@ namespace AdminWpfPlugin.Infrastructure.Di
         public EmployeeService EmployeeService => _EmployeeService;
 
         private AdminService _AdminService;
-        public AdminService AdminService => _AdminService ??= new AdminService(EmployeeService);
+        public AdminService AdminService => _AdminService ??= new AdminService(EmployeeService, ReportService);
 
         private ReportService _ReportService;
         public ReportService ReportService => _ReportService ??= new ReportService(RentalService, SellService);
