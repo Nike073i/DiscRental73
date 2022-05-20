@@ -15,12 +15,7 @@ namespace AdminWpfPlugin
 
         public void RegisterService(RentalService rentalService, EmployeeService employeeService, SellService sellService)
         {
-            HostService = new HostServices
-            {
-                RentalService = rentalService,
-                EmployeeService = employeeService,
-                SellService = sellService
-            };
+            HostService = new HostServices(rentalService, sellService, employeeService);
         }
 
         public void ShowAdminView()
