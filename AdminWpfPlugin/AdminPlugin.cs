@@ -24,7 +24,7 @@ namespace AdminWpfPlugin
         {
             IntitializeComponent();
             StartApp();
-            TestMethod();
+            //TestMethod();
         }
 
         private void IntitializeComponent()
