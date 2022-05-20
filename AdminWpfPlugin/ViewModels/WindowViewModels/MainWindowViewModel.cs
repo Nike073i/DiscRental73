@@ -51,7 +51,7 @@ namespace AdminWpfPlugin.ViewModels.WindowViewModels
 
         private void OnShowEmployeeViewCommandExecute()
         {
-            //CurrentModel = App.Host.Services.GetRequiredService<CdDiscManagementViewModel>();
+            CurrentModel = AdminPlugin.HostViewModels.EmployeeViewModel;
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace AdminWpfPlugin.ViewModels.WindowViewModels
 
         private void OnShowReportViewCommandExecute()
         {
-            //CurrentModel = App.Host.Services.GetRequiredService<CdDiscManagementViewModel>();
+            CurrentModel = AdminPlugin.HostViewModels.ReportViewModel;
         }
 
         #endregion
