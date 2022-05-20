@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="MathCore.WPF" Version="0.0.25" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
     <PackageReference Include="PDFsharp-MigraDoc-WPF" Version="1.50.5147" />
   </ItemGroup>
 
