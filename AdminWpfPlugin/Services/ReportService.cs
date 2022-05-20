@@ -1,5 +1,7 @@
-﻿using AdminWpfPlugin.Services.DocumentBuilders.Base;
+﻿using AdminWpfPlugin.Models;
+using AdminWpfPlugin.Services.DocumentBuilders.Base;
 using BusinessLogic.BusinessLogics;
+using System.Collections.Generic;
 
 namespace AdminWpfPlugin.Services
 {
@@ -13,6 +15,26 @@ namespace AdminWpfPlugin.Services
         {
             _rentalService = rentalService;
             _sellService = sellService;
+        }
+
+        public List<SellReportData> GetSellsData()
+        {
+            return new List<SellReportData>();
+        }
+
+        public void CreateSellsReport(string path)
+        {
+
+        }
+
+        public List<RentalReportData> GetRentalsData()
+        {
+            return new List<RentalReportData>();
+        }
+
+        public void CreateRentalsReport(string path)
+        {
+
         }
     }
 }
