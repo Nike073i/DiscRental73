@@ -5,6 +5,15 @@ namespace AdminWpfPlugin.Infrastructure.Di
 {
     public class HostViewModels
     {
+        private readonly HostServices _hostServices;
+        private readonly HostDialogServices _hostDialogServices;
+
+        public HostViewModels(HostServices hostServices, HostDialogServices hostDialogServices)
+        {
+            _hostServices = hostServices;
+            _hostDialogServices = hostDialogServices;
+        }
+
         private MainWindowViewModel _MainWindowViewModel;
         public MainWindowViewModel MainWindowViewModel => _MainWindowViewModel ??= new MainWindowViewModel();
 
@@ -15,10 +24,12 @@ namespace AdminWpfPlugin.Infrastructure.Di
         public ReportViewModel ReportViewModel => _ReportViewModel ??= new ReportViewModel();
 
         private SellReportViewModel _SellReportViewModel;
-        public SellReportViewModel SellReportViewModel => _SellReportViewModel ??= new SellReportViewModel();
+        public SellReportViewModel SellReportViewModel => _SellReportViewModel ??= new SellReportViewModel(_hostServices.AdminService,
+            _hostServices.ReportService, _hostDialogServices.WindowDataFormationService);
 
         private RentalReportViewModel _RentalReportViewModel;
-        public RentalReportViewModel RentalReportViewModel => _RentalReportViewModel ??= new RentalReportViewModel();
+        public RentalReportViewModel RentalReportViewModel => _RentalReportViewModel ??= new RentalReportViewModel(_hostServices.AdminService,
+            _hostServices.ReportService, _hostDialogServices.WindowDataFormationService);
 
         private EmployeeViewModel _EmployeeViewModel;
         public EmployeeViewModel EmployeeViewModel => _EmployeeViewModel ??= new EmployeeViewModel();
@@ -27,6 +38,8 @@ namespace AdminWpfPlugin.Infrastructure.Di
         public EmployeePrizeViewModel EmployeePrizeViewModel => _EmployeePrizeViewModel ??= new EmployeePrizeViewModel();
 
         private EmployeeManagementViewModel _EmployeeManagementViewModel;
+
+
         public EmployeeManagementViewModel EmployeeManagementViewModel => _EmployeeManagementViewModel ??= new EmployeeManagementViewModel();
     }
 }

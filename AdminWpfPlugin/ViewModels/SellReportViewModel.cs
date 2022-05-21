@@ -1,6 +1,11 @@
 ﻿using AdminWpfPlugin.Models;
+using AdminWpfPlugin.Services;
+using AdminWpfPlugin.Services.DocumentBuilders;
+using AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders;
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -9,6 +14,31 @@ namespace AdminWpfPlugin.ViewModels
 {
     public class SellReportViewModel : ViewModel
     {
+        private readonly AdminService _adminService;
+        private readonly ReportService _reportService;
+        private readonly WindowDataFormationService _dialogService;
+
+        public SellReportViewModel(AdminService adminService, ReportService reportService, WindowDataFormationService dialogService)
+        {
+            _adminService = adminService;
+            _reportService = reportService;
+            _dialogService = dialogService;
+            var _documentDirector = new PdfDocumentDirector();
+            _documentDirector.DocumentBuilder = new PdfReportSellBuilder();
+            _adminService.DocumentDirector = _documentDirector;
+        }
+
+        #region Caption - string Заголовок
+
+        private string _Caption = "Отчетность по продажам";
+        public string Caption
+        {
+            get => _Caption;
+            set => Set(ref _Caption, value);
+        }
+
+        #endregion
+
         #region ReportDateStart - DateTime дата начала отчета
 
         private DateTime _ReportDateStart;
@@ -61,13 +91,12 @@ namespace AdminWpfPlugin.ViewModels
 
         private void OnShowPlotCommandExecute(object? p)
         {
-
+            DateTime? dateStart = IsDateStartSelected ? _ReportDateStart : null;
+            DateTime? dateEnd = IsDateEndSelected ? _ReportDateEnd : null;
+            PlotData = _reportService.GetSellsData(dateStart, dateEnd);
         }
 
-        private bool CanShowPlotCommandExecute(object? p)
-        {
-            return true;
-        }
+        private bool CanShowPlotCommandExecute(object? p) => _reportService is not null;
 
         #endregion
 
@@ -80,13 +109,22 @@ namespace AdminWpfPlugin.ViewModels
 
         private void OnCreateSellPdfReportCommandExecute(object? p)
         {
-
+            DateTime? dateStart = IsDateStartSelected ? _ReportDateStart : null;
+            DateTime? dateEnd = IsDateEndSelected ? _ReportDateEnd : null;
+            var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == false) return;
+            var IsCreated = _adminService.CreateSellsReport(dialog.FileName, dateStart, dateEnd);
+            if (IsCreated)
+            {
+                _dialogService.ShowInformation("Отчет сохранен", "Успех");
+            }
+            else
+            {
+                _dialogService.ShowError("Ошибка сохранения отчета", "Неудача");
+            }
         }
 
-        private bool CanOnCreateSellPdfReportCommandExecuteExecute(object? p)
-        {
-            return true;
-        }
+        private bool CanOnCreateSellPdfReportCommandExecuteExecute(object? p) => _adminService is not null;
 
         #endregion
 

@@ -6,10 +6,11 @@ namespace AdminWpfPlugin.Models
 {
     public class RentalReportData
     {
-        public DateTime DateOfRental { get; set; }
+        public DateTime DateOfIssue { get; set; }
         public List<RentalResDto> Rentals { get; set; }
         public int CountReturn { get; set; }
         public double IncomeFromReturns { get; set; }
         public double GeneralIncome { get; set; }
+        public int CountRentals { get; set; }
     }
 }

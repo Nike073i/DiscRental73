@@ -83,11 +83,12 @@ namespace AdminWpfPlugin.Services
                 });
                 data.Add(new RentalReportData
                 {
-                    DateOfRental = group.DateOfIssue,
+                    DateOfIssue = group.DateOfIssue,
                     Rentals = group.Rentals,
                     IncomeFromReturns = incomeFromReturns,
                     GeneralIncome = generalIncome,
-                    CountReturn = countReturns
+                    CountReturn = countReturns,
+                    CountRentals = group.Rentals.Count()
                 });
             });
             return data;

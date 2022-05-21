@@ -64,7 +64,7 @@ namespace AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders
 
             foreach (var line in data)
             {
-                var rowHeader = CreateRow(new List<string> { line.DateOfRental.ToShortDateString(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty }, dataFormat);
+                var rowHeader = CreateRow(new List<string> { line.DateOfIssue.ToShortDateString(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty }, dataFormat);
                 tableSells.Rows.Add(rowHeader);
 
                 foreach (var sell in line.Rentals)
@@ -86,7 +86,7 @@ namespace AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders
                 {
                     string.Empty,
                     "Кол-во прокатов",
-                    line.Rentals.Count.ToString(),
+                    line.CountRentals.ToString(),
                     string.Empty,
                     "Выручка общая",
                     line.GeneralIncome.ToString()

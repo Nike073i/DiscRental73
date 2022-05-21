@@ -1,5 +1,6 @@
 ﻿using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using System;
 using System.Windows.Input;
 
 namespace AdminWpfPlugin.ViewModels
@@ -26,7 +27,10 @@ namespace AdminWpfPlugin.ViewModels
 
         private void OnShowSellReportViewCommandExecute()
         {
-            CurrentModel = AdminPlugin.HostViewModels.SellReportViewModel;
+            var viewModel = AdminPlugin.HostViewModels.SellReportViewModel;
+            viewModel.ReportDateStart = DateTime.Now.AddMonths(-1);
+            viewModel.ReportDateEnd = DateTime.Now.AddMonths(1);
+            CurrentModel = viewModel;
         }
 
         #endregion
@@ -40,7 +44,10 @@ namespace AdminWpfPlugin.ViewModels
 
         private void OnShowRentalReportViewCommandExecute()
         {
-            CurrentModel = AdminPlugin.HostViewModels.RentalReportViewModel;
+            var viewModel = AdminPlugin.HostViewModels.RentalReportViewModel;
+            viewModel.ReportDateStart = DateTime.Now.AddMonths(-1);
+            viewModel.ReportDateEnd = DateTime.Now.AddMonths(1);
+            CurrentModel = viewModel;
         }
 
         #endregion

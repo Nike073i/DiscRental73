@@ -30,7 +30,7 @@ namespace AdminWpfPlugin
         private void IntitializeComponent()
         {
             HostDialogServices = new HostDialogServices();
-            HostViewModels = new HostViewModels();
+            HostViewModels = new HostViewModels(HostService, HostDialogServices);
         }
 
         private void StartApp()

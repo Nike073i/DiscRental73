@@ -17,11 +17,11 @@ namespace AdminWpfPlugin.Services
             _reportService = reportService;
         }
 
-        public void CreateSellsReport(string path, DateTime? dateStart, DateTime? dateEnd)
+        public bool CreateSellsReport(string path, DateTime? dateStart, DateTime? dateEnd)
         {
-            if (DocumentDirector is null) return;
+            if (DocumentDirector is null) return false;
             var data = _reportService.GetSellsData(dateStart, dateEnd);
-            DocumentDirector.Construct(path, new CreateSellReportReqDto
+            return DocumentDirector.Construct(path, new CreateSellReportReqDto
             {
                 Data = data,
                 DateStart = dateStart,
@@ -30,11 +30,11 @@ namespace AdminWpfPlugin.Services
         }
 
 
-        public void CreateRentalsReport(string path, DateTime? dateStart, DateTime? dateEnd)
+        public bool CreateRentalsReport(string path, DateTime? dateStart, DateTime? dateEnd)
         {
-            if (DocumentDirector is null) return;
+            if (DocumentDirector is null) return false;
             var data = _reportService.GetRentalsData(dateStart, dateEnd);
-            DocumentDirector.Construct(path, new CreateRentalReportReqDto
+            return DocumentDirector.Construct(path, new CreateRentalReportReqDto
             {
                 Data = data,
                 DateStart = dateStart,
