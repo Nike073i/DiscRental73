@@ -1,6 +1,7 @@
 ﻿using AdminWpfPlugin.Models;
 using AdminWpfPlugin.Services.DocumentBuilders.Base;
 using BusinessLogic.BusinessLogics;
+using BusinessLogic.DtoModels.RequestDto;
 using System;
 
 namespace AdminWpfPlugin.Services
@@ -40,6 +41,30 @@ namespace AdminWpfPlugin.Services
                 DateStart = dateStart,
                 DateEnd = dateEnd
             });
+        }
+
+        public void SetEmployeePrize(SetEmployeePrizeReqDto reqDto)
+        {
+            if (reqDto is null) return;
+            try
+            {
+                var employee = _employeeService.GetById(new EmployeeReqDto { Id = reqDto.EmployeeId });
+                if (employee is null) throw new Exception("Ошибка установки премии: Сотрудник не найден");
+                _employeeService.Save(new EmployeeReqDto
+                {
+                    Id = employee.Id,
+                    ContactNumber = employee.ContactNumber,
+                    FirstName = employee.FirstName,
+                    SecondName = employee.SecondName,
+                    Position = employee.Position,
+                    Password = employee.Password,
+                    Prize = reqDto.Prize,
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка установки премии: " + ex.Message);
+            }
         }
     }
 }

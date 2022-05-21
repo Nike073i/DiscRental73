@@ -1,8 +1,8 @@
 ﻿using AdminWpfPlugin.ViewModels;
+using AdminWpfPlugin.Views.Windows;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using DiscRental73TestWpf.Views.Windows;
 using System;
 using System.Windows;
 

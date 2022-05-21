@@ -1,4 +1,5 @@
-﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿
+using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 
 namespace AdminWpfPlugin.Infrastructure.Di
 {

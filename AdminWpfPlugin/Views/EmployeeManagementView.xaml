@@ -76,6 +76,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя:"/>
@@ -83,12 +84,14 @@
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Номер т.:"/>
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Должность:"/>
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Пароль:"/>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Премия:"/>
 
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding FirstName}"/>
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SecondName}"/>
                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding ContactNumber}"/>
                 <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Position}"/>
                 <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Password}"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Prize, TargetNullValue='Отсутствует'}"/>
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>
