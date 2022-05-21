@@ -36,6 +36,9 @@ namespace AdminWpfPlugin.Infrastructure.Di
         private EmployeePrizeViewModel _EmployeePrizeViewModel;
         public EmployeePrizeViewModel EmployeePrizeViewModel => _EmployeePrizeViewModel ??= new EmployeePrizeViewModel();
 
+        private EmployeePrizeFormationViewModel _EmployeePrizeFormationViewModel;
+        public EmployeePrizeFormationViewModel EmployeePrizeFormationViewModel => _EmployeePrizeFormationViewModel ??= new EmployeePrizeFormationViewModel();
+
         private EmployeeManagementViewModel _EmployeeManagementViewModel;
 
         public EmployeeManagementViewModel EmployeeManagementViewModel => _EmployeeManagementViewModel ??= new EmployeeManagementViewModel(_hostServices.EmployeeService,

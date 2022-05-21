@@ -15,6 +15,9 @@
         <DataTemplate DataType="{x:Type viewModel:EmployeeFormationViewModel}">
             <view:EmployeeFormationView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:EmployeePrizeFormationViewModel}">
+            <view:EmployeePrizeFormationView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0,7,0,0" 
