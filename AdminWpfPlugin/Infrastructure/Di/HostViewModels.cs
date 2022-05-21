@@ -1,5 +1,4 @@
 ﻿using AdminWpfPlugin.ViewModels;
-using AdminWpfPlugin.ViewModels.WindowViewModels;
 
 namespace AdminWpfPlugin.Infrastructure.Di
 {
@@ -14,8 +13,8 @@ namespace AdminWpfPlugin.Infrastructure.Di
             _hostDialogServices = hostDialogServices;
         }
 
-        private MainWindowViewModel _MainWindowViewModel;
-        public MainWindowViewModel MainWindowViewModel => _MainWindowViewModel ??= new MainWindowViewModel();
+        private ViewModels.WindowViewModels.MainWindowViewModel _MainWindowViewModel;
+        public ViewModels.WindowViewModels.MainWindowViewModel MainWindowViewModel => _MainWindowViewModel ??= new();
 
         private ImageViewModel _ImageViewModel;
         public ImageViewModel ImageViewModel => _ImageViewModel ??= new ImageViewModel();
@@ -39,7 +38,14 @@ namespace AdminWpfPlugin.Infrastructure.Di
 
         private EmployeeManagementViewModel _EmployeeManagementViewModel;
 
+        public EmployeeManagementViewModel EmployeeManagementViewModel => _EmployeeManagementViewModel ??= new EmployeeManagementViewModel(_hostServices.EmployeeService,
+            _hostDialogServices.WindowDataFormationService);
 
-        public EmployeeManagementViewModel EmployeeManagementViewModel => _EmployeeManagementViewModel ??= new EmployeeManagementViewModel();
+        private EmployeeFormationViewModel _EmployeeFormationViewModel;
+
+        public EmployeeFormationViewModel EmployeeFormationViewModel => _EmployeeFormationViewModel ??= new EmployeeFormationViewModel();
+
+        private ViewModels.WindowViewModels.EntityFormationWindowViewModel _EntityFormationWindowViewModel;
+        public ViewModels.WindowViewModels.EntityFormationWindowViewModel EntityFormationWindowViewModel => _EntityFormationWindowViewModel ??= new ViewModels.WindowViewModels.EntityFormationWindowViewModel();
     }
 }
