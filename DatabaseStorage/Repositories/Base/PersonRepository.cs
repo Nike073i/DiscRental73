@@ -30,7 +30,7 @@ namespace DatabaseStorage.Repositories.Base
             {
                 throw new Exception("Ошибка обновления записи: Запись не найдена");
             }
-            Person? entityWithNumber = db.Persons.FirstOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
+            Person? entityWithNumber = db.Persons.FirstOrDefault(rec => !rec.Id.Equals(reqDto.Id) && rec.ContactNumber.Equals(reqDto.ContactNumber));
             if (entityWithNumber is not null) throw new Exception("Ошибка обновления записи: Номер уже занят");
             try
             {

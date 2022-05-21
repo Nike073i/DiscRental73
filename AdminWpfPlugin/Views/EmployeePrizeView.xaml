@@ -3,10 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AdminWpfPlugin.Views"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"
+             xmlns:viewModel="clr-namespace:AdminWpfPlugin.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModel:EmployeePrizeViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="200"/>
+            <ColumnDefinition MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="Сотрудники" Margin="3">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="3" >
+                    <Button fa:Awesome.Content="Solid_DollarSign" Foreground="Green" Padding="0,5" Margin="3,0" Command="{Binding SetPrizeCommand}" CommandParameter="{Binding SelectedItem}"/>
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:EmployeeResDto">
+                            <TextBlock>
+                                <TextBlock Text="{Binding SecondName}"/>
+                                <TextBlock Text="{Binding ContactNumber}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">
+            <Grid  HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Продажи сотрудника" Margin="5" Grid.Row="0" Grid.Column="0">
+                    <DataGrid ItemsSource="{Binding Sells}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата продажи" Binding="{Binding DateOfSell, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Название диска"   Binding="{Binding DiscTitle}"/>
+                            <DataGridTextColumn Header="Стоимость" Binding="{Binding Price}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Header="Прокаты сотрудника" Margin="5" Grid.Row="1" Grid.Column="0">
+                    <DataGrid ItemsSource="{Binding Rentals}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Диск" Binding="{Binding DiscTitle}"/>
+                            <DataGridTextColumn Header="Дата выдачи" Binding="{Binding DateOfIssue, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Дата возврата"   Binding="{Binding DateOfRental, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Сумма залога" Binding="{Binding PledgeSum}"/>
+                            <DataGridTextColumn Header="Сумма возврата" Binding="{Binding ReturnSum, TargetNullValue='в прокате'}"/>
+                        </DataGrid.Columns>
+                        <!--<Setter Property="GridLinesVisibility" Value="Vertical"/>
+                        <Setter Property="VerticalGridLinesBrush" Value="DarkGray"/>
+                        <Setter Property="AlternatingRowBackground" Value="AliceBlue"/>
+                        <Setter Property="HeadersVisibility" Value="Column"/-->
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>
     </Grid>
 </UserControl>
