@@ -14,9 +14,6 @@
     <DataTemplate DataType="{x:Type vm:ClientFormationViewModel}">
         <view:ClientFormationView DataContext="{Binding}"/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:EmployeeFormationViewModel}">
-        <view:EmployeeFormationView DataContext="{Binding}"/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ProductFormationViewModel}">
         <view:ProductFormationView DataContext="{Binding}"/>
     </DataTemplate>

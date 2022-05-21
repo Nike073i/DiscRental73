@@ -18,7 +18,6 @@
                 <MenuItem Header="DVD-диски" Command="{Binding ShowDvdDiscManagementViewCommand}"/>
                 <MenuItem Header="BluRay-диски" Command="{Binding ShowBluRayDiscManagementViewCommand}"/>
                 <MenuItem Header="Клиенты" Command="{Binding ShowClientManagementViewCommand}"/>
-                <MenuItem Header="Сотрудники" Command="{Binding ShowEmployeeManagementViewCommand}"/>
                 <MenuItem Header="Продукция" Command="{Binding ShowProductManagementViewCommand}"/>
             </MenuItem>
             <MenuItem Header="Оформление" Command="{Binding ShowIssueViewCommand}"/>

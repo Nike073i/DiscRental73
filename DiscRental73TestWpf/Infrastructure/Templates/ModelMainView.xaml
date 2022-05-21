@@ -16,9 +16,6 @@
     <DataTemplate DataType="{x:Type manvm:ClientManagementViewModel}">
         <manview:ClientManagementView DataContext="{Binding}"/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type manvm:EmployeeManagementViewModel}">
-        <manview:EmployeeManagementView DataContext="{Binding}"/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type manvm:ProductManagementViewModel}">
         <manview:ProductManagementView DataContext="{Binding}"/>
     </DataTemplate>

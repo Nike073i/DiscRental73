@@ -87,20 +87,6 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
 
         #endregion
 
-        #region ShowEmployeeManagementViewCommand - ICommand - команда для вызова менеджера сотрудников
-
-        private ICommand _ShowEmployeeManagementViewCommand;
-
-        public ICommand ShowEmployeeManagementViewCommand => _ShowEmployeeManagementViewCommand
-            ??= new LambdaCommand(OnShowEmployeeManagementViewCommand, IsLoginUser);
-
-        private void OnShowEmployeeManagementViewCommand()
-        {
-            CurrentModel = App.Host.Services.GetRequiredService<EmployeeManagementViewModel>();
-        }
-
-        #endregion
-
         #region ShowProductManagementViewCommand - ICommand - команда для вызова менеджера продукции
 
         private ICommand _ShowProductManagementViewCommand;

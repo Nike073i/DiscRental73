@@ -15,7 +15,6 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
             services.AddSingleton<DvdDiscManagementViewModel>();
             services.AddSingleton<BluRayDiscManagementViewModel>();
             services.AddSingleton<ClientManagementViewModel>();
-            services.AddSingleton<EmployeeManagementViewModel>();
             services.AddSingleton<ProductManagementViewModel>();
             services.AddSingleton<IssueViewModel>();
 
@@ -24,7 +23,6 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
             services.AddSingleton<DvdDiscFormationViewModel>();
             services.AddSingleton<BluRayDiscFormationViewModel>();
             services.AddSingleton<ClientFormationViewModel>();
-            services.AddSingleton<EmployeeFormationViewModel>();
             services.AddSingleton<ProductFormationViewModel>();
             services.AddSingleton<EditProductCostFormationViewModel>();
             services.AddSingleton<EditProductQuantityFormationViewModel>();
