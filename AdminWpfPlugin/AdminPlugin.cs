@@ -39,7 +39,7 @@ namespace AdminWpfPlugin
             {
                 DataContext = HostViewModels.MainWindowViewModel
             };
-            window.Show();
+            window.ShowDialog();
         }
 
         private void TestMethod()

@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.WindowViewModels"
         xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands"
         d:DataContext="{d:DesignInstance Type=vm:EntityFormationWindowViewModel, IsDesignTimeCreatable=False}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0,7,0,0" 
                    Text="{Binding Caption}"

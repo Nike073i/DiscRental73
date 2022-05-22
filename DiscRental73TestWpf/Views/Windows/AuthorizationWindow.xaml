@@ -6,7 +6,8 @@
          xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              mc:Ignorable="d" 
         DataContext="{Binding AuthorizationWindowViewModel, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="400" Width="400" MinWidth="250" MinHeight="400">
+        Title="{Binding Title}" Height="400" Width="400" MinWidth="250" MinHeight="400"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="TextBlock">

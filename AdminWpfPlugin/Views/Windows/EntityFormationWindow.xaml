@@ -10,7 +10,7 @@
         xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands;assembly=DiscRental73TestWpf"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=winViewModel:EntityFormationWindowViewModel, IsDesignTimeCreatable=False}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:EmployeeFormationViewModel}">
             <view:EmployeeFormationView DataContext="{Binding}"/>
