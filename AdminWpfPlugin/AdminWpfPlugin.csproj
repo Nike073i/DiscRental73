@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Views\IconDisc.png" />
+    <None Remove="Views\Windows\music-cd.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
 
   <ItemGroup>
     <Resource Include="Views\IconDisc.png" />
+    <Resource Include="Views\Windows\music-cd.png" />
   </ItemGroup>
 
 </Project>

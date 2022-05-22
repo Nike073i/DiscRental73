@@ -7,6 +7,7 @@
         xmlns:viewModel="clr-namespace:AdminWpfPlugin.ViewModels"
         xmlns:view="clr-namespace:AdminWpfPlugin.Views"
         xmlns:local="clr-namespace:AdminWpfPlugin.Views.Windows"
+        Icon="/AdminWpfPlugin;component/Views/Windows/music-cd.png"
         xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands;assembly=DiscRental73TestWpf"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=winViewModel:EntityFormationWindowViewModel, IsDesignTimeCreatable=False}"

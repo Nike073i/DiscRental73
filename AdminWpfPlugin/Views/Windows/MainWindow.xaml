@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"             
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Icon="/AdminWpfPlugin;component/Views/Windows/music-cd.png"
         d:DataContext="{d:DesignInstance Type=winViewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
         Title="{Binding Title}" Height="450" Width="800" WindowState="Maximized">
     <i:Interaction.Triggers>
