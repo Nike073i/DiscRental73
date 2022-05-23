@@ -34,11 +34,10 @@ namespace ConsoleTestData
         {
             Console.WriteLine("Started");
             InitializeServices();
-            //InsertDiscData();
-            //InsertPersonData();
+            InsertDiscData();
+            InsertPersonData();
             //InsertProductData();
             //InsertIssueData();
-            //SetEmployeePrizeData();
             Console.WriteLine("Completed");   
         }
 
@@ -64,7 +63,6 @@ namespace ConsoleTestData
 
             reportService = new ReportService(rentalService,sellService);
             adminService = new AdminService(employeeService, reportService);
-
         }
 
         private static void InsertDiscData()
@@ -213,7 +211,85 @@ namespace ConsoleTestData
 
         private static void InsertPersonData()
         {
+            var client1ReqDto = new ClientReqDto
+            {
+                ContactNumber = "+79176306250",
+                FirstName = "Николай",
+                SecondName = "Степанов",
+                Address = "г.Ульяновск, ул.Полбина д. 54 кв. 15"
+            };
 
+            var client2ReqDto = new ClientReqDto
+            {
+                ContactNumber = "+79176306251",
+                FirstName = "Иван",
+                SecondName = "Семенов",
+                Address = "г.Ульяновск, ул.Камышинская д. 89 кв. 17"
+            };
+
+            var client3ReqDto = new ClientReqDto
+            {
+                ContactNumber = "+79176306252",
+                FirstName = "Леонид",
+                SecondName = "Петров",
+                Address = "г.Ульяновск, ул.Октябрьская д. 18 кв. 35"
+            };
+
+            var client4ReqDto = new ClientReqDto
+            {
+                ContactNumber = "+79176306253",
+                FirstName = "Юрий",
+                SecondName = "Михайлов",
+                Address = "г.Ульяновск, ул.Пушкарева д. 20 кв. 45"
+            };
+
+            var client5ReqDto = new ClientReqDto
+            {
+                ContactNumber = "+79176306254",
+                FirstName = "Дмитрий",
+                SecondName = "Номов",
+                Address = "г.Ульяновск, ул.Свободы д. 1 кв. 154"
+            };
+
+            clientService.Save(client1ReqDto);
+            clientService.Save(client2ReqDto);
+            clientService.Save(client3ReqDto);
+            clientService.Save(client4ReqDto);
+            clientService.Save(client5ReqDto);
+
+            var employee2ReqDto = new EmployeeReqDto
+            {
+                ContactNumber = "+79176306255",
+                FirstName = "Степан",
+                SecondName = "Куйбышев",
+                Position = BusinessLogic.Enums.UserPosition.Employee,
+                Password = "dhgdfhdf",
+                Prize = null
+            };
+
+            var employee3ReqDto = new EmployeeReqDto
+            {
+                ContactNumber = "+79176306258",
+                FirstName = "Тимур",
+                SecondName = "Греков",
+                Position = BusinessLogic.Enums.UserPosition.Employee,
+                Password = "grekov",
+                Prize = 750d
+            };
+
+            var employee1ReqDto = new EmployeeReqDto
+            {
+                ContactNumber = "+79176306260",
+                FirstName = "Никита",
+                SecondName = "Филиппов",
+                Position = BusinessLogic.Enums.UserPosition.Administrator,
+                Password = "filippov",
+                Prize = 1500d
+            };
+
+            employeeService.Save(employee1ReqDto);
+            employeeService.Save(employee2ReqDto);
+            employeeService.Save(employee3ReqDto);
         }
 
         private static void InsertProductData()
@@ -222,11 +298,6 @@ namespace ConsoleTestData
         }
 
         private static void InsertIssueData()
-        {
-
-        }
-
-        private static void SetEmployeePrizeData()
         {
 
         }
