@@ -76,6 +76,11 @@ namespace DiscRental73TestWpf.ViewModels.WindowViewModels
                     ContactNumber = ContactNumber,
                     Password = Password
                 });
+                if (employee is null)
+                {
+                    _dialogService.ShowError("Ошибка авторизации. Попробуйте снова","Ошибка");
+                    return;
+                }
                 App.CurrentUser = employee;
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
