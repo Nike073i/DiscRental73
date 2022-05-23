@@ -1,8 +1,8 @@
-﻿using BusinessLogic.BusinessLogics;
+﻿using AdminWpfPlugin.Services;
+using BusinessLogic.BusinessLogics;
+using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Repositories;
-using AdminWpfPlugin.Services;
-using BusinessLogic.DtoModels.RequestDto;
 
 namespace ConsoleTestData
 {
@@ -38,7 +38,7 @@ namespace ConsoleTestData
             //InsertPersonData();
             //InsertProductData();
             //InsertIssueData();
-            Console.WriteLine("Completed");   
+            Console.WriteLine("Completed");
         }
 
         private static void InitializeServices()
@@ -50,24 +50,25 @@ namespace ConsoleTestData
             productRepository = new ProductRepository();
             rentalRepository = new RentalRepository();
             sellRepository = new SellRepository();
-            employeeRepository = new EmployeeRepository(sellRepository,rentalRepository);
+            employeeRepository = new EmployeeRepository(sellRepository, rentalRepository);
 
             clientService = new ClientService(clientRepository);
             cdDiscService = new CdDiscService(cdDiscRepository);
             dvdDiscService = new DvdDiscService(dvdDiscRepository);
             bluRayDiscService = new BluRayDiscService(bluRayDiscRepository);
             productService = new ProductService(productRepository);
-            rentalService = new RentalService(rentalRepository,productService);
+            rentalService = new RentalService(rentalRepository, productService);
             sellService = new SellService(sellRepository, productService);
             employeeService = new EmployeeService(employeeRepository);
 
-            reportService = new ReportService(rentalService,sellService);
+            reportService = new ReportService(rentalService, sellService);
             adminService = new AdminService(employeeService, reportService);
         }
 
         private static void InsertDiscData()
         {
-            var cdDisc1ReqDto = new CdDiscReqDto {
+            var cdDisc1ReqDto = new CdDiscReqDto
+            {
                 Title = "Театръ Теней",
                 DateOfRelease = new DateTime(2008, 08, 07),
                 Performer = "Король и Шут",
@@ -201,7 +202,7 @@ namespace ConsoleTestData
                 SystemRequirements = "Системные требования игры 'Lost in Random'"
 
             };
-            
+
             bluRayDiscService.Save(brDisc1ReqDto);
             bluRayDiscService.Save(brDisc2ReqDto);
             bluRayDiscService.Save(brDisc3ReqDto);
@@ -417,7 +418,35 @@ namespace ConsoleTestData
 
         private static void InsertIssueData()
         {
+            //products
 
+            //Театръ Теней
+            //Пропавший без вести
+            //Elden Ring
+            //Армагедон
+            //Как Витька Чеснок вез Леху Штыря в дом инвалидов
+            //Дурак
+            //Война
+            //Карты, деньги, 2 ствола
+            //Sifu
+
+            //clients 
+
+            // 79176306250
+            // 79176306251
+            // 79176306252
+            // 79176306253
+            // 79176306254
+
+            // employees
+
+            // 79176306255
+            // 79176306258
+            // 79176306260
+
+            var products = productService.GetAll();
+            var clients = clientService.GetAll();
+            var employee = employeeService.GetAll();
         }
     }
 }
