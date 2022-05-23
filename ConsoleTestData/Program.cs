@@ -32,6 +32,12 @@ namespace ConsoleTestData
         public static void Main()
         {
             InitializeServices();
+            InsertDiscData();
+            InsertPersonData();
+            InsertProductData();
+            InsertIssueData();
+            SetEmployeePrizeData();
+            
         }
 
         private static void InitializeServices()
@@ -56,6 +62,31 @@ namespace ConsoleTestData
 
             reportService = new ReportService(rentalService,sellService);
             adminService = new AdminService(employeeService, reportService);
+
+        }
+
+        private static void InsertDiscData()
+        {
+
+        }
+
+        private static void InsertPersonData()
+        {
+
+        }
+
+        private static void InsertProductData()
+        {
+
+        }
+
+        private static void InsertIssueData()
+        {
+
+        }
+
+        private static void SetEmployeePrizeData()
+        {
 
         }
     }
