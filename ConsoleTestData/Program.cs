@@ -34,8 +34,8 @@ namespace ConsoleTestData
         {
             Console.WriteLine("Started");
             InitializeServices();
-            InsertDiscData();
-            InsertPersonData();
+            //InsertDiscData();
+            //InsertPersonData();
             //InsertProductData();
             //InsertIssueData();
             Console.WriteLine("Completed");   
@@ -294,7 +294,125 @@ namespace ConsoleTestData
 
         private static void InsertProductData()
         {
+            //Театръ Теней
+            //Пропавший без вести
+            //Алхимия
+            //Альтависта
+            //Армагедон
+            //Как Витька Чеснок вез Леху Штыря в дом инвалидов
+            //Дурак
+            //Война
+            //Карты, деньги, 2 ствола
+            //Убить Билла
+            //Lost Judgment
+            //Elden Ring
+            //Jurassic World Evolition 2
+            //Sifu
+            //Lost in Random
 
+            var cdDiscs = cdDiscService.GetAll();
+            var dvdDiscs = dvdDiscService.GetAll();
+            var bluRayDiscs = bluRayDiscService.GetAll();
+
+            var product1 = new ProductReqDto
+            {
+                DiscId = cdDiscs.SingleOrDefault(rec => rec.Title == "Театръ Теней").Id,
+                Cost = 500,
+                Quantity = 150,
+                IsAvailable = true
+            };
+
+            var product2 = new ProductReqDto
+            {
+                DiscId = cdDiscs.SingleOrDefault(rec => rec.Title == "Пропавший без вести").Id,
+                Cost = 550,
+                Quantity = 125,
+                IsAvailable = true
+            };
+
+            var product3 = new ProductReqDto
+            {
+                DiscId = cdDiscs.SingleOrDefault(rec => rec.Title == "Алхимия").Id,
+                Cost = 560,
+                Quantity = 240,
+                IsAvailable = false
+            };
+
+            var product4 = new ProductReqDto
+            {
+                DiscId = bluRayDiscs.SingleOrDefault(rec => rec.Title == "Elden Ring").Id,
+                Cost = 2500,
+                Quantity = 65,
+                IsAvailable = true
+            };
+
+            var product5 = new ProductReqDto
+            {
+                DiscId = cdDiscs.SingleOrDefault(rec => rec.Title == "Армагедон").Id,
+                Cost = 450,
+                Quantity = 355,
+                IsAvailable = true
+            };
+
+            var product6 = new ProductReqDto
+            {
+                DiscId = dvdDiscs.SingleOrDefault(rec => rec.Title == "Как Витька Чеснок вез Леху Штыря в дом инвалидов").Id,
+                Cost = 750,
+                Quantity = 195,
+                IsAvailable = true
+            };
+
+            var product7 = new ProductReqDto
+            {
+                DiscId = dvdDiscs.SingleOrDefault(rec => rec.Title == "Дурак").Id,
+                Cost = 500,
+                Quantity = 105,
+                IsAvailable = true
+            };
+
+            var product8 = new ProductReqDto
+            {
+                DiscId = dvdDiscs.SingleOrDefault(rec => rec.Title == "Война").Id,
+                Cost = 550,
+                Quantity = 200,
+                IsAvailable = true
+            };
+
+            var product9 = new ProductReqDto
+            {
+                DiscId = dvdDiscs.SingleOrDefault(rec => rec.Title == "Карты, деньги, 2 ствола").Id,
+                Cost = 530,
+                Quantity = 65,
+                IsAvailable = true
+            };
+
+            var product10 = new ProductReqDto
+            {
+                DiscId = dvdDiscs.SingleOrDefault(rec => rec.Title == "Убить Билла").Id,
+                Cost = 520,
+                Quantity = 15,
+                IsAvailable = false
+            };
+
+            var product11 = new ProductReqDto
+            {
+                DiscId = bluRayDiscs.SingleOrDefault(rec => rec.Title == "Sifu").Id,
+                Cost = 3550,
+                Quantity = 50,
+                IsAvailable = true
+            };
+
+            productService.Create(product1);
+            productService.Create(product2);
+            productService.Create(product3);
+            productService.Create(product4);
+            productService.Create(product5);
+            productService.Create(product6);
+            productService.Create(product7);
+            productService.Create(product8);
+            productService.Create(product9);
+            productService.Create(product10);
+            productService.Create(product11);
         }
 
         private static void InsertIssueData()
