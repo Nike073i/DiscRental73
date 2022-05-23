@@ -23,6 +23,8 @@
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="FontFamily" Value="Times New Roman"/>
+                            <Setter Property="FontSize" Value="12"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
@@ -46,7 +48,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <GroupBox Header="Продажи сотрудника" Margin="5" Grid.Row="0" Grid.Column="0">
-                    <DataGrid ItemsSource="{Binding Sells}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Sells}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" FontFamily="Times New Roman" FontSize="12">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата продажи" Binding="{Binding DateOfSell, StringFormat=dd.MM.yyyy}"/>
                             <DataGridTextColumn Header="Название диска"   Binding="{Binding DiscTitle}"/>
@@ -55,7 +57,7 @@
                     </DataGrid>
                 </GroupBox>
                 <GroupBox Header="Прокаты сотрудника" Margin="5" Grid.Row="1" Grid.Column="0">
-                    <DataGrid ItemsSource="{Binding Rentals}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Rentals}" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" FontFamily="Times New Roman" FontSize="12">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Диск" Binding="{Binding DiscTitle}"/>
                             <DataGridTextColumn Header="Дата выдачи" Binding="{Binding DateOfIssue, StringFormat=dd.MM.yyyy}"/>

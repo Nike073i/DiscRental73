@@ -17,6 +17,8 @@
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="FontFamily" Value="Times New Roman"/>
+                        <Setter Property="FontSize" Value="12"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -33,6 +35,8 @@
             <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="3,2,0,2"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="FontFamily" Value="Times New Roman"/>
+                <Setter Property="FontSize" Value="12"/>
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError"
                          Value="True">

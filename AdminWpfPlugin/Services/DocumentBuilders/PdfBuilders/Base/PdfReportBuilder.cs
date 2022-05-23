@@ -45,7 +45,8 @@ namespace AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders.Base
                 Bold = bold,
                 Italic = italic,
                 Underline = underline ? Underline.Single : Underline.None,
-                Size = size
+                Size = size,
+                Name = "Times New Roman"
             };
             var format = new ParagraphFormat
             {
