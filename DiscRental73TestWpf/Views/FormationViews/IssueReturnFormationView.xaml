@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              xmlns:cv="clr-namespace:DiscRental73TestWpf.Infrastructure.Converters"
+             xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"
              mc:Ignorable="d"             
              d:DesignWidth="400"
              DataContext="{Binding IssueReturnFormationViewModel, Source={StaticResource Locator}}">

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              mc:Ignorable="d"             
+             xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"
              d:DesignWidth="400"
              DataContext="{Binding IssueSellFormationViewModel, Source={StaticResource Locator}}">
     <Grid Margin="3" Background="White">
