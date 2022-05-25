@@ -45,6 +45,7 @@ namespace DatabaseStorage.Repositories
 
             return set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
+                .ThenInclude(rec => rec.Employee)
                 .Include(rec => rec.Rentals)
                 .ThenInclude(rec => rec.Client)
                 .Include(rec => rec.Rentals)
@@ -60,6 +61,7 @@ namespace DatabaseStorage.Repositories
 
             Product? entity = set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
+                .ThenInclude(rec => rec.Employee)
                 .Include(rec => rec.Rentals)
                 .ThenInclude(rec => rec.Client)
                 .Include(rec => rec.Rentals)

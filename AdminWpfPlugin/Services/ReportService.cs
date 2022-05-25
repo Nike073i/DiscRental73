@@ -74,12 +74,19 @@ namespace AdminWpfPlugin.Services
                 int countReturns = 0;
                 group.Rentals.ForEach(rental =>
                 {
-                    generalIncome += rental.PledgeSum;
+                    double incomeValue = default;
                     if (rental.ReturnSum.HasValue)
                     {
-                        incomeFromReturns += (rental.PledgeSum - rental.ReturnSum.Value);
+                        var clearIncome = rental.PledgeSum - rental.ReturnSum.Value;
+                        incomeFromReturns += clearIncome;
                         countReturns++;
+                        incomeValue = clearIncome;
                     }
+                    else
+                    {
+                        incomeValue = rental.PledgeSum;
+                    }
+                    generalIncome += incomeValue;
                 });
                 data.Add(new RentalReportData
                 {
