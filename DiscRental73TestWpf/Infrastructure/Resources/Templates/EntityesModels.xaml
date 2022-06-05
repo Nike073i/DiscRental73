@@ -7,4 +7,28 @@
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:CdDiscResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Performer}"/>
+            <TextBlock Text="{Binding Title}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:ClientResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding SecondName}"/>
+            <TextBlock Text="{Binding ContactNumber}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:DvdDiscResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Director}"/>
+            <TextBlock Text="{Binding Title}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:ProductResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding DiscTitle}"/>
+            <TextBlock Text="{Binding Cost}"/>
+        </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>

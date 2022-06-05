@@ -8,14 +8,14 @@
              DataContext="{Binding ProductManagementViewModel, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" MinWidth="200"/>
             <ColumnDefinition MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="Продукты" Margin="3">
             <DockPanel>
-                <Grid DockPanel.Dock="Bottom" Margin="-3,3">
+                <Grid DockPanel.Dock="Bottom" Margin="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -25,53 +25,24 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green" Padding="0,5" Margin="3,0"
+                    <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green"
                             Command="{Binding CreateNewProductCommand}"/>
-                    <Button fa:Awesome.Content="Solid_Truck" Grid.Column="1" Grid.Row="0" Foreground="Blue" Padding="0,5" Margin="3,0" Command="{Binding EditQuantityCommand}" CommandParameter="{Binding SelectedItem}"/>
-
-                    <Button fa:Awesome.Content="Regular_Eye" Grid.Column="0" Grid.Row="1" Foreground="Red" Padding="0,5" Margin="3,0"
+                    <Button fa:Awesome.Content="Solid_Truck" Grid.Column="1" Grid.Row="0" Foreground="Blue"
+                            Command="{Binding EditQuantityCommand}" CommandParameter="{Binding SelectedItem}"/>
+                    <Button fa:Awesome.Content="Regular_Eye" Grid.Column="0" Grid.Row="1" Foreground="Red"
                             Command="{Binding ChangeAvailableProductCommand}" CommandParameter="{Binding SelectedItem}"/>
-                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Padding="0,5" Margin="3,0" Command="{Binding RefreshCommand}"/>
-                    <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan" Padding="0,5" Margin="3,0" Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedItem}"/>
+                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" 
+                            Command="{Binding RefreshCommand}"/>
+                    <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan"
+                            Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedItem}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="FontFamily" Value="Times New Roman"/>
-                            <Setter Property="FontSize" Value="12"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="m:ProductResDto">
-                            <TextBlock>
-                                <TextBlock Text="{Binding DiscTitle}"/>
-                                <TextBlock Text="{Binding Cost}"/>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"/>
             </DockPanel>
         </GroupBox>
         <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">
             <Grid Margin="3">
                 <Grid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Style.Triggers>
-                            <Trigger Property="Grid.Column" Value="0">
-                                <Setter Property="HorizontalAlignment" Value="Right"/>
-                                <Setter Property="Margin" Value="0,0,2,0"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="FontFamily" Value="Times New Roman"/>
-                                <Setter Property="FontSize" Value="12"/>
-                            </Trigger>
-                            <Trigger Property="Grid.Column" Value="1">
-                                <Setter Property="Margin" Value="2,0,0,0"/>
-                                <Setter Property="FontFamily" Value="Times New Roman"/>
-                                <Setter Property="FontSize" Value="12"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource GridInfoTextBlocks}"/>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
