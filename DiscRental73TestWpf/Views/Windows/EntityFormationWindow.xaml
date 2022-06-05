@@ -1,25 +1,26 @@
 ﻿<Window x:Class="DiscRental73TestWpf.Views.Windows.EntityFormationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"       
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands"
+        xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.WindowViewModels"
         mc:Ignorable="d"
         Icon="/Views/Windows/music-cd.png"
-        xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.WindowViewModels"
-        xmlns:cmd="clr-namespace:DiscRental73TestWpf.Infrastructure.Commands"
         d:DataContext="{d:DesignInstance Type=vm:EntityFormationWindowViewModel, IsDesignTimeCreatable=False}"
         Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0,7,0,0" 
-                   Text="{Binding Caption}"
-                   FontWeight="Bold" FontSize="15"/>
-        <UniformGrid DockPanel.Dock="Bottom" Rows="1" HorizontalAlignment="Right" Margin="0,0,0,10">
-            <Button Content="Сохранить" Margin="10,0" Padding="35,5" IsDefault="True" FontWeight="Bold" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+        <DockPanel.Resources>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockCaption}"/>
+        </DockPanel.Resources>
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Caption}"/>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Сохранить" IsDefault="True" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                 <Button.Command>
                     <cmd:CloseDialogCommand  DialogResult="True"/>
                 </Button.Command>
             </Button>
-            <Button Content="Отменить" Margin="10,0" IsCancel="True" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+            <Button Content="Отменить" IsCancel="True" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                 <Button.Command>
                     <cmd:CloseWindowCommand/>
                 </Button.Command>
