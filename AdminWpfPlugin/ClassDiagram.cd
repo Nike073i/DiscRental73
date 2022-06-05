@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AdminWpfPlugin.Views.Windows.EntityFormationWindow" BaseTypeListCollapsed="true">
+    <Position X="28.25" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\EntityFormationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.Windows.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="31" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.EmployeeFormationView" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EmployeeFormationView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.EmployeeManagementView" BaseTypeListCollapsed="true">
+    <Position X="26" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EmployeeManagementView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.EmployeePrizeFormationView" BaseTypeListCollapsed="true">
+    <Position X="28.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EmployeePrizeFormationView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.EmployeePrizeView" BaseTypeListCollapsed="true">
+    <Position X="33" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EmployeePrizeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.EmployeeView" BaseTypeListCollapsed="true">
+    <Position X="31.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EmployeeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.ImageView" BaseTypeListCollapsed="true">
+    <Position X="29.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ImageView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.RentalReportView" BaseTypeListCollapsed="true">
+    <Position X="33" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RentalReportView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.ReportView" BaseTypeListCollapsed="true">
+    <Position X="31.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ReportView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Views.SellReportView" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SellReportView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.DocumentBuilders.Base.DocumentDirector">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\Base\DocumentDirector.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DocumentBuilder" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders.Base.PdfReportBuilder">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoAAAAQAAAAQAECAAIAAAAABCAAAAAAQkAAAQBAAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\PdfBuilders\Base\PdfReportBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders.PdfReportRentalBuilder">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAABAAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\PdfBuilders\PdfReportRentalBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders.PdfReportSellBuilder">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAABAAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\PdfBuilders\PdfReportSellBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.DocumentBuilders.PdfDocumentDirector">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\PdfDocumentDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.AdminService">
+    <Position X="9.5" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIBAAAAAAAQAAAAAAAAAAAAAgAIAAABA=</HashCode>
+      <FileName>Services\AdminService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Services.ReportService">
+    <Position X="5.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAgQAAAAAAAAABAQAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Services\ReportService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.WindowViewModels.EntityFormationWindowViewModel">
+    <Position X="24.75" Y="6" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAIIIAAAAACAACAAAAAAA=</HashCode>
+      <FileName>ViewModels\WindowViewModels\EntityFormationWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.WindowViewModels.MainWindowViewModel">
+    <Position X="27.75" Y="6" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAACAAACEAAhAAAAAAAIoIBAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ViewModels\WindowViewModels\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.EmployeeFormationViewModel">
+    <Position X="31" Y="12.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IEABAQAAAgAAAAAggAAAAAAACAABAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ViewModels\EmployeeFormationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.EmployeeManagementViewModel">
+    <Position X="35.25" Y="6" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAIgAAA=</HashCode>
+      <FileName>ViewModels\EmployeeManagementViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.EmployeePrizeFormationViewModel">
+    <Position X="27.75" Y="13.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAIAAAAAAAQAIAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\EmployeePrizeFormationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.EmployeePrizeViewModel">
+    <Position X="24.75" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAABAAAAAACJAAAABAAAAAAAAABAAAAAAIAIAAAAA=</HashCode>
+      <FileName>ViewModels\EmployeePrizeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.EmployeeViewModel">
+    <Position X="33.75" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEQABAQAAAQAAAAAIAIAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\EmployeeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.ImageViewModel" Collapsed="true">
+    <Position X="25.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ImageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.RentalReportViewModel">
+    <Position X="35.75" Y="8" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAICABBIBAAIAAACAoEAAAACAEAAQAUACAACAIAICEA=</HashCode>
+      <FileName>ViewModels\RentalReportViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.ReportViewModel">
+    <Position X="27.25" Y="10.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAwAAAAAAAAAQAAAAIAIAAAEAAAAAAAAAQAA=</HashCode>
+      <FileName>ViewModels\ReportViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.ViewModels.SellReportViewModel">
+    <Position X="31.75" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAABBJBBAIAAACAoAAAAAAAEAEQAUACBACAIAICEA=</HashCode>
+      <FileName>ViewModels\SellReportViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.CreateRentalReportReqDto">
+    <Position X="13" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreateRentalReportReqDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.CreateSellReportReqDto">
+    <Position X="15.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreateSellReportReqDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.RentalReportData">
+    <Position X="16" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAADAAAAAAAAACCAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Models\RentalReportData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.SellReportData">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAggAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SellReportData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.SetEmployeePrizeModel">
+    <Position X="13.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAAAACEAA=</HashCode>
+      <FileName>Models\SetEmployeePrizeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Models.SetEmployeePrizeReqDto">
+    <Position X="15.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\SetEmployeePrizeReqDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Infrastructure.Di.HostDialogServices">
+    <Position X="7.5" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Di\HostDialogServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Infrastructure.Di.HostServices">
+    <Position X="5.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAgAAAEAAAAAAAAABAAAAAACAAkAAAEBCAAAA=</HashCode>
+      <FileName>Infrastructure\Di\HostServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Infrastructure.Di.HostViewModels">
+    <Position X="2.75" Y="7" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAEAAgIQAAAIEAAEBAAAIAAAgQAgIARAAAwAIhAgA=</HashCode>
+      <FileName>Infrastructure\Di\HostViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Infrastructure.DialogWindowServices.Strategies.ShowEmployeePrizeStrategy">
+    <Position X="17.75" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAQAAAAAAAEAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\DialogWindowServices\Strategies\ShowEmployeePrizeStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.Infrastructure.DialogWindowServices.Strategies.ShowEmployeeStrategy">
+    <Position X="17.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAABIQAAAgAAAAAAgAAAAAEAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Infrastructure\DialogWindowServices\Strategies\ShowEmployeeStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminWpfPlugin.AdminPlugin" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABABAAAAACYAAAAAAAAAIAACAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>AdminPlugin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="AdminWpfPlugin.Services.DocumentBuilders.Base.IDocumentBuilder" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Services\DocumentBuilders\Base\IDocumentBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

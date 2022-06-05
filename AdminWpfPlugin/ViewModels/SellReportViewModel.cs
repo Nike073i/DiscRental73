@@ -105,7 +105,7 @@ namespace AdminWpfPlugin.ViewModels
         private ICommand _CreateSellPdfReportCommand;
 
         public ICommand CreateSellPdfReportCommand => _CreateSellPdfReportCommand ??= new LambdaCommand(OnCreateSellPdfReportCommandExecute,
-            CanOnCreateSellPdfReportCommandExecuteExecute);
+            CanOnCreateSellPdfReportCommandExecute);
 
         private void OnCreateSellPdfReportCommandExecute(object? p)
         {
@@ -124,7 +124,7 @@ namespace AdminWpfPlugin.ViewModels
             }
         }
 
-        private bool CanOnCreateSellPdfReportCommandExecuteExecute(object? p) => _adminService is not null;
+        private bool CanOnCreateSellPdfReportCommandExecute(object? p) => _adminService is not null;
 
         #endregion
 
