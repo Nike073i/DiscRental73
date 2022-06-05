@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:responseDto="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic">
+    <DataTemplate DataType="{x:Type responseDto:BluRayDiscResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Publisher}"/>
+            <TextBlock Text="{Binding Title}"/>
+        </TextBlock>
+    </DataTemplate>
+</ResourceDictionary>
