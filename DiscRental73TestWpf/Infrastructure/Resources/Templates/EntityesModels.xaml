@@ -31,4 +31,24 @@
             <TextBlock Text="{Binding Cost}"/>
         </TextBlock>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:RentalResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding DateOfIssue, StringFormat=dd.MM.yyyy}"/>
+            <TextBlock Text="{Binding DiscTitle}"/>
+            <TextBlock Text="{Binding ClientCNumber}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:SellResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding DateOfSell, StringFormat=dd.MM.yyyy}"/>
+            <TextBlock Text="{Binding DiscTitle}"/>
+            <TextBlock Text="{Binding Price}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type responseDto:DiscResDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Title}"/>
+            <TextBlock Text="{Binding DiscType}"/>
+        </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>

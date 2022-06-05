@@ -11,7 +11,4 @@
     </Style>
 
     <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxBase}"/>
-
-
-
 </ResourceDictionary>
