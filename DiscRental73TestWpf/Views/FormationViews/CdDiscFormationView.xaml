@@ -45,7 +45,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="CdDisc.DateOfRelease" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:DateValueValidatonRule ValidatesOnTargetUpdated="True"/>
+                        <vr:DateValueValidationRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>

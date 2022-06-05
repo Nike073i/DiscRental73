@@ -44,7 +44,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="IssueRentalBindingModel.DateOfIssue" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:DateValueValidatonRule ValidatesOnTargetUpdated="True"/>
+                        <vr:DateValueValidationRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>
@@ -54,7 +54,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="IssueRentalBindingModel.DateOfReturn" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <vr:DateValueValidatonRule ValidatesOnTargetUpdated="True"/>
+                        <vr:DateValueValidationRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>
