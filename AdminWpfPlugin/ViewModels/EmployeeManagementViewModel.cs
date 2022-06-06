@@ -4,6 +4,8 @@ using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.Base;
+using System;
+using System.Windows.Data;
 
 namespace AdminWpfPlugin.ViewModels
 {
@@ -40,6 +42,22 @@ namespace AdminWpfPlugin.ViewModels
                 Position = resDto.Position,
             };
             return reqDto;
+        }
+
+        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        {
+            if (!(E.Item is EmployeeResDto dto))
+            {
+                E.Accepted = false;
+                return;
+            }
+
+            var filterText = SearchedFilter;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            E.Accepted = false;
         }
     }
 }

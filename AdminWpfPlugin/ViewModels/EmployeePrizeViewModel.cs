@@ -8,6 +8,7 @@ using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
 using System;
 using System.Collections.Generic;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace AdminWpfPlugin.ViewModels
@@ -63,6 +64,22 @@ namespace AdminWpfPlugin.ViewModels
             {
                 _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
+        }
+
+        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        {
+            if (!(E.Item is EmployeeResDto dto))
+            {
+                E.Accepted = false;
+                return;
+            }
+
+            var filterText = SearchedFilter;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            E.Accepted = false;
         }
 
         #endregion
