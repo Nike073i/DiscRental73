@@ -1,9 +1,11 @@
-﻿using BusinessLogic.BusinessLogics;
+﻿using System;
+using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.ViewModels.Base;
+using System.Windows.Data;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
@@ -38,6 +40,22 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 Address = resDto.Address,
             };
             return reqDto;
+        }
+
+        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        {
+            if (!(E.Item is ClientResDto dto))
+            {
+                E.Accepted = false;
+                return;
+            }
+
+            var filterText = SearchedFilter;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            E.Accepted = false;
         }
     }
 }

@@ -6,7 +6,7 @@
         <Setter Property="Margin" Value="3,2,0,2"/>
     </Style>
 
-    <Style  x:Key="ValidationTextBox" TargetType="TextBox" BasedOn="{StaticResource TextBoxBase}">
+    <Style x:Key="ValidationTextBox" TargetType="TextBox" BasedOn="{StaticResource TextBoxBase}">
         <Style.Triggers>
             <Trigger Property="Validation.HasError"
                          Value="True">

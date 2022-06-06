@@ -1,4 +1,6 @@
-﻿using BusinessLogic.BusinessLogics;
+﻿using System;
+using System.Windows.Data;
+using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
@@ -14,6 +16,22 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         }
 
         protected override ShowDvdDiscStrategy CreateContentStrategy() => new();
+
+        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        {
+            if (!(E.Item is DvdDiscResDto dto))
+            {
+                E.Accepted = false;
+                return;
+            }
+
+            var filterText = SearchedFilter;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (dto.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (dto.Director.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            E.Accepted = false;
+        }
 
         protected override DvdDiscReqDto CreateReqDtoToCreate(DvdDiscResDto resDto)
         {

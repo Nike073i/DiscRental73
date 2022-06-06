@@ -14,6 +14,10 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="BluRay-диски" Margin="3">
             <DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="3">
+                    <fa:ImageAwesome Icon="Solid_Search" DockPanel.Dock="Left" Height="12" Foreground="BlueViolet" Margin="3"/>
+                    <TextBox DockPanel.Dock="Right" Style="{StaticResource TextBoxBase}" Text="{Binding SearchedFilter, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
                 <Grid DockPanel.Dock="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -30,11 +34,11 @@
                             Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem}"/>
                     <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" Command="{Binding RefreshCommand}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" 
+                <ListBox ItemsSource="{Binding FilteredItems}" SelectedItem="{Binding SelectedItem}" 
                          VirtualizingPanel.IsVirtualizing="True"
                          VirtualizingPanel.IsContainerVirtualizable="True"
                          VirtualizingPanel.VirtualizationMode="Recycling">
-                <ListBox.ItemsPanel>
+                    <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
                         </ItemsPanelTemplate>

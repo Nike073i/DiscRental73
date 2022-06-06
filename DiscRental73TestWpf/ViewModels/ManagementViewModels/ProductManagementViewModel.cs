@@ -8,6 +8,7 @@ using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
 using System;
 using System.Collections.Generic;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
@@ -26,12 +27,28 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         private ShowProductQuantityStrategy _ProductQuantityStrategy;
         public ShowProductQuantityStrategy ProductQuantityStrategy => _ProductQuantityStrategy ??= new ShowProductQuantityStrategy();
 
+        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        {
+            if (!(E.Item is ProductResDto dto))
+            {
+                E.Accepted = false;
+                return;
+            }
+
+            var filterText = SearchedFilter;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (dto.DiscTitle.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            E.Accepted = false;
+        }
+
         public override IEnumerable<ProductResDto> Items => _service.GetAll();
 
         public ProductManagementViewModel(ProductService productService, WindowDataFormationService dialogService, DiscService discService) : base(dialogService)
         {
             _service = productService;
             _discService = discService;
+            _FilteredItems.Source = Items;
         }
 
         #region CreateNewProductCommand - создание продукта

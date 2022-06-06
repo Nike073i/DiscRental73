@@ -14,6 +14,10 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="Продукты" Margin="3">
             <DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="3">
+                    <fa:ImageAwesome Icon="Solid_Search" DockPanel.Dock="Left" Height="12" Foreground="BlueViolet" Margin="3"/>
+                    <TextBox DockPanel.Dock="Right" Style="{StaticResource TextBoxBase}" Text="{Binding SearchedFilter, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
                 <Grid DockPanel.Dock="Bottom" Margin="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -35,7 +39,7 @@
                     <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan"
                             Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedItem}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                <ListBox ItemsSource="{Binding FilteredItems}" SelectedItem="{Binding SelectedItem}"
                          VirtualizingPanel.IsVirtualizing="True"
                          VirtualizingPanel.IsContainerVirtualizable="True"
                          VirtualizingPanel.VirtualizationMode="Recycling">

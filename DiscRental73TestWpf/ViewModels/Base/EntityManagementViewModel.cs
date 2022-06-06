@@ -2,6 +2,8 @@
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.Base
@@ -15,7 +17,39 @@ namespace DiscRental73TestWpf.ViewModels.Base
         public EntityManagementViewModel(WindowDataFormationService dialogService)
         {
             _dialogService = dialogService;
+            _FilteredItems = new CollectionViewSource();
+            _FilteredItems.Filter += OnItemsFiltered;
         }
+
+        #region string SearchedFilter - Текст фильтрации
+
+        ///<summary>Текст фильтрации</summary>
+        private string _SearchedFilter;
+
+        ///<summary>Текст фильтрации</summary>
+        public string SearchedFilter
+        {
+            get => _SearchedFilter;
+            set
+            {
+                if (!Set(ref _SearchedFilter, value)) return;
+                _FilteredItems.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region ICollectionView FilteredItems - Элементы, проходящие фильтр
+
+        ///<summary>Элементы, проходящие фильтр</summary>
+        protected CollectionViewSource _FilteredItems;
+
+        ///<summary>Элементы, проходящие фильтр</summary>
+        public ICollectionView FilteredItems => _FilteredItems?.View;
+
+        protected abstract void OnItemsFiltered(object sender, FilterEventArgs E);
+
+        #endregion
 
         #region Items - IEnumerable<object> - набор элементов
 

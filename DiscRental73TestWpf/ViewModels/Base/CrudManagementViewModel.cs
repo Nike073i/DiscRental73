@@ -18,6 +18,7 @@ namespace DiscRental73TestWpf.ViewModels.Base
         public CrudManagementViewModel(CrudService<Req, Res> service, WindowDataFormationService dialogService) : base(dialogService)
         {
             _service = service;
+            _FilteredItems.Source = Items;
         }
 
         public override IEnumerable<Res> Items => _service.GetAll();
