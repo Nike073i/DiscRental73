@@ -32,7 +32,16 @@
                     <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange"
                             Command="{Binding RefreshCommand}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"/>
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.IsContainerVirtualizable="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </DockPanel>
         </GroupBox>
         <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">

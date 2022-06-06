@@ -35,7 +35,16 @@
                     <Button fa:Awesome.Content="Solid_DollarSign" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="Cyan"
                             Command="{Binding ChangeCostCommand}" CommandParameter="{Binding SelectedItem}"/>
                 </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"/>
+                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.IsContainerVirtualizable="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </DockPanel>
         </GroupBox>
         <GroupBox Margin="6"  Grid.Column="1" Header="Информация" DataContext="{Binding SelectedItem}">
