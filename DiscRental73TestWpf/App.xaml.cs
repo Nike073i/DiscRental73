@@ -3,11 +3,20 @@ using DiscRental73TestWpf.Infrastructure.Di.Registrators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Windows;
 
 namespace DiscRental73TestWpf
 {
     public partial class App
     {
+        public static bool IsDesignMode { get; private set; } = true;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            IsDesignMode = false;
+            base.OnStartup(e);
+        }
+
         public static EmployeeResDto? CurrentUser { get; set; }
 
         private static IHost _Host;
