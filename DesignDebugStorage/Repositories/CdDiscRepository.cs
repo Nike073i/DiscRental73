@@ -16,7 +16,7 @@ public class CdDiscRepository : ICdDiscRepository
         Performer = $"Исполнитель - {i}",
     });
 
-    public ICollection<CdDiscResDto> GetAll() => _discs.ToList();
+    public IEnumerable<CdDiscResDto> GetAll() => _discs.ToList();
 
     public CdDiscResDto GetById(CdDiscReqDto reqDto)
     {

@@ -5,7 +5,7 @@ namespace BusinessLogic.Interfaces.Storages
 {
     public interface IProductRepository
     {
-        ICollection<ProductResDto> GetAll();
+        IEnumerable<ProductResDto> GetAll();
         ProductResDto GetById(ProductReqDto reqDto);
         void Insert(ProductReqDto reqDto);
         void Update(ProductReqDto reqDto);

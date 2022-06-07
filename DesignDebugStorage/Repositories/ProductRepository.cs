@@ -18,7 +18,7 @@ public class ProductRepository : IProductRepository
         Quantity = i
     });
 
-    public ICollection<ProductResDto> GetAll()
+    public IEnumerable<ProductResDto> GetAll()
     {
         return _products.ToList();
     }

@@ -5,7 +5,7 @@ namespace BusinessLogic.Interfaces.Storages
 {
     public interface ISellRepository
     {
-        ICollection<SellResDto> GetAll();
+        IEnumerable<SellResDto> GetAll();
         SellResDto GetById(SellReqDto reqDto);
         void Insert(SellReqDto reqDto);
         void DeleteById(SellReqDto reqDto);

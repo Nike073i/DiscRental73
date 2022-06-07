@@ -17,7 +17,7 @@ public class SellRepository : ISellRepository
         Price = i
     });
 
-    public ICollection<SellResDto> GetAll()
+    public IEnumerable<SellResDto> GetAll()
     {
         throw new NotImplementedException();
     }

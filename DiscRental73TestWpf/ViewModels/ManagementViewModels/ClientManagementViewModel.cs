@@ -42,20 +42,20 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             return reqDto;
         }
 
-        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
-        {
-            if (!(E.Item is ClientResDto dto))
-            {
-                E.Accepted = false;
-                return;
-            }
+        //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //{
+        //    if (!(E.Item is ClientResDto dto))
+        //    {
+        //        E.Accepted = false;
+        //        return;
+        //    }
 
-            var filterText = SearchedFilter;
-            if (string.IsNullOrWhiteSpace(filterText)) return;
-            if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-            if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    var filterText = SearchedFilter;
+        //    if (string.IsNullOrWhiteSpace(filterText)) return;
+        //    if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
 
-            E.Accepted = false;
-        }
+        //    E.Accepted = false;
+        //}
     }
 }

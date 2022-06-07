@@ -9,6 +9,6 @@ namespace DatabaseStorage.Repositories
 {
     public class BluRayDiscRepository : DiscRepository<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>, IBluRayDiscRepository
     {
-        protected override BluRayDiscMapper CreateMapper() => new BluRayDiscMapper();
+        protected override BluRayDiscMapper CreateMapper() => new();
     }
 }

@@ -5,14 +5,13 @@ using DatabaseStorage.Entityes;
 
 namespace DatabaseStorage.Repositories.Base
 {
-    public abstract class DiscRepository<Req, Res, T> : DbRepository<Req, Res, T> where Req : DiscReqDto, new() where Res : DiscResDto, new() where T : Disc, new()
+    public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T> where TReq : DiscReqDto, new() where TRes : DiscResDto, new() where T : Disc, new()
     {
-        public override void DeleteById(Req reqDto)
+        protected override void DoDeleteById(in DiscRentalDb db, TReq dto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<T>();
 
-            T? entity = set.FirstOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            var entity = set.FirstOrDefault(rec => rec.Id.Equals(dto.Id));
             if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Ошибка удаления по Id: Запись не найдена");

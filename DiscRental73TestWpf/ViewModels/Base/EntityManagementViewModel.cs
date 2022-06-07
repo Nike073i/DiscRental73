@@ -2,81 +2,86 @@
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Data;
 using System.Windows.Input;
 
-namespace DiscRental73TestWpf.ViewModels.Base
+namespace DiscRental73TestWpf.ViewModels.Base;
+
+public abstract class EntityManagementViewModel : ViewModel
 {
-    public abstract class EntityManagementViewModel : ViewModel
+    protected readonly WindowDataFormationService DialogService;
+
+    protected EntityManagementViewModel(WindowDataFormationService dialogService)
     {
-        protected readonly WindowDataFormationService _dialogService;
-        protected bool IsLoginUser(object? p) => App.CurrentUser is not null;
+        DialogService = dialogService;
+        //_FilteredItems = new CollectionViewSource();
+        //_FilteredItems.Filter += OnItemsFiltered;
+        RefreshCommand = new LambdaCommand(OnRefreshCommand);
+    }
 
+    #region Items - IEnumerable<object> - набор элементов
 
-        public EntityManagementViewModel(WindowDataFormationService dialogService)
-        {
-            _dialogService = dialogService;
-            _FilteredItems = new CollectionViewSource();
-            _FilteredItems.Filter += OnItemsFiltered;
-        }
+    private IEnumerable<object> _Items;
 
-        #region string SearchedFilter - Текст фильтрации
+    public IEnumerable<object> Items
+    {
+        get => _Items;
+        set => Set(ref _Items, value);
+    }
 
-        ///<summary>Текст фильтрации</summary>
-        private string _SearchedFilter;
+    #endregion
 
-        ///<summary>Текст фильтрации</summary>
-        public string SearchedFilter
-        {
-            get => _SearchedFilter;
-            set
-            {
-                if (!Set(ref _SearchedFilter, value)) return;
-                _FilteredItems.View.Refresh();
-            }
-        }
+    //#region string SearchedFilter - Текст фильтрации
 
-        #endregion
+    /////<summary>Текст фильтрации</summary>
+    //private string _SearchedFilter;
 
-        #region ICollectionView FilteredItems - Элементы, проходящие фильтр
+    /////<summary>Текст фильтрации</summary>
+    //public string SearchedFilter
+    //{
+    //    get => _SearchedFilter;
+    //    set
+    //    {
+    //        if (!Set(ref _SearchedFilter, value)) return;
+    //        FilteredItems?.Refresh();
+    //    }
+    //}
 
-        ///<summary>Элементы, проходящие фильтр</summary>
-        protected CollectionViewSource _FilteredItems;
+    //#endregion
 
-        ///<summary>Элементы, проходящие фильтр</summary>
-        public ICollectionView FilteredItems => _FilteredItems?.View;
+    //#region ICollectionView FilteredItems - Элементы, проходящие фильтр
 
-        protected abstract void OnItemsFiltered(object sender, FilterEventArgs E);
+    /////<summary>Элементы, проходящие фильтр</summary>
+    //protected CollectionViewSource _FilteredItems;
 
-        #endregion
+    /////<summary>Элементы, проходящие фильтр</summary>
+    //public ICollectionView FilteredItems => _FilteredItems?.View;
 
-        #region Items - IEnumerable<object> - набор элементов
+    //protected abstract void OnItemsFiltered(object sender, FilterEventArgs E);
 
-        public abstract IEnumerable<object> Items { get; }
+    //#endregion
 
-        #endregion
+    #region SelectedItem - object - модель выбранного элемента
 
-        #region SelectedItem - Res - модель выбранного элемента
+    private object _SelectedItem;
 
-        private object _SelectedItem;
+    public object SelectedItem
+    {
+        get => _SelectedItem;
+        set => Set(ref _SelectedItem, value);
+    }
 
-        public object SelectedItem
-        {
-            get => _SelectedItem;
-            set => Set(ref _SelectedItem, value);
-        }
+    #endregion
 
-        #endregion
+    #region RefreshCommand - обновление списка элементов
 
-        #region RefreshCommand - обновление списка элементов
+    public ICommand RefreshCommand { get; }
 
-        private ICommand _RefreshCommand;
+    protected abstract void OnRefreshCommand(object? p);
 
-        public ICommand RefreshCommand => _RefreshCommand ??= new LambdaCommand(OnRefreshCommand);
+    #endregion
 
-        private void OnRefreshCommand(object? p) => OnPropertyChanged(nameof(Items));
-
-        #endregion
+    protected bool IsLoginUser(object? p)
+    {
+        return App.CurrentUser is not null;
     }
 }

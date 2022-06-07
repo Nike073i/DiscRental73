@@ -27,28 +27,32 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         private ShowProductQuantityStrategy _ProductQuantityStrategy;
         public ShowProductQuantityStrategy ProductQuantityStrategy => _ProductQuantityStrategy ??= new ShowProductQuantityStrategy();
 
-        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //{
+        //    if (!(E.Item is ProductResDto dto))
+        //    {
+        //        E.Accepted = false;
+        //        return;
+        //    }
+
+        //    var filterText = SearchedFilter;
+        //    if (string.IsNullOrWhiteSpace(filterText)) return;
+        //    if (dto.DiscTitle.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+        //    E.Accepted = false;
+        //}
+
+        protected override void OnRefreshCommand(object? p)
         {
-            if (!(E.Item is ProductResDto dto))
-            {
-                E.Accepted = false;
-                return;
-            }
-
-            var filterText = SearchedFilter;
-            if (string.IsNullOrWhiteSpace(filterText)) return;
-            if (dto.DiscTitle.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-
-            E.Accepted = false;
+            Items = _service.GetAll();
         }
-
-        public override IEnumerable<ProductResDto> Items => _service.GetAll();
 
         public ProductManagementViewModel(ProductService productService, WindowDataFormationService dialogService, DiscService discService) : base(dialogService)
         {
             _service = productService;
             _discService = discService;
-            _FilteredItems.Source = Items;
+            Items = _service.GetAll();
+            //_FilteredItems.Source = Items;
         }
 
         #region CreateNewProductCommand - создание продукта
@@ -63,19 +67,19 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             var strategy = ProductStrategy;
             strategy.Discs = _discService.GetDiscs();
 
-            _dialogService.ShowStrategy = strategy;
+            DialogService.ShowStrategy = strategy;
 
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!DialogService.ShowContent(ref item)) return;
             try
             {
                 var reqDto = CreateReqDtoToCreate(item as ProductResDto);
                 _service.Create(reqDto);
-                _dialogService.ShowInformation("Запись создана", "Успех");
+                DialogService.ShowInformation("Запись создана", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _dialogService.ShowWarning(ex.Message, "Ошибка создания");
+                DialogService.ShowWarning(ex.Message, "Ошибка создания");
             }
         }
 
@@ -100,12 +104,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                     IsAvailable = !resDto.IsAvailable
                 };
                 _service.ChangeAvailable(reqDto);
-                _dialogService.ShowInformation("Доступность изменена", "Успех");
+                DialogService.ShowInformation("Доступность изменена", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _dialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
+                DialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
             }
         }
 
@@ -129,8 +133,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 CurrentQuantity = product.Quantity,
                 EditQuantity = 5
             };
-            _dialogService.ShowStrategy = ProductQuantityStrategy;
-            if (!_dialogService.ShowContent(ref model)) return;
+            DialogService.ShowStrategy = ProductQuantityStrategy;
+            if (!DialogService.ShowContent(ref model)) return;
             try
             {
                 var reqDto = model as EditProductQuantityModel;
@@ -139,12 +143,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                     ProductId = reqDto.ProductId,
                     EditQuantity = reqDto.EditQuantity
                 });
-                _dialogService.ShowInformation("Количество измененно", "Успех");
+                DialogService.ShowInformation("Количество измененно", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                DialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
 
@@ -160,7 +164,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnChangeCostCommand(object? p)
         {
-            _dialogService.ShowStrategy = ProductCostStrategy;
+            DialogService.ShowStrategy = ProductCostStrategy;
             var product = p as ProductResDto;
             object model = new EditProductCostModel
             {
@@ -168,7 +172,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 DiscTitle = product.DiscTitle,
                 CurrentCost = product.Cost,
             };
-            if (!_dialogService.ShowContent(ref model)) return;
+            if (!DialogService.ShowContent(ref model)) return;
             try
             {
                 var reqDto = model as EditProductCostModel;
@@ -177,12 +181,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                     ProductId = reqDto.ProductId,
                     Cost = reqDto.NewCost
                 });
-                _dialogService.ShowInformation("Количество измененно", "Успех");
+                DialogService.ShowInformation("Количество измененно", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                DialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
 

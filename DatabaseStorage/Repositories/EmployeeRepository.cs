@@ -10,35 +10,33 @@ namespace DatabaseStorage.Repositories
 {
     public class EmployeeRepository : PersonRepository<EmployeeReqDto, EmployeeResDto, Employee>, IEmployeeRepository
     {
-        private readonly IRentalRepository _rentalRepository;
-        private readonly ISellRepository _sellRepository;
+        private readonly IRentalRepository _RentalRepository;
+        private readonly ISellRepository _SellRepository;
 
         public EmployeeRepository(ISellRepository sellRepository, IRentalRepository rentalRepository)
         {
-            _sellRepository = sellRepository;
-            _rentalRepository = rentalRepository;
+            _SellRepository = sellRepository;
+            _RentalRepository = rentalRepository;
         }
 
-        protected override EmployeeMapper CreateMapper() => new EmployeeMapper();
+        protected override EmployeeMapper CreateMapper() => new();
 
-        public override ICollection<EmployeeResDto> GetAll()
+        protected override IEnumerable<EmployeeResDto> DoGetAll(in DiscRentalDb db)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Employee>();
 
             var data = set.Where(entity => !entity.IsDeleted).
-                Select(rec => _mapper.MapToRes(rec)).ToList();
+                Select(rec => Mapper.MapToRes(rec)).ToList();
             data.ForEach(employee =>
                 {
-                    employee.Rentals = _rentalRepository.GetAll().Where(rec => rec.EmployeeId.Equals(employee.Id)).ToList();
-                    employee.Sells = _sellRepository.GetAll().Where(rec => rec.EmployeeId.Equals(employee.Id)).ToList();
+                    employee.Rentals = _RentalRepository.GetAll().Where(rec => rec.EmployeeId.Equals(employee.Id)).ToList();
+                    employee.Sells = _SellRepository.GetAll().Where(rec => rec.EmployeeId.Equals(employee.Id)).ToList();
                 });
             return data;
         }
 
-        public override EmployeeResDto GetById(EmployeeReqDto reqDto)
+        protected override EmployeeResDto DoGetById(in DiscRentalDb db, EmployeeReqDto reqDto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Employee>();
 
             var entity = set.SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
@@ -46,9 +44,9 @@ namespace DatabaseStorage.Repositories
             {
                 throw new Exception("Запись не найдена");
             }
-            var data = _mapper.MapToRes(entity);
-            data.Rentals = _rentalRepository.GetAll().Where(rec => rec.EmployeeId.Equals(data.Id)).ToList();
-            data.Sells = _sellRepository.GetAll().Where(rec => rec.EmployeeId.Equals(data.Id)).ToList();
+            var data = Mapper.MapToRes(entity);
+            data.Rentals = _RentalRepository.GetAll().Where(rec => rec.EmployeeId.Equals(data.Id)).ToList();
+            data.Sells = _SellRepository.GetAll().Where(rec => rec.EmployeeId.Equals(data.Id)).ToList();
             return data;
         }
     }

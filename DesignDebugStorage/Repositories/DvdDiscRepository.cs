@@ -16,7 +16,7 @@ public class DvdDiscRepository : IDvdDiscRepository
         Director = $"Режиссер - {i}",
     });
 
-    public ICollection<DvdDiscResDto> GetAll() => _discs.ToList();
+    public IEnumerable<DvdDiscResDto> GetAll() => _discs.ToList();
     public void DeleteById(DvdDiscReqDto reqDto)
     {
         throw new NotImplementedException();

@@ -16,7 +16,7 @@ public class BluRayDiscRepository : IBluRayDiscRepository
         Publisher = $"Издатель - {i}"
     });
 
-    public ICollection<BluRayDiscResDto> GetAll()
+    public IEnumerable<BluRayDiscResDto> GetAll()
     {
         return _discs.ToList();
     }

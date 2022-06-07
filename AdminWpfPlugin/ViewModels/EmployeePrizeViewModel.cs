@@ -39,7 +39,7 @@ namespace AdminWpfPlugin.ViewModels
 
         private void OnSetPrizeCommandExecute(object? p)
         {
-            _dialogService.ShowStrategy = EmployeePrizeStrategy;
+            DialogService.ShowStrategy = EmployeePrizeStrategy;
             var employee = p as EmployeeResDto;
             object model = new SetEmployeePrizeModel
             {
@@ -48,7 +48,7 @@ namespace AdminWpfPlugin.ViewModels
                 EmployeeSecondName = employee.SecondName,
                 CurrentPrize = employee.Prize
             };
-            if (!_dialogService.ShowContent(ref model)) return;
+            if (!DialogService.ShowContent(ref model)) return;
             try
             {
                 var reqDto = model as SetEmployeePrizeModel;
@@ -57,12 +57,12 @@ namespace AdminWpfPlugin.ViewModels
                     EmployeeId = reqDto.EmployeeId,
                     Prize = reqDto.EditPrize
                 });
-                _dialogService.ShowInformation("Премия измененна", "Успех");
+                DialogService.ShowInformation("Премия измененна", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
             catch (Exception ex)
             {
-                _dialogService.ShowWarning(ex.Message, "Ошибка изменения");
+                DialogService.ShowWarning(ex.Message, "Ошибка изменения");
             }
         }
 

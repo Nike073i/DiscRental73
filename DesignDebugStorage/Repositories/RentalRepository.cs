@@ -20,7 +20,7 @@ public class RentalRepository : IRentalRepository
         ProductId = i
     });
 
-    public ICollection<RentalResDto> GetAll()
+    public IEnumerable<RentalResDto> GetAll()
     {
         return _rentals.ToList();
     }

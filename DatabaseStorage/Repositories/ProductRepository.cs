@@ -4,43 +4,36 @@ using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
+using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
     public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Product>, IProductRepository
     {
-        public override void Insert(ProductReqDto reqDto)
+        protected override void DoInsert(in DiscRentalDb db, ProductReqDto reqDto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Product>();
-            try
+
+            var productInDb = set.SingleOrDefault(rec => rec.DiscId.Equals(reqDto.DiscId));
+            if (productInDb is not null && !productInDb.IsDeleted) throw new Exception("Ошибка добавления записи: Диск уже привязан к другому продукту");
+            Product entity;
+            if (productInDb is null)
             {
-                Product? productInDb = set.SingleOrDefault(rec => rec.DiscId.Equals(reqDto.DiscId));
-                if (productInDb is not null && !productInDb.IsDeleted) throw new Exception("Ошибка добавления записи: Диск уже привязан к другому продукту");
-                Product entity;
-                if (productInDb is null)
-                {
-                    entity = new Product();
-                }
-                else
-                {
-                    entity = productInDb;
-                    entity.IsDeleted = false;
-                }
-                _mapper.MapToEntity(in entity, reqDto);
-                set.Add(entity);
-                db.SaveChanges();
+                entity = new Product();
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("Ошибка добавления записи: " + ex.Message);
+                entity = productInDb;
+                entity.IsDeleted = false;
             }
+            Mapper.MapToEntity(in entity, reqDto);
+            set.Add(entity);
+            db.SaveChanges();
         }
 
-        public override ICollection<ProductResDto> GetAll()
+        protected override IEnumerable<ProductResDto> DoGetAll(in DiscRentalDb db)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Product>();
 
             return set.Include(rec => rec.Disc)
@@ -51,15 +44,14 @@ namespace DatabaseStorage.Repositories
                 .Include(rec => rec.Rentals)
                 .ThenInclude(rec => rec.Employee)
                 .Where(entity => !entity.IsDeleted).
-                Select(rec => _mapper.MapToRes(rec)).ToList();
+                Select(rec => Mapper.MapToRes(rec)).ToList();
         }
 
-        public override ProductResDto GetById(ProductReqDto reqDto)
+        protected override ProductResDto DoGetById(in DiscRentalDb db, ProductReqDto reqDto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Product>();
 
-            Product? entity = set.Include(rec => rec.Disc)
+            var entity = set.Include(rec => rec.Disc)
                 .Include(rec => rec.Sells)
                 .ThenInclude(rec => rec.Employee)
                 .Include(rec => rec.Rentals)
@@ -71,7 +63,7 @@ namespace DatabaseStorage.Repositories
             {
                 throw new Exception("Запись не найдена");
             }
-            return _mapper.MapToRes(entity);
+            return Mapper.MapToRes(entity);
         }
 
         protected override ProductMapper CreateMapper() => new();

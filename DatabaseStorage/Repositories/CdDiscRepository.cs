@@ -9,6 +9,6 @@ namespace DatabaseStorage.Repositories
 {
     public class CdDiscRepository : DiscRepository<CdDiscReqDto, CdDiscResDto, CdDisc>, ICdDiscRepository
     {
-        protected override CdDiscMapper CreateMapper() => new CdDiscMapper();
+        protected override CdDiscMapper CreateMapper() => new();
     }
 }

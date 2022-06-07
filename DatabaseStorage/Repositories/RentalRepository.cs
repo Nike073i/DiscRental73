@@ -4,31 +4,29 @@ using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
+using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
     public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>, IRentalRepository
     {
-        public override ICollection<RentalResDto> GetAll()
+        protected override IEnumerable<RentalResDto> DoGetAll(in DiscRentalDb db)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Rental>();
-
             return set.Include(rec => rec.Client)
                     .Include(rec => rec.Employee)
                     .Include(rec => rec.Product)
                     .ThenInclude(rec => rec.Disc)
                     .Where(entity => !entity.IsDeleted).
-                    Select(rec => _mapper.MapToRes(rec)).ToList();
+                    Select(rec => Mapper.MapToRes(rec)).ToList();
         }
 
-        public override RentalResDto GetById(RentalReqDto reqDto)
+        protected override RentalResDto DoGetById(in DiscRentalDb db, RentalReqDto reqDto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Rental>();
 
-            Rental? entity = set.Include(rec => rec.Client)
+            var entity = set.Include(rec => rec.Client)
                 .Include(rec => rec.Employee)
                 .Include(rec => rec.Product)
                 .ThenInclude(rec => rec.Disc)
@@ -37,7 +35,7 @@ namespace DatabaseStorage.Repositories
             {
                 throw new Exception("Запись не найдена");
             }
-            return _mapper.MapToRes(entity);
+            return Mapper.MapToRes(entity);
         }
 
         protected override RentalMapper CreateMapper() => new();

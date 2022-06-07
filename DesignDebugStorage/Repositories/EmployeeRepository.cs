@@ -15,7 +15,7 @@ public class EmployeeRepository : IEmployeeRepository
         Password = $"Пароль - {i}"
     });
 
-    public ICollection<EmployeeResDto> GetAll()
+    public IEnumerable<EmployeeResDto> GetAll()
     {
         return _employees.ToList();
     }

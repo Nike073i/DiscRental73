@@ -4,30 +4,29 @@ using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
+using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories
 {
     public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>, ISellRepository
     {
-        public override ICollection<SellResDto> GetAll()
+        protected override IEnumerable<SellResDto> DoGetAll(in DiscRentalDb db)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Sell>();
 
             return set.Include(rec => rec.Employee)
                     .Include(rec => rec.Product)
                     .ThenInclude(rec => rec.Disc)
                     .Where(entity => !entity.IsDeleted).
-                    Select(rec => _mapper.MapToRes(rec)).ToList();
+                    Select(rec => Mapper.MapToRes(rec)).ToList();
         }
 
-        public override SellResDto GetById(SellReqDto reqDto)
+        protected override SellResDto DoGetById(in DiscRentalDb db, SellReqDto reqDto)
         {
-            using var db = new DiscRentalDb();
             var set = db.Set<Sell>();
 
-            Sell? entity = set.Include(rec => rec.Employee)
+            var entity = set.Include(rec => rec.Employee)
                 .Include(rec => rec.Product)
                 .ThenInclude(rec => rec.Disc)
                 .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
@@ -35,7 +34,7 @@ namespace DatabaseStorage.Repositories
             {
                 throw new Exception("Запись не найдена");
             }
-            return _mapper.MapToRes(entity);
+            return Mapper.MapToRes(entity);
         }
 
         protected override SellMapper CreateMapper() => new();

@@ -15,7 +15,7 @@ public class ClientRepository : IClientRepository
         SecondName = $"Фамилия - {i}"
     });
 
-    public ICollection<ClientResDto> GetAll()
+    public IEnumerable<ClientResDto> GetAll()
     {
         return _clients.ToList();
     }

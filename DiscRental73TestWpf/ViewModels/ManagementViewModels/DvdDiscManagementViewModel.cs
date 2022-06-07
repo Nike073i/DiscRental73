@@ -17,21 +17,21 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         protected override ShowDvdDiscStrategy CreateContentStrategy() => new();
 
-        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
-        {
-            if (!(E.Item is DvdDiscResDto dto))
-            {
-                E.Accepted = false;
-                return;
-            }
+        //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //{
+        //    if (!(E.Item is DvdDiscResDto dto))
+        //    {
+        //        E.Accepted = false;
+        //        return;
+        //    }
 
-            var filterText = SearchedFilter;
-            if (string.IsNullOrWhiteSpace(filterText)) return;
-            if (dto.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-            if (dto.Director.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    var filterText = SearchedFilter;
+        //    if (string.IsNullOrWhiteSpace(filterText)) return;
+        //    if (dto.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    if (dto.Director.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
 
-            E.Accepted = false;
-        }
+        //    E.Accepted = false;
+        //}
 
         protected override DvdDiscReqDto CreateReqDtoToCreate(DvdDiscResDto resDto)
         {
