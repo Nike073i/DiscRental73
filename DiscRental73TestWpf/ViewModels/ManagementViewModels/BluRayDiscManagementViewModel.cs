@@ -4,8 +4,6 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.ViewModels.Base;
-using System;
-using System.Windows.Data;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {

@@ -10,13 +10,13 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
-            services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CdDiscManagementViewModel>();
             services.AddSingleton<DvdDiscManagementViewModel>();
             services.AddSingleton<BluRayDiscManagementViewModel>();
             services.AddSingleton<ClientManagementViewModel>();
             services.AddSingleton<ProductManagementViewModel>();
             services.AddSingleton<IssueViewModel>();
+            services.AddSingleton<MainWindowViewModel>();
 
             services.AddSingleton<EntityFormationWindowViewModel>();
             services.AddSingleton<CdDiscFormationViewModel>();

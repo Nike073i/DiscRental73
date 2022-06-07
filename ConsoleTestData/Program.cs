@@ -1,8 +1,11 @@
-﻿using AdminWpfPlugin.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using AdminWpfPlugin.Services;
 using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Interfaces.Storages;
+using DatabaseStorage.Context;
 using DatabaseStorage.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleTestData
 {
@@ -43,14 +46,20 @@ namespace ConsoleTestData
 
         private static void InitializeServices()
         {
-            _clientRepository = new ClientRepository();
-            cdDiscRepository = new CdDiscRepository();
-            dvdDiscRepository = new DvdDiscRepository();
-            bluRayDiscRepository = new BluRayDiscRepository();
-            productRepository = new ProductRepository();
-            rentalRepository = new RentalRepository();
-            sellRepository = new SellRepository();
-            employeeRepository = new EmployeeRepository(sellRepository, rentalRepository);
+            var optionsBuilder = new DbContextOptionsBuilder<DiscRentalDb>();
+            var options = optionsBuilder
+                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PIAPSDiscRentalDb; Integrated Security = True; Multiple Active Result Sets = True;")
+                .Options;
+
+            var db = new DiscRentalDb(options);
+            _clientRepository = new ClientRepository(db);
+            cdDiscRepository = new CdDiscRepository(db);
+            dvdDiscRepository = new DvdDiscRepository(db);
+            bluRayDiscRepository = new BluRayDiscRepository(db);
+            productRepository = new ProductRepository(db);
+            rentalRepository = new RentalRepository(db);
+            sellRepository = new SellRepository(db);
+            employeeRepository = new EmployeeRepository(db,sellRepository, rentalRepository);
 
             clientService = new ClientService(_clientRepository);
             cdDiscService = new CdDiscService(cdDiscRepository);

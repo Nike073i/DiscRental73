@@ -39,5 +39,9 @@ namespace DatabaseStorage.Repositories
         }
 
         protected override RentalMapper CreateMapper() => new();
+
+        public RentalRepository(DiscRentalDb db) : base(db)
+        {
+        }
     }
 }

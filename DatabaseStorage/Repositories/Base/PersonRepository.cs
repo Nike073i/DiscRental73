@@ -7,14 +7,17 @@ namespace DatabaseStorage.Repositories.Base
 {
     public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T> where TReq : PersonReqDto, new() where TRes : PersonResDto, new() where T : Person, new()
     {
+        protected PersonRepository(DiscRentalDb db) : base(db)
+        {
+        }
+
         public virtual TRes GetByContactNumber(TReq reqDto)
         {
-            using var db = new DiscRentalDb();
             try
             {
-                var set = db.Set<T>();
+                var set = Db.Set<T>();
 
-                T? entity = set.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
+                var entity = set.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
                 if (entity is null || entity.IsDeleted)
                 {
                     throw new Exception("Запись не найдена");

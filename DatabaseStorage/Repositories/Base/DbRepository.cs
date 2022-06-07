@@ -9,7 +9,14 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
     where TRes : ResDto, new()
     where T : Entity, new()
 {
+    protected readonly DiscRentalDb Db;
+
     private IDbMapper<TReq, TRes, T>? _Mapper;
+
+    protected DbRepository(DiscRentalDb db)
+    {
+        Db = db;
+    }
 
     protected IDbMapper<TReq, TRes, T> Mapper => _Mapper ??= CreateMapper();
 
@@ -17,10 +24,9 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
 
     public IEnumerable<TRes> GetAll()
     {
-        using var db = new DiscRentalDb();
         try
         {
-            return DoGetAll(db);
+            return DoGetAll(Db);
         }
         catch (Exception ex)
         {
@@ -30,10 +36,9 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
 
     public TRes GetById(TReq reqDto)
     {
-        using var db = new DiscRentalDb();
         try
         {
-            return DoGetById(db, reqDto);
+            return DoGetById(Db, reqDto);
         }
         catch (Exception ex)
         {
@@ -43,10 +48,9 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
 
     public void Insert(TReq reqDto)
     {
-        using var db = new DiscRentalDb();
         try
         {
-            DoInsert(db, reqDto);
+            DoInsert(Db, reqDto);
         }
         catch (Exception ex)
         {
@@ -56,10 +60,9 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
 
     public void DeleteById(TReq reqDto)
     {
-        using var db = new DiscRentalDb();
         try
         {
-            DoDeleteById(db, reqDto);
+            DoDeleteById(Db, reqDto);
         }
         catch (Exception ex)
         {
@@ -70,11 +73,9 @@ public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
 
     public void Update(TReq reqDto)
     {
-        using var db = new DiscRentalDb();
-
         try
         {
-            DoUpdate(db, reqDto);
+            DoUpdate(Db, reqDto);
         }
         catch (Exception ex)
         {

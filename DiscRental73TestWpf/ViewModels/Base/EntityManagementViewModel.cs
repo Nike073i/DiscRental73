@@ -9,7 +9,6 @@ namespace DiscRental73TestWpf.ViewModels.Base;
 public abstract class EntityManagementViewModel : ViewModel
 {
     protected readonly WindowDataFormationService DialogService;
-
     protected EntityManagementViewModel(WindowDataFormationService dialogService)
     {
         DialogService = dialogService;

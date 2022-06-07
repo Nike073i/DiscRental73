@@ -11,10 +11,21 @@ namespace DiscRental73TestWpf
     {
         public static bool IsDesignMode { get; private set; } = true;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             IsDesignMode = false;
+
+            var host = Host;
+
             base.OnStartup(e);
+            await host.StartAsync();
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            using var host = Host;
+            base.OnExit(e);
+            await host.StopAsync();
         }
 
         public static EmployeeResDto? CurrentUser { get; set; }
@@ -25,7 +36,8 @@ namespace DiscRental73TestWpf
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.RegisterRepositories()
+            services.AddDatabase(host.Configuration.GetSection("Database"))
+                .RegisterRepositories()
                 .RegisterServices()
                 .RegisterDialogServices()
                 .RegisterViewModels()

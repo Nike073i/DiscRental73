@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatabaseStorage.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,7 +199,7 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sellls",
+                name: "Sells",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -211,15 +212,15 @@ namespace DatabaseStorage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sellls", x => x.Id);
+                    table.PrimaryKey("PK_Sells", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sellls_Employee_EmployeeId",
+                        name: "FK_Sells_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sellls_Products_ProductId",
+                        name: "FK_Sells_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -253,13 +254,13 @@ namespace DatabaseStorage.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellls_EmployeeId",
-                table: "Sellls",
+                name: "IX_Sells_EmployeeId",
+                table: "Sells",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellls_ProductId",
-                table: "Sellls",
+                name: "IX_Sells_ProductId",
+                table: "Sells",
                 column: "ProductId");
         }
 
@@ -278,7 +279,7 @@ namespace DatabaseStorage.Migrations
                 name: "Rentals");
 
             migrationBuilder.DropTable(
-                name: "Sellls");
+                name: "Sells");
 
             migrationBuilder.DropTable(
                 name: "Client");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseStorage.Migrations
 {
     [DbContext(typeof(DiscRentalDb))]
-    [Migration("20220518204219_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220607210506_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,7 +179,7 @@ namespace DatabaseStorage.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sellls");
+                    b.ToTable("Sells");
                 });
 
             modelBuilder.Entity("DatabaseStorage.Entityes.BluRayDisc", b =>

@@ -21,8 +21,6 @@ namespace AdminWpfPlugin.ViewModels
         private ShowEmployeePrizeStrategy _EmployeePrizeStrategy;
         public ShowEmployeePrizeStrategy EmployeePrizeStrategy => _EmployeePrizeStrategy ??= new ShowEmployeePrizeStrategy();
 
-        public override IEnumerable<EmployeeResDto> Items => _employeeService.GetAll();
-
         public EmployeePrizeViewModel(EmployeeService employeeService, AdminService adminService, WindowDataFormationService dialogService) : base(dialogService)
         {
             _employeeService = employeeService;
@@ -66,20 +64,25 @@ namespace AdminWpfPlugin.ViewModels
             }
         }
 
-        protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+        //{
+        //    if (!(E.Item is EmployeeResDto dto))
+        //    {
+        //        E.Accepted = false;
+        //        return;
+        //    }
+
+        //    var filterText = SearchedFilter;
+        //    if (string.IsNullOrWhiteSpace(filterText)) return;
+        //    if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+        //    E.Accepted = false;
+        //}
+
+        protected override void OnRefreshCommand(object? p)
         {
-            if (!(E.Item is EmployeeResDto dto))
-            {
-                E.Accepted = false;
-                return;
-            }
-
-            var filterText = SearchedFilter;
-            if (string.IsNullOrWhiteSpace(filterText)) return;
-            if (dto.SecondName.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-            if (dto.ContactNumber.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-
-            E.Accepted = false;
+            Items = _employeeService.GetAll();
         }
 
         #endregion

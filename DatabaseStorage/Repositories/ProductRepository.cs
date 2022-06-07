@@ -67,5 +67,9 @@ namespace DatabaseStorage.Repositories
         }
 
         protected override ProductMapper CreateMapper() => new();
+
+        public ProductRepository(DiscRentalDb db) : base(db)
+        {
+        }
     }
 }

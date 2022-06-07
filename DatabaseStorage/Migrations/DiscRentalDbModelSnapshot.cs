@@ -177,7 +177,7 @@ namespace DatabaseStorage.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sellls");
+                    b.ToTable("Sells");
                 });
 
             modelBuilder.Entity("DatabaseStorage.Entityes.BluRayDisc", b =>

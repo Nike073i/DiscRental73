@@ -13,7 +13,7 @@ namespace DatabaseStorage.Repositories
         private readonly IRentalRepository _RentalRepository;
         private readonly ISellRepository _SellRepository;
 
-        public EmployeeRepository(ISellRepository sellRepository, IRentalRepository rentalRepository)
+        public EmployeeRepository(DiscRentalDb db, ISellRepository sellRepository, IRentalRepository rentalRepository) : base(db)
         {
             _SellRepository = sellRepository;
             _RentalRepository = rentalRepository;

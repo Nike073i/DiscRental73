@@ -37,5 +37,9 @@ namespace DatabaseStorage.Repositories.Base
                 throw new Exception("Ошибка удаления по Id: " + ex.Message);
             }
         }
+
+        protected DiscRepository(DiscRentalDb db) : base(db)
+        {
+        }
     }
 }

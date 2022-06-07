@@ -38,5 +38,9 @@ namespace DatabaseStorage.Repositories
         }
 
         protected override SellMapper CreateMapper() => new();
+
+        public SellRepository(DiscRentalDb db) : base(db)
+        {
+        }
     }
 }
