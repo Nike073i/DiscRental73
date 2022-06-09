@@ -2,7 +2,7 @@ using AdminWpfPlugin.Infrastructure.Di;
 using AdminWpfPlugin.Services.DocumentBuilders;
 using AdminWpfPlugin.Services.DocumentBuilders.PdfBuilders;
 using AdminWpfPlugin.Views.Windows;
-using BusinessLogic.BusinessLogics;
+using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.Plugins.Base;
 using System.ComponentModel.Composition;
 
@@ -15,7 +15,7 @@ namespace AdminWpfPlugin
         public static HostViewModels HostViewModels;
         public static HostDialogServices HostDialogServices;
 
-        public void RegisterService(RentalService rentalService, EmployeeService employeeService, SellService sellService)
+        public void RegisterService(IRentalService rentalService, IEmployeeService employeeService, ISellService sellService)
         {
             HostService = new HostServices(rentalService, sellService, employeeService);
         }

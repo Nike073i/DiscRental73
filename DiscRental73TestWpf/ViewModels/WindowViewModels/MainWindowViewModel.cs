@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using DiscRental73TestWpf.ViewModels.ManagementViewModels;
+﻿using DiscRental73TestWpf.ViewModels.ManagementViewModels;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
+using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.WindowViewModels;
 

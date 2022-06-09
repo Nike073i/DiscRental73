@@ -2,9 +2,8 @@
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Storages.Base;
 
-namespace BusinessLogic.Interfaces.Storages
+namespace BusinessLogic.Interfaces.Storages;
+
+public interface IBluRayDiscRepository : IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>
 {
-    public interface IBluRayDiscRepository : IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>
-    {
-    }
 }

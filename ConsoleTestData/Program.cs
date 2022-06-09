@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AdminWpfPlugin.Services;
+﻿using AdminWpfPlugin.Services;
 using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
+using BusinessLogic.Interfaces.Services;
 using BusinessLogic.Interfaces.Storages;
 using DatabaseStorage.Context;
 using DatabaseStorage.Repositories;
@@ -20,14 +20,14 @@ namespace ConsoleTestData
         private static IRentalRepository rentalRepository;
         private static ISellRepository sellRepository;
 
-        private static ClientService clientService;
-        private static EmployeeService employeeService;
-        private static CdDiscService cdDiscService;
-        private static DvdDiscService dvdDiscService;
-        private static BluRayDiscService bluRayDiscService;
-        private static ProductService productService;
-        private static RentalService rentalService;
-        private static SellService sellService;
+        private static IClientService clientService;
+        private static IEmployeeService employeeService;
+        private static ICdDiscService cdDiscService;
+        private static IDvdDiscService dvdDiscService;
+        private static IBluRayDiscService bluRayDiscService;
+        private static IProductService productService;
+        private static IRentalService rentalService;
+        private static ISellService sellService;
 
         private static AdminService adminService;
         private static ReportService reportService;
@@ -59,7 +59,7 @@ namespace ConsoleTestData
             productRepository = new ProductRepository(db);
             rentalRepository = new RentalRepository(db);
             sellRepository = new SellRepository(db);
-            employeeRepository = new EmployeeRepository(db,sellRepository, rentalRepository);
+            employeeRepository = new EmployeeRepository(db, sellRepository, rentalRepository);
 
             clientService = new ClientService(_clientRepository);
             cdDiscService = new CdDiscService(cdDiscRepository);
@@ -438,7 +438,7 @@ namespace ConsoleTestData
             //7 Война 550
             //8 Карты, деньги, 2 ствола 530
             //9 Sifu 3550
-            
+
 
             //clients 
 
@@ -485,7 +485,7 @@ namespace ConsoleTestData
             #region employees
 
             var employees = employeeService.GetAll();
-            
+
             var employee1 = employees.SingleOrDefault(rec => rec.ContactNumber == "+79176306255");
             var employee2 = employees.SingleOrDefault(rec => rec.ContactNumber == "+79176306258");
             var employee3 = employees.SingleOrDefault(rec => rec.ContactNumber == "+79176306260");
@@ -499,117 +499,117 @@ namespace ConsoleTestData
                 ProductId = product1.Id,
                 ClientId = client1.Id,
                 EmployeeId = employee1.Id,
-                DateOfIssue = new DateTime(2022,04,03),
-                DateOfRental = new DateTime(2022,04,10),
+                DateOfIssue = new DateTime(2022, 04, 03),
+                DateOfRental = new DateTime(2022, 04, 10),
                 PledgeSum = 450,
                 ReturnSum = 400
             };
-            
+
             var rental2 = new RentalReqDto
             {
                 ProductId = product3.Id,
                 ClientId = client1.Id,
                 EmployeeId = employee1.Id,
-                DateOfIssue = new DateTime(2022,04,03),
-                DateOfRental = new DateTime(2022,04,10),
+                DateOfIssue = new DateTime(2022, 04, 03),
+                DateOfRental = new DateTime(2022, 04, 10),
                 PledgeSum = 2500,
                 ReturnSum = 2300
             };
-            
+
             var rental3 = new RentalReqDto
             {
                 ProductId = product1.Id,
                 ClientId = client2.Id,
                 EmployeeId = employee2.Id,
-                DateOfIssue = new DateTime(2022,04,03),
-                DateOfRental = new DateTime(2022,04,10),
+                DateOfIssue = new DateTime(2022, 04, 03),
+                DateOfRental = new DateTime(2022, 04, 10),
                 PledgeSum = 450,
                 ReturnSum = 400
             };
-            
+
             var rental4 = new RentalReqDto
             {
                 ProductId = product2.Id,
                 ClientId = client2.Id,
                 EmployeeId = employee2.Id,
-                DateOfIssue = new DateTime(2022,04,03),
-                DateOfRental = new DateTime(2022,04,10),
+                DateOfIssue = new DateTime(2022, 04, 03),
+                DateOfRental = new DateTime(2022, 04, 10),
                 PledgeSum = 500,
                 ReturnSum = null
             };
-            
+
             var rental5 = new RentalReqDto
             {
                 ProductId = product4.Id,
                 ClientId = client3.Id,
                 EmployeeId = employee1.Id,
-                DateOfIssue = new DateTime(2022,04,05),
-                DateOfRental = new DateTime(2022,04,11),
+                DateOfIssue = new DateTime(2022, 04, 05),
+                DateOfRental = new DateTime(2022, 04, 11),
                 PledgeSum = 300,
                 ReturnSum = 250
             };
-            
+
             var rental6 = new RentalReqDto
             {
                 ProductId = product4.Id,
                 ClientId = client5.Id,
                 EmployeeId = employee3.Id,
-                DateOfIssue = new DateTime(2022,04,05),
-                DateOfRental = new DateTime(2022,04,11),
+                DateOfIssue = new DateTime(2022, 04, 05),
+                DateOfRental = new DateTime(2022, 04, 11),
                 PledgeSum = 300,
                 ReturnSum = 250
             };
-            
+
             var rental7 = new RentalReqDto
             {
                 ProductId = product8.Id,
                 ClientId = client4.Id,
                 EmployeeId = employee3.Id,
-                DateOfIssue = new DateTime(2022,04,07),
-                DateOfRental = new DateTime(2022,04,13),
+                DateOfIssue = new DateTime(2022, 04, 07),
+                DateOfRental = new DateTime(2022, 04, 13),
                 PledgeSum = 500,
                 ReturnSum = 400
             };
-            
+
             var rental8 = new RentalReqDto
             {
                 ProductId = product7.Id,
                 ClientId = client3.Id,
                 EmployeeId = employee2.Id,
-                DateOfIssue = new DateTime(2022,04,07),
-                DateOfRental = new DateTime(2022,04,13),
+                DateOfIssue = new DateTime(2022, 04, 07),
+                DateOfRental = new DateTime(2022, 04, 13),
                 PledgeSum = 550,
                 ReturnSum = null
             };
-            
+
             var rental9 = new RentalReqDto
             {
                 ProductId = product5.Id,
                 ClientId = client1.Id,
                 EmployeeId = employee1.Id,
-                DateOfIssue = new DateTime(2022,04,08),
-                DateOfRental = new DateTime(2022,04,14),
+                DateOfIssue = new DateTime(2022, 04, 08),
+                DateOfRental = new DateTime(2022, 04, 14),
                 PledgeSum = 650,
                 ReturnSum = 600
             };
-            
+
             var rental10 = new RentalReqDto
             {
                 ProductId = product5.Id,
                 ClientId = client1.Id,
                 EmployeeId = employee1.Id,
-                DateOfIssue = new DateTime(2022,04,08),
-                DateOfRental = new DateTime(2022,04,14),
+                DateOfIssue = new DateTime(2022, 04, 08),
+                DateOfRental = new DateTime(2022, 04, 14),
                 PledgeSum = 650,
                 ReturnSum = 600
             };
-            
-            rentalService.IssueRental(rental1);            
+
+            rentalService.IssueRental(rental1);
             rentalService.IssueRental(rental2);
             rentalService.IssueRental(rental3);
             rentalService.IssueRental(rental4);
             rentalService.IssueRental(rental5);
-            rentalService.IssueRental(rental6);            
+            rentalService.IssueRental(rental6);
             rentalService.IssueRental(rental7);
             rentalService.IssueRental(rental8);
             rentalService.IssueRental(rental9);

@@ -2,55 +2,50 @@
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Storages.Base;
 
-namespace BusinessLogic.BusinessLogics.Base
+namespace BusinessLogic.BusinessLogics.Base;
+
+public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res>
+    where Req : PersonReqDto, new() where Res : PersonResDto, new()
 {
-    public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res> where Req : PersonReqDto, new() where Res : PersonResDto, new()
+    protected PersonCrudService(IPersonRepository<Req, Res> repository) : base(repository)
     {
-        #region Ограничения для сущности Person
+    }
 
-        protected const int _ContactNumberLength = 12;
-        public int ContactNumberLength => _ContactNumberLength;
+    public Res GetByContactNumber(Req reqDto)
+    {
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
 
-        protected const int _FirstNameMaxLength = 25;
-        public int FirstNameMaxLength => _FirstNameMaxLength;
+        if (string.IsNullOrEmpty(reqDto.ContactNumber))
+            throw new Exception("Ошибка получения записи по номеру: Номер не указан");
 
-        protected const int _FirstNameMinLength = 1;
-        public int FirstNameMinLength => _FirstNameMinLength;
-
-        protected const int _SecondNameMaxLength = 25;
-        public int SecondNameMaxLength => _SecondNameMaxLength;
-
-        protected const int _SecondNameMinLength = 1;
-        public int SecondNameMinLength => _SecondNameMinLength;
-
-        #endregion
-
-        protected PersonCrudService(IPersonRepository<Req, Res> repository) : base(repository)
+        try
         {
+            var personRepos = _repository as IPersonRepository<Req, Res>;
+            var item = personRepos.GetByContactNumber(reqDto);
+            return item;
         }
-
-        public Res GetByContactNumber(Req reqDto)
+        catch (Exception ex)
         {
-            if (reqDto is null)
-            {
-                throw new ArgumentNullException(nameof(reqDto));
-            }
-
-            if (string.IsNullOrEmpty(reqDto.ContactNumber))
-            {
-                throw new Exception("Ошибка получения записи по номеру: Номер не указан");
-            }
-
-            try
-            {
-                var personRepos = _repository as IPersonRepository<Req, Res>;
-                var item = personRepos.GetByContactNumber(reqDto);
-                return item;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка при получении записи по номеру:" + ex.Message);
-            }
+            throw new Exception("Ошибка при получении записи по номеру:" + ex.Message);
         }
     }
+
+    #region Ограничения для сущности Person
+
+    protected const int _ContactNumberLength = 12;
+    public int ContactNumberLength => _ContactNumberLength;
+
+    protected const int _FirstNameMaxLength = 25;
+    public int FirstNameMaxLength => _FirstNameMaxLength;
+
+    protected const int _FirstNameMinLength = 1;
+    public int FirstNameMinLength => _FirstNameMinLength;
+
+    protected const int _SecondNameMaxLength = 25;
+    public int SecondNameMaxLength => _SecondNameMaxLength;
+
+    protected const int _SecondNameMinLength = 1;
+    public int SecondNameMinLength => _SecondNameMinLength;
+
+    #endregion
 }

@@ -1,7 +1,6 @@
-﻿namespace BusinessLogic.Interfaces.Storages.Base
+﻿namespace BusinessLogic.Interfaces.Storages.Base;
+
+public abstract class ResDto
 {
-    public abstract class ResDto
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

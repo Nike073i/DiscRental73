@@ -3,16 +3,17 @@ using AdminWpfPlugin.Services.DocumentBuilders.Base;
 using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using System;
+using BusinessLogic.Interfaces.Services;
 
 namespace AdminWpfPlugin.Services
 {
     public class AdminService
     {
-        private readonly EmployeeService _employeeService;
+        private readonly IEmployeeService _employeeService;
         private readonly ReportService _reportService;
 
         public DocumentDirector DocumentDirector { get; set; }
-        public AdminService(EmployeeService employeeService, ReportService reportService)
+        public AdminService(IEmployeeService employeeService, ReportService reportService)
         {
             _employeeService = employeeService;
             _reportService = reportService;

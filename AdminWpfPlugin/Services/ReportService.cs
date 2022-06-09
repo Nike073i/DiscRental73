@@ -1,6 +1,6 @@
 ﻿using AdminWpfPlugin.Models;
-using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ namespace AdminWpfPlugin.Services
 {
     public class ReportService
     {
-        private readonly SellService _sellService;
-        private readonly RentalService _rentalService;
+        private readonly ISellService _sellService;
+        private readonly IRentalService _rentalService;
 
-        public ReportService(RentalService rentalService, SellService sellService)
+        public ReportService(IRentalService rentalService, ISellService sellService)
         {
             _rentalService = rentalService;
             _sellService = sellService;

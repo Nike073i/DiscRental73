@@ -1,10 +1,10 @@
-﻿using BusinessLogic.BusinessLogics;
+﻿using BusinessLogic.Interfaces.Services;
 
 namespace DiscRental73TestWpf.Infrastructure.Plugins.Base
 {
     public interface IAdminPlugin
     {
-        void RegisterService(RentalService rentalService, EmployeeService service, SellService sellService);
+        void RegisterService(IRentalService rentalService, IEmployeeService service, ISellService sellService);
         void ShowAdminView();
     }
 }

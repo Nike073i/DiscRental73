@@ -1,22 +1,20 @@
-﻿using BusinessLogic.BusinessLogics;
-using BusinessLogic.DtoModels.RequestDto;
+﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
 using System;
-using System.Collections.Generic;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
     public class ProductManagementViewModel : EntityManagementViewModel
     {
-        private readonly ProductService _service;
-        private readonly DiscService _discService;
+        private readonly IProductService _service;
+        private readonly IDiscService _discService;
 
         private ShowProductStrategy _ProductStrategy;
         public ShowProductStrategy ProductStrategy => _ProductStrategy ??= new ShowProductStrategy();
@@ -47,7 +45,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             Items = _service.GetAll();
         }
 
-        public ProductManagementViewModel(ProductService productService, WindowDataFormationService dialogService, DiscService discService) : base(dialogService)
+        public ProductManagementViewModel(IProductService productService, WindowDataFormationService dialogService, IDiscService discService) : base(dialogService)
         {
             _service = productService;
             _discService = discService;

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Input;
+using BusinessLogic.Interfaces.Services;
 
 namespace DiscRental73TestWpf.ViewModels
 {
@@ -19,10 +20,10 @@ namespace DiscRental73TestWpf.ViewModels
     {
         private readonly WindowDataFormationService _dialogService;
 
-        private readonly SellService _sellService;
-        private readonly RentalService _rentalService;
-        private readonly ClientService _clientService;
-        private readonly EmployeeService _employeeService;
+        private readonly ISellService _sellService;
+        private readonly IRentalService _rentalService;
+        private readonly IClientService _clientService;
+        private readonly IEmployeeService _employeeService;
 
         private ShowIssueRentalStrategy _IssueRentalStrategy;
         public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
@@ -39,7 +40,7 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowCancelSellStrategy _CancelSellStrategy;
         public ShowCancelSellStrategy CancelSellStrategy => _CancelSellStrategy ??= new ShowCancelSellStrategy();
 
-        public IssueViewModel(WindowDataFormationService dialogService, SellService sellService, ClientService clientService, RentalService rentalService, EmployeeService employeeService)
+        public IssueViewModel(WindowDataFormationService dialogService, ISellService sellService, IClientService clientService, IRentalService rentalService, IEmployeeService employeeService)
         {
             _sellService = sellService;
             _clientService = clientService;

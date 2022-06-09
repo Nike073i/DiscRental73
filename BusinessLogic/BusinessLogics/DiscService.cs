@@ -1,34 +1,35 @@
 ﻿using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Services;
 using BusinessLogic.Interfaces.Storages;
 
-namespace BusinessLogic.BusinessLogics
+namespace BusinessLogic.BusinessLogics;
+
+public class DiscService : IDiscService
 {
-    public class DiscService
+    private readonly IBluRayDiscRepository _bluRayDiscRepository;
+    private readonly ICdDiscRepository _cdDiscRepository;
+    private readonly IDvdDiscRepository _dvdDiscRepository;
+
+    public DiscService(ICdDiscRepository cdDiscRepository, IDvdDiscRepository dvdDiscRepository,
+        IBluRayDiscRepository bluRayDiscRepository)
     {
-        private readonly ICdDiscRepository _cdDiscRepository;
-        private readonly IDvdDiscRepository _dvdDiscRepository;
-        private readonly IBluRayDiscRepository _bluRayDiscRepository;
+        _cdDiscRepository = cdDiscRepository;
+        _dvdDiscRepository = dvdDiscRepository;
+        _bluRayDiscRepository = bluRayDiscRepository;
+    }
 
-        public DiscService(ICdDiscRepository cdDiscRepository, IDvdDiscRepository dvdDiscRepository, IBluRayDiscRepository bluRayDiscRepository)
-        {
-            _cdDiscRepository = cdDiscRepository;
-            _dvdDiscRepository = dvdDiscRepository;
-            _bluRayDiscRepository = bluRayDiscRepository;
-        }
+    public IEnumerable<DiscResDto> GetDiscs()
+    {
+        var discs = new List<DiscResDto>();
 
-        public IEnumerable<DiscResDto> GetDiscs()
-        {
-            List<DiscResDto> discs = new List<DiscResDto>();
+        var cdDiscs = _cdDiscRepository.GetAll();
+        var dvdDiscs = _dvdDiscRepository.GetAll();
+        var bluRayDiscs = _bluRayDiscRepository.GetAll();
 
-            var cdDiscs = _cdDiscRepository.GetAll();
-            var dvdDiscs = _dvdDiscRepository.GetAll();
-            var bluRayDiscs = _bluRayDiscRepository.GetAll();
+        discs.AddRange(cdDiscs);
+        discs.AddRange(dvdDiscs);
+        discs.AddRange(bluRayDiscs);
 
-            discs.AddRange(cdDiscs);
-            discs.AddRange(dvdDiscs);
-            discs.AddRange(bluRayDiscs);
-
-            return discs;
-        }
+        return discs;
     }
 }
