@@ -3,8 +3,8 @@ using BusinessLogic.DtoModels.ResponseDto;
 
 namespace BusinessLogic.Interfaces.Storages.Base;
 
-public interface IPersonRepository<Req, Res> : IRepository<Req, Res>
-    where Req : PersonReqDto, new() where Res : PersonResDto, new()
+public interface IPersonRepository<TReq, TRes> : ICrudRepository<TReq, TRes>
+    where TReq : PersonReqDto, new() where TRes : PersonResDto, new()
 {
-    Res GetByContactNumber(Req reqDto);
+    TRes GetByContactNumber(TReq reqDto);
 }

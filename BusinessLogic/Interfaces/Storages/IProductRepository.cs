@@ -1,12 +1,10 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
+using BusinessLogic.Interfaces.Storages.Base;
+using BusinessLogic.Interfaces.Storages.Base.Actions;
 
 namespace BusinessLogic.Interfaces.Storages;
 
-public interface IProductRepository
+public interface IProductRepository : IRepository<ProductReqDto, ProductResDto>, IUpdateAction<ProductReqDto>
 {
-    IEnumerable<ProductResDto> GetAll();
-    ProductResDto GetById(ProductReqDto reqDto);
-    void Insert(ProductReqDto reqDto);
-    void Update(ProductReqDto reqDto);
 }

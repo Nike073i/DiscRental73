@@ -4,9 +4,9 @@ namespace BusinessLogic.BusinessLogics.Base;
 
 public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
 {
-    protected readonly IRepository<Req, Res> _repository;
+    protected readonly ICrudRepository<Req, Res> _repository;
 
-    public CrudService(IRepository<Req, Res> repository)
+    public CrudService(ICrudRepository<Req, Res> repository)
     {
         _repository = repository;
     }

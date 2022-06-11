@@ -1,10 +1,8 @@
-﻿namespace BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storages.Base.Actions;
 
-public interface IRepository<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+namespace BusinessLogic.Interfaces.Storages.Base;
+
+public interface IRepository<TReq, TRes> : IGetAction<TReq, TRes>, IInsertAction<TReq>
+    where TReq : ReqDto, new() where TRes : ResDto, new()
 {
-    IEnumerable<Res> GetAll();
-    Res GetById(Req reqDto);
-    void Insert(Req reqDto);
-    void Update(Req reqDto);
-    void DeleteById(Req reqDto);
 }

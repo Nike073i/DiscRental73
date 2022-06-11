@@ -4,6 +4,6 @@ using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.Interfaces.Storages;
 
-public interface IBluRayDiscRepository : IDiscRepository<BluRayDiscReqDto, BluRayDiscResDto>
+public interface IBluRayDiscRepository : ICrudRepository<BluRayDiscReqDto, BluRayDiscResDto>
 {
 }

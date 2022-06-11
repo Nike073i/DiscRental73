@@ -4,6 +4,6 @@ using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.Interfaces.Storages;
 
-public interface IRentalRepository : IRepository<RentalReqDto, RentalResDto>
+public interface IRentalRepository : ICrudRepository<RentalReqDto, RentalResDto>
 {
 }

@@ -7,7 +7,7 @@ namespace BusinessLogic.BusinessLogics.Base;
 public abstract class DiscCrudService<Req, Res> : CrudService<Req, Res>
     where Req : DiscReqDto, new() where Res : DiscResDto, new()
 {
-    protected DiscCrudService(IDiscRepository<Req, Res> repository) : base(repository)
+    protected DiscCrudService(ICrudRepository<Req, Res> repository) : base(repository)
     {
     }
 
