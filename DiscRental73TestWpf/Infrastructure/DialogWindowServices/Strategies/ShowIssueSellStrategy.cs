@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ShowIssueSellStrategy : ShowContentWindowStrategy
+    public class ShowIssueSellStrategy : IShowContentStrategy
     {
         #region Ограничения для сущности Sell
 
@@ -23,7 +23,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         public IEnumerable<ProductResDto>? Products { get; set; }
 
-        public override bool ShowDialog(ref object formationData)
+        public bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
             if (formationData is not IssueSellBindingModel item)
@@ -46,7 +46,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 

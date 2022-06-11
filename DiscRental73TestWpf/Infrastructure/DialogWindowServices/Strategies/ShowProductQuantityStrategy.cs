@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ShowProductQuantityStrategy : ShowContentWindowStrategy
+    public class ShowProductQuantityStrategy : IShowContentStrategy
     {
         #region Ограничения на ввод данных 
 
@@ -18,7 +18,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         #endregion
 
-        public override bool ShowDialog(ref object formationData)
+        public bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
             if (formationData is not EditProductQuantityModel item)
@@ -38,7 +38,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 

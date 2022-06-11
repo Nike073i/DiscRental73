@@ -70,8 +70,8 @@ namespace ConsoleTestData
             sellService = new SellService(sellRepository, productService);
             employeeService = new EmployeeService(employeeRepository);
 
-            reportService = new ReportService(rentalService, sellService);
-            adminService = new AdminService(employeeService, reportService);
+            //reportService = new ReportService(rentalService, sellService);
+            //adminService = new AdminService(employeeService, reportService);
         }
 
         private static void InsertDiscData()

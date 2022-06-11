@@ -7,12 +7,12 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
     public class WindowDataFormationService : IFormationService
     {
         protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
-        public ShowContentWindowStrategy? ShowStrategy { get; set; }
+        public IShowContentStrategy? ShowStrategy { get; set; }
 
         public bool ShowContent(ref object formationData)
         {
             if (ShowStrategy is null) return false;
-            ShowStrategy.ActiveWindow = ActiveWindow;
+            //ShowStrategy.ActiveWindow = ActiveWindow;
             return ShowStrategy.ShowDialog(ref formationData);
         }
 

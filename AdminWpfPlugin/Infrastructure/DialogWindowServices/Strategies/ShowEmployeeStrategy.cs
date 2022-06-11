@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace AdminWpfPlugin.Infrastructure.DialogWindowServices.Strategies
 {
-    public class ShowEmployeeStrategy : ShowContentWindowStrategy
+    public class ShowEmployeeStrategy : IShowContentStrategy
     {
         #region Ограничения на ввод данных 
 
@@ -22,7 +22,7 @@ namespace AdminWpfPlugin.Infrastructure.DialogWindowServices.Strategies
 
         #endregion
 
-        public override bool ShowDialog(ref object formationData)
+        public bool ShowDialog(ref object formationData)
         {
             if (formationData == null) throw new ArgumentNullException(nameof(formationData));
             if (formationData is not EmployeeResDto item)
@@ -47,7 +47,7 @@ namespace AdminWpfPlugin.Infrastructure.DialogWindowServices.Strategies
             var dlg = new EntityFormationWindow
             {
                 DataContext = viewModelWindow,
-                Owner = ActiveWindow,
+                //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 

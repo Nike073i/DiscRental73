@@ -30,12 +30,12 @@ public abstract class CrudManagementViewModel<TReq, TRes> : EntityManagementView
     protected abstract TReq CreateReqDtoToCreate(TRes resDto);
     protected abstract TReq CreateReqDtoToUpdate(TRes resDto);
 
-    protected abstract ShowContentWindowStrategy CreateContentStrategy();
+    protected abstract IShowContentStrategy CreateContentStrategy();
 
     #region ShowStrategy : ShowContentWindowStrategy - стратегия формировния записи
 
-    private ShowContentWindowStrategy? _ShowStrategy;
-    protected ShowContentWindowStrategy ShowStrategy => _ShowStrategy ??= CreateContentStrategy();
+    private IShowContentStrategy? _ShowStrategy;
+    protected IShowContentStrategy ShowStrategy => _ShowStrategy ??= CreateContentStrategy();
 
     #endregion
 }

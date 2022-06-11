@@ -1,4 +1,6 @@
-﻿namespace DiscRental73TestWpf.Infrastructure.Interfaces
+﻿using System;
+
+namespace DiscRental73TestWpf.Infrastructure.Interfaces
 {
     public interface IFormationService
     {
