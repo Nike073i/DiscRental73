@@ -1,9 +1,6 @@
-﻿using BusinessLogic.BusinessLogics.Base;
-using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
-using MathCore.WPF.Commands;
-using System;
-using System.Windows.Input;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 
 namespace DiscRental73TestWpf.ViewModels.Base;
 
@@ -11,7 +8,7 @@ public abstract class CrudManagementViewModel<TReq, TRes> : EntityManagementView
     where TReq : ReqDto, new() where TRes : ResDto, new()
 {
 
-    protected CrudManagementViewModel(WindowDataFormationService dialogService) :
+    protected CrudManagementViewModel(IFormationService dialogService) :
         base(dialogService)
     {
 

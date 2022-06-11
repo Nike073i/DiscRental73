@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
@@ -14,7 +15,7 @@ public class AuthorizationWindowViewModel : FormationViewModel
 {
     #region constructors
 
-    public AuthorizationWindowViewModel(IEmployeeService service, WindowDataFormationService dialogService)
+    public AuthorizationWindowViewModel(IEmployeeService service, IFormationService dialogService)
     {
         _Service = service;
         _DialogService = dialogService;
@@ -26,7 +27,7 @@ public class AuthorizationWindowViewModel : FormationViewModel
 
     #region readonly fiedls
 
-    private readonly WindowDataFormationService _DialogService;
+    private readonly IFormationService _DialogService;
     private readonly IEmployeeService _Service;
 
     #endregion

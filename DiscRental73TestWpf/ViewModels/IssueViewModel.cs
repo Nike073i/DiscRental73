@@ -1,9 +1,10 @@
-﻿using BusinessLogic.BusinessLogics;
-using BusinessLogic.DtoModels.RequestDto;
+﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Enums;
+using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.Infrastructure.Plugins;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
@@ -12,14 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Input;
-using BusinessLogic.Interfaces.Services;
 
 namespace DiscRental73TestWpf.ViewModels
 {
     public class IssueViewModel : ViewModel
     {
-        private readonly WindowDataFormationService _dialogService;
-
+        private readonly IFormationService _dialogService;
         private readonly ISellService _sellService;
         private readonly IRentalService _rentalService;
         private readonly IClientService _clientService;
@@ -40,7 +39,7 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowCancelSellStrategy _CancelSellStrategy;
         public ShowCancelSellStrategy CancelSellStrategy => _CancelSellStrategy ??= new ShowCancelSellStrategy();
 
-        public IssueViewModel(WindowDataFormationService dialogService, ISellService sellService, IClientService clientService, IRentalService rentalService, IEmployeeService employeeService)
+        public IssueViewModel(IFormationService dialogService, ISellService sellService, IClientService clientService, IRentalService rentalService, IEmployeeService employeeService)
         {
             _sellService = sellService;
             _clientService = clientService;
@@ -61,8 +60,7 @@ namespace DiscRental73TestWpf.ViewModels
             var strategy = IssueRentalStrategy;
             strategy.Clients = _clientService.GetAll();
             strategy.Products = _rentalService.GetProducts();
-            _dialogService.ShowStrategy = strategy;
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.ShowContent(ref item, strategy)) return;
             try
             {
                 var employeeId = App.CurrentUser.Id;
@@ -98,8 +96,7 @@ namespace DiscRental73TestWpf.ViewModels
             object item = new IssueReturnBindingModel();
             var strategy = IssueReturnStrategy;
             strategy.Rentals = _rentalService.GetInRental();
-            _dialogService.ShowStrategy = strategy;
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.ShowContent(ref item, strategy)) return;
             try
             {
                 var model = item as IssueReturnBindingModel;
@@ -129,8 +126,7 @@ namespace DiscRental73TestWpf.ViewModels
             object item = new CancelRentalBindingModel();
             var strategy = CancelRentalStrategy;
             strategy.Rentals = _rentalService.GetInRental();
-            _dialogService.ShowStrategy = strategy;
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.ShowContent(ref item, strategy)) return;
             if (!_dialogService.Confirm("Вы уверены в отмене проката без возможности восстановления?", "Подтверждение отмены")) return;
             try
             {
@@ -160,8 +156,7 @@ namespace DiscRental73TestWpf.ViewModels
             object item = new IssueSellBindingModel();
             var strategy = IssueSellStrategy;
             strategy.Products = _sellService.GetProducts();
-            _dialogService.ShowStrategy = strategy;
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.ShowContent(ref item, strategy)) return;
             try
             {
                 var employeeId = App.CurrentUser.Id;
@@ -194,8 +189,7 @@ namespace DiscRental73TestWpf.ViewModels
             object item = new CancelSellBindingModel();
             var strategy = CancelSellStrategy;
             strategy.Sells = _sellService.GetAll();
-            _dialogService.ShowStrategy = strategy;
-            if (!_dialogService.ShowContent(ref item)) return;
+            if (!_dialogService.ShowContent(ref item, strategy)) return;
             if (!_dialogService.Confirm("Вы уверены в отмене продажи без возможности восстановления?", "Подтверждение отмены")) return;
             try
             {

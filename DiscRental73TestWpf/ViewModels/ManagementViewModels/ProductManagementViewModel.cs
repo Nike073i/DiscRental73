@@ -4,6 +4,7 @@ using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
 using System;
@@ -45,7 +46,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             Items = _service.GetAll();
         }
 
-        public ProductManagementViewModel(IProductService productService, WindowDataFormationService dialogService, IDiscService discService) : base(dialogService)
+        public ProductManagementViewModel(IProductService productService, IFormationService dialogService, IDiscService discService) : base(dialogService)
         {
             _service = productService;
             _discService = discService;
@@ -65,9 +66,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             var strategy = ProductStrategy;
             strategy.Discs = _discService.GetDiscs();
 
-            DialogService.ShowStrategy = strategy;
-
-            if (!DialogService.ShowContent(ref item)) return;
+            if (!DialogService.ShowContent(ref item, strategy)) return;
             try
             {
                 var reqDto = CreateReqDtoToCreate(item as ProductResDto);
@@ -131,8 +130,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 CurrentQuantity = product.Quantity,
                 EditQuantity = 5
             };
-            DialogService.ShowStrategy = ProductQuantityStrategy;
-            if (!DialogService.ShowContent(ref model)) return;
+            if (!DialogService.ShowContent(ref model, ProductQuantityStrategy)) return;
             try
             {
                 var reqDto = model as EditProductQuantityModel;
@@ -162,7 +160,6 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnChangeCostCommand(object? p)
         {
-            DialogService.ShowStrategy = ProductCostStrategy;
             var product = p as ProductResDto;
             object model = new EditProductCostModel
             {
@@ -170,7 +167,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
                 DiscTitle = product.DiscTitle,
                 CurrentCost = product.Cost,
             };
-            if (!DialogService.ShowContent(ref model)) return;
+            if (!DialogService.ShowContent(ref model, ProductCostStrategy)) return;
             try
             {
                 var reqDto = model as EditProductCostModel;

@@ -5,6 +5,7 @@ using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
+using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
 
@@ -14,7 +15,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
     {
         private readonly ICdDiscService _Service;
 
-        public CdDiscManagementViewModel(ICdDiscService service, WindowDataFormationService dialogService) : base(dialogService)
+        public CdDiscManagementViewModel(ICdDiscService service, IFormationService dialogService) : base(dialogService)
         {
             _Service = service;
             Items = _Service.GetAll();
@@ -113,8 +114,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnEditItemCommand(object? p)
         {
-            DialogService.ShowStrategy = ShowStrategy;
-            if (!DialogService.ShowContent(ref p)) return;
+            if (!DialogService.ShowContent(ref p, ShowStrategy)) return;
             try
             {
                 var resDto = p as CdDiscResDto;
@@ -140,9 +140,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnCreateNewItemCommand(object? p)
         {
-            DialogService.ShowStrategy = ShowStrategy;
             object item = new CdDiscResDto();
-            if (!DialogService.ShowContent(ref item)) return;
+            if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
             try
             {
                 var reqDto = CreateReqDtoToCreate(item as CdDiscResDto);

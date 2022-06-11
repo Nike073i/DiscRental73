@@ -1,4 +1,4 @@
-﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.Interfaces;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
@@ -8,8 +8,8 @@ namespace DiscRental73TestWpf.ViewModels.Base;
 
 public abstract class EntityManagementViewModel : ViewModel
 {
-    protected readonly WindowDataFormationService DialogService;
-    protected EntityManagementViewModel(WindowDataFormationService dialogService)
+    protected readonly IFormationService DialogService;
+    protected EntityManagementViewModel(IFormationService dialogService)
     {
         DialogService = dialogService;
         //_FilteredItems = new CollectionViewSource();

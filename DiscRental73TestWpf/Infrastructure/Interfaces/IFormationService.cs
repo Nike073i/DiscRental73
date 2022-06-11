@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 
 namespace DiscRental73TestWpf.Infrastructure.Interfaces
 {
     public interface IFormationService
     {
-        bool ShowContent(ref object formationData);
+        bool ShowContent(ref object formationData, IShowContentStrategy strategy);
 
         void ShowInformation(string Information, string Caption);
 
