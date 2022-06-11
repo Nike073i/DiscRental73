@@ -1,6 +1,5 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Interfaces.Services;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using DiscRental73TestWpf.Views.Windows;

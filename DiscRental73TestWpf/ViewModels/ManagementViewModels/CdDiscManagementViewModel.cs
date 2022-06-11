@@ -1,13 +1,12 @@
-﻿using System;
-using System.Windows.Input;
-using BusinessLogic.DtoModels.RequestDto;
+﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using MathCore.WPF.Commands;
+using System;
+using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
