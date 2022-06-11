@@ -24,7 +24,6 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         public bool ShowDialog(ref object formationData)
         {
-            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
             if (formationData is not IssueReturnBindingModel item)
             {
                 return false;

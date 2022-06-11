@@ -1,4 +1,5 @@
 ﻿using DiscRental73TestWpf.Infrastructure.Interfaces;
+using System;
 using System.Linq;
 using System.Windows;
 
@@ -11,7 +12,9 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
 
         public bool ShowContent(ref object formationData, IShowContentStrategy strategy)
         {
+            if (formationData == null) throw new ArgumentNullException(nameof(formationData));
             if (strategy is null) return false;
+
             //ShowStrategy.ActiveWindow = ActiveWindow;
             return strategy.ShowDialog(ref formationData);
         }
