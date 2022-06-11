@@ -4,11 +4,11 @@ namespace BusinessLogic.BusinessLogics.Base;
 
 public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
 {
-    protected readonly ICrudRepository<Req, Res> _repository;
+    protected readonly ICrudRepository<Req, Res> Repository;
 
-    public CrudService(ICrudRepository<Req, Res> repository)
+    protected CrudService(ICrudRepository<Req, Res> repository)
     {
-        _repository = repository;
+        Repository = repository;
     }
 
     public Res GetById(Req reqDto)
@@ -19,7 +19,7 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
 
         try
         {
-            var item = _repository.GetById(reqDto);
+            var item = Repository.GetById(reqDto);
             return item;
         }
         catch (Exception ex)
@@ -30,7 +30,7 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
 
     public IEnumerable<Res> GetAll()
     {
-        var listItems = _repository.GetAll();
+        var listItems = Repository.GetAll();
         return listItems;
     }
 
@@ -40,9 +40,9 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
         try
         {
             if (reqDto.Id.HasValue)
-                _repository.Update(reqDto);
+                Repository.Update(reqDto);
             else
-                _repository.Insert(reqDto);
+                Repository.Insert(reqDto);
         }
         catch (Exception ex)
         {
@@ -58,7 +58,7 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
 
         try
         {
-            _repository.DeleteById(reqDto);
+            Repository.DeleteById(reqDto);
         }
         catch (Exception ex)
         {

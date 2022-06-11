@@ -20,7 +20,7 @@ public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res>
 
         try
         {
-            var personRepos = _repository as IPersonRepository<Req, Res>;
+            var personRepos = Repository as IPersonRepository<Req, Res>;
             var item = personRepos.GetByContactNumber(reqDto);
             return item;
         }
