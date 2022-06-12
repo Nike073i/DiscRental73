@@ -1,12 +1,13 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Dto;
+using BusinessLogic.Interfaces.Storages.Base;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes.Base;
 using DatabaseStorage.Mappers.Base;
 
 namespace DatabaseStorage.Repositories.Base;
 
-public abstract class DbRepository<TReq, TRes, T> where TReq : ReqDto, new()
-    where TRes : ResDto, new()
+public abstract class DbRepository<TReq, TRes, T> where TReq : IReqDto, new()
+    where TRes : IResDto, new()
     where T : Entity, new()
 {
     protected readonly DiscRentalDb Db;

@@ -1,6 +1,8 @@
-﻿namespace BusinessLogic.Interfaces.Storages.Base.Actions;
+﻿using BusinessLogic.Interfaces.Dto;
 
-public interface IGetAction<TReq, TRes> where TRes : ResDto, new() where TReq : ReqDto, new()
+namespace BusinessLogic.Interfaces.Storages.Base.Actions;
+
+public interface IGetAction<TReq, TRes> where TRes : IResDto, new() where TReq : IReqDto, new()
 {
     TRes GetById(TReq req);
     IEnumerable<TRes> GetAll();

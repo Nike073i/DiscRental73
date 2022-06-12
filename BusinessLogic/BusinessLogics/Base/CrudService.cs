@@ -1,8 +1,9 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Dto;
+using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.BusinessLogics.Base;
 
-public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+public abstract class CrudService<Req, Res> where Req : IReqDto, new() where Res : IResDto, new()
 {
     protected readonly ICrudRepository<Req, Res> Repository;
 

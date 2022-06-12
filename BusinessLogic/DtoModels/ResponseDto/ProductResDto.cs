@@ -1,9 +1,10 @@
 ﻿using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storages.Base;
+using BusinessLogic.Interfaces.Dto;
 namespace BusinessLogic.DtoModels.ResponseDto
 {
-    public class ProductResDto : ResDto
+    public class ProductResDto : IResDto
     {
+        public int Id { get; set; }
         public double Cost { get; set; }
         public int Quantity { get; set; }
         public string DiscTitle { get; set; }

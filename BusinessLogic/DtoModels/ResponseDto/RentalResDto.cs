@@ -1,9 +1,11 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Dto;
+using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.DtoModels.ResponseDto
 {
-    public class RentalResDto : ResDto
+    public class RentalResDto : IResDto
     {
+        public int Id { get; set; }
         public string ClientCNumber { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime DateOfRental { get; set; }

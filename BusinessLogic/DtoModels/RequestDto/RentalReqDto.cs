@@ -1,9 +1,11 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Dto;
+using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.DtoModels.RequestDto
 {
-    public class RentalReqDto : ReqDto
+    public class RentalReqDto : IReqDto
     {
+        public int? Id { get; set; }
         public int ProductId { get; set; }
         public int ClientId { get; set; }
         public int EmployeeId { get; set; }
