@@ -10,8 +10,8 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region RentalResDto SelectedRental- выбранный прокат
 
-        private RentalResDto _SelectedRental;
-        public RentalResDto SelectedRental
+        private RentalResDto? _SelectedRental;
+        public RentalResDto? SelectedRental
         {
             get => _SelectedRental;
             set => Set(ref _SelectedRental, value);

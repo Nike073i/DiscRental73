@@ -3,7 +3,7 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
+using MathCore.WPF.ViewModels;
 using System;
 using System.Windows;
 
@@ -11,7 +11,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
     public class ShowBluRayDiscStrategy : IShowContentStrategy
     {
-        #region Ограничения на ввод данных 
+        #region Ограничения на ввод данных
 
         public int TitleMaxLength { get; set; }
         public int TitleMinLength { get; set; }
@@ -27,47 +27,49 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         #endregion
 
+        #region readonly fields
+
+        private readonly EntityFormationWindowViewModel _WindowVm;
+        private readonly BluRayDiscFormationViewModel _FormationVm;
+
+        #endregion
+
+        #region constructors
+
+        public ShowBluRayDiscStrategy(EntityFormationWindowViewModel windowVm, BluRayDiscFormationViewModel formationVm)
+        {
+            _WindowVm = windowVm;
+            _FormationVm = formationVm;
+            InitializeWindow(_FormationVm, "Окно формирования BluRay-диска", "BluRay-диск");
+            SetValueRange(_FormationVm);
+        }
+
+        #endregion
+
         public bool ShowDialog(ref object formationData)
         {
-            if (formationData is not BluRayDiscResDto item)
-            {
-                return false;
-            }
+            if (formationData is not BluRayDiscResDto item) return false;
 
             if (item.Id.Equals(0))
             {
                 item.DateOfRelease = DateTime.Now;
             }
 
-            var viewModel = App.Host.Services.GetRequiredService<BluRayDiscFormationViewModel>();
-
-            viewModel.BluRayDisc = item;
-            SetValueRange(viewModel);
-
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования BluRay-диска";
-            viewModelWindow.Caption = "BluRay-диск";
+            _FormationVm.BluRayDisc = item;
 
             var dlg = new EntityFormationWindow
             {
-                DataContext = viewModelWindow,
+                DataContext = _WindowVm,
                 //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
+            if (dlg.ShowDialog() is not true) return false;
 
-            var InputData = viewModel.BluRayDisc;
+            if (string.IsNullOrEmpty(item.Info)) item.Info = null;
+            if (string.IsNullOrEmpty(item.SystemRequirements)) item.SystemRequirements = null;
 
-            if (string.IsNullOrEmpty(InputData.Info)) InputData.Info = null;
-            if (string.IsNullOrEmpty(InputData.SystemRequirements)) InputData.SystemRequirements = null;
-
-            formationData = InputData;
-
+            formationData = item;
             return true;
         }
 
@@ -83,6 +85,14 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             viewModel.InfoMinLength = InfoMinLength;
             viewModel.SystemRequirementsMaxLength = SystemRequirementsMaxLength;
             viewModel.SystemRequirementsMinLength = SystemRequirementsMinLength;
+        }
+
+        private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+            string caption = "Формирование записи")
+        {
+            _WindowVm.CurrentModel = viewModel;
+            _WindowVm.Title = title;
+            _WindowVm.Caption = caption;
         }
     }
 }

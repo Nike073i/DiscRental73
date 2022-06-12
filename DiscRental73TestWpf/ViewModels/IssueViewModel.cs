@@ -5,6 +5,8 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.Infrastructure.Plugins;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
@@ -22,6 +24,8 @@ namespace DiscRental73TestWpf.ViewModels
         private readonly IRentalService _rentalService;
         private readonly IClientService _clientService;
         private readonly IEmployeeService _employeeService;
+        private readonly EntityFormationWindowViewModel _WindowVm;
+        private readonly CancelRentalFormationViewModel _CancelRentalFormationVm;
 
         private ShowIssueRentalStrategy _IssueRentalStrategy;
         public ShowIssueRentalStrategy IssueRentalStrategy => _IssueRentalStrategy ??= new ShowIssueRentalStrategy();
@@ -30,7 +34,7 @@ namespace DiscRental73TestWpf.ViewModels
         public ShowIssueReturnStrategy IssueReturnStrategy => _IssueReturnStrategy ??= new ShowIssueReturnStrategy();
 
         private ShowCancelRentalStrategy _CancelRentalStrategy;
-        public ShowCancelRentalStrategy CancelRentalStrategy => _CancelRentalStrategy ??= new ShowCancelRentalStrategy();
+        public ShowCancelRentalStrategy CancelRentalStrategy => _CancelRentalStrategy ??= new ShowCancelRentalStrategy(_WindowVm, _CancelRentalFormationVm);
 
         private ShowIssueSellStrategy _IssueSellStrategy;
         public ShowIssueSellStrategy IssueSellStrategy => _IssueSellStrategy ??= new ShowIssueSellStrategy();
@@ -38,13 +42,21 @@ namespace DiscRental73TestWpf.ViewModels
         private ShowCancelSellStrategy _CancelSellStrategy;
         public ShowCancelSellStrategy CancelSellStrategy => _CancelSellStrategy ??= new ShowCancelSellStrategy();
 
-        public IssueViewModel(IFormationService dialogService, ISellService sellService, IClientService clientService, IRentalService rentalService, IEmployeeService employeeService)
+        public IssueViewModel(IFormationService dialogService,
+            ISellService sellService,
+            IClientService clientService,
+            IRentalService rentalService,
+            IEmployeeService employeeService,
+            EntityFormationWindowViewModel windowVm,
+            CancelRentalFormationViewModel cancelRentalFormationVm)
         {
             _sellService = sellService;
             _clientService = clientService;
             _rentalService = rentalService;
             _dialogService = dialogService;
             _employeeService = employeeService;
+            _WindowVm = windowVm;
+            _CancelRentalFormationVm = cancelRentalFormationVm;
         }
 
         #region IssueRentalCommand - команда оформления проката

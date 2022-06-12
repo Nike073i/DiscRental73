@@ -2,8 +2,6 @@
 {
     public interface IShowContentStrategy
     {
-        void SetData(ref object formationData);
-        bool ShowDialog();
-        object? GetData();
+        bool ShowDialog(ref object formationData);
     }
 }
