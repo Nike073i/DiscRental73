@@ -1,12 +1,11 @@
-﻿using BusinessLogic.Interfaces.Dto;
-using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 
 namespace DiscRental73TestWpf.ViewModels.Base;
 
 public abstract class CrudManagementViewModel<TReq, TRes> : EntityManagementViewModel
-    where TReq : IReqDto, new() where TRes : IResDto, new()
+    where TReq : ReqDto, new() where TRes : ResDto, new()
 {
 
     protected CrudManagementViewModel(IFormationService dialogService) :

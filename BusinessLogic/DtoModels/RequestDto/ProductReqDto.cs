@@ -1,10 +1,9 @@
-﻿using BusinessLogic.Interfaces.Dto;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.DtoModels.RequestDto
 {
-    public class ProductReqDto : IReqDto
+    public class ProductReqDto : ReqDto
     {
-        public int? Id { get; set; }
         public double Cost { get; set; }
         public int Quantity { get; set; }
         public int DiscId { get; set; }

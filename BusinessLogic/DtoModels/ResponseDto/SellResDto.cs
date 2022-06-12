@@ -1,10 +1,9 @@
-﻿using BusinessLogic.Interfaces.Dto;
+﻿using BusinessLogic.Interfaces.Storages.Base;
 
 namespace BusinessLogic.DtoModels.ResponseDto
 {
-    public class SellResDto : IResDto
+    public class SellResDto : ResDto
     {
-        public int Id { get; set; }
         public DateTime DateOfSell { get; set; }
         public double Price { get; set; }
         public string DiscTitle { get; set; }

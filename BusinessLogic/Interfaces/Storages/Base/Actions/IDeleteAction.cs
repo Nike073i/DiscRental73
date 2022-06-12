@@ -1,8 +1,6 @@
-﻿using BusinessLogic.Interfaces.Dto;
+﻿namespace BusinessLogic.Interfaces.Storages.Base.Actions;
 
-namespace BusinessLogic.Interfaces.Storages.Base.Actions;
-
-public interface IDeleteAction<TReq> where TReq : IReqDto, new()
+public interface IDeleteAction<TReq> where TReq : ReqDto, new()
 {
     void DeleteById(TReq reqDto);
 }
