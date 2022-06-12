@@ -5,8 +5,8 @@ namespace BusinessLogic.Interfaces.Services;
 
 public interface ISellService
 {
-    void SellProduct(SellReqDto reqDto);
+    bool SellProduct(SellReqDto reqDto);
     IEnumerable<SellResDto> GetAll();
     IEnumerable<ProductResDto> GetProducts();
-    void CancelSell(SellReqDto reqDto);
+    bool CancelSell(SellReqDto reqDto);
 }

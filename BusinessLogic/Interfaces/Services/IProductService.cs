@@ -5,11 +5,11 @@ namespace BusinessLogic.Interfaces.Services;
 
 public interface IProductService
 {
-    void EditProductQuantity(EditProductQuantityReqDto reqDto);
-    void ChangeProductCost(ChangeProductCostReqDto reqDto);
-    void Create(ProductReqDto reqDto);
-    void ChangeAvailable(ChangeProductAvailable reqDto);
+    bool EditProductQuantity(int productId, int editQuantity);
+    bool ChangeProductCost(int productId, double cost);
+    ProductResDto Create(ProductReqDto reqDto);
+    bool ChangeAvailable(int productId, bool isAvailable);
     IEnumerable<ProductResDto> GetAll();
     IEnumerable<ProductResDto> GetAvailable();
-    ProductResDto GetById(ProductReqDto reqDto);
+    ProductResDto GetById(int id);
 }

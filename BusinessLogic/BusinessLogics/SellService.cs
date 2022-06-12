@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace BusinessLogic.BusinessLogics;
 
@@ -16,14 +16,14 @@ public class SellService : ISellService
         ProductService = productService;
     }
 
-    public void SellProduct(SellReqDto reqDto)
+    public bool SellProduct(SellReqDto reqDto)
     {
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
         {
-            ProductService.EditProductQuantity(new EditProductQuantityReqDto
-            { ProductId = reqDto.ProductId, EditQuantity = -1 });
+            ProductService.EditProductQuantity(reqDto.ProductId, -1);
             Repository.Insert(reqDto);
+            return true;
         }
         catch (Exception ex)
         {
@@ -35,7 +35,7 @@ public class SellService : ISellService
 
     public IEnumerable<ProductResDto> GetProducts() => ProductService.GetAvailable();
 
-    public void CancelSell(SellReqDto reqDto)
+    public bool CancelSell(SellReqDto reqDto)
     {
         if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
 
@@ -43,11 +43,10 @@ public class SellService : ISellService
 
         try
         {
-            var item = Repository.GetById(new SellReqDto { Id = reqDto.Id });
+            var item = Repository.GetById(reqDto.Id.Value);
             if (item == null) throw new Exception("Ошибка отмены продажи: Продажа не найдена");
-            ProductService.EditProductQuantity(new EditProductQuantityReqDto
-            { ProductId = item.ProductId, EditQuantity = +1 });
-            Repository.DeleteById(reqDto);
+            ProductService.EditProductQuantity(item.ProductId, 1);
+            return Repository.DeleteById(reqDto.Id.Value);
         }
         catch (Exception ex)
         {

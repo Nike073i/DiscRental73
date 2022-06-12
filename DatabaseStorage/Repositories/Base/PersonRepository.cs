@@ -11,13 +11,13 @@ namespace DatabaseStorage.Repositories.Base
         {
         }
 
-        public virtual TRes GetByContactNumber(TReq reqDto)
+        public virtual TRes GetByContactNumber(string contactNumber)
         {
             try
             {
                 var set = Db.Set<T>();
 
-                var entity = set.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
+                var entity = set.SingleOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
                 if (entity is null || entity.IsDeleted)
                 {
                     throw new Exception("Запись не найдена");
@@ -31,7 +31,7 @@ namespace DatabaseStorage.Repositories.Base
             }
         }
 
-        protected override void DoUpdate(in DiscRentalDb db, TReq reqDto)
+        protected override TRes DoUpdate(in DiscRentalDb db, TReq reqDto)
         {
             var set = db.Set<T>();
 
@@ -45,9 +45,10 @@ namespace DatabaseStorage.Repositories.Base
             Mapper.MapToEntity(in entity, reqDto);
             set.Update(entity);
             db.SaveChanges();
+            return Mapper.MapToRes(entity);
         }
 
-        protected override void DoInsert(in DiscRentalDb db, TReq reqDto)
+        protected override TRes DoInsert(in DiscRentalDb db, TReq reqDto)
         {
             var set = db.Set<T>();
 
@@ -58,6 +59,7 @@ namespace DatabaseStorage.Repositories.Base
             Mapper.MapToEntity(in entity, reqDto);
             set.Add(entity);
             db.SaveChanges();
+            return Mapper.MapToRes(entity);
         }
     }
 }

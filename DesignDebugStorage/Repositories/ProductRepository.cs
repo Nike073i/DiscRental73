@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -18,22 +18,22 @@ public class ProductRepository : IProductRepository
         Quantity = i
     });
 
+    public ProductResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<ProductResDto> GetAll()
     {
         return _products.ToList();
     }
 
-    public ProductResDto GetById(ProductReqDto reqDto)
+    public ProductResDto Insert(ProductReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(ProductReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(ProductReqDto reqDto)
+    public ProductResDto Update(ProductReqDto reqDto)
     {
         throw new NotImplementedException();
     }

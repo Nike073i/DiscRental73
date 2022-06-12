@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -15,32 +15,32 @@ public class ClientRepository : IClientRepository
         SecondName = $"Фамилия - {i}"
     });
 
+    public ClientResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<ClientResDto> GetAll()
     {
         return _clients.ToList();
     }
 
-    public ClientResDto GetById(ClientReqDto reqDto)
+    public ClientResDto Insert(ClientReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(ClientReqDto reqDto)
+    public ClientResDto GetByContactNumber(string contactNumber)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(ClientReqDto reqDto)
+    public bool DeleteById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void DeleteById(ClientReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public ClientResDto GetByContactNumber(ClientReqDto reqDto)
+    public ClientResDto Update(ClientReqDto reqDto)
     {
         throw new NotImplementedException();
     }

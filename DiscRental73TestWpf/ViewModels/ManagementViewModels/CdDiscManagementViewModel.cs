@@ -88,7 +88,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             {
                 var resDto = p as CdDiscResDto;
                 var reqDto = CreateReqDtoToDelete(resDto);
-                _Service.DeleteById(reqDto);
+                _Service.DeleteById(reqDto.Id.Value);
                 DialogService.ShowInformation("Запись удалена", "Успех");
                 OnPropertyChanged(nameof(Items));
             }

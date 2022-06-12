@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
@@ -35,11 +35,11 @@ namespace DatabaseStorage.Repositories
             return data;
         }
 
-        protected override EmployeeResDto DoGetById(in DiscRentalDb db, EmployeeReqDto reqDto)
+        protected override EmployeeResDto DoGetById(in DiscRentalDb db, int id)
         {
             var set = db.Set<Employee>();
 
-            var entity = set.SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
+            var entity = set.SingleOrDefault(rec => rec.Id.Equals(id));
             if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Запись не найдена");

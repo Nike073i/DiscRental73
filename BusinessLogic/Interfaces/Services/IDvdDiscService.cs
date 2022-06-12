@@ -6,7 +6,7 @@ namespace BusinessLogic.Interfaces.Services;
 public interface IDvdDiscService
 {
     IEnumerable<DvdDiscResDto> GetAll();
-    DvdDiscResDto GetById(DvdDiscReqDto reqDto);
-    void Save(DvdDiscReqDto reqDto);
-    void DeleteById(DvdDiscReqDto reqDto);
+    DvdDiscResDto GetById(int id);
+    DvdDiscResDto Save(DvdDiscReqDto reqDto);
+    bool DeleteById(int id);
 }

@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -17,22 +17,22 @@ public class SellRepository : ISellRepository
         Price = i
     });
 
+    public SellResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<SellResDto> GetAll()
     {
-        throw new NotImplementedException();
+        return _sells;
     }
 
-    public SellResDto GetById(SellReqDto reqDto)
+    public SellResDto Insert(SellReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(SellReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteById(SellReqDto reqDto)
+    public bool DeleteById(int id)
     {
         throw new NotImplementedException();
     }

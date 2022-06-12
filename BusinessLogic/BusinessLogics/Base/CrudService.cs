@@ -1,25 +1,21 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storage.Base;
 
 namespace BusinessLogic.BusinessLogics.Base;
 
-public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res : ResDto, new()
+public abstract class CrudService<TReq, TRes> where TReq : ReqDto, new() where TRes : ResDto, new()
 {
-    protected readonly ICrudRepository<Req, Res> Repository;
+    protected readonly ICrudRepository<TReq, TRes> Repository;
 
-    protected CrudService(ICrudRepository<Req, Res> repository)
+    protected CrudService(ICrudRepository<TReq, TRes> repository)
     {
         Repository = repository;
     }
 
-    public Res GetById(Req reqDto)
+    public TRes GetById(int id)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        if (reqDto.Id is null) throw new Exception("Ошибка получения записи по Id: Id не указан");
-
         try
         {
-            var item = Repository.GetById(reqDto);
+            var item = Repository.GetById(id);
             return item;
         }
         catch (Exception ex)
@@ -28,21 +24,19 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
         }
     }
 
-    public IEnumerable<Res> GetAll()
+    public IEnumerable<TRes> GetAll()
     {
         var listItems = Repository.GetAll();
         return listItems;
     }
 
-    public void Save(Req reqDto)
+    public TRes Save(TReq reqDto)
     {
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при сохранении записи: модель некорректна");
         try
         {
-            if (reqDto.Id.HasValue)
-                Repository.Update(reqDto);
-            else
-                Repository.Insert(reqDto);
+            var resDto = reqDto.Id.HasValue ? Repository.Update(reqDto) : Repository.Insert(reqDto);
+            return resDto;
         }
         catch (Exception ex)
         {
@@ -50,15 +44,11 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
         }
     }
 
-    public void DeleteById(Req reqDto)
+    public bool DeleteById(int id)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        if (reqDto.Id is null) throw new Exception("Ошибка удаления записи по Id: Id не указан");
-
         try
         {
-            Repository.DeleteById(reqDto);
+            return Repository.DeleteById(id);
         }
         catch (Exception ex)
         {
@@ -71,5 +61,5 @@ public abstract class CrudService<Req, Res> where Req : ReqDto, new() where Res 
     /// </summary>
     /// <param name="reqDto">Модель для сохранения</param>
     /// <returns>bool - Результат валидации</returns>
-    protected abstract bool IsCorrectReqDto(Req reqDto);
+    protected abstract bool IsCorrectReqDto(TReq reqDto);
 }

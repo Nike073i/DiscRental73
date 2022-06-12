@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces.Storages;
+﻿using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 

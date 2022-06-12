@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storage.Base;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 

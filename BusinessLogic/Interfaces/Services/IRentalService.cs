@@ -5,10 +5,10 @@ namespace BusinessLogic.Interfaces.Services;
 
 public interface IRentalService
 {
-    void IssueRental(RentalReqDto reqDto);
-    void IssueReturn(IssueReturnReqDto reqDto);
+    bool IssueRental(RentalReqDto reqDto);
+    bool IssueReturn(IssueReturnReqDto reqDto);
     IEnumerable<ProductResDto> GetProducts();
     IEnumerable<RentalResDto> GetInRental();
     IEnumerable<RentalResDto> GetAll();
-    void CancelRental(RentalReqDto reqDto);
+    bool CancelRental(RentalReqDto reqDto);
 }

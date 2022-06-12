@@ -1,8 +1,8 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages.Base;
+using BusinessLogic.Interfaces.Storage.Base;
 
-namespace BusinessLogic.Interfaces.Storages;
+namespace BusinessLogic.Interfaces.Storage;
 
 public interface IRentalRepository : ICrudRepository<RentalReqDto, RentalResDto>
 {

@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
@@ -22,7 +22,7 @@ namespace DatabaseStorage.Repositories
                     Select(rec => Mapper.MapToRes(rec)).ToList();
         }
 
-        protected override RentalResDto DoGetById(in DiscRentalDb db, RentalReqDto reqDto)
+        protected override RentalResDto DoGetById(in DiscRentalDb db, int id)
         {
             var set = db.Set<Rental>();
 
@@ -30,7 +30,7 @@ namespace DatabaseStorage.Repositories
                 .Include(rec => rec.Employee)
                 .Include(rec => rec.Product)
                 .ThenInclude(rec => rec.Disc)
-                .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
+                .SingleOrDefault(rec => rec.Id.Equals(id));
             if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Запись не найдена");

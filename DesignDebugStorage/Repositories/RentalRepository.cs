@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -20,27 +20,28 @@ public class RentalRepository : IRentalRepository
         ProductId = i
     });
 
+    public RentalResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<RentalResDto> GetAll()
     {
         return _rentals.ToList();
     }
 
-    public RentalResDto GetById(RentalReqDto reqDto)
+
+    public RentalResDto Insert(RentalReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(RentalReqDto reqDto)
+    public bool DeleteById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(RentalReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteById(RentalReqDto reqDto)
+    public RentalResDto Update(RentalReqDto reqDto)
     {
         throw new NotImplementedException();
     }

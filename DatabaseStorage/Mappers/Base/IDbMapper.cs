@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces.Storages.Base;
+﻿using BusinessLogic.Interfaces.Storage.Base;
 using DatabaseStorage.Entityes.Base;
 
 namespace DatabaseStorage.Mappers.Base

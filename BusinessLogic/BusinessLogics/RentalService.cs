@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace BusinessLogic.BusinessLogics;
 
@@ -16,14 +16,14 @@ public class RentalService : IRentalService
         ProductService = productService;
     }
 
-    public void IssueRental(RentalReqDto reqDto)
+    public bool IssueRental(RentalReqDto reqDto)
     {
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
         {
-            ProductService.EditProductQuantity(new EditProductQuantityReqDto
-            { ProductId = reqDto.ProductId, EditQuantity = -1 });
+            ProductService.EditProductQuantity(reqDto.ProductId, -1);
             Repository.Insert(reqDto);
+            return true;
         }
         catch (Exception ex)
         {
@@ -31,12 +31,12 @@ public class RentalService : IRentalService
         }
     }
 
-    public void IssueReturn(IssueReturnReqDto reqDto)
+    public bool IssueReturn(IssueReturnReqDto reqDto)
     {
         if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         try
         {
-            var item = Repository.GetById(new RentalReqDto { Id = reqDto.RentalId });
+            var item = Repository.GetById(reqDto.RentalId);
             if (item == null) throw new Exception("Ошибка возврата проката: Прокат не найден");
             var issueReturnReqDto = new RentalReqDto
             {
@@ -51,9 +51,9 @@ public class RentalService : IRentalService
             };
             if (!IsCorrectReqDto(issueReturnReqDto))
                 throw new Exception("Ошибка возврата проката: Модель имеет некорректное значение");
-            ProductService.EditProductQuantity(new EditProductQuantityReqDto
-            { ProductId = issueReturnReqDto.ProductId, EditQuantity = +1 });
+            ProductService.EditProductQuantity(issueReturnReqDto.ProductId, 1);
             Repository.Update(issueReturnReqDto);
+            return true;
         }
         catch (Exception ex)
         {
@@ -76,19 +76,18 @@ public class RentalService : IRentalService
         return Repository.GetAll();
     }
 
-    public void CancelRental(RentalReqDto reqDto)
+    public bool CancelRental(RentalReqDto reqDto)
     {
         if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
 
-        if (reqDto.Id is null) throw new Exception("Ошибка отмены проката: Id не указан");
+        if (!reqDto.Id.HasValue) throw new Exception("Ошибка отмены проката: Id не указан");
 
         try
         {
-            var item = Repository.GetById(new RentalReqDto { Id = reqDto.Id });
+            var item = Repository.GetById(reqDto.Id.Value);
             if (item == null) throw new Exception("Ошибка отмены проката: Прокат не найден");
-            ProductService.EditProductQuantity(new EditProductQuantityReqDto
-            { ProductId = item.ProductId, EditQuantity = +1 });
-            Repository.DeleteById(reqDto);
+            ProductService.EditProductQuantity(item.ProductId, 1);
+            return Repository.DeleteById(reqDto.Id.Value);
         }
         catch (Exception ex)
         {

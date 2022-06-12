@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Interfaces.Storages.Base;
+﻿namespace BusinessLogic.Interfaces.Storage.Base;
 
 public abstract class ReqDto
 {

@@ -2,7 +2,7 @@
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace BusinessLogic.BusinessLogics;
 
@@ -12,18 +12,16 @@ public class EmployeeService : PersonCrudService<EmployeeReqDto, EmployeeResDto>
     {
     }
 
-    public EmployeeResDto? Authorization(EmployeeReqDto reqDto)
+    public EmployeeResDto? Authorization(string contactNumber, string password)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        if (string.IsNullOrEmpty(reqDto.Password)) throw new Exception("Ошибка авторизации: Не указан пароль");
+        if (string.IsNullOrEmpty(password)) throw new Exception("Ошибка авторизации: Не указан пароль");
 
         try
         {
-            var employee = GetByContactNumber(reqDto);
+            var employee = GetByContactNumber(contactNumber);
             if (employee == null) throw new Exception("Ошибка авторизации: Пользователь не найден");
             EmployeeResDto? currentEmployee = null;
-            if (reqDto.Password.ToLower().Equals(employee.Password.ToLower())) currentEmployee = employee;
+            if (password.ToLower().Equals(employee.Password.ToLower())) currentEmployee = employee;
             return currentEmployee;
         }
         catch (Exception ex)

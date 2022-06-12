@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Context;
 using DatabaseStorage.Entityes;
 using DatabaseStorage.Mappers;
@@ -11,7 +11,7 @@ namespace DatabaseStorage.Repositories
 {
     public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Product>, IProductRepository
     {
-        protected override void DoInsert(in DiscRentalDb db, ProductReqDto reqDto)
+        protected override ProductResDto DoInsert(in DiscRentalDb db, ProductReqDto reqDto)
         {
             var set = db.Set<Product>();
 
@@ -30,6 +30,7 @@ namespace DatabaseStorage.Repositories
             Mapper.MapToEntity(in entity, reqDto);
             set.Add(entity);
             db.SaveChanges();
+            return Mapper.MapToRes(entity);
         }
 
         protected override IEnumerable<ProductResDto> DoGetAll(in DiscRentalDb db)
@@ -47,7 +48,7 @@ namespace DatabaseStorage.Repositories
                 Select(rec => Mapper.MapToRes(rec)).ToList();
         }
 
-        protected override ProductResDto DoGetById(in DiscRentalDb db, ProductReqDto reqDto)
+        protected override ProductResDto DoGetById(in DiscRentalDb db, int id)
         {
             var set = db.Set<Product>();
 
@@ -58,7 +59,7 @@ namespace DatabaseStorage.Repositories
                 .ThenInclude(rec => rec.Client)
                 .Include(rec => rec.Rentals)
                 .ThenInclude(rec => rec.Employee)
-                .SingleOrDefault(rec => rec.Id.Equals(reqDto.Id));
+                .SingleOrDefault(rec => rec.Id.Equals(id));
             if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Запись не найдена");

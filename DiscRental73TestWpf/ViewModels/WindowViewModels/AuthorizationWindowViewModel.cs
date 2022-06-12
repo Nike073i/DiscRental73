@@ -1,5 +1,4 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.Interfaces.Services;
+﻿using BusinessLogic.Interfaces.Services;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
 using DiscRental73TestWpf.Views.Windows;
@@ -81,11 +80,7 @@ public class AuthorizationWindowViewModel : FormationViewModel
         if (p is not Window window) return;
         try
         {
-            var employee = _Service.Authorization(new EmployeeReqDto
-            {
-                ContactNumber = ContactNumber,
-                Password = Password
-            });
+            var employee = _Service.Authorization(ContactNumber, Password);
             if (employee is null)
             {
                 _DialogService.ShowError("Ошибка авторизации. Попробуйте снова", "Ошибка");

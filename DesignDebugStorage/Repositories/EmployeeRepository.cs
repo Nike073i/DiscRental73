@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -15,32 +15,33 @@ public class EmployeeRepository : IEmployeeRepository
         Password = $"Пароль - {i}"
     });
 
+    public EmployeeResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<EmployeeResDto> GetAll()
     {
         return _employees.ToList();
     }
 
-    public void DeleteById(EmployeeReqDto reqDto)
+
+    public EmployeeResDto Insert(EmployeeReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public EmployeeResDto GetByContactNumber(EmployeeReqDto reqDto)
+    public EmployeeResDto GetByContactNumber(string contactNumber)
     {
         throw new NotImplementedException();
     }
 
-    public EmployeeResDto GetById(EmployeeReqDto reqDto)
+    public bool DeleteById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(EmployeeReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(EmployeeReqDto reqDto)
+    public EmployeeResDto Update(EmployeeReqDto reqDto)
     {
         throw new NotImplementedException();
     }

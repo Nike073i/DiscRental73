@@ -1,27 +1,25 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages.Base;
+using BusinessLogic.Interfaces.Storage.Base;
 
 namespace BusinessLogic.BusinessLogics.Base;
 
-public abstract class PersonCrudService<Req, Res> : CrudService<Req, Res>
-    where Req : PersonReqDto, new() where Res : PersonResDto, new()
+public abstract class PersonCrudService<TReq, TRes> : CrudService<TReq, TRes>
+    where TReq : PersonReqDto, new() where TRes : PersonResDto, new()
 {
-    protected PersonCrudService(IPersonRepository<Req, Res> repository) : base(repository)
+    protected PersonCrudService(IPersonRepository<TReq, TRes> repository) : base(repository)
     {
     }
 
-    public Res GetByContactNumber(Req reqDto)
+    public TRes GetByContactNumber(string contactNumber)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        if (string.IsNullOrEmpty(reqDto.ContactNumber))
+        if (string.IsNullOrEmpty(contactNumber))
             throw new Exception("Ошибка получения записи по номеру: Номер не указан");
 
         try
         {
-            var personRepos = Repository as IPersonRepository<Req, Res>;
-            var item = personRepos.GetByContactNumber(reqDto);
+            var personRepos = Repository as IPersonRepository<TReq, TRes>;
+            var item = personRepos.GetByContactNumber(contactNumber);
             return item;
         }
         catch (Exception ex)

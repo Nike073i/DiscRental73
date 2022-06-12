@@ -94,12 +94,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             try
             {
                 var resDto = p as ProductResDto;
-                var reqDto = new ChangeProductAvailable
-                {
-                    ProductId = resDto.Id,
-                    IsAvailable = !resDto.IsAvailable
-                };
-                _service.ChangeAvailable(reqDto);
+                _service.ChangeAvailable(resDto.Id, !resDto.IsAvailable);
                 DialogService.ShowInformation("Доступность изменена", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -133,11 +128,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             try
             {
                 var reqDto = model as EditProductQuantityModel;
-                _service.EditProductQuantity(new EditProductQuantityReqDto
-                {
-                    ProductId = reqDto.ProductId,
-                    EditQuantity = reqDto.EditQuantity
-                });
+                _service.EditProductQuantity(reqDto.ProductId, reqDto.EditQuantity);
                 DialogService.ShowInformation("Количество измененно", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -170,11 +161,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             try
             {
                 var reqDto = model as EditProductCostModel;
-                _service.ChangeProductCost(new ChangeProductCostReqDto
-                {
-                    ProductId = reqDto.ProductId,
-                    Cost = reqDto.NewCost
-                });
+                _service.ChangeProductCost(reqDto.ProductId, reqDto.NewCost);
                 DialogService.ShowInformation("Количество измененно", "Успех");
                 OnPropertyChanged(nameof(Items));
             }

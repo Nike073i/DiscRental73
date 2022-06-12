@@ -6,9 +6,9 @@ namespace BusinessLogic.Interfaces.Services;
 public interface IEmployeeService
 {
     IEnumerable<EmployeeResDto> GetAll();
-    EmployeeResDto GetById(EmployeeReqDto reqDto);
-    EmployeeResDto GetByContactNumber(EmployeeReqDto reqDto);
-    EmployeeResDto Authorization(EmployeeReqDto reqDto);
-    void Save(EmployeeReqDto reqDto);
-    void DeleteById(EmployeeReqDto reqDto);
+    EmployeeResDto GetById(int id);
+    EmployeeResDto GetByContactNumber(string contactNumber);
+    EmployeeResDto? Authorization(string contactNumber, string password);
+    EmployeeResDto Save(EmployeeReqDto reqDto);
+    bool DeleteById(int id);
 }

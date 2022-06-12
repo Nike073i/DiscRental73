@@ -7,11 +7,11 @@ namespace DatabaseStorage.Repositories.Base
 {
     public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T> where TReq : DiscReqDto, new() where TRes : DiscResDto, new() where T : Disc, new()
     {
-        protected override void DoDeleteById(in DiscRentalDb db, TReq dto)
+        protected override bool DoDeleteById(in DiscRentalDb db, int id)
         {
             var set = db.Set<T>();
 
-            var entity = set.FirstOrDefault(rec => rec.Id.Equals(dto.Id));
+            var entity = set.FirstOrDefault(rec => rec.Id.Equals(id));
             if (entity is null || entity.IsDeleted)
             {
                 throw new Exception("Ошибка удаления по Id: Запись не найдена");
@@ -36,6 +36,7 @@ namespace DatabaseStorage.Repositories.Base
                 transaction.Rollback();
                 throw new Exception("Ошибка удаления по Id: " + ex.Message);
             }
+            return true;
         }
 
         protected DiscRepository(DiscRentalDb db) : base(db)

@@ -1,14 +1,16 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storages.Base;
+using BusinessLogic.Interfaces.Storage.Base;
 
 namespace BusinessLogic.BusinessLogics.Base;
 
-public abstract class DiscCrudService<Req, Res> : CrudService<Req, Res>
-    where Req : DiscReqDto, new() where Res : DiscResDto, new()
+public abstract class DiscCrudService<TReq, TRes> : CrudService<TReq, TRes>
+    where TReq : DiscReqDto, new() where TRes : DiscResDto, new()
 {
-    protected DiscCrudService(ICrudRepository<Req, Res> repository) : base(repository)
+    protected DiscCrudService(ICrudRepository<TReq, TRes> repository) : base(repository)
     {
+        DateOfReleaseMaxDate = new DateTime(2100, 1, 1);
+        DateOfReleaseMinDate = new DateTime(1900, 1, 1);
     }
 
     #region Ограничения для сущности Disc
@@ -18,12 +20,8 @@ public abstract class DiscCrudService<Req, Res> : CrudService<Req, Res>
 
     protected const int _TitleMinLength = 1;
     public int TitleMinLength => _TitleMinLength;
-
-    protected readonly DateTime _DateOfReleaseMaxDate = new(2100, 1, 1);
-    public DateTime DateOfReleaseMaxDate => _DateOfReleaseMaxDate;
-
-    protected readonly DateTime _DateOfReleaseMinDate = new(1900, 1, 1);
-    public DateTime DateOfReleaseMinDate => _DateOfReleaseMinDate;
+    public DateTime DateOfReleaseMaxDate { get; }
+    public DateTime DateOfReleaseMinDate { get; }
 
     #endregion
 }

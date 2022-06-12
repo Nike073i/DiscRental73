@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -16,24 +16,24 @@ public class CdDiscRepository : ICdDiscRepository
         Performer = $"Исполнитель - {i}",
     });
 
+    public bool DeleteById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<CdDiscResDto> GetAll() => _discs.ToList();
 
-    public CdDiscResDto GetById(CdDiscReqDto reqDto)
+    public CdDiscResDto GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(CdDiscReqDto reqDto)
+    public CdDiscResDto Insert(CdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(CdDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteById(CdDiscReqDto reqDto)
+    public CdDiscResDto Update(CdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }

@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
@@ -16,23 +16,24 @@ public class DvdDiscRepository : IDvdDiscRepository
         Director = $"Режиссер - {i}",
     });
 
+    public DvdDiscResDto GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<DvdDiscResDto> GetAll() => _discs.ToList();
-    public void DeleteById(DvdDiscReqDto reqDto)
+
+    public DvdDiscResDto Insert(DvdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public DvdDiscResDto GetById(DvdDiscReqDto reqDto)
+    public bool DeleteById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(DvdDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(DvdDiscReqDto reqDto)
+    public DvdDiscResDto Update(DvdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }

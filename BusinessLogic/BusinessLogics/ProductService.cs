@@ -1,39 +1,39 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 
 namespace BusinessLogic.BusinessLogics;
 
 public class ProductService : IProductService
 {
-    private readonly IProductRepository _repository;
+    private readonly IProductRepository _Repository;
 
     public ProductService(IProductRepository repository)
     {
-        _repository = repository;
+        _Repository = repository;
     }
 
-    public void EditProductQuantity(EditProductQuantityReqDto reqDto)
+    public bool EditProductQuantity(int productId, int editQuantity)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-        if (reqDto.EditQuantity > QuantityMaxValue || reqDto.EditQuantity < -QuantityMaxValue)
+        if (editQuantity > QuantityMaxValue || editQuantity < -QuantityMaxValue)
             throw new Exception("Ошибка изменения количества продукции: Указано некорректное значение");
         try
         {
-            var item = _repository.GetById(new ProductReqDto { Id = reqDto.ProductId });
+            var item = _Repository.GetById(productId);
             if (item == null) throw new Exception("Ошибка изменения количества продукции: Продукт не найден");
             var changedReqDto = new ProductReqDto
             {
                 Id = item.Id,
                 Cost = item.Cost,
-                Quantity = reqDto.EditQuantity + item.Quantity,
+                Quantity = editQuantity + item.Quantity,
                 DiscId = item.DiscId,
                 IsAvailable = item.IsAvailable
             };
             if (!IsCorrectReqDto(changedReqDto))
                 throw new Exception("Ошибка изменения количества продукции: Модель имеет некорректное значение");
-            _repository.Update(changedReqDto);
+            _Repository.Update(changedReqDto);
+            return true;
         }
         catch (Exception ex)
         {
@@ -41,24 +41,24 @@ public class ProductService : IProductService
         }
     }
 
-    public void ChangeProductCost(ChangeProductCostReqDto reqDto)
+    public bool ChangeProductCost(int productId, double cost)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         try
         {
-            var item = _repository.GetById(new ProductReqDto { Id = reqDto.ProductId });
+            var item = _Repository.GetById(productId);
             if (item == null) throw new Exception("Ошибка изменения цены продукции: Продукт не найден");
             var changedReqDto = new ProductReqDto
             {
                 Id = item.Id,
-                Cost = reqDto.Cost,
+                Cost = cost,
                 Quantity = item.Quantity,
                 DiscId = item.DiscId,
                 IsAvailable = item.IsAvailable
             };
             if (!IsCorrectReqDto(changedReqDto))
                 throw new Exception("Ошибка изменения цены продукции: Модель имеет некорректное значение");
-            _repository.Update(changedReqDto);
+            _Repository.Update(changedReqDto);
+            return true;
         }
         catch (Exception ex)
         {
@@ -66,12 +66,36 @@ public class ProductService : IProductService
         }
     }
 
-    public void Create(ProductReqDto reqDto)
+    public bool ChangeAvailable(int productId, bool isAvailable)
+    {
+        try
+        {
+            var item = _Repository.GetById(productId);
+            if (item == null) throw new Exception("Ошибка изменения доступности продукции: Продукт не найден");
+            if (item.IsAvailable.Equals(isAvailable)) return true;
+            var changedReqDto = new ProductReqDto
+            {
+                Id = item.Id,
+                Cost = item.Id,
+                Quantity = item.Quantity,
+                DiscId = item.DiscId,
+                IsAvailable = isAvailable
+            };
+            _Repository.Update(changedReqDto);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
+        }
+    }
+
+    public ProductResDto Create(ProductReqDto reqDto)
     {
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
         {
-            _repository.Insert(reqDto);
+            return _Repository.Insert(reqDto);
         }
         catch (Exception ex)
         {
@@ -79,51 +103,23 @@ public class ProductService : IProductService
         }
     }
 
-    public void ChangeAvailable(ChangeProductAvailable reqDto)
-    {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-        try
-        {
-            var item = _repository.GetById(new ProductReqDto { Id = reqDto.ProductId });
-            if (item == null) throw new Exception("Ошибка изменения доступности продукции: Продукт не найден");
-            if (item.IsAvailable.Equals(reqDto.IsAvailable)) return;
-            var changedReqDto = new ProductReqDto
-            {
-                Id = item.Id,
-                Cost = item.Id,
-                Quantity = item.Quantity,
-                DiscId = item.DiscId,
-                IsAvailable = reqDto.IsAvailable
-            };
-            _repository.Update(changedReqDto);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
-        }
-    }
-
     public IEnumerable<ProductResDto> GetAll()
     {
-        var listItems = _repository.GetAll();
+        var listItems = _Repository.GetAll();
         return listItems;
     }
 
     public IEnumerable<ProductResDto> GetAvailable()
     {
-        var listItems = _repository.GetAll().Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
+        var listItems = _Repository.GetAll().Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
         return listItems;
     }
 
-    public ProductResDto GetById(ProductReqDto reqDto)
+    public ProductResDto GetById(int id)
     {
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        if (reqDto.Id is null) throw new Exception("Ошибка получения записи по Id: Id не указан");
-
         try
         {
-            var item = _repository.GetById(reqDto);
+            var item = _Repository.GetById(id);
             return item;
         }
         catch (Exception ex)
