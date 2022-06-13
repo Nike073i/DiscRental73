@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.Interfaces.Storage.Base;
-using DatabaseStorage.Entityes.Base;
+using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Mappers.Base
 {

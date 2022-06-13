@@ -2,7 +2,7 @@
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Context;
-using DatabaseStorage.Entityes;
+using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;

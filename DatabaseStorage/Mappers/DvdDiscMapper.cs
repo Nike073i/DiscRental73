@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Enums;
-using DatabaseStorage.Entityes;
+using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers.Base;
 
 namespace DatabaseStorage.Mappers

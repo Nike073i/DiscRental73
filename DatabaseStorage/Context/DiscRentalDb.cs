@@ -1,4 +1,4 @@
-﻿using DatabaseStorage.Entityes;
+﻿using DatabaseStorage.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Context;
