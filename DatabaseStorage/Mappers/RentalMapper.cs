@@ -7,7 +7,7 @@ namespace DatabaseStorage.Mappers
 {
     public class RentalMapper : IDbMapper<RentalReqDto, RentalResDto, Rental>
     {
-        public void MapToEntity(in Rental entity, RentalReqDto reqDto)
+        public void MapToEntity(in Rental entity, in RentalReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.ProductId = reqDto.ProductId;

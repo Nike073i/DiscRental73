@@ -10,18 +10,32 @@ public abstract class DbRepository<TReq, TRes, T>
     where TRes : ResDto, new()
     where T : Entity, new()
 {
+    #region readonly fields
+
     protected readonly DiscRentalDb Db;
 
-    private IDbMapper<TReq, TRes, T>? _Mapper;
+    #endregion
+
+    #region constructors
 
     protected DbRepository(DiscRentalDb db)
     {
         Db = db;
     }
 
+    #endregion
+
+    #region Mapper : IDbMapper - преобразователь моделей
+
+    private IDbMapper<TReq, TRes, T>? _Mapper;
+
     protected IDbMapper<TReq, TRes, T> Mapper => _Mapper ??= CreateMapper();
 
     protected abstract IDbMapper<TReq, TRes, T> CreateMapper();
+
+    #endregion
+
+    #region public methods
 
     public IEnumerable<TRes> GetAll()
     {
@@ -35,7 +49,7 @@ public abstract class DbRepository<TReq, TRes, T>
         }
     }
 
-    public TRes GetById(int id)
+    public TRes? GetById(int id)
     {
         try
         {
@@ -47,7 +61,7 @@ public abstract class DbRepository<TReq, TRes, T>
         }
     }
 
-    public TRes Insert(TReq reqDto)
+    public TRes? Insert(TReq reqDto)
     {
         try
         {
@@ -55,7 +69,7 @@ public abstract class DbRepository<TReq, TRes, T>
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка добавления записи: " + ex.Message);
+            throw new Exception("Ошибка добавления записи: " + ex.Message, ex.InnerException);
         }
     }
 
@@ -67,12 +81,12 @@ public abstract class DbRepository<TReq, TRes, T>
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка удаления по Id: " + ex.Message);
+            throw new Exception("Ошибка удаления по Id: " + ex.Message, ex.InnerException);
         }
     }
 
 
-    public TRes Update(TReq reqDto)
+    public TRes? Update(TReq reqDto)
     {
         try
         {
@@ -80,9 +94,13 @@ public abstract class DbRepository<TReq, TRes, T>
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка обновления записи: " + ex.Message);
+            throw new Exception("Ошибка обновления записи: " + ex.Message, ex.InnerException);
         }
     }
+
+    #endregion
+
+    #region template-methods
 
     protected virtual IEnumerable<TRes> DoGetAll(in DiscRentalDb db)
     {
@@ -92,30 +110,28 @@ public abstract class DbRepository<TReq, TRes, T>
             .ToList();
     }
 
-    protected virtual TRes DoGetById(in DiscRentalDb db, int id)
+    protected virtual TRes? DoGetById(in DiscRentalDb db, int id)
     {
-        var set = db.Set<T>();
-
-        var entity = set.SingleOrDefault(rec => rec.Id.Equals(id));
-        if (entity is null || entity.IsDeleted) throw new Exception("Запись не найдена");
+        var entity = db.Set<T>().Find(id);
+        if (entity is null || entity.IsDeleted) return null;
         return Mapper.MapToRes(entity);
     }
 
-    protected virtual TRes DoInsert(in DiscRentalDb db, TReq dto)
+    protected virtual TRes? DoInsert(in DiscRentalDb db, TReq dto)
     {
         var set = db.Set<T>();
-        var entity = new T();
-        Mapper.MapToEntity(in entity, dto);
-        set.Add(entity);
+        var model = new T();
+        Mapper.MapToEntity(model, dto);
+        var entity = set.Add(model);
+        if (entity is null) return null;
         db.SaveChanges();
-        return Mapper.MapToRes(entity);
+        return Mapper.MapToRes(entity.Entity);
     }
 
     protected virtual bool DoDeleteById(in DiscRentalDb db, int id)
     {
         var set = db.Set<T>();
-
-        var entity = set.FirstOrDefault(rec => rec.Id.Equals(id));
+        var entity = set.Find(id);
         if (entity is null || entity.IsDeleted) throw new Exception("Ошибка удаления по Id: Запись не найдена");
 
         entity.IsDeleted = true;
@@ -124,16 +140,20 @@ public abstract class DbRepository<TReq, TRes, T>
         return true;
     }
 
-    protected virtual TRes DoUpdate(in DiscRentalDb db, TReq dto)
+    protected virtual TRes? DoUpdate(in DiscRentalDb db, TReq dto)
     {
         var set = db.Set<T>();
 
-        var entity = set.FirstOrDefault(rec => rec.Id.Equals(dto.Id));
-        if (entity is null || entity.IsDeleted) throw new Exception("Ошибка обновления записи: Запись не найдена");
+        var storedEntity = set.Find(dto.Id);
+        if (storedEntity is null || storedEntity.IsDeleted)
+            throw new Exception("Ошибка обновления записи: Запись не найдена");
 
-        Mapper.MapToEntity(in entity, dto);
-        set.Update(entity);
+        Mapper.MapToEntity(storedEntity, dto);
+        var changedEntity = set.Update(storedEntity);
+        if (changedEntity is null) return null;
         db.SaveChanges();
-        return Mapper.MapToRes(entity);
+        return Mapper.MapToRes(storedEntity);
     }
+
+    #endregion
 }

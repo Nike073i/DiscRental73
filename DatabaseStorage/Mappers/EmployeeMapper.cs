@@ -7,7 +7,7 @@ namespace DatabaseStorage.Mappers
 {
     public class EmployeeMapper : IDbMapper<EmployeeReqDto, EmployeeResDto, Employee>
     {
-        public void MapToEntity(in Employee entity, EmployeeReqDto reqDto)
+        public void MapToEntity(in Employee entity, in EmployeeReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.ContactNumber = reqDto.ContactNumber;

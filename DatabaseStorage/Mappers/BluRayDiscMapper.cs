@@ -8,7 +8,7 @@ namespace DatabaseStorage.Mappers
 {
     public class BluRayDiscMapper : IDbMapper<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
     {
-        public void MapToEntity(in BluRayDisc entity, BluRayDiscReqDto reqDto)
+        public void MapToEntity(in BluRayDisc entity, in BluRayDiscReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.Title = reqDto.Title;

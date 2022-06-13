@@ -8,7 +8,7 @@ namespace DatabaseStorage.Mappers
 {
     public class DvdDiscMapper : IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc>
     {
-        public void MapToEntity(in DvdDisc entity, DvdDiscReqDto reqDto)
+        public void MapToEntity(in DvdDisc entity, in DvdDiscReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.Title = reqDto.Title;

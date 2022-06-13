@@ -7,7 +7,7 @@ namespace DatabaseStorage.Mappers
 {
     public class SellMapper : IDbMapper<SellReqDto, SellResDto, Sell>
     {
-        public void MapToEntity(in Sell entity, SellReqDto reqDto)
+        public void MapToEntity(in Sell entity, in SellReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.ProductId = reqDto.ProductId;

@@ -16,7 +16,7 @@ namespace DatabaseStorage.Mappers
             _rentalMapper = new();
         }
 
-        public void MapToEntity(in Product entity, ProductReqDto reqDto)
+        public void MapToEntity(in Product entity, in ProductReqDto reqDto)
         {
             entity.Id = reqDto.Id ?? 0;
             entity.Cost = reqDto.Cost;
