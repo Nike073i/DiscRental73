@@ -2,6 +2,7 @@
 using DatabaseStorage.Context;
 using DatabaseStorage.Entities.Base;
 using DatabaseStorage.Mappers.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories.Base;
 
@@ -13,6 +14,7 @@ public abstract class DbRepository<TReq, TRes, T>
     #region readonly fields
 
     protected readonly DiscRentalDb Db;
+    protected readonly DbSet<T> Set;
 
     #endregion
 
@@ -21,6 +23,7 @@ public abstract class DbRepository<TReq, TRes, T>
     protected DbRepository(DiscRentalDb db)
     {
         Db = db;
+        Set = Db.Set<T>();
     }
 
     #endregion
@@ -106,8 +109,7 @@ public abstract class DbRepository<TReq, TRes, T>
     {
         var set = db.Set<T>();
         return set.Where(entity => !entity.IsDeleted)
-            .Select(rec => Mapper.MapToRes(rec))
-            .ToList();
+            .Select(rec => Mapper.MapToRes(rec));
     }
 
     protected virtual TRes? DoGetById(in DiscRentalDb db, int id)
@@ -122,10 +124,10 @@ public abstract class DbRepository<TReq, TRes, T>
         var set = db.Set<T>();
         var model = new T();
         Mapper.MapToEntity(model, dto);
-        var entity = set.Add(model);
+        var entity = set.Add(model).Entity;
         if (entity is null) return null;
         db.SaveChanges();
-        return Mapper.MapToRes(entity.Entity);
+        return Mapper.MapToRes(entity);
     }
 
     protected virtual bool DoDeleteById(in DiscRentalDb db, int id)
@@ -135,7 +137,8 @@ public abstract class DbRepository<TReq, TRes, T>
         if (entity is null || entity.IsDeleted) throw new Exception("Ошибка удаления по Id: Запись не найдена");
 
         entity.IsDeleted = true;
-        set.Update(entity);
+        var changedEntity = set.Update(entity).Entity;
+        if (changedEntity is null) return false;
         db.SaveChanges();
         return true;
     }
@@ -149,7 +152,7 @@ public abstract class DbRepository<TReq, TRes, T>
             throw new Exception("Ошибка обновления записи: Запись не найдена");
 
         Mapper.MapToEntity(storedEntity, dto);
-        var changedEntity = set.Update(storedEntity);
+        var changedEntity = set.Update(storedEntity).Entity;
         if (changedEntity is null) return null;
         db.SaveChanges();
         return Mapper.MapToRes(storedEntity);

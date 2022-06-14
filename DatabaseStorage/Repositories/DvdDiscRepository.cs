@@ -6,14 +6,13 @@ using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 
-namespace DatabaseStorage.Repositories
-{
-    public class DvdDiscRepository : DiscRepository<DvdDiscReqDto, DvdDiscResDto, DvdDisc>, IDvdDiscRepository
-    {
-        protected override DvdDiscMapper CreateMapper() => new();
+namespace DatabaseStorage.Repositories;
 
-        public DvdDiscRepository(DiscRentalDb db) : base(db)
-        {
-        }
-    }
+public class DvdDiscRepository : DiscRepository<DvdDiscReqDto, DvdDiscResDto, DvdDisc>,
+    IDvdDiscRepository
+{
+    public DvdDiscRepository(DiscRentalDb db) : base(db) { }
+
+    protected override DvdDiscMapper CreateMapper() => new();
+
 }

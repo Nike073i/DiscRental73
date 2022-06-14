@@ -2,5 +2,5 @@
 
 public interface IUpdateAction<TReq, TRes> where TReq : ReqDto, new() where TRes : ResDto, new()
 {
-    TRes Update(TReq reqDto);
+    TRes? Update(TReq reqDto);
 }

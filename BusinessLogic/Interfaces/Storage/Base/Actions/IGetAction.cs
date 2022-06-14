@@ -2,6 +2,6 @@
 
 public interface IGetAction<TRes> where TRes : ResDto, new()
 {
-    TRes GetById(int id);
+    TRes? GetById(int id);
     IEnumerable<TRes> GetAll();
 }

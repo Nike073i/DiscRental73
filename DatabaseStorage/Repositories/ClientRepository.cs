@@ -6,14 +6,12 @@ using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 
-namespace DatabaseStorage.Repositories
-{
-    public class ClientRepository : PersonRepository<ClientReqDto, ClientResDto, Client>, IClientRepository
-    {
-        protected override ClientMapper CreateMapper() => new();
+namespace DatabaseStorage.Repositories;
 
-        public ClientRepository(DiscRentalDb db) : base(db)
-        {
-        }
-    }
+public class ClientRepository : PersonRepository<ClientReqDto, ClientResDto, Client>,
+    IClientRepository
+{
+    public ClientRepository(DiscRentalDb db) : base(db) { }
+
+    protected override ClientMapper CreateMapper() => new();
 }
