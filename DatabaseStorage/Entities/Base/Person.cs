@@ -1,8 +1,7 @@
-﻿using DatabaseStorage.Entities.Base;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
-namespace DatabaseStorage.Entities;
+namespace DatabaseStorage.Entities.Base;
 
 [Index(nameof(ContactNumber), IsUnique = true)]
 public abstract class Person : Entity

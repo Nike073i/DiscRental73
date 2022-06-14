@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Entities;
 

@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Context;
-using DatabaseStorage.Entities;
+using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Repositories.Base;
 

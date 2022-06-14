@@ -1,8 +1,7 @@
-﻿using BusinessLogic.Enums;
-using DatabaseStorage.Entities.Base;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using BusinessLogic.Enums;
 
-namespace DatabaseStorage.Entities;
+namespace DatabaseStorage.Entities.Base;
 
 public abstract class Disc : Entity
 {
