@@ -10,7 +10,13 @@ public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes,
     where TRes : PersonResDto, new()
     where T : Person, new()
 {
+    #region constructors
+
     protected PersonRepository(DiscRentalDb db) : base(db) { }
+
+    #endregion
+
+    #region methods
 
     public virtual TRes? GetByContactNumber(string contactNumber)
     {
@@ -42,6 +48,10 @@ public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes,
         return Mapper.MapToRes(changedEntity);
     }
 
+    #endregion
+
+    #region override template-methods
+
     protected override TRes? DoInsert(in DiscRentalDb db, TReq reqDto)
     {
         var storedEntity = db.Persons.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
@@ -54,4 +64,6 @@ public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes,
         db.SaveChanges();
         return Mapper.MapToRes(entity);
     }
+
+    #endregion
 }

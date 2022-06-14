@@ -8,10 +8,18 @@ using DatabaseStorage.Repositories.Base;
 
 namespace DatabaseStorage.Repositories;
 
-public class CdDiscRepository : DiscRepository<CdDiscReqDto, CdDiscResDto, CdDisc>, 
+public class CdDiscRepository : DiscRepository<CdDiscReqDto, CdDiscResDto, CdDisc>,
     ICdDiscRepository
 {
+    #region constructors
+
     public CdDiscRepository(DiscRentalDb db) : base(db) { }
 
+    #endregion
+
+    #region override template-methods
+
     protected override CdDiscMapper CreateMapper() => new();
+
+    #endregion
 }

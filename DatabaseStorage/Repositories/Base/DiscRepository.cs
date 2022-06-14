@@ -10,7 +10,13 @@ public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T
     where TRes : DiscResDto, new()
     where T : Disc, new()
 {
+    #region constructors
+
     protected DiscRepository(DiscRentalDb db) : base(db) { }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool DoDeleteById(in DiscRentalDb db, int id)
     {
@@ -42,4 +48,6 @@ public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T
 
         return true;
     }
+
+    #endregion
 }

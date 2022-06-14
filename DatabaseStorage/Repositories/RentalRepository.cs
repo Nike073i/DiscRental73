@@ -7,41 +7,38 @@ using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatabaseStorage.Repositories
+namespace DatabaseStorage.Repositories;
+
+public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>,
+    IRentalRepository
 {
-    public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>, IRentalRepository
+    #region constructors
+
+    public RentalRepository(DiscRentalDb db) : base(db) { }
+
+    #endregion
+
+    #region override template-methods
+
+    protected override IEnumerable<RentalResDto> DoGetAll(in DiscRentalDb db) => Set
+        .Include(rec => rec.Client)
+        .Include(rec => rec.Employee)
+        .Include(rec => rec.Product)
+            .ThenInclude(rec => rec.Disc)
+        .Where(entity => !entity.IsDeleted).Select(rec => Mapper.MapToRes(rec));
+
+    protected override RentalResDto? DoGetById(in DiscRentalDb db, int id)
     {
-        protected override IEnumerable<RentalResDto> DoGetAll(in DiscRentalDb db)
-        {
-            var set = db.Set<Rental>();
-            return set.Include(rec => rec.Client)
-                    .Include(rec => rec.Employee)
-                    .Include(rec => rec.Product)
-                    .ThenInclude(rec => rec.Disc)
-                    .Where(entity => !entity.IsDeleted).
-                    Select(rec => Mapper.MapToRes(rec)).ToList();
-        }
-
-        protected override RentalResDto DoGetById(in DiscRentalDb db, int id)
-        {
-            var set = db.Set<Rental>();
-
-            var entity = set.Include(rec => rec.Client)
-                .Include(rec => rec.Employee)
-                .Include(rec => rec.Product)
-                .ThenInclude(rec => rec.Disc)
-                .SingleOrDefault(rec => rec.Id.Equals(id));
-            if (entity is null || entity.IsDeleted)
-            {
-                throw new Exception("Запись не найдена");
-            }
-            return Mapper.MapToRes(entity);
-        }
-
-        protected override RentalMapper CreateMapper() => new();
-
-        public RentalRepository(DiscRentalDb db) : base(db)
-        {
-        }
+        var entity = Set.Include(rec => rec.Client)
+            .Include(rec => rec.Employee)
+            .Include(rec => rec.Product)
+            .ThenInclude(rec => rec.Disc)
+            .SingleOrDefault(rec => rec.Id.Equals(id));
+        if (entity is null || entity.IsDeleted) return null;
+        return Mapper.MapToRes(entity);
     }
+
+    protected override RentalMapper CreateMapper() => new();
+
+    #endregion
 }

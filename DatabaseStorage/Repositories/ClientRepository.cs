@@ -11,7 +11,15 @@ namespace DatabaseStorage.Repositories;
 public class ClientRepository : PersonRepository<ClientReqDto, ClientResDto, Client>,
     IClientRepository
 {
+    #region constructors
+
     public ClientRepository(DiscRentalDb db) : base(db) { }
 
+    #endregion
+
+    #region override template-methods
+
     protected override ClientMapper CreateMapper() => new();
+
+    #endregion
 }

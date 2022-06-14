@@ -11,8 +11,16 @@ namespace DatabaseStorage.Repositories;
 public class DvdDiscRepository : DiscRepository<DvdDiscReqDto, DvdDiscResDto, DvdDisc>,
     IDvdDiscRepository
 {
+    #region constructors
+
     public DvdDiscRepository(DiscRentalDb db) : base(db) { }
 
+    #endregion
+
+    #region override template-methods
+
     protected override DvdDiscMapper CreateMapper() => new();
+
+    #endregion
 
 }
