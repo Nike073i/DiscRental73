@@ -21,11 +21,5 @@ internal class SellRepository : DbRepository<Sell>
         .ThenInclude(rec => rec.Disc)
         .Where(entity => !entity.IsDeleted);
 
-    protected override Sell? DoGetById(int id) => Set
-        .Include(rec => rec.Employee)
-        .Include(rec => rec.Product)
-            .ThenInclude(rec => rec.Disc)
-        .FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
-
     #endregion
 }

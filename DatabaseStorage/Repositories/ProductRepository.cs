@@ -48,15 +48,5 @@ internal class ProductRepository : DbRepository<Product>
         .ThenInclude(rec => rec.Employee)
         .Where(entity => !entity.IsDeleted);
 
-    protected override Product? DoGetById(int id) => Set
-        .Include(rec => rec.Disc)
-        .Include(rec => rec.Sells)
-        .ThenInclude(rec => rec.Employee)
-        .Include(rec => rec.Rentals)
-        .ThenInclude(rec => rec.Client)
-        .Include(rec => rec.Rentals)
-        .ThenInclude(rec => rec.Employee)
-        .FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
-
     #endregion
 }

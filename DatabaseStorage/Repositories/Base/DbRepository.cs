@@ -74,7 +74,6 @@ internal abstract class DbRepository<T>
         }
     }
 
-
     public T? Update(T entity)
     {
         try
@@ -91,9 +90,9 @@ internal abstract class DbRepository<T>
 
     #region template-methods
 
-    protected virtual IEnumerable<T> DoGetAll() => Set.Where(entity => !entity.IsDeleted);
+    protected virtual IEnumerable<T> DoGetAll() => Set.AsNoTracking().Where(entity => !entity.IsDeleted);
 
-    protected virtual T? DoGetById(int id) => Set.FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
+    protected virtual T? DoGetById(int id) => GetAll().FirstOrDefault(rec => rec.Id.Equals(id));
 
     protected virtual T? DoInsert(T newEntity)
     {
@@ -117,8 +116,7 @@ internal abstract class DbRepository<T>
 
     protected virtual T? DoUpdate(T newEntity)
     {
-        var storedEntity = Set.FirstOrDefault(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted);
-        if (storedEntity is null)
+        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted))
             throw new Exception("Ошибка обновления записи: Запись не найдена");
         var changedEntity = Set.Update(newEntity).Entity;
         if (changedEntity is null) return null;

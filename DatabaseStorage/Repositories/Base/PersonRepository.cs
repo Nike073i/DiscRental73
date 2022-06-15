@@ -46,12 +46,13 @@ internal abstract class PersonRepository<T> : DbRepository<T>
 
     protected override T? DoUpdate(T newEntity)
     {
-        var storedEntity = Set.FirstOrDefault(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted);
-        if (storedEntity is null) throw new Exception("Ошибка обновления записи: Запись не найдена");
+        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted))
+            throw new Exception("Ошибка обновления записи: Запись не найдена");
 
-        if (!IsAvailableToInsert(newEntity)) throw new Exception("Ошибка обновления записи: Номер уже занят");
+        if (!IsAvailableToInsert(newEntity))
+            throw new Exception("Ошибка обновления записи: Номер уже занят");
 
-        var changedEntity = Set.Update(storedEntity).Entity;
+        var changedEntity = Set.Update(newEntity).Entity;
         if (changedEntity is null) return null;
         Db.SaveChanges();
         return changedEntity;
