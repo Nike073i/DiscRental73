@@ -29,8 +29,8 @@ public class CdDiscRepository : DbRepository<CdDiscReqDto, CdDiscResDto, CdDisc>
 
     #region override abstract methods
 
-    protected override IDbMapper<CdDiscReqDto, CdDiscResDto, CdDisc> Mapper => _Mapper;
-    protected override Repositories.CdDiscRepository DbRepos { get; }
+    internal override IDbMapper<CdDiscReqDto, CdDiscResDto, CdDisc> Mapper => _Mapper;
+    internal override Repositories.CdDiscRepository DbRepos { get; }
 
     #endregion
 }

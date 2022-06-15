@@ -4,7 +4,7 @@ using DatabaseStorage.Repositories.Base;
 
 namespace DatabaseStorage.Repositories;
 
-public class ClientRepository : PersonRepository<Client>
+internal class ClientRepository : PersonRepository<Client>
 {
     #region constructors
 

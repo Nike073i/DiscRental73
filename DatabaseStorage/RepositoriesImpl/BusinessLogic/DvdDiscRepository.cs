@@ -29,8 +29,8 @@ public class DvdDiscRepository : DbRepository<DvdDiscReqDto, DvdDiscResDto, DvdD
 
     #region override abstract methods
 
-    protected override IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc> Mapper => _Mapper;
-    protected override Repositories.DvdDiscRepository DbRepos { get; }
+    internal override IDbMapper<DvdDiscReqDto, DvdDiscResDto, DvdDisc> Mapper => _Mapper;
+    internal override Repositories.DvdDiscRepository DbRepos { get; }
 
     #endregion
 }

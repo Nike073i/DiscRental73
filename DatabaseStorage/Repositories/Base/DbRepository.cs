@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories.Base;
 
-public abstract class DbRepository<T>
+internal abstract class DbRepository<T>
     where T : Entity, new()
 {
     #region readonly fields

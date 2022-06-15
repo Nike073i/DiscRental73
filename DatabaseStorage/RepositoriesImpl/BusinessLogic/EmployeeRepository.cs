@@ -29,8 +29,8 @@ public class EmployeeRepository : DbRepository<EmployeeReqDto, EmployeeResDto, E
 
     #region override abstract methods
 
-    protected override IDbMapper<EmployeeReqDto, EmployeeResDto, Employee> Mapper => _Mapper;
-    protected override Repositories.EmployeeRepository DbRepos { get; }
+    internal override IDbMapper<EmployeeReqDto, EmployeeResDto, Employee> Mapper => _Mapper;
+    internal override Repositories.EmployeeRepository DbRepos { get; }
 
     #endregion
 

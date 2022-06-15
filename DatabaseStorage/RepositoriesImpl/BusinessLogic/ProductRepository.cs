@@ -29,8 +29,8 @@ public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Prod
 
     #region override abstract methods
 
-    protected override IDbMapper<ProductReqDto, ProductResDto, Product> Mapper => _Mapper;
-    protected override Repositories.ProductRepository DbRepos { get; }
+    internal override IDbMapper<ProductReqDto, ProductResDto, Product> Mapper => _Mapper;
+    internal override Repositories.ProductRepository DbRepos { get; }
 
     #endregion
 }

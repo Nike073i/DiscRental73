@@ -29,8 +29,8 @@ public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>, ISellR
 
     #region override abstract methods
 
-    protected override IDbMapper<SellReqDto, SellResDto, Sell> Mapper => _Mapper;
-    protected override Repositories.SellRepository DbRepos { get; }
+    internal override IDbMapper<SellReqDto, SellResDto, Sell> Mapper => _Mapper;
+    internal override Repositories.SellRepository DbRepos { get; }
 
     #endregion
 }

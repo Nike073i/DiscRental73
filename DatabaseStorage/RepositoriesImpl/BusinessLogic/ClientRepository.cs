@@ -29,8 +29,8 @@ public class ClientRepository : DbRepository<ClientReqDto, ClientResDto, Client>
 
     #region override abstract methods
 
-    protected override IDbMapper<ClientReqDto, ClientResDto, Client> Mapper => _Mapper;
-    protected override Repositories.ClientRepository DbRepos { get; }
+    internal override IDbMapper<ClientReqDto, ClientResDto, Client> Mapper => _Mapper;
+    internal override Repositories.ClientRepository DbRepos { get; }
 
     #endregion
 

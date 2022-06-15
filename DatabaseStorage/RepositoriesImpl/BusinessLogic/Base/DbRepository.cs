@@ -12,8 +12,8 @@ namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Base
     {
         #region properties
 
-        protected abstract DbRepository<T> DbRepos { get; }
-        protected abstract IDbMapper<TReq, TRes, T> Mapper { get; }
+        internal abstract DbRepository<T> DbRepos { get; }
+        internal abstract IDbMapper<TReq, TRes, T> Mapper { get; }
 
         #endregion
 

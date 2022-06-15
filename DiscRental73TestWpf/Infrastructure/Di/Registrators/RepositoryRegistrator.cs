@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.Interfaces.Storage;
-using DatabaseStorage.Repositories;
+using DatabaseStorage.RepositoriesImpl.BusinessLogic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf.Infrastructure.Di.Registrators

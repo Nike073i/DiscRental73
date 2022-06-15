@@ -29,8 +29,8 @@ public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>
 
     #region override abstract methods
 
-    protected override IDbMapper<RentalReqDto, RentalResDto, Rental> Mapper => _Mapper;
-    protected override Repositories.RentalRepository DbRepos { get; }
+    internal override IDbMapper<RentalReqDto, RentalResDto, Rental> Mapper => _Mapper;
+    internal override Repositories.RentalRepository DbRepos { get; }
 
     #endregion
 }

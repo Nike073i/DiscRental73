@@ -4,7 +4,7 @@ using DatabaseStorage.Repositories.Base;
 
 namespace DatabaseStorage.Repositories;
 
-public class BluRayDiscRepository : DiscRepository<BluRayDisc>
+internal class BluRayDiscRepository : DiscRepository<BluRayDisc>
 {
     #region constructors
 

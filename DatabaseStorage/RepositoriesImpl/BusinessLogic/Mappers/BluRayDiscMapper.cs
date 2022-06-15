@@ -6,7 +6,7 @@ using DatabaseStorage.Mappers.Base;
 
 namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers
 {
-    public class BluRayDiscMapper : IDbMapper<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
+    internal class BluRayDiscMapper : IDbMapper<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
     {
         public BluRayDisc MapToEntity(in BluRayDiscReqDto reqDto)
         {

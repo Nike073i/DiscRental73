@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories;
 
-public class EmployeeRepository : PersonRepository<Employee>
+internal class EmployeeRepository : PersonRepository<Employee>
 {
     #region constructors
 

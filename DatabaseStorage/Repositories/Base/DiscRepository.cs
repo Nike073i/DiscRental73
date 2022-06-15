@@ -3,7 +3,7 @@ using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Repositories.Base;
 
-public abstract class DiscRepository<T> : DbRepository<T>
+internal abstract class DiscRepository<T> : DbRepository<T>
     where T : Disc, new()
 {
     #region constructors
