@@ -1,11 +1,14 @@
 ﻿using BusinessLogic.Interfaces.Storage.Base;
 using DatabaseStorage.Entities.Base;
 
-namespace DatabaseStorage.Mappers.Base
+namespace DatabaseStorage.Mappers.Base;
+
+public interface IDbMapper<TReq, TRes, T>
+        where TReq : ReqDto, new()
+        where TRes : ResDto, new()
+        where T : Entity, new()
 {
-    public interface IDbMapper<Req, Res, T> where Req : ReqDto, new() where Res : ResDto, new() where T : Entity, new()
-    {
-        void MapToEntity(in T entity, in Req reqDto);
-        Res MapToRes(T entity);
-    }
+    T MapToEntity(in TReq reqDto);
+    TRes MapToRes(in T entity);
 }
+

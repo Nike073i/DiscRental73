@@ -3,22 +3,26 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers.Base;
 
-namespace DatabaseStorage.Mappers
+namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers
 {
     public class EmployeeMapper : IDbMapper<EmployeeReqDto, EmployeeResDto, Employee>
     {
-        public void MapToEntity(in Employee entity, in EmployeeReqDto reqDto)
+        public Employee MapToEntity(in EmployeeReqDto reqDto)
         {
-            entity.Id = reqDto.Id ?? 0;
-            entity.ContactNumber = reqDto.ContactNumber;
-            entity.FirstName = reqDto.FirstName;
-            entity.SecondName = reqDto.SecondName;
-            entity.Password = reqDto.Password;
-            entity.Position = reqDto.Position;
-            entity.Prize = reqDto.Prize;
+            var entity = new Employee
+            {
+                Id = reqDto.Id ?? 0,
+                ContactNumber = reqDto.ContactNumber,
+                FirstName = reqDto.FirstName,
+                SecondName = reqDto.SecondName,
+                Password = reqDto.Password,
+                Position = reqDto.Position,
+                Prize = reqDto.Prize
+            };
+            return entity;
         }
 
-        public EmployeeResDto MapToRes(Employee entity)
+        public EmployeeResDto MapToRes(in Employee entity)
         {
             var resDto = new EmployeeResDto
             {

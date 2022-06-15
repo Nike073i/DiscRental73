@@ -3,20 +3,24 @@ using BusinessLogic.DtoModels.ResponseDto;
 using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers.Base;
 
-namespace DatabaseStorage.Mappers
+namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers
 {
     public class ClientMapper : IDbMapper<ClientReqDto, ClientResDto, Client>
     {
-        public void MapToEntity(in Client entity, in ClientReqDto reqDto)
+        public Client MapToEntity(in ClientReqDto reqDto)
         {
-            entity.Id = reqDto.Id ?? 0;
-            entity.ContactNumber = reqDto.ContactNumber;
-            entity.FirstName = reqDto.FirstName;
-            entity.SecondName = reqDto.SecondName;
-            entity.Address = reqDto.Address;
+            var entity = new Client
+            {
+                Id = reqDto.Id ?? 0,
+                ContactNumber = reqDto.ContactNumber,
+                FirstName = reqDto.FirstName,
+                SecondName = reqDto.SecondName,
+                Address = reqDto.Address
+            };
+            return entity;
         }
 
-        public ClientResDto MapToRes(Client entity)
+        public ClientResDto MapToRes(in Client entity)
         {
             var resDto = new ClientResDto
             {

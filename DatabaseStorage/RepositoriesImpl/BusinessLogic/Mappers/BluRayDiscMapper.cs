@@ -4,22 +4,26 @@ using BusinessLogic.Enums;
 using DatabaseStorage.Entities;
 using DatabaseStorage.Mappers.Base;
 
-namespace DatabaseStorage.Mappers
+namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers
 {
     public class BluRayDiscMapper : IDbMapper<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>
     {
-        public void MapToEntity(in BluRayDisc entity, in BluRayDiscReqDto reqDto)
+        public BluRayDisc MapToEntity(in BluRayDiscReqDto reqDto)
         {
-            entity.Id = reqDto.Id ?? 0;
-            entity.Title = reqDto.Title;
-            entity.DiscType = DiscType.BluRay;
-            entity.DateOfRelease = reqDto.DateOfRelease;
-            entity.Publisher = reqDto.Publisher;
-            entity.Info = reqDto.Info;
-            entity.SystemRequirements = reqDto.SystemRequirements;
+            var entity = new BluRayDisc
+            {
+                Id = reqDto.Id ?? 0,
+                Title = reqDto.Title,
+                DiscType = DiscType.BluRay,
+                DateOfRelease = reqDto.DateOfRelease,
+                Publisher = reqDto.Publisher,
+                Info = reqDto.Info,
+                SystemRequirements = reqDto.SystemRequirements
+            };
+            return entity;
         }
 
-        public BluRayDiscResDto MapToRes(BluRayDisc entity)
+        public BluRayDiscResDto MapToRes(in BluRayDisc entity)
         {
             var resDto = new BluRayDiscResDto
             {

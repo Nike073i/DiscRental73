@@ -1,13 +1,9 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using DatabaseStorage.Context;
+﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Repositories.Base;
 
-public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T>
-    where TReq : DiscReqDto, new()
-    where TRes : DiscResDto, new()
+public abstract class DiscRepository<T> : DbRepository<T>
     where T : Disc, new()
 {
     #region constructors
@@ -18,26 +14,26 @@ public abstract class DiscRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T
 
     #region override template-methods
 
-    protected override bool DoDeleteById(in DiscRentalDb db, int id)
+    protected override bool DoDeleteById(int id)
     {
-        var entity = Set.Find(id);
-        if (entity is null || entity.IsDeleted) throw new Exception("Ошибка удаления по Id: Запись не найдена");
+        var entity = Set.FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
+        if (entity is null) throw new Exception("Ошибка удаления по Id: Запись не найдена");
 
-        using var transaction = db.Database.BeginTransaction();
+        using var transaction = Db.Database.BeginTransaction();
         try
         {
             entity.IsDeleted = true;
             var changedEntity = Set.Update(entity).Entity;
             if (changedEntity is null) return false;
 
-            var products = db.Products.Where(p => !p.IsDeleted && p.DiscId.Equals(entity.Id));
+            var products = Db.Products.Where(p => !p.IsDeleted && p.DiscId.Equals(entity.Id));
             foreach (var product in products)
             {
                 product.IsDeleted = true;
-                db.Products.Update(product);
+                Db.Products.Update(product);
             }
 
-            db.SaveChanges();
+            Db.SaveChanges();
             transaction.Commit();
         }
         catch (Exception ex)

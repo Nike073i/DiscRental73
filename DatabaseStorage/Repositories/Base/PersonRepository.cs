@@ -1,13 +1,9 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using DatabaseStorage.Context;
+﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Repositories.Base;
 
-public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes, T>
-    where TReq : PersonReqDto, new()
-    where TRes : PersonResDto, new()
+public abstract class PersonRepository<T> : DbRepository<T>
     where T : Person, new()
 {
     #region constructors
@@ -18,14 +14,14 @@ public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes,
 
     #region methods
 
-    public virtual TRes? GetByContactNumber(string contactNumber)
+    public virtual T? GetByContactNumber(string contactNumber)
     {
         try
         {
             var entity = Set.SingleOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
             if (entity is null || entity.IsDeleted) return null;
 
-            return Mapper.MapToRes(entity);
+            return entity;
         }
         catch (Exception ex)
         {
@@ -33,36 +29,42 @@ public abstract class PersonRepository<TReq, TRes, T> : DbRepository<TReq, TRes,
         }
     }
 
-    protected override TRes? DoUpdate(in DiscRentalDb db, TReq reqDto)
-    {
-        var entity = Set.Find(reqDto.Id);
-        if (entity is null || entity.IsDeleted) throw new Exception("Ошибка обновления записи: Запись не найдена");
+    #endregion
 
-        var busyNumberEntity = db.Persons.FirstOrDefault(rec =>
-            !rec.Id.Equals(reqDto.Id) && rec.ContactNumber.Equals(reqDto.ContactNumber));
-        if (busyNumberEntity is not null) throw new Exception("Ошибка обновления записи: Номер уже занят");
-        Mapper.MapToEntity(entity, reqDto);
-        var changedEntity = Set.Update(entity).Entity;
-        if (changedEntity is null) return null;
-        db.SaveChanges();
-        return Mapper.MapToRes(changedEntity);
+    #region private methods
+
+    private bool IsAvailableToInsert(T entity)
+    {
+        var busyNumberEntity = Db.Persons.FirstOrDefault(rec =>
+            !rec.Id.Equals(entity.Id) && rec.ContactNumber.Equals(entity.ContactNumber));
+        return busyNumberEntity is null;
     }
 
     #endregion
 
     #region override template-methods
 
-    protected override TRes? DoInsert(in DiscRentalDb db, TReq reqDto)
+    protected override T? DoUpdate(T newEntity)
     {
-        var storedEntity = db.Persons.SingleOrDefault(rec => rec.ContactNumber.Equals(reqDto.ContactNumber));
-        if (storedEntity is not null) throw new Exception("Ошибка добавления записи: Номер уже занят");
+        var storedEntity = Set.FirstOrDefault(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted);
+        if (storedEntity is null) throw new Exception("Ошибка обновления записи: Запись не найдена");
 
-        var model = new T();
-        Mapper.MapToEntity(model, reqDto);
-        var entity = Set.Add(model).Entity;
+        if (!IsAvailableToInsert(newEntity)) throw new Exception("Ошибка обновления записи: Номер уже занят");
+
+        var changedEntity = Set.Update(storedEntity).Entity;
+        if (changedEntity is null) return null;
+        Db.SaveChanges();
+        return changedEntity;
+    }
+
+    protected override T? DoInsert(T newEntity)
+    {
+        if (!IsAvailableToInsert(newEntity)) throw new Exception("Ошибка добавления записи: Номер уже занят");
+
+        var entity = Set.Add(newEntity).Entity;
         if (entity is null) return null;
-        db.SaveChanges();
-        return Mapper.MapToRes(entity);
+        Db.SaveChanges();
+        return entity;
     }
 
     #endregion

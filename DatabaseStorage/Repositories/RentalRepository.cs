@@ -1,16 +1,11 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storage;
-using DatabaseStorage.Context;
+﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities;
-using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories;
 
-public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>,
-    IRentalRepository
+public class RentalRepository : DbRepository<Rental>
 {
     #region constructors
 
@@ -20,25 +15,19 @@ public class RentalRepository : DbRepository<RentalReqDto, RentalResDto, Rental>
 
     #region override template-methods
 
-    protected override IEnumerable<RentalResDto> DoGetAll(in DiscRentalDb db) => Set
+    protected override IEnumerable<Rental> DoGetAll() => Set
         .Include(rec => rec.Client)
         .Include(rec => rec.Employee)
         .Include(rec => rec.Product)
-            .ThenInclude(rec => rec.Disc)
-        .Where(entity => !entity.IsDeleted).Select(rec => Mapper.MapToRes(rec));
+        .ThenInclude(rec => rec.Disc)
+        .Where(entity => !entity.IsDeleted);
 
-    protected override RentalResDto? DoGetById(in DiscRentalDb db, int id)
-    {
-        var entity = Set.Include(rec => rec.Client)
-            .Include(rec => rec.Employee)
-            .Include(rec => rec.Product)
-            .ThenInclude(rec => rec.Disc)
-            .SingleOrDefault(rec => rec.Id.Equals(id));
-        if (entity is null || entity.IsDeleted) return null;
-        return Mapper.MapToRes(entity);
-    }
-
-    protected override RentalMapper CreateMapper() => new();
+    protected override Rental? DoGetById(int id) => Set
+        .Include(rec => rec.Client)
+        .Include(rec => rec.Employee)
+        .Include(rec => rec.Product)
+        .ThenInclude(rec => rec.Disc)
+        .FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
 
     #endregion
 }

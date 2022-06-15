@@ -1,16 +1,11 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storage;
-using DatabaseStorage.Context;
+﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities;
-using DatabaseStorage.Mappers;
 using DatabaseStorage.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories;
 
-public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>,
-    ISellRepository
+public class SellRepository : DbRepository<Sell>
 {
     #region constructors
 
@@ -20,23 +15,17 @@ public class SellRepository : DbRepository<SellReqDto, SellResDto, Sell>,
 
     #region override template-methods
 
-    protected override IEnumerable<SellResDto> DoGetAll(in DiscRentalDb db) => Set.
-        Include(rec => rec.Employee)
+    protected override IEnumerable<Sell> DoGetAll() => Set
+        .Include(rec => rec.Employee)
         .Include(rec => rec.Product)
         .ThenInclude(rec => rec.Disc)
-        .Where(entity => !entity.IsDeleted).Select(rec => Mapper.MapToRes(rec));
+        .Where(entity => !entity.IsDeleted);
 
-    protected override SellResDto? DoGetById(in DiscRentalDb db, int id)
-    {
-        var entity = Set.Include(rec => rec.Employee)
-            .Include(rec => rec.Product)
-                .ThenInclude(rec => rec.Disc)
-            .SingleOrDefault(rec => rec.Id.Equals(id));
-        if (entity is null || entity.IsDeleted) return null;
-        return Mapper.MapToRes(entity);
-    }
-
-    protected override SellMapper CreateMapper() => new();
+    protected override Sell? DoGetById(int id) => Set
+        .Include(rec => rec.Employee)
+        .Include(rec => rec.Product)
+            .ThenInclude(rec => rec.Disc)
+        .FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
 
     #endregion
 }
