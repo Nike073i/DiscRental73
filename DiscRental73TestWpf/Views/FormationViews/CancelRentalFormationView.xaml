@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"             
              d:DesignWidth="400"
-             DataContext="{Binding CancelRentalFormationViewModel, Source={StaticResource Locator}}">
+             xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.FormationViewModels"
+             d:DataContext="{d:DesignInstance vm:CancelRentalFormationViewModel}">
     <Grid Margin="3" Background="White">
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource GridInfoTextBlocks}"/>

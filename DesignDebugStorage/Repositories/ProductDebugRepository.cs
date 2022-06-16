@@ -5,7 +5,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductDebugRepository : IProductRepository
 {
     private readonly IEnumerable<ProductResDto> _products = Enumerable.Range(1, 10).Select(i => new ProductResDto
     {

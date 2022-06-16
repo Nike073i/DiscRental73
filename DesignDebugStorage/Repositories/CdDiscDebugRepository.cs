@@ -5,7 +5,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class CdDiscRepository : ICdDiscRepository
+public class CdDiscDebugRepository : ICdDiscRepository
 {
     private IEnumerable<CdDiscResDto> _discs = Enumerable.Range(1, 10).Select(i => new CdDiscResDto
     {

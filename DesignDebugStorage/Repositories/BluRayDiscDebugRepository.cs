@@ -5,7 +5,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class BluRayDiscRepository : IBluRayDiscRepository
+public class BluRayDiscDebugRepository : IBluRayDiscRepository
 {
     private readonly IEnumerable<BluRayDiscResDto> _discs = Enumerable.Range(1, 10).Select(i => new BluRayDiscResDto
     {

@@ -3,85 +3,93 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
+using MathCore.WPF.ViewModels;
 using System;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
+
+public class ShowCdDiscStrategy : IShowContentStrategy
 {
-    public class ShowCdDiscStrategy : IShowContentStrategy
+    #region Ограничения на ввод данных 
+
+    public int TitleMaxLength { get; set; }
+    public int TitleMinLength { get; set; }
+    public DateTime DateOfReleaseMaxDate { get; set; }
+    public DateTime DateOfReleaseMinDate { get; set; }
+
+    public int PerformerMaxLength { get; set; }
+    public int PerformerMinLength { get; set; }
+    public int GenreMaxLength { get; set; }
+    public int GenreMinLength { get; set; }
+    public int NumberOfTracksMaxValue { get; set; }
+    public int NumberOfTracksMinValue { get; set; }
+
+    #endregion
+
+    #region readonly fields
+
+    private readonly EntityFormationWindowViewModel _WindowVm;
+    private readonly CdDiscFormationViewModel _FormationVm;
+
+    #endregion
+
+    #region constructors
+
+    public ShowCdDiscStrategy(EntityFormationWindowViewModel windowVm, CdDiscFormationViewModel formationVm)
     {
-        #region Ограничения на ввод данных 
+        _WindowVm = windowVm;
+        _FormationVm = formationVm;
+        InitializeWindow(_FormationVm, "Окно формирования Cd-диска", "Cd-диск");
+        SetValueRange(_FormationVm);
+    }
 
-        public int TitleMaxLength { get; set; }
-        public int TitleMinLength { get; set; }
-        public DateTime DateOfReleaseMaxDate { get; set; }
-        public DateTime DateOfReleaseMinDate { get; set; }
+    #endregion
 
-        public int PerformerMaxLength { get; set; }
-        public int PerformerMinLength { get; set; }
-        public int GenreMaxLength { get; set; }
-        public int GenreMinLength { get; set; }
-        public int NumberOfTracksMaxValue { get; set; }
-        public int NumberOfTracksMinValue { get; set; }
+    public bool ShowDialog(ref object formationData)
+    {
+        if (formationData is not CdDiscResDto item) return false;
 
-        #endregion
+        if (item.Id.Equals(0))
+            item.DateOfRelease = DateTime.Now;
 
-        public bool ShowDialog(ref object formationData)
+        _FormationVm.CdDisc = item;
+
+        var dlg = new EntityFormationWindow
         {
-            if (formationData is not CdDiscResDto item)
-            {
-                return false;
-            }
+            DataContext = _WindowVm,
+            //Owner = ActiveWindow,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
 
-            if (item.Id.Equals(0))
-            {
-                item.DateOfRelease = DateTime.Now;
-            }
+        if (dlg.ShowDialog() is not true) return false;
 
-            var viewModel = App.Host.Services.GetRequiredService<CdDiscFormationViewModel>();
-            viewModel.CdDisc = item;
-            SetValueRange(viewModel);
+        if (string.IsNullOrEmpty(item.Genre)) item.Genre = null;
 
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования CD-диска";
-            viewModelWindow.Caption = "CD-диск";
+        formationData = item;
+        return true;
+    }
 
-            var dlg = new EntityFormationWindow
-            {
-                DataContext = viewModelWindow,
-                //Owner = ActiveWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+    private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+        string caption = "Формирование записи")
+    {
+        _WindowVm.CurrentModel = viewModel;
+        _WindowVm.Title = title;
+        _WindowVm.Caption = caption;
+    }
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
+    private void SetValueRange(CdDiscFormationViewModel viewModel)
+    {
+        viewModel.TitleMaxLength = TitleMaxLength;
+        viewModel.TitleMinLength = TitleMinLength;
+        viewModel.DateOfReleaseMaxDate = DateOfReleaseMaxDate;
+        viewModel.DateOfReleaseMinDate = DateOfReleaseMinDate;
 
-            var InputData = viewModel.CdDisc;
-
-            if (string.IsNullOrEmpty(InputData.Genre)) InputData.Genre = null;
-
-            formationData = InputData;
-
-            return true;
-        }
-
-        private void SetValueRange(CdDiscFormationViewModel viewModel)
-        {
-            viewModel.TitleMaxLength = TitleMaxLength;
-            viewModel.TitleMinLength = TitleMinLength;
-            viewModel.DateOfReleaseMaxDate = DateOfReleaseMaxDate;
-            viewModel.DateOfReleaseMinDate = DateOfReleaseMinDate;
-
-            viewModel.PerformerMaxLength = PerformerMaxLength;
-            viewModel.PerformerMinLength = PerformerMinLength;
-            viewModel.GenreMaxLength = GenreMaxLength;
-            viewModel.GenreMinLength = GenreMinLength;
-            viewModel.NumberOfTracksMaxValue = NumberOfTracksMaxValue;
-            viewModel.NumberOfTracksMinValue = NumberOfTracksMinValue;
-        }
+        viewModel.PerformerMaxLength = PerformerMaxLength;
+        viewModel.PerformerMinLength = PerformerMinLength;
+        viewModel.GenreMaxLength = GenreMaxLength;
+        viewModel.GenreMinLength = GenreMinLength;
+        viewModel.NumberOfTracksMaxValue = NumberOfTracksMaxValue;
+        viewModel.NumberOfTracksMinValue = NumberOfTracksMinValue;
     }
 }

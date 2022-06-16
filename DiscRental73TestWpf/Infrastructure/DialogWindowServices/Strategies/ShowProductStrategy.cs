@@ -3,81 +3,83 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
+
+public class ShowProductStrategy : IShowContentStrategy
 {
-    public class ShowProductStrategy : IShowContentStrategy
+    #region Ограничения на ввод данных 
+
+    public int QuantityMaxValue { get; set; }
+    public int QuantityMinValue { get; set; }
+    public double CostMaxValue { get; set; }
+    public double CostMinValue { get; set; }
+
+    #endregion
+
+    #region readonly fields
+
+    private readonly ProductFormationViewModel _FormationVm;
+    private readonly EntityFormationWindowViewModel _WindowVm;
+
+    #endregion
+
+    #region constructors
+
+    public ShowProductStrategy(EntityFormationWindowViewModel windowVm,
+        ProductFormationViewModel formationVm)
     {
-        #region Ограничения на ввод данных 
+        _WindowVm = windowVm;
+        _FormationVm = formationVm;
+        InitializeWindow(_FormationVm, "Окно создания продукта", "Продукт");
+        SetValueRange(_FormationVm);
+    }
 
-        public int QuantityMaxValue { get; set; }
-        public int QuantityMinValue { get; set; }
-        public double CostMaxValue { get; set; }
-        public double CostMinValue { get; set; }
+    #endregion
 
-        #endregion
+    public IEnumerable<DiscResDto>? Discs { get; set; }
 
-        public IEnumerable<DiscResDto>? Discs { get; set; }
+    public bool ShowDialog(ref object formationData)
+    {
+        if (formationData is not ProductResDto item) return false;
 
-        public bool ShowDialog(ref object formationData)
+        if (item.Id.Equals(0)) item.IsAvailable = true;
+
+        _FormationVm.Product = item;
+        _FormationVm.Discs = Discs ?? Enumerable.Empty<DiscResDto>();
+
+        var dlg = new EntityFormationWindow
         {
-            if (formationData is not ProductResDto item)
-            {
-                return false;
-            }
+            DataContext = _WindowVm,
+            //Owner = ActiveWindow,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
 
-            if (item.Id.Equals(0))
-            {
-                item.IsAvailable = true;
-            }
+        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
 
-            var viewModel = App.Host.Services.GetRequiredService<ProductFormationViewModel>();
-            viewModel.Product = item;
-            viewModel.Discs = Discs ?? new List<DiscResDto>();
-            SetValueRange(viewModel);
+        formationData = item;
+        return true;
+    }
 
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно создания продукта";
-            viewModelWindow.Caption = "Продукт";
+    private bool IsCompletedData(ProductFormationViewModel viewModel) => viewModel?.Product is not null;
 
-            var dlg = new EntityFormationWindow
-            {
-                DataContext = viewModelWindow,
-                //Owner = ActiveWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+    private void SetValueRange(ProductFormationViewModel viewModel)
+    {
+        viewModel.QuantityMaxValue = QuantityMaxValue;
+        viewModel.QuantityMinValue = QuantityMinValue;
+        viewModel.CostMaxValue = CostMaxValue;
+        viewModel.CostMinValue = CostMinValue;
+    }
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
-
-            if (!IsCompletedData(viewModel)) return false;
-
-            formationData = viewModel.Product;
-
-            return true;
-        }
-
-        private bool IsCompletedData(ProductFormationViewModel viewModel)
-        {
-            if (viewModel.Product is null) return false;
-
-            return true;
-        }
-
-
-        private void SetValueRange(ProductFormationViewModel viewModel)
-        {
-            viewModel.QuantityMaxValue = QuantityMaxValue;
-            viewModel.QuantityMinValue = QuantityMinValue;
-            viewModel.CostMaxValue = CostMaxValue;
-            viewModel.CostMinValue = CostMinValue;
-        }
+    private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+        string caption = "Формирование записи")
+    {
+        _WindowVm.CurrentModel = viewModel;
+        _WindowVm.Title = title;
+        _WindowVm.Caption = caption;
     }
 }

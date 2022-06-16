@@ -1,188 +1,213 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
+using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
 
-namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
+namespace DiscRental73TestWpf.ViewModels.ManagementViewModels;
+
+public class ProductManagementViewModel : EntityManagementViewModel
 {
-    public class ProductManagementViewModel : EntityManagementViewModel
+    #region readonly fields
+
+    private readonly IProductService _Service;
+    private readonly IDiscService _DiscService;
+    private readonly ShowProductStrategy _ProductStrategy;
+    private readonly ShowProductCostStrategy _ProductCostStrategy;
+    private readonly ShowProductQuantityStrategy _ProductQuantityStrategy;
+
+    #endregion
+
+    #region constructors
+
+    /// <summary>Отладочный конструктор для VS</summary>
+    public ProductManagementViewModel() : base(null!)
     {
-        private readonly IProductService _service;
-        private readonly IDiscService _discService;
+        if (!App.IsDesignMode)
+            throw new NotSupportedException("Данный конструктор предназначен для визуального конструктора VS");
+        _Service = null!;
+        _DiscService = null!;
+        _ProductQuantityStrategy = null!;
+        _ProductStrategy = null!;
+        _ProductCostStrategy = null!;
+        Items = new ClientDebugRepository().GetAll();
+    }
 
-        private ShowProductStrategy _ProductStrategy;
-        public ShowProductStrategy ProductStrategy => _ProductStrategy ??= new ShowProductStrategy();
+    public ProductManagementViewModel(IProductService service,
+        IDiscService discService,
+        IFormationService dialogService,
+        EntityFormationWindowViewModel formationWindowVm,
+        ProductFormationViewModel formationVm,
+        EditProductCostFormationViewModel costFormationVm,
+        EditProductQuantityFormationViewModel quantityFormationVm) : base(dialogService)
+    {
+        _Service = service;
+        _ProductCostStrategy = new ShowProductCostStrategy(formationWindowVm, costFormationVm);
+        _ProductQuantityStrategy = new ShowProductQuantityStrategy(formationWindowVm, quantityFormationVm);
+        _ProductStrategy = new ShowProductStrategy(formationWindowVm, formationVm);
+        Items = _Service.GetAll();
+        //_FilteredItems.Source = Items;
+    }
 
-        private ShowProductCostStrategy _ProductCostStrategy;
-        public ShowProductCostStrategy ProductCostStrategy => _ProductCostStrategy ??= new ShowProductCostStrategy();
+    #endregion
 
-        private ShowProductQuantityStrategy _ProductQuantityStrategy;
-        public ShowProductQuantityStrategy ProductQuantityStrategy => _ProductQuantityStrategy ??= new ShowProductQuantityStrategy();
+    //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
+    //{
+    //    if (!(E.Item is ProductResDto dto))
+    //    {
+    //        E.Accepted = false;
+    //        return;
+    //    }
 
-        //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
-        //{
-        //    if (!(E.Item is ProductResDto dto))
-        //    {
-        //        E.Accepted = false;
-        //        return;
-        //    }
+    //    var filterText = SearchedFilter;
+    //    if (string.IsNullOrWhiteSpace(filterText)) return;
+    //    if (dto.DiscTitle.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
 
-        //    var filterText = SearchedFilter;
-        //    if (string.IsNullOrWhiteSpace(filterText)) return;
-        //    if (dto.DiscTitle.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+    //    E.Accepted = false;
+    //}
 
-        //    E.Accepted = false;
-        //}
+    protected override void OnRefreshCommand(object? p)
+    {
+        Items = _Service.GetAll();
+    }
 
-        protected override void OnRefreshCommand(object? p)
+    #region CreateNewProductCommand - создание продукта
+
+    private ICommand _CreateNewProductCommand;
+
+    public ICommand CreateNewProductCommand => _CreateNewProductCommand ??= new LambdaCommand(OnCreateNewProductCommand, IsLoginUser);
+
+    private void OnCreateNewProductCommand(object? p)
+    {
+        object item = new ProductResDto();
+        var strategy = _ProductStrategy;
+        strategy.Discs = _DiscService.GetDiscs();
+
+        if (!DialogService.ShowContent(ref item, strategy)) return;
+        try
         {
-            Items = _service.GetAll();
+            var reqDto = CreateReqDtoToCreate(item as ProductResDto);
+            _Service.Create(reqDto);
+            DialogService.ShowInformation("Запись создана", "Успех");
+            OnPropertyChanged(nameof(Items));
         }
-
-        public ProductManagementViewModel(IProductService productService, IFormationService dialogService, IDiscService discService) : base(dialogService)
+        catch (Exception ex)
         {
-            _service = productService;
-            _discService = discService;
-            Items = _service.GetAll();
-            //_FilteredItems.Source = Items;
+            DialogService.ShowWarning(ex.Message, "Ошибка создания");
         }
+    }
 
-        #region CreateNewProductCommand - создание продукта
+    #endregion
 
-        private ICommand _CreateNewProductCommand;
+    #region ChangeAvailableProductCommand - команда изменения доступности продукта
 
-        public ICommand CreateNewProductCommand => _CreateNewProductCommand ??= new LambdaCommand(OnCreateNewProductCommand, IsLoginUser);
+    private ICommand _ChangeAvailableProductCommand;
 
-        private void OnCreateNewProductCommand(object? p)
+    public ICommand ChangeAvailableProductCommand => _ChangeAvailableProductCommand ??= new LambdaCommand(OnChangeAvailableProduct, CanChangeAvailableProduct);
+
+    private bool CanChangeAvailableProduct(object? p) => p is ProductResDto && IsLoginUser(p);
+
+    private void OnChangeAvailableProduct(object? p)
+    {
+        try
         {
-            object item = new ProductResDto();
-            var strategy = ProductStrategy;
-            strategy.Discs = _discService.GetDiscs();
-
-            if (!DialogService.ShowContent(ref item, strategy)) return;
-            try
-            {
-                var reqDto = CreateReqDtoToCreate(item as ProductResDto);
-                _service.Create(reqDto);
-                DialogService.ShowInformation("Запись создана", "Успех");
-                OnPropertyChanged(nameof(Items));
-            }
-            catch (Exception ex)
-            {
-                DialogService.ShowWarning(ex.Message, "Ошибка создания");
-            }
+            var resDto = p as ProductResDto;
+            _Service.ChangeAvailable(resDto.Id, !resDto.IsAvailable);
+            DialogService.ShowInformation("Доступность изменена", "Успех");
+            OnPropertyChanged(nameof(Items));
         }
-
-        #endregion
-
-        #region ChangeAvailableProductCommand - команда изменения доступности продукта
-
-        private ICommand _ChangeAvailableProductCommand;
-
-        public ICommand ChangeAvailableProductCommand => _ChangeAvailableProductCommand ??= new LambdaCommand(OnChangeAvailableProduct, CanChangeAvailableProduct);
-
-        private bool CanChangeAvailableProduct(object? p) => p is ProductResDto && IsLoginUser(p);
-
-        private void OnChangeAvailableProduct(object? p)
+        catch (Exception ex)
         {
-            try
-            {
-                var resDto = p as ProductResDto;
-                _service.ChangeAvailable(resDto.Id, !resDto.IsAvailable);
-                DialogService.ShowInformation("Доступность изменена", "Успех");
-                OnPropertyChanged(nameof(Items));
-            }
-            catch (Exception ex)
-            {
-                DialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
-            }
+            DialogService.ShowWarning(ex.Message, "Ошибка изменения доступности");
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region ChangeQuantityCommand - изменение количества элемента
+    #region ChangeQuantityCommand - изменение количества элемента
 
-        private ICommand _EditQuantityCommand;
+    private ICommand _EditQuantityCommand;
 
-        public ICommand EditQuantityCommand => _EditQuantityCommand ??= new LambdaCommand(OnEditQuantityCommand, CanEditQuantityCommand);
+    public ICommand EditQuantityCommand => _EditQuantityCommand ??= new LambdaCommand(OnEditQuantityCommand, CanEditQuantityCommand);
 
-        private bool CanEditQuantityCommand(object? p) => p is ProductResDto && IsLoginUser(p);
+    private bool CanEditQuantityCommand(object? p) => p is ProductResDto && IsLoginUser(p);
 
-        private void OnEditQuantityCommand(object? p)
+    private void OnEditQuantityCommand(object? p)
+    {
+        var product = p as ProductResDto;
+        object model = new EditProductQuantityModel
         {
-            var product = p as ProductResDto;
-            object model = new EditProductQuantityModel
-            {
-                ProductId = product.Id,
-                DiscTitle = product.DiscTitle,
-                CurrentQuantity = product.Quantity,
-                EditQuantity = 5
-            };
-            if (!DialogService.ShowContent(ref model, ProductQuantityStrategy)) return;
-            try
-            {
-                var reqDto = model as EditProductQuantityModel;
-                _service.EditProductQuantity(reqDto.ProductId, reqDto.EditQuantity);
-                DialogService.ShowInformation("Количество измененно", "Успех");
-                OnPropertyChanged(nameof(Items));
-            }
-            catch (Exception ex)
-            {
-                DialogService.ShowWarning(ex.Message, "Ошибка изменения");
-            }
-        }
-
-        #endregion
-
-        #region ChangeCostCommand - изменение стоимости элемента
-
-        private ICommand _ChangeCostCommand;
-
-        public ICommand ChangeCostCommand => _ChangeCostCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
-
-        private bool CanChangeCostCommand(object? p) => p is ProductResDto && IsLoginUser(p);
-
-        private void OnChangeCostCommand(object? p)
+            ProductId = product.Id,
+            DiscTitle = product.DiscTitle,
+            CurrentQuantity = product.Quantity,
+            EditQuantity = 5
+        };
+        if (!DialogService.ShowContent(ref model, _ProductQuantityStrategy)) return;
+        try
         {
-            var product = p as ProductResDto;
-            object model = new EditProductCostModel
-            {
-                ProductId = product.Id,
-                DiscTitle = product.DiscTitle,
-                CurrentCost = product.Cost,
-            };
-            if (!DialogService.ShowContent(ref model, ProductCostStrategy)) return;
-            try
-            {
-                var reqDto = model as EditProductCostModel;
-                _service.ChangeProductCost(reqDto.ProductId, reqDto.NewCost);
-                DialogService.ShowInformation("Количество измененно", "Успех");
-                OnPropertyChanged(nameof(Items));
-            }
-            catch (Exception ex)
-            {
-                DialogService.ShowWarning(ex.Message, "Ошибка изменения");
-            }
+            var reqDto = model as EditProductQuantityModel;
+            _Service.EditProductQuantity(reqDto.ProductId, reqDto.EditQuantity);
+            DialogService.ShowInformation("Количество измененно", "Успех");
+            OnPropertyChanged(nameof(Items));
         }
-
-        #endregion
-
-        private ProductReqDto CreateReqDtoToCreate(ProductResDto resDto)
+        catch (Exception ex)
         {
-            var reqDto = new ProductReqDto
-            {
-                DiscId = resDto.DiscId,
-                Cost = resDto.Cost,
-                Quantity = resDto.Quantity,
-                IsAvailable = resDto.IsAvailable,
-            };
-            return reqDto;
+            DialogService.ShowWarning(ex.Message, "Ошибка изменения");
         }
+    }
+
+    #endregion
+
+    #region ChangeCostCommand - изменение стоимости элемента
+
+    private ICommand _ChangeCostCommand;
+
+    public ICommand ChangeCostCommand => _ChangeCostCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
+
+    private bool CanChangeCostCommand(object? p) => p is ProductResDto && IsLoginUser(p);
+
+    private void OnChangeCostCommand(object? p)
+    {
+        var product = p as ProductResDto;
+        object model = new EditProductCostModel
+        {
+            ProductId = product.Id,
+            DiscTitle = product.DiscTitle,
+            CurrentCost = product.Cost,
+        };
+        if (!DialogService.ShowContent(ref model, _ProductCostStrategy)) return;
+        try
+        {
+            var reqDto = model as EditProductCostModel;
+            _Service.ChangeProductCost(reqDto.ProductId, reqDto.NewCost);
+            DialogService.ShowInformation("Количество измененно", "Успех");
+            OnPropertyChanged(nameof(Items));
+        }
+        catch (Exception ex)
+        {
+            DialogService.ShowWarning(ex.Message, "Ошибка изменения");
+        }
+    }
+
+    #endregion
+
+    private ProductReqDto CreateReqDtoToCreate(ProductResDto resDto)
+    {
+        var reqDto = new ProductReqDto
+        {
+            DiscId = resDto.DiscId,
+            Cost = resDto.Cost,
+            Quantity = resDto.Quantity,
+            IsAvailable = resDto.IsAvailable,
+        };
+        return reqDto;
     }
 }

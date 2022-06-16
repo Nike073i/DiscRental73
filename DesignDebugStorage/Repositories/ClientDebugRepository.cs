@@ -4,7 +4,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class ClientRepository : IClientRepository
+public class ClientDebugRepository : IClientRepository
 {
     private readonly IEnumerable<ClientResDto> _clients = Enumerable.Range(1, 10).Select(i => new ClientResDto
     {

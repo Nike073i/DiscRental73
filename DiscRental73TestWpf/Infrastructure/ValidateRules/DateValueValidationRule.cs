@@ -42,7 +42,8 @@ namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var date = (DateTime)value;
+            if (value is not DateTime date)
+                return new ValidationResult(false, string.Format(ValueInfo, MinDate, MaxDate));
             if (date > MaxDate || date < MinDate)
             {
                 return new ValidationResult(false, string.Format(ValueInfo, MinDate, MaxDate));

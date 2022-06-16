@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              mc:Ignorable="d"
-             DataContext="{Binding CdDiscFormationViewModel, Source={StaticResource Locator}}"
+             xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.FormationViewModels"
+             d:DataContext="{d:DesignInstance vm:CdDiscFormationViewModel}"
              d:DesignWidth="400">
     <Grid Margin="3" Background="White">
         <Grid.Resources>

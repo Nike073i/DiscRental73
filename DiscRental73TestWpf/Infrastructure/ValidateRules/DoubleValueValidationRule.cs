@@ -47,8 +47,7 @@ namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var str = value as string;
-            if (str is null)
+            if (value is not string str)
             {
                 if (!IsNullable)
                 {

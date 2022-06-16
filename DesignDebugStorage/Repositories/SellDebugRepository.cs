@@ -4,7 +4,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class SellRepository : ISellRepository
+public class SellDebugRepository : ISellRepository
 {
     private IEnumerable<SellResDto> _sells => Enumerable.Range(1, 10).Select(i => new SellResDto
     {

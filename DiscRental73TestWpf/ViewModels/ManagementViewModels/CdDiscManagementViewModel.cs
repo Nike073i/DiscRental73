@@ -1,9 +1,12 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
+using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
@@ -12,20 +15,46 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
     public class CdDiscManagementViewModel : CrudManagementViewModel<CdDiscReqDto, CdDiscResDto>
     {
-        private readonly ICdDiscService _Service;
+        #region readonly fields
 
-        public CdDiscManagementViewModel(ICdDiscService service, IFormationService dialogService) : base(dialogService)
+        private readonly ICdDiscService _Service;
+        private readonly EntityFormationWindowViewModel _WindowVm;
+        private readonly CdDiscFormationViewModel _FormationVm;
+
+        #endregion
+
+        #region constructors
+
+        /// <summary>Отладочный конструктор для VS</summary>
+        public CdDiscManagementViewModel() : base(null!)
+        {
+            if (!App.IsDesignMode)
+                throw new NotSupportedException("Данный конструктор предназначен для визуального конструктора VS");
+            _WindowVm = null!;
+            _Service = null!;
+            _FormationVm = null!;
+            Items = new CdDiscDebugRepository().GetAll();
+        }
+
+        public CdDiscManagementViewModel(ICdDiscService service,
+            IFormationService dialogService,
+            EntityFormationWindowViewModel formationWindowVm,
+            CdDiscFormationViewModel formationVm) : base(dialogService)
         {
             _Service = service;
+            _WindowVm = formationWindowVm;
+            _FormationVm = formationVm;
             Items = _Service.GetAll();
         }
+
+        #endregion
 
         protected override void OnRefreshCommand(object? p)
         {
             Items = _Service.GetAll();
         }
 
-        protected override ShowCdDiscStrategy CreateContentStrategy() => new();
+        protected override ShowCdDiscStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
 
         protected override CdDiscReqDto CreateReqDtoToCreate(CdDiscResDto resDto)
         {

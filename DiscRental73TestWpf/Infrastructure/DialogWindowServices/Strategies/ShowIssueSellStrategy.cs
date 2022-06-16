@@ -4,77 +4,83 @@ using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
+using MathCore.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
-namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
+
+public class ShowIssueSellStrategy : IShowContentStrategy
 {
-    public class ShowIssueSellStrategy : IShowContentStrategy
+    #region Ограничения для сущности Sell
+
+    public DateTime DateMaxValue { get; set; }
+
+    public DateTime DateMinValue { get; set; }
+
+    #endregion
+
+    #region readonly fields
+
+    private readonly IssueSellFormationViewModel _FormationVm;
+    private readonly EntityFormationWindowViewModel _WindowVm;
+
+    #endregion
+
+    #region constructors
+
+    public ShowIssueSellStrategy(EntityFormationWindowViewModel windowVm,
+        IssueSellFormationViewModel formationVm)
     {
-        #region Ограничения для сущности Sell
+        _WindowVm = windowVm;
+        _FormationVm = formationVm;
+        InitializeWindow(_FormationVm, "Окно оформления продажи", "Продажа");
+        SetValueRange(_FormationVm);
+    }
 
-        public DateTime DateMaxValue { get; set; }
+    #endregion
 
-        public DateTime DateMinValue { get; set; }
+    public IEnumerable<ProductResDto>? Products { get; set; }
 
-        #endregion
+    public bool ShowDialog(ref object formationData)
+    {
+        if (formationData is not IssueSellBindingModel item) return false;
 
-        public IEnumerable<ProductResDto>? Products { get; set; }
+        item.DateOfSell = DateTime.Now;
 
-        public bool ShowDialog(ref object formationData)
+        _FormationVm.Products = Products ?? Enumerable.Empty<ProductResDto>();
+        _FormationVm.IssueSellBindingModel = item;
+
+        var dlg = new EntityFormationWindow
         {
-            if (formationData is not IssueSellBindingModel item)
-            {
-                return false;
-            }
+            DataContext = _WindowVm,
+            //Owner = ActiveWindow,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
 
-            item.DateOfSell = DateTime.Now;
+        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
 
-            var viewModel = App.Host.Services.GetRequiredService<IssueSellFormationViewModel>();
-            viewModel.Products = Products ?? new List<ProductResDto>();
-            viewModel.IssueSellBindingModel = item;
-            SetValueRange(viewModel);
+        item.ProductId = _FormationVm.SelectedProduct.Id;
+        item.Price = _FormationVm.SelectedProduct.Cost;
+        formationData = item;
+        return true;
+    }
 
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно оформления продажи";
-            viewModelWindow.Caption = "Продажа";
+    private bool IsCompletedData(IssueSellFormationViewModel viewModel) => viewModel?.SelectedProduct is not null;
 
-            var dlg = new EntityFormationWindow
-            {
-                DataContext = viewModelWindow,
-                //Owner = ActiveWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+    private void SetValueRange(IssueSellFormationViewModel viewModel)
+    {
+        viewModel.DateMaxValue = DateMaxValue;
+        viewModel.DateMinValue = DateMinValue;
+    }
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
-
-            if (!IsCompletedData(viewModel)) return false;
-
-            var inputData = viewModel.IssueSellBindingModel;
-            inputData.ProductId = viewModel.SelectedProduct.Id;
-            inputData.Price = viewModel.SelectedProduct.Cost;
-
-            formationData = inputData;
-
-            return true;
-        }
-
-        private bool IsCompletedData(IssueSellFormationViewModel viewModel)
-        {
-            if (viewModel.SelectedProduct is null) return false;
-
-            return true;
-        }
-        private void SetValueRange(IssueSellFormationViewModel viewModel)
-        {
-            viewModel.DateMaxValue = DateMaxValue;
-            viewModel.DateMinValue = DateMinValue;
-        }
+    private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+        string caption = "Формирование записи")
+    {
+        _WindowVm.CurrentModel = viewModel;
+        _WindowVm.Title = title;
+        _WindowVm.Caption = caption;
     }
 }

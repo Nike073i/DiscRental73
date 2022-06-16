@@ -4,7 +4,7 @@ using BusinessLogic.Interfaces.Storage;
 
 namespace DesignDebugStorage.Repositories;
 
-public class EmployeeRepository : IEmployeeRepository
+public class EmployeeDebugRepository : IEmployeeRepository
 {
     private readonly IEnumerable<EmployeeResDto> _employees = Enumerable.Range(1, 10).Select(i => new EmployeeResDto
     {

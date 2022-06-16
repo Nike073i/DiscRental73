@@ -1,30 +1,54 @@
 ﻿using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.DtoModels.ResponseDto;
 using BusinessLogic.Interfaces.Services;
+using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
+using DiscRental73TestWpf.ViewModels.FormationViewModels;
+using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
-using DiscRental73TestWpf.ViewModels.FormationViewModels;
-using DiscRental73TestWpf.ViewModels.WindowViewModels;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
     public class BluRayDiscManagementViewModel : CrudManagementViewModel<BluRayDiscReqDto, BluRayDiscResDto>
     {
+        #region readonly fields
+
         private readonly IBluRayDiscService _Service;
         private readonly EntityFormationWindowViewModel _WindowVm;
         private readonly BluRayDiscFormationViewModel _FormationVm;
 
-        public BluRayDiscManagementViewModel(IBluRayDiscService service, IFormationService dialogService, EntityFormationWindowViewModel formationWindowVm, BluRayDiscFormationViewModel formationVm) : base(dialogService)
+        #endregion
+
+        #region constructors
+
+        /// <summary>Отладочный конструктор для VS</summary>
+        public BluRayDiscManagementViewModel() : base(null!)
+        {
+            if (!App.IsDesignMode)
+                throw new NotSupportedException("Данный конструктор предназначен для визуального конструктора VS");
+            _WindowVm = null!;
+            _Service = null!;
+            _FormationVm = null!;
+            Items = new BluRayDiscDebugRepository().GetAll();
+        }
+
+        public BluRayDiscManagementViewModel(IBluRayDiscService service,
+            IFormationService dialogService,
+            EntityFormationWindowViewModel
+                formationWindowVm,
+            BluRayDiscFormationViewModel formationVm) : base(dialogService)
         {
             _Service = service;
             _WindowVm = formationWindowVm;
             _FormationVm = formationVm;
             Items = _Service.GetAll();
         }
+
+        #endregion
 
         protected override void OnRefreshCommand(object? p)
         {
@@ -47,7 +71,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         //    E.Accepted = false;
         //}
 
-        protected override ShowBluRayDiscStrategy CreateContentStrategy() => new(_WindowVm,_FormationVm);
+        protected override ShowBluRayDiscStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
 
         protected override BluRayDiscReqDto CreateReqDtoToCreate(BluRayDiscResDto resDto)
         {

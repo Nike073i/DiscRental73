@@ -3,8 +3,7 @@ using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using MathCore.WPF.ViewModels;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
@@ -18,36 +17,43 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         #endregion
 
+        #region readonly fields
+
+        private readonly EditProductCostFormationViewModel _FormationVm;
+        private readonly EntityFormationWindowViewModel _WindowVm;
+
+        #endregion
+
+        #region constructors
+
+        public ShowProductCostStrategy(EntityFormationWindowViewModel windowVm,
+            EditProductCostFormationViewModel formationVm)
+        {
+            _WindowVm = windowVm;
+            _FormationVm = formationVm;
+            InitializeWindow(_FormationVm, "Окно изменения цены продукта");
+            SetValueRange(_FormationVm);
+        }
+
+        #endregion
+
         public bool ShowDialog(ref object formationData)
         {
-            if (formationData is not EditProductCostModel item)
-            {
-                return false;
-            }
+            if (formationData is not EditProductCostModel item) return false;
 
-            var viewModel = App.Host.Services.GetRequiredService<EditProductCostFormationViewModel>();
-            viewModel.EditProductCostModel = item;
-            SetValueRange(viewModel);
-
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно изменения цены продукта";
-            viewModelWindow.Caption = string.Format("Продукт - {0}, цена - {1}", item.DiscTitle, item.CurrentCost);
+            _FormationVm.EditProductCostModel = item;
+            _WindowVm.Caption = $"Продукт - {item.DiscTitle}, цена - {item.CurrentCost}";
 
             var dlg = new EntityFormationWindow
             {
-                DataContext = viewModelWindow,
+                DataContext = _WindowVm,
                 //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
+            if (dlg.ShowDialog() != true) return false;
 
-            formationData = viewModel.EditProductCostModel;
-
+            formationData = item;
             return true;
         }
 
@@ -55,6 +61,14 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
         {
             viewModel.CostMaxValue = CostMaxValue;
             viewModel.CostMinValue = CostMinValue;
+        }
+
+        private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+            string caption = "Формирование записи")
+        {
+            _WindowVm.CurrentModel = viewModel;
+            _WindowVm.Title = title;
+            _WindowVm.Caption = caption;
         }
     }
 }

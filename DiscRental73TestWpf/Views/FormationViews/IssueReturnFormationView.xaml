@@ -7,7 +7,8 @@
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              mc:Ignorable="d"             
              d:DesignWidth="400"
-             DataContext="{Binding IssueReturnFormationViewModel, Source={StaticResource Locator}}">
+             xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.FormationViewModels"
+             d:DataContext="{d:DesignInstance vm:IssueReturnFormationViewModel}">
     <Grid Margin="3" Background="White">
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource GridInfoTextBlocks}"/>

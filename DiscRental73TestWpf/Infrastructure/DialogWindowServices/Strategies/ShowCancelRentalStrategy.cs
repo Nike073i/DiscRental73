@@ -55,10 +55,7 @@ public class ShowCancelRentalStrategy : IShowContentStrategy
         return true;
     }
 
-    private static bool IsCompletedData(in CancelRentalFormationViewModel viewModel)
-    {
-        return viewModel?.SelectedRental is not null;
-    }
+    private static bool IsCompletedData(in CancelRentalFormationViewModel viewModel) => viewModel?.SelectedRental is not null;
 
     private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
         string caption = "Формирование записи")

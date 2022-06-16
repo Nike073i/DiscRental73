@@ -3,8 +3,7 @@ using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using MathCore.WPF.ViewModels;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
@@ -23,36 +22,41 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         #endregion
 
+        #region readonly fields
+
+        private readonly EntityFormationWindowViewModel _WindowVm;
+        private readonly ClientFormationViewModel _FormationVm;
+
+        #endregion
+
+        #region constructors
+
+        public ShowClientStrategy(EntityFormationWindowViewModel windowVm, ClientFormationViewModel formationVm)
+        {
+            _WindowVm = windowVm;
+            _FormationVm = formationVm;
+            InitializeWindow(_FormationVm, "Окно формирования клиента", "Клиент");
+            SetValueRange(_FormationVm);
+        }
+
+        #endregion
+
         public bool ShowDialog(ref object formationData)
         {
-            if (formationData is not ClientResDto item)
-            {
-                return false;
-            }
+            if (formationData is not ClientResDto item) return false;
 
-            var viewModel = App.Host.Services.GetRequiredService<ClientFormationViewModel>();
-            viewModel.Client = item;
-            SetValueRange(viewModel);
-
-            var viewModelWindow = App.Host.Services.GetRequiredService<EntityFormationWindowViewModel>();
-            viewModelWindow.CurrentModel = viewModel;
-            viewModelWindow.Title = "Окно формирования клиента";
-            viewModelWindow.Caption = "Клиент";
+            _FormationVm.Client = item;
 
             var dlg = new EntityFormationWindow
             {
-                DataContext = viewModelWindow,
+                DataContext = _WindowVm,
                 //Owner = ActiveWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            if (dlg.ShowDialog() != true)
-            {
-                return false;
-            }
+            if (dlg.ShowDialog() != true) return false;
 
-            formationData = viewModel.Client;
-
+            formationData = item;
             return true;
         }
 
@@ -65,6 +69,14 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
             viewModel.SecondNameMinLength = SecondNameMinLength;
             viewModel.AddressMaxLength = AddressMaxLength;
             viewModel.AddressMinLength = AddressMinLength;
+        }
+
+        private void InitializeWindow(ViewModel viewModel, string title = "Окно формирования",
+            string caption = "Формирование записи")
+        {
+            _WindowVm.CurrentModel = viewModel;
+            _WindowVm.Title = title;
+            _WindowVm.Caption = caption;
         }
     }
 }
