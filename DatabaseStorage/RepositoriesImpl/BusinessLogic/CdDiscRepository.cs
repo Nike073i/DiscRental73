@@ -9,7 +9,8 @@ using DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers;
 
 namespace DatabaseStorage.RepositoriesImpl.BusinessLogic;
 
-public class CdDiscRepository : DbRepository<CdDiscReqDto, CdDiscResDto, CdDisc>, ICdDiscRepository
+public class CdDiscRepository : DbRepository<CdDiscReqDto, CdDiscResDto, CdDisc>,
+    ICdDiscRepository
 {
     #region readonly fields
 

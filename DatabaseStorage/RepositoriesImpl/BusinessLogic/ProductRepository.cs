@@ -9,7 +9,8 @@ using DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers;
 
 namespace DatabaseStorage.RepositoriesImpl.BusinessLogic;
 
-public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Product>, IProductRepository
+public class ProductRepository : DbRepository<ProductReqDto, ProductResDto, Product>,
+    IProductRepository
 {
     #region readonly fields
 

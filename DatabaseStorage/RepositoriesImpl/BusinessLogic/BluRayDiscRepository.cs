@@ -9,7 +9,8 @@ using DatabaseStorage.RepositoriesImpl.BusinessLogic.Mappers;
 
 namespace DatabaseStorage.RepositoriesImpl.BusinessLogic;
 
-public class BluRayDiscRepository : DbRepository<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>, IBluRayDiscRepository
+public class BluRayDiscRepository : DbRepository<BluRayDiscReqDto, BluRayDiscResDto, BluRayDisc>,
+    IBluRayDiscRepository
 {
     #region readonly fields
 
