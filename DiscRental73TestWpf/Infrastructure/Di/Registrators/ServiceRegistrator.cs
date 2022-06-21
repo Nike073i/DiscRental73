@@ -8,15 +8,15 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddSingleton<ICdDiscService, CdDiscService>();
-            services.AddSingleton<IDvdDiscService, DvdDiscService>();
-            services.AddSingleton<IBluRayDiscService, BluRayDiscService>();
-            services.AddSingleton<IClientService, ClientService>();
-            services.AddSingleton<IEmployeeService, EmployeeService>();
-            services.AddSingleton<IDiscService, DiscService>();
-            services.AddSingleton<IProductService, ProductService>();
-            services.AddSingleton<ISellService, SellService>();
-            services.AddSingleton<IRentalService, RentalService>();
+            services.AddTransient<ICdDiscService, CdDiscService>();
+            services.AddTransient<IDvdDiscService, DvdDiscService>();
+            services.AddTransient<IBluRayDiscService, BluRayDiscService>();
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IDiscService, DiscService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ISellService, SellService>();
+            services.AddTransient<IRentalService, RentalService>();
 
             return services;
         }

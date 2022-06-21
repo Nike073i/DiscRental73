@@ -10,29 +10,29 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
-            services.AddSingleton<CdDiscManagementViewModel>();
-            services.AddSingleton<DvdDiscManagementViewModel>();
-            services.AddSingleton<BluRayDiscManagementViewModel>();
-            services.AddSingleton<ClientManagementViewModel>();
-            services.AddSingleton<ProductManagementViewModel>();
-            services.AddSingleton<IssueViewModel>();
-            services.AddSingleton<MainWindowViewModel>();
+            services.AddTransient<CdDiscManagementViewModel>();
+            services.AddTransient<DvdDiscManagementViewModel>();
+            services.AddTransient<BluRayDiscManagementViewModel>();
+            services.AddTransient<ClientManagementViewModel>();
+            services.AddTransient<ProductManagementViewModel>();
+            services.AddTransient<IssueViewModel>();
+            services.AddTransient<MainWindowViewModel>();
 
-            services.AddSingleton<EntityFormationWindowViewModel>();
-            services.AddSingleton<CdDiscFormationViewModel>();
-            services.AddSingleton<DvdDiscFormationViewModel>();
-            services.AddSingleton<BluRayDiscFormationViewModel>();
-            services.AddSingleton<ClientFormationViewModel>();
-            services.AddSingleton<ProductFormationViewModel>();
-            services.AddSingleton<EditProductCostFormationViewModel>();
-            services.AddSingleton<EditProductQuantityFormationViewModel>();
-            services.AddSingleton<IssueRentalFormationViewModel>();
-            services.AddSingleton<IssueReturnFormationViewModel>();
-            services.AddSingleton<IssueSellFormationViewModel>();
-            services.AddSingleton<CancelRentalFormationViewModel>();
-            services.AddSingleton<CancelSellFormationViewModel>();
+            services.AddTransient<EntityFormationWindowViewModel>();
+            services.AddTransient<CdDiscFormationViewModel>();
+            services.AddTransient<DvdDiscFormationViewModel>();
+            services.AddTransient<BluRayDiscFormationViewModel>();
+            services.AddTransient<ClientFormationViewModel>();
+            services.AddTransient<ProductFormationViewModel>();
+            services.AddTransient<EditProductCostFormationViewModel>();
+            services.AddTransient<EditProductQuantityFormationViewModel>();
+            services.AddTransient<IssueRentalFormationViewModel>();
+            services.AddTransient<IssueReturnFormationViewModel>();
+            services.AddTransient<IssueSellFormationViewModel>();
+            services.AddTransient<CancelRentalFormationViewModel>();
+            services.AddTransient<CancelSellFormationViewModel>();
 
-            services.AddSingleton<AuthorizationWindowViewModel>();
+            services.AddTransient<AuthorizationWindowViewModel>();
 
             return services;
         }
