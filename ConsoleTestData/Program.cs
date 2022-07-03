@@ -1,10 +1,10 @@
-﻿using AdminWpfPlugin.Services;
+﻿//using AdminWpfPlugin.Services;
 using BusinessLogic.BusinessLogics;
 using BusinessLogic.DtoModels.RequestDto;
 using BusinessLogic.Interfaces.Services;
-using BusinessLogic.Interfaces.Storages;
+using BusinessLogic.Interfaces.Storage;
 using DatabaseStorage.Context;
-using DatabaseStorage.Repositories;
+using DatabaseStorage.RepositoriesImpl.BusinessLogic;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleTestData
@@ -29,8 +29,8 @@ namespace ConsoleTestData
         private static IRentalService rentalService;
         private static ISellService sellService;
 
-        private static AdminService adminService;
-        private static ReportService reportService;
+        //private static AdminService adminService;
+        //private static ReportService reportService;
 
 
         public static void Main()
@@ -48,10 +48,11 @@ namespace ConsoleTestData
         {
             var optionsBuilder = new DbContextOptionsBuilder<DiscRentalDb>();
             var options = optionsBuilder
-                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PIAPSDiscRentalDb; Integrated Security = True; Multiple Active Result Sets = True;")
+                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DiscRental; Integrated Security = True; Multiple Active Result Sets = True;")
                 .Options;
 
-            var db = new DiscRentalDb(options);
+            var db = new DiscRentalDb();
+
             _clientRepository = new ClientRepository(db);
             cdDiscRepository = new CdDiscRepository(db);
             dvdDiscRepository = new DvdDiscRepository(db);
@@ -59,7 +60,7 @@ namespace ConsoleTestData
             productRepository = new ProductRepository(db);
             rentalRepository = new RentalRepository(db);
             sellRepository = new SellRepository(db);
-            employeeRepository = new EmployeeRepository(db, sellRepository, rentalRepository);
+            employeeRepository = new EmployeeRepository(db);
 
             clientService = new ClientService(_clientRepository);
             cdDiscService = new CdDiscService(cdDiscRepository);
@@ -284,7 +285,7 @@ namespace ConsoleTestData
                 SecondName = "Греков",
                 Position = BusinessLogic.Enums.UserPosition.Employee,
                 Password = "grekov",
-                Prize = 750d
+                Prize = 750M
             };
 
             var employee1ReqDto = new EmployeeReqDto
@@ -294,7 +295,7 @@ namespace ConsoleTestData
                 SecondName = "Филиппов",
                 Position = BusinessLogic.Enums.UserPosition.Administrator,
                 Password = "filippov",
-                Prize = 1500d
+                Prize = 1500M
             };
 
             employeeService.Save(employee1ReqDto);
@@ -307,7 +308,7 @@ namespace ConsoleTestData
             //Театръ Теней 500
             //Пропавший без вести 550
             //Алхимия 560
-            //Альтависта 
+            //Альтависта
             //Армагедон 450
             //Как Витька Чеснок вез Леху Штыря в дом инвалидов 750
             //Дурак 500
@@ -440,7 +441,7 @@ namespace ConsoleTestData
             //9 Sifu 3550
 
 
-            //clients 
+            //clients
 
             // 79176306250
             // 79176306251

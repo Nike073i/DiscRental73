@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminWpfPlugin\AdminWpfPlugin.csproj" />
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+<!--	  <ProjectReference Include="..\AdminWpfPlugin\AdminWpfPlugin.csproj" />-->
+	  <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\DatabaseStorage\DatabaseStorage.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10"/>
+	</ItemGroup>
 </Project>
