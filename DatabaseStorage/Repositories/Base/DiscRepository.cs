@@ -1,5 +1,6 @@
 ﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories.Base;
 
@@ -16,21 +17,20 @@ internal abstract class DiscRepository<T> : DbRepository<T>
 
     protected override bool DoDeleteById(int id)
     {
-        var entity = Set.FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
+        var entity = Set.Find(id);
         if (entity is null) throw new Exception("Ошибка удаления по Id: Запись не найдена");
 
         using var transaction = Db.Database.BeginTransaction();
         try
         {
             entity.IsDeleted = true;
-            var changedEntity = Set.Update(entity).Entity;
-            if (changedEntity is null) return false;
+            Set.Update(entity).State = EntityState.Modified;
 
-            var products = Db.Products.Where(p => !p.IsDeleted && p.DiscId.Equals(entity.Id));
-            foreach (var product in products)
+            var product = Db.Products.FirstOrDefault(p => p.DiscId.Equals(entity.Id));
+            if (product != null)
             {
                 product.IsDeleted = true;
-                Db.Products.Update(product);
+                Db.Products.Update(product).State = EntityState.Modified;
             }
 
             Db.SaveChanges();

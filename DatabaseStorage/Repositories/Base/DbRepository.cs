@@ -50,7 +50,7 @@ internal abstract class DbRepository<T>
         }
     }
 
-    public T? Insert(T entity)
+    public int Insert(T entity)
     {
         try
         {
@@ -74,11 +74,11 @@ internal abstract class DbRepository<T>
         }
     }
 
-    public T? Update(T entity)
+    public void Update(T entity)
     {
         try
         {
-            return DoUpdate(entity);
+            DoUpdate(entity);
         }
         catch (Exception ex)
         {
@@ -90,38 +90,33 @@ internal abstract class DbRepository<T>
 
     #region template-methods
 
-    protected virtual IEnumerable<T> DoGetAll() => Set.AsNoTracking().Where(entity => !entity.IsDeleted);
+    protected virtual IEnumerable<T> DoGetAll() => Set;
 
-    protected virtual T? DoGetById(int id) => GetAll().FirstOrDefault(rec => rec.Id.Equals(id));
+    protected virtual T? DoGetById(int id) => DoGetAll().AsQueryable().FirstOrDefault(rec => rec.Id.Equals(id));
 
-    protected virtual T? DoInsert(T newEntity)
+    protected virtual int DoInsert(T newEntity)
     {
-        var entity = Set.Add(newEntity).Entity;
-        if (entity is null) return null;
+        Set.Add(newEntity);
         Db.SaveChanges();
-        return entity;
+        return newEntity.Id;
     }
 
     protected virtual bool DoDeleteById(int id)
     {
-        var entity = Set.FirstOrDefault(rec => rec.Id.Equals(id) && !rec.IsDeleted);
+        var entity = Set.Find(id);
         if (entity is null) throw new Exception("Ошибка удаления по Id: Запись не найдена");
-
         entity.IsDeleted = true;
-        var changedEntity = Set.Update(entity).Entity;
-        if (changedEntity is null) return false;
+        Set.Update(entity).State = EntityState.Modified;
         Db.SaveChanges();
         return true;
     }
 
-    protected virtual T? DoUpdate(T newEntity)
+    protected virtual void DoUpdate(T newEntity)
     {
-        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted))
+        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id)))
             throw new Exception("Ошибка обновления записи: Запись не найдена");
-        var changedEntity = Set.Update(newEntity).Entity;
-        if (changedEntity is null) return null;
+        Set.Update(newEntity).State = EntityState.Modified;
         Db.SaveChanges();
-        return changedEntity;
     }
 
     #endregion

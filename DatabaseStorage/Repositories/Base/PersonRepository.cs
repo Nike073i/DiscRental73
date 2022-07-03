@@ -1,5 +1,6 @@
 ﻿using DatabaseStorage.Context;
 using DatabaseStorage.Entities.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseStorage.Repositories.Base;
 
@@ -18,10 +19,7 @@ internal abstract class PersonRepository<T> : DbRepository<T>
     {
         try
         {
-            var entity = Set.SingleOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
-            if (entity is null || entity.IsDeleted) return null;
-
-            return entity;
+            return Set.FirstOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
         }
         catch (Exception ex)
         {
@@ -33,39 +31,32 @@ internal abstract class PersonRepository<T> : DbRepository<T>
 
     #region private methods
 
-    private bool IsAvailableToInsert(T entity)
-    {
-        var busyNumberEntity = Db.Persons.FirstOrDefault(rec =>
-            !rec.Id.Equals(entity.Id) && rec.ContactNumber.Equals(entity.ContactNumber));
-        return busyNumberEntity is null;
-    }
+    private bool IsAvailableToInsert(T entity) =>
+        !Db.Persons.Any(rec => rec.ContactNumber.Equals(entity.ContactNumber) && !rec.Id.Equals(entity.Id));
 
     #endregion
 
     #region override template-methods
 
-    protected override T? DoUpdate(T newEntity)
+    protected override void DoUpdate(T newEntity)
     {
-        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id) && !rec.IsDeleted))
+        if (!Set.Any(rec => rec.Id.Equals(newEntity.Id)))
             throw new Exception("Ошибка обновления записи: Запись не найдена");
 
         if (!IsAvailableToInsert(newEntity))
             throw new Exception("Ошибка обновления записи: Номер уже занят");
 
-        var changedEntity = Set.Update(newEntity).Entity;
-        if (changedEntity is null) return null;
+        Set.Update(newEntity).State = EntityState.Modified;
         Db.SaveChanges();
-        return changedEntity;
     }
 
-    protected override T? DoInsert(T newEntity)
+    protected override int DoInsert(T newEntity)
     {
         if (!IsAvailableToInsert(newEntity)) throw new Exception("Ошибка добавления записи: Номер уже занят");
 
-        var entity = Set.Add(newEntity).Entity;
-        if (entity is null) return null;
+        Set.Add(newEntity);
         Db.SaveChanges();
-        return entity;
+        return newEntity.Id;
     }
 
     #endregion
