@@ -9,25 +9,25 @@ public class DiscRentalDb : DbContext
 
     #region Di
 
-    //public DiscRentalDb(DbContextOptions<DiscRentalDb> options) : base(options)
-    //{
-    //    ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-    //}
+    public DiscRentalDb(DbContextOptions<DiscRentalDb> options) : base(options)
+    {
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+    }
 
     #endregion
 
     #region Обход Di
 
-    private const string DbConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDbTest;Integrated Security=True;Multiple Active Result Sets=True;";
+    //private const string DbConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PIAPSDiscRentalDbTest;Integrated Security=True;Multiple Active Result Sets=True;";
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (optionsBuilder.IsConfigured == false)
-        {
-            optionsBuilder.UseSqlServer(DbConnectionString);
-        }
-        base.OnConfiguring(optionsBuilder);
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    if (optionsBuilder.IsConfigured == false)
+    //    {
+    //        optionsBuilder.UseSqlServer(DbConnectionString);
+    //    }
+    //    base.OnConfiguring(optionsBuilder);
+    //}
 
     #endregion
 
