@@ -4,7 +4,7 @@ using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Entities;
 
-[Table("DvdDisc")]
+[Table("DvdDiscs")]
 public class DvdDisc : Disc
 {
     [Required] [MaxLength(50)] public string Director { get; set; }

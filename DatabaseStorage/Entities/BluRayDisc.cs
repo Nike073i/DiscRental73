@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseStorage.Entities;
 
-[Table("BluRayDisc")]
+[Table("BluRayDiscs")]
 public class BluRayDisc : Disc
 {
     [Required] [MaxLength(50)] public string Publisher { get; set; }

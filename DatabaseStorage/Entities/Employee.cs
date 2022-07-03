@@ -1,20 +1,20 @@
 ﻿using BusinessLogic.Enums;
+using DatabaseStorage.Entities.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Entities;
 
-[Table("Employee")]
+[Table("Employees")]
 public class Employee : Person
 {
     [Required] [MaxLength(25)] public string Password { get; set; }
 
     [Required] public UserPosition Position { get; set; }
 
-    public double? Prize { get; set; }
+    public decimal? Prize { get; set; }
 
-    [ForeignKey("EmployeeId")] public virtual List<Rental> Rentals { get; set; }
+    [InverseProperty(nameof(Rental.Employee))] public ICollection<Rental> Rentals { get; set; }
 
-    [ForeignKey("EmployeeId")] public virtual List<Sell> Sells { get; set; }
+    [InverseProperty(nameof(Sell.Employee))] public ICollection<Sell> Sells { get; set; }
 }

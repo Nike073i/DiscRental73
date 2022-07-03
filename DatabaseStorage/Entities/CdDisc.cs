@@ -4,7 +4,7 @@ using DatabaseStorage.Entities.Base;
 
 namespace DatabaseStorage.Entities;
 
-[Table("CdDisc")]
+[Table("CdDiscs")]
 public class CdDisc : Disc
 {
     [Required] [MaxLength(50)] public string Performer { get; set; }

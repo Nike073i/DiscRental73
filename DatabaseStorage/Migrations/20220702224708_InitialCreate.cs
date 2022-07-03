@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatabaseStorage.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,7 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BluRayDisc",
+                name: "BluRayDiscs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -50,9 +50,9 @@ namespace DatabaseStorage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BluRayDisc", x => x.Id);
+                    table.PrimaryKey("PK_BluRayDiscs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BluRayDisc_Discs_Id",
+                        name: "FK_BluRayDiscs_Discs_Id",
                         column: x => x.Id,
                         principalTable: "Discs",
                         principalColumn: "Id",
@@ -60,7 +60,7 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CdDisc",
+                name: "CdDiscs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -70,9 +70,9 @@ namespace DatabaseStorage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdDisc", x => x.Id);
+                    table.PrimaryKey("PK_CdDiscs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CdDisc_Discs_Id",
+                        name: "FK_CdDiscs_Discs_Id",
                         column: x => x.Id,
                         principalTable: "Discs",
                         principalColumn: "Id",
@@ -80,7 +80,7 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DvdDisc",
+                name: "DvdDiscs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -90,9 +90,9 @@ namespace DatabaseStorage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DvdDisc", x => x.Id);
+                    table.PrimaryKey("PK_DvdDiscs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DvdDisc_Discs_Id",
+                        name: "FK_DvdDiscs_Discs_Id",
                         column: x => x.Id,
                         principalTable: "Discs",
                         principalColumn: "Id",
@@ -105,10 +105,10 @@ namespace DatabaseStorage.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Cost = table.Column<double>(type: "float", nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    DiscId = table.Column<int>(type: "int", nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    DiscId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -123,7 +123,7 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Clients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -131,9 +131,9 @@ namespace DatabaseStorage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Client_Persons_Id",
+                        name: "FK_Clients_Persons_Id",
                         column: x => x.Id,
                         principalTable: "Persons",
                         principalColumn: "Id",
@@ -141,19 +141,19 @@ namespace DatabaseStorage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false),
-                    Prize = table.Column<double>(type: "float", nullable: true)
+                    Prize = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Persons_Id",
+                        name: "FK_Employees_Persons_Id",
                         column: x => x.Id,
                         principalTable: "Persons",
                         principalColumn: "Id",
@@ -171,23 +171,23 @@ namespace DatabaseStorage.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     DateOfIssue = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfRental = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PledgeSum = table.Column<double>(type: "float", nullable: false),
-                    ReturnSum = table.Column<double>(type: "float", nullable: true),
+                    PledgeSum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ReturnSum = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rentals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rentals_Client_ClientId",
+                        name: "FK_Rentals_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rentals_Employee_EmployeeId",
+                        name: "FK_Rentals_Employees_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employee",
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -207,16 +207,16 @@ namespace DatabaseStorage.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     DateOfSell = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sells", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sells_Employee_EmployeeId",
+                        name: "FK_Sells_Employees_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employee",
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -267,13 +267,13 @@ namespace DatabaseStorage.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BluRayDisc");
+                name: "BluRayDiscs");
 
             migrationBuilder.DropTable(
-                name: "CdDisc");
+                name: "CdDiscs");
 
             migrationBuilder.DropTable(
-                name: "DvdDisc");
+                name: "DvdDiscs");
 
             migrationBuilder.DropTable(
                 name: "Rentals");
@@ -282,10 +282,10 @@ namespace DatabaseStorage.Migrations
                 name: "Sells");
 
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Products");

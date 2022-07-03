@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using BusinessLogic.Enums;
+﻿using BusinessLogic.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseStorage.Entities.Base;
 

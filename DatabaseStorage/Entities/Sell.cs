@@ -1,5 +1,6 @@
 ﻿using DatabaseStorage.Entities.Base;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseStorage.Entities;
 
@@ -10,8 +11,11 @@ public class Sell : Entity
 
     [Required] public DateTime DateOfSell { get; set; }
 
-    [Required] public double Price { get; set; }
+    [Required] public decimal Price { get; set; }
 
-    public virtual Product Product { get; set; }
-    public virtual Employee Employee { get; set; }
+    [ForeignKey(nameof(ProductId))]
+    public Product Product { get; set; }
+
+    [ForeignKey(nameof(EmployeeId))]
+    public Employee Employee { get; set; }
 }

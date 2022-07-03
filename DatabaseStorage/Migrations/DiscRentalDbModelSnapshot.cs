@@ -19,7 +19,7 @@ namespace DatabaseStorage.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Disc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Base.Disc", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace DatabaseStorage.Migrations
                     b.ToTable("Discs");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Person", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Base.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,15 +78,15 @@ namespace DatabaseStorage.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Product", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("DiscId")
                         .HasColumnType("int");
@@ -107,7 +107,7 @@ namespace DatabaseStorage.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Rental", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Rental", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,14 +129,14 @@ namespace DatabaseStorage.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<double>("PledgeSum")
-                        .HasColumnType("float");
+                    b.Property<decimal>("PledgeSum")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("ReturnSum")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ReturnSum")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -149,7 +149,7 @@ namespace DatabaseStorage.Migrations
                     b.ToTable("Rentals");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Sell", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Sell", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,8 +165,8 @@ namespace DatabaseStorage.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -180,9 +180,9 @@ namespace DatabaseStorage.Migrations
                     b.ToTable("Sells");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.BluRayDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.BluRayDisc", b =>
                 {
-                    b.HasBaseType("DatabaseStorage.Entityes.Disc");
+                    b.HasBaseType("DatabaseStorage.Entities.Base.Disc");
 
                     b.Property<string>("Info")
                         .HasMaxLength(1023)
@@ -197,12 +197,12 @@ namespace DatabaseStorage.Migrations
                         .HasMaxLength(1023)
                         .HasColumnType("nvarchar(1023)");
 
-                    b.ToTable("BluRayDisc");
+                    b.ToTable("BluRayDiscs");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.CdDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.CdDisc", b =>
                 {
-                    b.HasBaseType("DatabaseStorage.Entityes.Disc");
+                    b.HasBaseType("DatabaseStorage.Entities.Base.Disc");
 
                     b.Property<string>("Genre")
                         .HasMaxLength(50)
@@ -216,12 +216,12 @@ namespace DatabaseStorage.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.ToTable("CdDisc");
+                    b.ToTable("CdDiscs");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.DvdDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.DvdDisc", b =>
                 {
-                    b.HasBaseType("DatabaseStorage.Entityes.Disc");
+                    b.HasBaseType("DatabaseStorage.Entities.Base.Disc");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -236,24 +236,24 @@ namespace DatabaseStorage.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.ToTable("DvdDisc");
+                    b.ToTable("DvdDiscs");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Client", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Client", b =>
                 {
-                    b.HasBaseType("DatabaseStorage.Entityes.Person");
+                    b.HasBaseType("DatabaseStorage.Entities.Base.Person");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.ToTable("Client");
+                    b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Employee", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Employee", b =>
                 {
-                    b.HasBaseType("DatabaseStorage.Entityes.Person");
+                    b.HasBaseType("DatabaseStorage.Entities.Base.Person");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -263,15 +263,15 @@ namespace DatabaseStorage.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Prize")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prize")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Product", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Product", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Disc", "Disc")
+                    b.HasOne("DatabaseStorage.Entities.Base.Disc", "Disc")
                         .WithMany()
                         .HasForeignKey("DiscId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,21 +280,21 @@ namespace DatabaseStorage.Migrations
                     b.Navigation("Disc");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Rental", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Rental", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Client", "Client")
+                    b.HasOne("DatabaseStorage.Entities.Client", "Client")
                         .WithMany("Rentals")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DatabaseStorage.Entityes.Employee", "Employee")
+                    b.HasOne("DatabaseStorage.Entities.Employee", "Employee")
                         .WithMany("Rentals")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
+                    b.HasOne("DatabaseStorage.Entities.Product", "Product")
                         .WithMany("Rentals")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,15 +307,15 @@ namespace DatabaseStorage.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Sell", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Sell", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Employee", "Employee")
+                    b.HasOne("DatabaseStorage.Entities.Employee", "Employee")
                         .WithMany("Sells")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DatabaseStorage.Entityes.Product", "Product")
+                    b.HasOne("DatabaseStorage.Entities.Product", "Product")
                         .WithMany("Sells")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -326,64 +326,64 @@ namespace DatabaseStorage.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.BluRayDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.BluRayDisc", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Disc", null)
+                    b.HasOne("DatabaseStorage.Entities.Base.Disc", null)
                         .WithOne()
-                        .HasForeignKey("DatabaseStorage.Entityes.BluRayDisc", "Id")
+                        .HasForeignKey("DatabaseStorage.Entities.BluRayDisc", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.CdDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.CdDisc", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Disc", null)
+                    b.HasOne("DatabaseStorage.Entities.Base.Disc", null)
                         .WithOne()
-                        .HasForeignKey("DatabaseStorage.Entityes.CdDisc", "Id")
+                        .HasForeignKey("DatabaseStorage.Entities.CdDisc", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.DvdDisc", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.DvdDisc", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Disc", null)
+                    b.HasOne("DatabaseStorage.Entities.Base.Disc", null)
                         .WithOne()
-                        .HasForeignKey("DatabaseStorage.Entityes.DvdDisc", "Id")
+                        .HasForeignKey("DatabaseStorage.Entities.DvdDisc", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Client", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Client", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Person", null)
+                    b.HasOne("DatabaseStorage.Entities.Base.Person", null)
                         .WithOne()
-                        .HasForeignKey("DatabaseStorage.Entityes.Client", "Id")
+                        .HasForeignKey("DatabaseStorage.Entities.Client", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Employee", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Employee", b =>
                 {
-                    b.HasOne("DatabaseStorage.Entityes.Person", null)
+                    b.HasOne("DatabaseStorage.Entities.Base.Person", null)
                         .WithOne()
-                        .HasForeignKey("DatabaseStorage.Entityes.Employee", "Id")
+                        .HasForeignKey("DatabaseStorage.Entities.Employee", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Product", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Product", b =>
                 {
                     b.Navigation("Rentals");
 
                     b.Navigation("Sells");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Client", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Client", b =>
                 {
                     b.Navigation("Rentals");
                 });
 
-            modelBuilder.Entity("DatabaseStorage.Entityes.Employee", b =>
+            modelBuilder.Entity("DatabaseStorage.Entities.Employee", b =>
                 {
                     b.Navigation("Rentals");
 
