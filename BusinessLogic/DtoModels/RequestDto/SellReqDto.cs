@@ -7,6 +7,6 @@ namespace BusinessLogic.DtoModels.RequestDto
         public int ProductId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime DateOfSell { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

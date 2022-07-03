@@ -3,6 +3,6 @@
     public class IssueReturnReqDto
     {
         public int RentalId { get; set; }
-        public double ReturnSum { get; set; }
+        public decimal ReturnSum { get; set; }
     }
 }

@@ -41,7 +41,7 @@ public class ProductService : IProductService
         }
     }
 
-    public bool ChangeProductCost(int productId, double cost)
+    public bool ChangeProductCost(int productId, decimal cost)
     {
         try
         {
@@ -151,11 +151,11 @@ public class ProductService : IProductService
     private const int _QuantityMinValue = 0;
     public int QuantityMinValue => _QuantityMinValue;
 
-    private const double _CostMaxValue = 100000d;
-    public double CostMaxValue => _CostMaxValue;
+    private const decimal _CostMaxValue = 100000M;
+    public decimal CostMaxValue => _CostMaxValue;
 
-    private const double _CostMinValue = 1d;
-    public double CostMinValue => _CostMinValue;
+    private const decimal _CostMinValue = 1M;
+    public decimal CostMinValue => _CostMinValue;
 
     #endregion
 }

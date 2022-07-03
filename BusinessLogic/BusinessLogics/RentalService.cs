@@ -118,17 +118,17 @@ public class RentalService : IRentalService
 
     public DateTime DateMinValue { get; } = new(2000, 1, 1);
 
-    private const double _PledgeSumMaxValue = 100000d;
-    public double PledgeSumMaxValue => _PledgeSumMaxValue;
+    private const decimal _PledgeSumMaxValue = 100000M;
+    public decimal PledgeSumMaxValue => _PledgeSumMaxValue;
 
-    private const double _PledgeSumMinValue = 1d;
-    public double PledgeSumMinValue => _PledgeSumMinValue;
+    private const decimal _PledgeSumMinValue = 1M;
+    public decimal PledgeSumMinValue => _PledgeSumMinValue;
 
-    private const double _ReturnSumMaxValue = 100000d;
-    public double ReturnSumMaxValue => _ReturnSumMaxValue;
+    private const decimal _ReturnSumMaxValue = 100000M;
+    public decimal ReturnSumMaxValue => _ReturnSumMaxValue;
 
-    private const double _ReturnSumMinValue = 0d;
-    public double ReturnSumMinValue => _ReturnSumMinValue;
+    private const decimal _ReturnSumMinValue = 0M;
+    public decimal ReturnSumMinValue => _ReturnSumMinValue;
 
     #endregion
 }

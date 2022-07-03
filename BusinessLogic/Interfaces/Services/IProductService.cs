@@ -6,7 +6,7 @@ namespace BusinessLogic.Interfaces.Services;
 public interface IProductService
 {
     bool EditProductQuantity(int productId, int editQuantity);
-    bool ChangeProductCost(int productId, double cost);
+    bool ChangeProductCost(int productId, decimal cost);
     ProductResDto Create(ProductReqDto reqDto);
     bool ChangeAvailable(int productId, bool isAvailable);
     IEnumerable<ProductResDto> GetAll();

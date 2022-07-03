@@ -66,11 +66,11 @@ public class EmployeeService : PersonCrudService<EmployeeReqDto, EmployeeResDto>
     private const int _PasswordMinLength = 5;
     public int PasswordMinLength => _PasswordMinLength;
 
-    private const float _PrizeMaxValue = 100000f;
-    public float PrizeMaxValue => _PrizeMaxValue;
+    private const decimal _PrizeMaxValue = 100000M;
+    public decimal PrizeMaxValue => _PrizeMaxValue;
 
-    private const float _PrizeMinValue = 1f;
-    public float PrizeMinValue => _PrizeMinValue;
+    private const decimal _PrizeMinValue = 1M;
+    public decimal PrizeMinValue => _PrizeMinValue;
 
     #endregion
 }

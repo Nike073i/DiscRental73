@@ -4,7 +4,7 @@ namespace BusinessLogic.DtoModels.ResponseDto
 {
     public class ProductResDto : ResDto
     {
-        public double Cost { get; set; }
+        public decimal Cost { get; set; }
         public int Quantity { get; set; }
         public string DiscTitle { get; set; }
         public DiscType DiscType { get; set; }
