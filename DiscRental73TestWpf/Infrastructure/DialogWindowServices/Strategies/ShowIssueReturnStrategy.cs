@@ -15,8 +15,8 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
     {
         #region Ограничения на ввод данных 
 
-        public double ReturnSumMaxValue { get; set; }
-        public double ReturnSumMinValue { get; set; }
+        public decimal ReturnSumMaxValue { get; set; }
+        public decimal ReturnSumMinValue { get; set; }
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+            if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
             item.RentalId = _FormationVm.SelectedRental.Id;
             formationData = item;

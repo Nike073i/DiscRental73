@@ -20,9 +20,9 @@ public class ShowIssueRentalStrategy : IShowContentStrategy
 
     public DateTime DateMinValue { get; set; }
 
-    public double PledgeSumMaxValue { get; set; }
+    public decimal PledgeSumMaxValue { get; set; }
 
-    public double PledgeSumMinValue { get; set; }
+    public decimal PledgeSumMinValue { get; set; }
 
     #endregion
 
@@ -67,7 +67,7 @@ public class ShowIssueRentalStrategy : IShowContentStrategy
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
 
-        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+        if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
         item.ProductId = _FormationVm.SelectedProduct.Id;
         item.ClientId = _FormationVm.SelectedClient.Id;

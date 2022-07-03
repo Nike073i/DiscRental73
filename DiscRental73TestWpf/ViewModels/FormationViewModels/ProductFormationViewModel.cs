@@ -35,8 +35,8 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         public int QuantityMaxValue { get; set; }
         public int QuantityMinValue { get; set; }
-        public double CostMaxValue { get; set; }
-        public double CostMinValue { get; set; }
+        public decimal CostMaxValue { get; set; }
+        public decimal CostMinValue { get; set; }
 
         #endregion
     }

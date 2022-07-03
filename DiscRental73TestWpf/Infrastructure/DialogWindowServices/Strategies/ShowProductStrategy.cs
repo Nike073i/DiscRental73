@@ -16,8 +16,8 @@ public class ShowProductStrategy : IShowContentStrategy
 
     public int QuantityMaxValue { get; set; }
     public int QuantityMinValue { get; set; }
-    public double CostMaxValue { get; set; }
-    public double CostMinValue { get; set; }
+    public decimal CostMaxValue { get; set; }
+    public decimal CostMinValue { get; set; }
 
     #endregion
 
@@ -59,7 +59,7 @@ public class ShowProductStrategy : IShowContentStrategy
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
 
-        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+        if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
         formationData = item;
         return true;

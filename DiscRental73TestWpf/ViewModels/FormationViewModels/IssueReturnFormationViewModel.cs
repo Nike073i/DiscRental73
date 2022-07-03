@@ -9,8 +9,8 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
     {
         #region Ограничения на ввод данных 
 
-        public double ReturnSumMaxValue { get; set; }
-        public double ReturnSumMinValue { get; set; }
+        public decimal ReturnSumMaxValue { get; set; }
+        public decimal ReturnSumMinValue { get; set; }
 
         #endregion
 

@@ -7,8 +7,8 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
     {
         #region Ограничения на ввод данных 
 
-        public double CostMaxValue { get; set; }
-        public double CostMinValue { get; set; }
+        public decimal CostMaxValue { get; set; }
+        public decimal CostMinValue { get; set; }
 
         #endregion
 

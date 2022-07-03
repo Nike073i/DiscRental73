@@ -28,10 +28,10 @@
                 <Binding Path="EditProductCostModel.NewCost" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:RegexExpressionValidationRule RegexFormat="^(\d+)((,\d{1,2})|(.\d{1,2}))?$" RegexExample="100.00" ValidatesOnTargetUpdated="True"/>
-                        <vr:DoubleValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
+                        <vr:DecimalValueValidationRule MinValue="1" MaxValue="100000" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                     <Binding.Converter>
-                        <cv:DoubleConverter/>
+                        <cv:DecimalConverter/>
                     </Binding.Converter>
                 </Binding>
              </TextBox.Text>

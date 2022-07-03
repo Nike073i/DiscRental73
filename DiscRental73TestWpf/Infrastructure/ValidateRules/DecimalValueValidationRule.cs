@@ -3,13 +3,13 @@ using System.Windows.Controls;
 
 namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 {
-    public class DoubleValueValidationRule : ValidationRule
+    public class DecimalValueValidationRule : ValidationRule
     {
-        #region MaxValue - double - максимальное число
+        #region MaxValue - decimal - максимальное число
 
-        private double _MaxValue = 100000d;
+        private decimal _MaxValue = 100000M;
 
-        public double MaxValue
+        public decimal MaxValue
         {
             get => _MaxValue;
             set
@@ -21,11 +21,11 @@ namespace DiscRental73TestWpf.Infrastructure.ValidateRules
 
         #endregion
 
-        #region MinValue - double - минимальное число
+        #region MinValue - decimal - минимальное число
 
-        private double _MinValue = 0d;
+        private decimal _MinValue;
 
-        public double MinValue
+        public decimal MinValue
         {
             get => _MinValue;
             set
@@ -56,7 +56,7 @@ namespace DiscRental73TestWpf.Infrastructure.ValidateRules
             }
             else
             {
-                var result = double.TryParse(str, out double val);
+                var result = decimal.TryParse(str, out decimal val);
                 if (!result) return new ValidationResult(false, BadValueInfo);
                 if (val > MaxValue || val < MinValue)
                 {

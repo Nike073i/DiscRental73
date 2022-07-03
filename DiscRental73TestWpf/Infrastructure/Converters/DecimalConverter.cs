@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace DiscRental73TestWpf.Infrastructure.Converters
 {
-    public class DoubleConverter : IValueConverter
+    public class DecimalConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -13,7 +13,7 @@ namespace DiscRental73TestWpf.Infrastructure.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!double.TryParse(value.ToString(), out double d))
+            if (!decimal.TryParse(value.ToString(), out decimal d))
                 return Binding.DoNothing;
             return d;
         }

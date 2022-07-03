@@ -14,9 +14,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         public DateTime DateMinValue { get; set; }
 
-        public double PledgeSumMaxValue { get; set; }
+        public decimal PledgeSumMaxValue { get; set; }
 
-        public double PledgeSumMinValue { get; set; }
+        public decimal PledgeSumMinValue { get; set; }
 
         #endregion
 
