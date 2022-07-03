@@ -1,6 +1,6 @@
 ﻿namespace BusinessLogic.Interfaces.Storage.Base.Actions;
 
-public interface IInsertAction<TReq, TRes> where TReq : ReqDto, new() where TRes : ResDto, new()
+public interface IInsertAction<TReq> where TReq : ReqDto, new()
 {
-    TRes? Insert(TReq reqDto);
+    int Insert(TReq reqDto);
 }

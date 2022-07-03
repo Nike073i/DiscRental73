@@ -1,6 +1,6 @@
 ﻿namespace BusinessLogic.Interfaces.Storage.Base.Actions;
 
-public interface IUpdateAction<TReq, TRes> where TReq : ReqDto, new() where TRes : ResDto, new()
+public interface IUpdateAction<TReq> where TReq : ReqDto, new()
 {
-    TRes? Update(TReq reqDto);
+    void Update(TReq reqDto);
 }

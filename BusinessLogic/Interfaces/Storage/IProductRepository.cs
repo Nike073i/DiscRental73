@@ -5,6 +5,6 @@ using BusinessLogic.Interfaces.Storage.Base.Actions;
 
 namespace BusinessLogic.Interfaces.Storage;
 
-public interface IProductRepository : IRepository<ProductReqDto, ProductResDto>, IUpdateAction<ProductReqDto, ProductResDto>
+public interface IProductRepository : IRepository<ProductReqDto, ProductResDto>, IUpdateAction<ProductReqDto>
 {
 }
