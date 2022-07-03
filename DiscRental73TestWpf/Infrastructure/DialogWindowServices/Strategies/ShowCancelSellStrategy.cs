@@ -50,7 +50,7 @@ public class ShowCancelSellStrategy : IShowContentStrategy
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
 
-        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+        if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
         item.SellId = _FormationVm.SelectedSell.Id;
         formationData = item;

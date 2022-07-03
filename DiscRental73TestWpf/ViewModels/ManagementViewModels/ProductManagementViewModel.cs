@@ -50,6 +50,7 @@ public class ProductManagementViewModel : EntityManagementViewModel
         EditProductQuantityFormationViewModel quantityFormationVm) : base(dialogService)
     {
         _Service = service;
+        _DiscService = discService;
         _ProductCostStrategy = new ShowProductCostStrategy(formationWindowVm, costFormationVm);
         _ProductQuantityStrategy = new ShowProductQuantityStrategy(formationWindowVm, quantityFormationVm);
         _ProductStrategy = new ShowProductStrategy(formationWindowVm, formationVm);

@@ -48,7 +48,7 @@ public class ShowCancelRentalStrategy : IShowContentStrategy
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
 
-        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+        if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
         item.RentalId = _FormationVm.SelectedRental.Id;
         formationData = item;

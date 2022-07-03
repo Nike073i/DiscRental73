@@ -60,7 +60,7 @@ public class ShowIssueSellStrategy : IShowContentStrategy
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
 
-        if (dlg.ShowDialog() is not true || IsCompletedData(_FormationVm)) return false;
+        if (dlg.ShowDialog() is not true || !IsCompletedData(_FormationVm)) return false;
 
         item.ProductId = _FormationVm.SelectedProduct.Id;
         item.Price = _FormationVm.SelectedProduct.Cost;
