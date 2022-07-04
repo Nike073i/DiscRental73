@@ -8,4 +8,11 @@ namespace DiscRental73.Interfaces.Repositories
     {
         TDto? GetByContactNumber(string contactNumber);
     }
+
+    public interface IPersonRepository<TDto, out TDetailDto> : IRepository<TDto, TDetailDto>
+        where TDto : IDto
+        where TDetailDto : IDto
+    {
+        TDetailDto? GetByContactNumber(string contactNumber);
+    }
 }
