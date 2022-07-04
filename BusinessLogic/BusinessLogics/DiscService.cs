@@ -6,30 +6,38 @@ namespace BusinessLogic.BusinessLogics;
 
 public class DiscService : IDiscService
 {
-    private readonly IBluRayDiscRepository _bluRayDiscRepository;
-    private readonly ICdDiscRepository _cdDiscRepository;
-    private readonly IDvdDiscRepository _dvdDiscRepository;
+    #region readonly fields
+
+    private readonly IBluRayDiscRepository _BluRayDiscRepository;
+    private readonly ICdDiscRepository _CdDiscRepository;
+    private readonly IDvdDiscRepository _DvdDiscRepository;
+
+    #endregion
+
+    #region constructors
 
     public DiscService(ICdDiscRepository cdDiscRepository, IDvdDiscRepository dvdDiscRepository,
         IBluRayDiscRepository bluRayDiscRepository)
     {
-        _cdDiscRepository = cdDiscRepository;
-        _dvdDiscRepository = dvdDiscRepository;
-        _bluRayDiscRepository = bluRayDiscRepository;
+        _CdDiscRepository = cdDiscRepository;
+        _DvdDiscRepository = dvdDiscRepository;
+        _BluRayDiscRepository = bluRayDiscRepository;
     }
+
+    #endregion
+
+    #region public methods
 
     public IEnumerable<DiscResDto> GetDiscs()
     {
         var discs = new List<DiscResDto>();
 
-        var cdDiscs = _cdDiscRepository.GetAll();
-        var dvdDiscs = _dvdDiscRepository.GetAll();
-        var bluRayDiscs = _bluRayDiscRepository.GetAll();
-
-        discs.AddRange(cdDiscs);
-        discs.AddRange(dvdDiscs);
-        discs.AddRange(bluRayDiscs);
+        discs.AddRange(_CdDiscRepository.GetAll());
+        discs.AddRange(_DvdDiscRepository.GetAll());
+        discs.AddRange(_BluRayDiscRepository.GetAll());
 
         return discs;
     }
+
+    #endregion
 }

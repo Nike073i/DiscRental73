@@ -8,15 +8,19 @@ namespace BusinessLogic.BusinessLogics;
 
 public class DvdDiscService : DiscCrudService<DvdDiscReqDto, DvdDiscResDto>, IDvdDiscService
 {
-    public DvdDiscService(IDvdDiscRepository repository) : base(repository)
-    {
-    }
+    #region constructors
+
+    public DvdDiscService(IDvdDiscRepository repository) : base(repository) { }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool IsCorrectReqDto(DvdDiscReqDto reqDto)
     {
         #region Проверка пустых/нулевых значений обязательных полей
 
-        if (reqDto is null) return false;
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (string.IsNullOrEmpty(reqDto.Title)) return false;
         if (string.IsNullOrEmpty(reqDto.Director)) return false;
 
@@ -38,6 +42,8 @@ public class DvdDiscService : DiscCrudService<DvdDiscReqDto, DvdDiscResDto>, IDv
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности DvdDisc
 

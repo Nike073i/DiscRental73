@@ -25,7 +25,7 @@ public class ClientDebugRepository : IClientRepository
         return _clients.ToList();
     }
 
-    public ClientResDto Insert(ClientReqDto reqDto)
+    public int Insert(ClientReqDto reqDto)
     {
         throw new NotImplementedException();
     }
@@ -40,7 +40,7 @@ public class ClientDebugRepository : IClientRepository
         throw new NotImplementedException();
     }
 
-    public ClientResDto Update(ClientReqDto reqDto)
+    public void Update(ClientReqDto reqDto)
     {
         throw new NotImplementedException();
     }

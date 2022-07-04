@@ -8,15 +8,19 @@ namespace BusinessLogic.BusinessLogics;
 
 public class ClientService : PersonCrudService<ClientReqDto, ClientResDto>, IClientService
 {
-    public ClientService(IClientRepository repository) : base(repository)
-    {
-    }
+    #region constructors
+
+    public ClientService(IClientRepository repository) : base(repository) { }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool IsCorrectReqDto(ClientReqDto reqDto)
     {
         #region Проверка пустых/нулевых значений обязательных полей
 
-        if (reqDto is null) return false;
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (string.IsNullOrEmpty(reqDto.ContactNumber)) return false;
         if (string.IsNullOrEmpty(reqDto.FirstName)) return false;
         if (string.IsNullOrEmpty(reqDto.SecondName)) return false;
@@ -36,6 +40,8 @@ public class ClientService : PersonCrudService<ClientReqDto, ClientResDto>, ICli
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности Client
 

@@ -26,7 +26,7 @@ public class EmployeeDebugRepository : IEmployeeRepository
     }
 
 
-    public EmployeeResDto Insert(EmployeeReqDto reqDto)
+    public int Insert(EmployeeReqDto reqDto)
     {
         throw new NotImplementedException();
     }
@@ -41,7 +41,7 @@ public class EmployeeDebugRepository : IEmployeeRepository
         throw new NotImplementedException();
     }
 
-    public EmployeeResDto Update(EmployeeReqDto reqDto)
+    public void Update(EmployeeReqDto reqDto)
     {
         throw new NotImplementedException();
     }

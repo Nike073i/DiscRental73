@@ -8,15 +8,19 @@ namespace BusinessLogic.BusinessLogics;
 
 public class CdDiscService : DiscCrudService<CdDiscReqDto, CdDiscResDto>, ICdDiscService
 {
-    public CdDiscService(ICdDiscRepository repository) : base(repository)
-    {
-    }
+    #region constructors
+
+    public CdDiscService(ICdDiscRepository repository) : base(repository) { }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool IsCorrectReqDto(CdDiscReqDto reqDto)
     {
         #region Проверка пустых/нулевых значений обязательных полей
 
-        if (reqDto is null) return false;
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (string.IsNullOrEmpty(reqDto.Title)) return false;
         if (string.IsNullOrEmpty(reqDto.Performer)) return false;
 
@@ -38,6 +42,8 @@ public class CdDiscService : DiscCrudService<CdDiscReqDto, CdDiscResDto>, ICdDis
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности CdDisc
 

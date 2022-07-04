@@ -6,7 +6,7 @@ namespace BusinessLogic.Interfaces.Services;
 public interface IBluRayDiscService
 {
     IEnumerable<BluRayDiscResDto> GetAll();
-    BluRayDiscResDto GetById(int id);
-    BluRayDiscResDto Save(BluRayDiscReqDto reqDto);
+    BluRayDiscResDto? GetById(int id);
+    int Save(BluRayDiscReqDto reqDto);
     bool DeleteById(int id);
 }

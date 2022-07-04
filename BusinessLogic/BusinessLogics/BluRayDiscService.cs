@@ -8,15 +8,19 @@ namespace BusinessLogic.BusinessLogics;
 
 public class BluRayDiscService : DiscCrudService<BluRayDiscReqDto, BluRayDiscResDto>, IBluRayDiscService
 {
-    public BluRayDiscService(IBluRayDiscRepository repository) : base(repository)
-    {
-    }
+    #region constructors
+
+    public BluRayDiscService(IBluRayDiscRepository repository) : base(repository) { }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool IsCorrectReqDto(BluRayDiscReqDto reqDto)
     {
         #region Проверка пустых/нулевых значений обязательных полей
 
-        if (reqDto is null) return false;
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (string.IsNullOrEmpty(reqDto.Title)) return false;
         if (string.IsNullOrEmpty(reqDto.Publisher)) return false;
 
@@ -31,14 +35,14 @@ public class BluRayDiscService : DiscCrudService<BluRayDiscReqDto, BluRayDiscRes
         if (reqDto.Publisher.Length < PublisherMinLength || reqDto.Publisher.Length > PublisherMaxLength) return false;
         if (!string.IsNullOrEmpty(reqDto.Info) &&
             (reqDto.Info.Length < InfoMinLength || reqDto.Info.Length > InfoMaxLength)) return false;
-        if (!string.IsNullOrEmpty(reqDto.SystemRequirements) &&
-            (reqDto.SystemRequirements.Length < SystemRequirementsMinLength ||
-             reqDto.SystemRequirements.Length > SystemRequirementsMaxLength)) return false;
+        return string.IsNullOrEmpty(reqDto.SystemRequirements) ||
+               (reqDto.SystemRequirements.Length >= SystemRequirementsMinLength
+                && reqDto.SystemRequirements.Length <= SystemRequirementsMaxLength);
 
         #endregion
-
-        return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности BluRayDisc
 

@@ -27,7 +27,7 @@ public class SellDebugRepository : ISellRepository
         return _sells;
     }
 
-    public SellResDto Insert(SellReqDto reqDto)
+    public int Insert(SellReqDto reqDto)
     {
         throw new NotImplementedException();
     }

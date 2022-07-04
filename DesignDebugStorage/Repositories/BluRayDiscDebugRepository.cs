@@ -16,7 +16,7 @@ public class BluRayDiscDebugRepository : IBluRayDiscRepository
         Publisher = $"Издатель - {i}"
     });
 
-    public BluRayDiscResDto GetById(int id)
+    public BluRayDiscResDto? GetById(int id)
     {
         throw new NotImplementedException();
     }
@@ -26,7 +26,7 @@ public class BluRayDiscDebugRepository : IBluRayDiscRepository
         return _discs.ToList();
     }
 
-    public BluRayDiscResDto Insert(BluRayDiscReqDto reqDto)
+    public int Insert(BluRayDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
@@ -36,7 +36,7 @@ public class BluRayDiscDebugRepository : IBluRayDiscRepository
         throw new NotImplementedException();
     }
 
-    public BluRayDiscResDto Update(BluRayDiscReqDto reqDto)
+    public void Update(BluRayDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }

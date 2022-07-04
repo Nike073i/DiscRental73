@@ -8,33 +8,38 @@ namespace BusinessLogic.BusinessLogics;
 
 public class EmployeeService : PersonCrudService<EmployeeReqDto, EmployeeResDto>, IEmployeeService
 {
-    public EmployeeService(IEmployeeRepository repository) : base(repository)
-    {
-    }
+    #region constructors
+
+    public EmployeeService(IEmployeeRepository repository) : base(repository) { }
+
+    #endregion
+
+    #region public methods
 
     public EmployeeResDto? Authorization(string contactNumber, string password)
     {
         if (string.IsNullOrEmpty(password)) throw new Exception("Ошибка авторизации: Не указан пароль");
-
         try
         {
             var employee = GetByContactNumber(contactNumber);
             if (employee == null) throw new Exception("Ошибка авторизации: Пользователь не найден");
-            EmployeeResDto? currentEmployee = null;
-            if (password.ToLower().Equals(employee.Password.ToLower())) currentEmployee = employee;
-            return currentEmployee;
+            return (password.ToLower().Equals(employee.Password.ToLower())) ? employee : null;
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка авторизации:" + ex.Message);
+            throw new Exception("Ошибка авторизации:" + ex.Message, ex.InnerException);
         }
     }
+
+    #endregion
+
+    #region override template-methods
 
     protected override bool IsCorrectReqDto(EmployeeReqDto reqDto)
     {
         #region Проверка пустых/нулевых значений обязательных полей
 
-        if (reqDto is null) return false;
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (string.IsNullOrEmpty(reqDto.ContactNumber)) return false;
         if (string.IsNullOrEmpty(reqDto.FirstName)) return false;
         if (string.IsNullOrEmpty(reqDto.SecondName)) return false;
@@ -57,6 +62,8 @@ public class EmployeeService : PersonCrudService<EmployeeReqDto, EmployeeResDto>
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности Employee
 

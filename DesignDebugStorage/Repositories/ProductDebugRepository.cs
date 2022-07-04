@@ -28,12 +28,12 @@ public class ProductDebugRepository : IProductRepository
         return _products.ToList();
     }
 
-    public ProductResDto Insert(ProductReqDto reqDto)
+    public int Insert(ProductReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public ProductResDto Update(ProductReqDto reqDto)
+    public void Update(ProductReqDto reqDto)
     {
         throw new NotImplementedException();
     }

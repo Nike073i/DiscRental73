@@ -7,12 +7,22 @@ namespace BusinessLogic.BusinessLogics;
 
 public class ProductService : IProductService
 {
+    #region readonly fields
+
     private readonly IProductRepository _Repository;
+
+    #endregion
+
+    #region constructors
 
     public ProductService(IProductRepository repository)
     {
         _Repository = repository;
     }
+
+    #endregion
+
+    #region public methods
 
     public bool EditProductQuantity(int productId, int editQuantity)
     {
@@ -37,7 +47,7 @@ public class ProductService : IProductService
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
+            throw new Exception("Ошибка изменения количества продукции: " + ex.Message, ex.InnerException);
         }
     }
 
@@ -62,7 +72,7 @@ public class ProductService : IProductService
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
+            throw new Exception("Ошибка изменения количества продукции: " + ex.Message, ex.InnerException);
         }
     }
 
@@ -86,11 +96,11 @@ public class ProductService : IProductService
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
+            throw new Exception("Ошибка изменения количества продукции: " + ex.Message, ex.InnerException);
         }
     }
 
-    public ProductResDto Create(ProductReqDto reqDto)
+    public int Create(ProductReqDto reqDto)
     {
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
@@ -105,31 +115,54 @@ public class ProductService : IProductService
 
     public IEnumerable<ProductResDto> GetAll()
     {
-        var listItems = _Repository.GetAll();
-        return listItems;
+        try
+        {
+            return _Repository.GetAll();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка получения продуктов: " + ex.Message, ex.InnerException);
+        }
     }
 
     public IEnumerable<ProductResDto> GetAvailable()
     {
-        var listItems = _Repository.GetAll().Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
-        return listItems;
+        try
+        {
+            return _Repository.GetAll()
+                .Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Ошибка получения доступных продуктов : " + e.Message, e.InnerException);
+        }
+
     }
 
-    public ProductResDto GetById(int id)
+    public ProductResDto? GetById(int id)
     {
         try
         {
-            var item = _Repository.GetById(id);
-            return item;
+            return _Repository.GetById(id);
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка при получении записи по Id:" + ex.Message);
+            throw new Exception("Ошибка при получении записи по Id:" + ex.Message, ex.InnerException);
         }
     }
 
+    #endregion
+
+    #region override template-methods
+
     private bool IsCorrectReqDto(ProductReqDto reqDto)
     {
+        #region Проверка полученных аргументов
+
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
+
+        #endregion
+
         #region Проверка области допустимых значений
 
         if (reqDto.Cost < CostMinValue || reqDto.Cost > CostMaxValue) return false;
@@ -139,6 +172,8 @@ public class ProductService : IProductService
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности Product
 

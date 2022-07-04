@@ -7,26 +7,30 @@ namespace BusinessLogic.BusinessLogics.Base;
 public abstract class PersonCrudService<TReq, TRes> : CrudService<TReq, TRes>
     where TReq : PersonReqDto, new() where TRes : PersonResDto, new()
 {
-    protected PersonCrudService(IPersonRepository<TReq, TRes> repository) : base(repository)
-    {
-    }
+    #region constructors
 
-    public TRes GetByContactNumber(string contactNumber)
+    protected PersonCrudService(IPersonRepository<TReq, TRes> repository) : base(repository) { }
+
+    #endregion
+
+    #region public methods
+
+    public TRes? GetByContactNumber(string contactNumber)
     {
         if (string.IsNullOrEmpty(contactNumber))
             throw new Exception("Ошибка получения записи по номеру: Номер не указан");
-
         try
         {
-            var personRepos = Repository as IPersonRepository<TReq, TRes>;
-            var item = personRepos.GetByContactNumber(contactNumber);
-            return item;
+            if (Repository is not IPersonRepository<TReq, TRes> repos) throw new Exception("Неверный тип репозитория!");
+            return repos.GetByContactNumber(contactNumber);
         }
         catch (Exception ex)
         {
             throw new Exception("Ошибка при получении записи по номеру:" + ex.Message);
         }
     }
+
+    #endregion
 
     #region Ограничения для сущности Person
 

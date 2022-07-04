@@ -7,9 +7,9 @@ public interface IProductService
 {
     bool EditProductQuantity(int productId, int editQuantity);
     bool ChangeProductCost(int productId, decimal cost);
-    ProductResDto Create(ProductReqDto reqDto);
+    int Create(ProductReqDto reqDto);
     bool ChangeAvailable(int productId, bool isAvailable);
     IEnumerable<ProductResDto> GetAll();
     IEnumerable<ProductResDto> GetAvailable();
-    ProductResDto GetById(int id);
+    ProductResDto? GetById(int id);
 }

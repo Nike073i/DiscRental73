@@ -27,21 +27,11 @@ namespace DatabaseStorage.RepositoriesImpl.BusinessLogic.Base
 
         public IEnumerable<TRes> GetAll() => DbRepos.GetAll().Select(rec => Mapper.MapToRes(rec));
 
-        public TRes? Insert(TReq reqDto)
-        {
-            var entityFromReqDto = Mapper.MapToEntity(reqDto);
-            var newEntity = DbRepos.Insert(entityFromReqDto);
-            return newEntity is null ? null : Mapper.MapToRes(newEntity);
-        }
+        public int Insert(TReq reqDto) => DbRepos.Insert(Mapper.MapToEntity(reqDto));
 
         public bool DeleteById(int id) => DbRepos.DeleteById(id);
 
-        public TRes? Update(TReq reqDto)
-        {
-            var entityFromReqDto = Mapper.MapToEntity(reqDto);
-            var changedEntity = DbRepos.Update(entityFromReqDto);
-            return changedEntity is null ? null : Mapper.MapToRes(changedEntity);
-        }
+        public void Update(TReq reqDto) => DbRepos.Update(Mapper.MapToEntity(reqDto));
 
         #endregion
     }

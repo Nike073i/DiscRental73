@@ -51,7 +51,7 @@ namespace ConsoleTestData
                 .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DiscRental; Integrated Security = True; Multiple Active Result Sets = True;")
                 .Options;
 
-            var db = new DiscRentalDb();
+            var db = new DiscRentalDb(options);
 
             _clientRepository = new ClientRepository(db);
             cdDiscRepository = new CdDiscRepository(db);

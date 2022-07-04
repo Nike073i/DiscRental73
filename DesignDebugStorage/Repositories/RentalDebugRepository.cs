@@ -31,7 +31,7 @@ public class RentalDebugRepository : IRentalRepository
     }
 
 
-    public RentalResDto Insert(RentalReqDto reqDto)
+    public int Insert(RentalReqDto reqDto)
     {
         throw new NotImplementedException();
     }
@@ -41,7 +41,7 @@ public class RentalDebugRepository : IRentalRepository
         throw new NotImplementedException();
     }
 
-    public RentalResDto Update(RentalReqDto reqDto)
+    public void Update(RentalReqDto reqDto)
     {
         throw new NotImplementedException();
     }

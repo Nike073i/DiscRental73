@@ -23,7 +23,7 @@ public class DvdDiscDebugRepository : IDvdDiscRepository
 
     public IEnumerable<DvdDiscResDto> GetAll() => _discs.ToList();
 
-    public DvdDiscResDto Insert(DvdDiscReqDto reqDto)
+    public int Insert(DvdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
@@ -33,7 +33,7 @@ public class DvdDiscDebugRepository : IDvdDiscRepository
         throw new NotImplementedException();
     }
 
-    public DvdDiscResDto Update(DvdDiscReqDto reqDto)
+    public void Update(DvdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }

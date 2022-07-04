@@ -7,27 +7,38 @@ namespace BusinessLogic.BusinessLogics;
 
 public class RentalService : IRentalService
 {
-    protected readonly IProductService ProductService;
-    protected readonly IRentalRepository Repository;
+    #region readonly fields
+
+    private readonly IProductService _ProductService;
+    private readonly IRentalRepository _Repository;
+
+    #endregion
+
+    #region constuctors
 
     public RentalService(IRentalRepository repository, IProductService productService)
     {
-        Repository = repository;
-        ProductService = productService;
+        _Repository = repository;
+        _ProductService = productService;
     }
+
+    #endregion
+
+    #region public methods
 
     public bool IssueRental(RentalReqDto reqDto)
     {
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
         {
-            ProductService.EditProductQuantity(reqDto.ProductId, -1);
-            Repository.Insert(reqDto);
+            _ProductService.EditProductQuantity(reqDto.ProductId, -1);
+            _Repository.Insert(reqDto);
             return true;
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка при создании записи:" + ex.Message);
+            throw new Exception("Ошибка при создании записи:" + ex.Message, ex.InnerException);
         }
     }
 
@@ -36,7 +47,7 @@ public class RentalService : IRentalService
         if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         try
         {
-            var item = Repository.GetById(reqDto.RentalId);
+            var item = _Repository.GetById(reqDto.RentalId);
             if (item == null) throw new Exception("Ошибка возврата проката: Прокат не найден");
             var issueReturnReqDto = new RentalReqDto
             {
@@ -51,52 +62,81 @@ public class RentalService : IRentalService
             };
             if (!IsCorrectReqDto(issueReturnReqDto))
                 throw new Exception("Ошибка возврата проката: Модель имеет некорректное значение");
-            ProductService.EditProductQuantity(issueReturnReqDto.ProductId, 1);
-            Repository.Update(issueReturnReqDto);
+            _ProductService.EditProductQuantity(issueReturnReqDto.ProductId, 1);
+            _Repository.Update(issueReturnReqDto);
             return true;
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка изменения количества продукции: " + ex.Message);
+            throw new Exception("Ошибка изменения количества продукции: " + ex.Message, ex.InnerException);
         }
     }
 
     public IEnumerable<ProductResDto> GetProducts()
     {
-        return ProductService.GetAvailable();
+        try
+        {
+            return _ProductService.GetAvailable();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка получения продуктов : " + ex.Message, ex.InnerException);
+        }
     }
 
     public IEnumerable<RentalResDto> GetInRental()
     {
-        return Repository.GetAll().Where(rec => rec.ReturnSum is null);
+        try
+        {
+            return _Repository.GetAll().Where(rec => rec.ReturnSum is null);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка получения прокатных записей : " + ex.Message, ex.InnerException);
+        }
     }
 
     public IEnumerable<RentalResDto> GetAll()
     {
-        return Repository.GetAll();
+        try
+        {
+            return _Repository.GetAll();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
+        }
     }
 
     public bool CancelRental(RentalReqDto reqDto)
     {
         if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
         if (!reqDto.Id.HasValue) throw new Exception("Ошибка отмены проката: Id не указан");
-
         try
         {
-            var item = Repository.GetById(reqDto.Id.Value);
+            var item = _Repository.GetById(reqDto.Id.Value);
             if (item == null) throw new Exception("Ошибка отмены проката: Прокат не найден");
-            ProductService.EditProductQuantity(item.ProductId, 1);
-            return Repository.DeleteById(reqDto.Id.Value);
+            _ProductService.EditProductQuantity(item.ProductId, 1);
+            return _Repository.DeleteById(reqDto.Id.Value);
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка при отмене проката :" + ex.Message);
+            throw new Exception("Ошибка при отмене проката :" + ex.Message, ex.InnerException);
         }
     }
 
+    #endregion
+
+    #region override template-methods
+
     private bool IsCorrectReqDto(RentalReqDto reqDto)
     {
+        #region Проверка полученных параметров
+
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
+
+        #endregion
+
         #region Проверка области допустимых значений
 
         if (reqDto.DateOfIssue < DateMinValue || reqDto.DateOfIssue > DateMaxValue) return false;
@@ -111,6 +151,8 @@ public class RentalService : IRentalService
 
         return true;
     }
+
+    #endregion
 
     #region Ограничения для сущности Rental
 

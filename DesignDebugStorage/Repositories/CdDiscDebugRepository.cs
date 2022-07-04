@@ -23,17 +23,17 @@ public class CdDiscDebugRepository : ICdDiscRepository
 
     public IEnumerable<CdDiscResDto> GetAll() => _discs.ToList();
 
-    public CdDiscResDto GetById(int id)
+    public CdDiscResDto? GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public CdDiscResDto Insert(CdDiscReqDto reqDto)
+    public int Insert(CdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public CdDiscResDto Update(CdDiscReqDto reqDto)
+    public void Update(CdDiscReqDto reqDto)
     {
         throw new NotImplementedException();
     }
