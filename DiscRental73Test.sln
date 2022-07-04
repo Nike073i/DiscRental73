@@ -19,6 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C931D4F8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.TestProject", "Tests\DiscRental73.TestProject\DiscRental73.TestProject.csproj", "{DDC33777-ABB2-406C-88C6-35CBB1D98101}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B9E05A98-88FA-493F-A6E4-BC2F8A520107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.Interfaces", "DiscRental73.Interfaces\DiscRental73.Interfaces.csproj", "{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.Domain", "DiscRental73.Domain\DiscRental73.Domain.csproj", "{FA688364-6DCF-439B-8F55-573DCCB96856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +59,22 @@ Global
 		{DDC33777-ABB2-406C-88C6-35CBB1D98101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC33777-ABB2-406C-88C6-35CBB1D98101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC33777-ABB2-406C-88C6-35CBB1D98101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA688364-6DCF-439B-8F55-573DCCB96856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA688364-6DCF-439B-8F55-573DCCB96856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA688364-6DCF-439B-8F55-573DCCB96856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA688364-6DCF-439B-8F55-573DCCB96856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DDC33777-ABB2-406C-88C6-35CBB1D98101} = {C931D4F8-F91C-4DB6-848F-95A21DDE83D0}
+		{EED3AC8D-7DFC-4C6E-9B37-903EE15BB96C} = {B9E05A98-88FA-493F-A6E4-BC2F8A520107}
+		{FA688364-6DCF-439B-8F55-573DCCB96856} = {B9E05A98-88FA-493F-A6E4-BC2F8A520107}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7892FE36-9517-4C74-BE1E-B413722723BB}
