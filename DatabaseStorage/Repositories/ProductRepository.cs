@@ -15,27 +15,18 @@ internal class ProductRepository : DbRepository<Product>
 
     #region override template-methods
 
-    protected override Product? DoInsert(Product newProduct)
+    protected override int DoInsert(Product newProduct)
     {
-        var storedProduct = Set.FirstOrDefault(rec => rec.DiscId.Equals(newProduct.DiscId) && !rec.IsDeleted);
-        if (storedProduct is not null)
+        var storedProduct = Set.IgnoreQueryFilters().FirstOrDefault(rec => rec.DiscId.Equals(newProduct.DiscId));
+        if (storedProduct is not null && !storedProduct.IsDeleted)
             throw new Exception("Ошибка добавления записи: Диск уже привязан к другому продукту");
 
-        Product entity;
-        if (storedProduct is null)
-        {
-            entity = new Product();
-        }
-        else
-        {
-            entity = storedProduct;
-            entity.IsDeleted = false;
-        }
+        var entity = storedProduct ?? new Product();
+        entity.IsDeleted = false;
 
-        var insertEntity = Set.Add(entity).Entity;
-        if (insertEntity is null) return null;
+        Set.Add(entity);
         Db.SaveChanges();
-        return insertEntity;
+        return entity.Id;
     }
 
     protected override IEnumerable<Product> DoGetAll() => Set
@@ -45,8 +36,7 @@ internal class ProductRepository : DbRepository<Product>
         .Include(rec => rec.Rentals)
         .ThenInclude(rec => rec.Client)
         .Include(rec => rec.Rentals)
-        .ThenInclude(rec => rec.Employee)
-        .Where(entity => !entity.IsDeleted);
+        .ThenInclude(rec => rec.Employee);
 
     #endregion
 }

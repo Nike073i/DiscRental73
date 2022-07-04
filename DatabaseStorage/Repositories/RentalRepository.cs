@@ -19,8 +19,7 @@ internal class RentalRepository : DbRepository<Rental>
         .Include(rec => rec.Client)
         .Include(rec => rec.Employee)
         .Include(rec => rec.Product)
-        .ThenInclude(rec => rec.Disc)
-        .Where(entity => !entity.IsDeleted);
+        .ThenInclude(rec => rec.Disc);
 
     #endregion
 }

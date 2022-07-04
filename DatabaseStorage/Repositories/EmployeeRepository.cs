@@ -17,8 +17,7 @@ internal class EmployeeRepository : PersonRepository<Employee>
 
     protected override IEnumerable<Employee> DoGetAll() => Set
         .Include(rec => rec.Rentals)
-        .Include(rec => rec.Sells)
-        .Where(rec => !rec.IsDeleted);
+        .Include(rec => rec.Sells);
 
     #endregion
 }

@@ -18,8 +18,7 @@ internal class SellRepository : DbRepository<Sell>
     protected override IEnumerable<Sell> DoGetAll() => Set
         .Include(rec => rec.Employee)
         .Include(rec => rec.Product)
-        .ThenInclude(rec => rec.Disc)
-        .Where(entity => !entity.IsDeleted);
+        .ThenInclude(rec => rec.Disc);
 
     #endregion
 }
