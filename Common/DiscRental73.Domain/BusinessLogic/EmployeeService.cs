@@ -1,14 +1,15 @@
 ﻿using DiscRental73.Domain.BusinessLogic.Base;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class EmployeeService : PersonCrudService<EmployeeDto>
+    public class EmployeeService : PersonCrudService<EmployeeDto, EmployeeDetailDto>
     {
         #region constructors
 
-        public EmployeeService(IPersonRepository<EmployeeDto> repository) : base(repository) { }
+        public EmployeeService(IPersonRepository<EmployeeDto, EmployeeDetailDto> repository) : base(repository) { }
 
         #endregion
 
@@ -37,7 +38,6 @@ namespace DiscRental73.Domain.BusinessLogic
         {
             #region Проверка пустых/нулевых значений обязательных полей
 
-            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
             if (string.IsNullOrEmpty(reqDto.ContactNumber)) return false;
             if (string.IsNullOrEmpty(reqDto.FirstName)) return false;
             if (string.IsNullOrEmpty(reqDto.SecondName)) return false;

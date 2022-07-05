@@ -1,4 +1,5 @@
-﻿using DiscRental73.Domain.DtoModels.Dto;
+﻿using DiscRental73.Domain.DtoModels.DetailDto;
+using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.Domain.BusinessLogic;
@@ -8,13 +9,13 @@ public class SellService
     #region readonly fields
 
     private readonly ProductService _ProductService;
-    private readonly IRepository<SellDto> _Repository;
+    private readonly IRepository<SellDto, SellDetailDto> _Repository;
 
     #endregion
 
     #region constuctors
 
-    public SellService(IRepository<SellDto> repository, ProductService productService)
+    public SellService(IRepository<SellDto, SellDetailDto> repository, ProductService productService)
     {
         _Repository = repository;
         _ProductService = productService;
@@ -24,14 +25,14 @@ public class SellService
 
     #region public methods
 
-    public bool SellProduct(SellDto reqDto)
+    public int SellProduct(SellDto reqDto)
     {
+        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
         if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
         try
         {
             _ProductService.EditProductQuantity(reqDto.ProductId, -1);
-            _Repository.Insert(reqDto);
-            return true;
+            return _Repository.Insert(reqDto);
         }
         catch (Exception ex)
         {
@@ -51,17 +52,21 @@ public class SellService
         }
     }
 
-    public IEnumerable<ProductDto> GetProducts()
+    public IEnumerable<SellDetailDto> GetAllDetail()
     {
         try
         {
-            return _ProductService.GetAvailable();
+            return _Repository.GetAllDetail();
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка получения продуктов" + ex.Message, ex.InnerException);
+            throw new Exception("Ошибка получения продаж : " + ex.Message, ex.InnerException);
         }
     }
+
+    public IEnumerable<ProductDto> GetProducts() => _ProductService.GetAvailable();
+
+    public IEnumerable<ProductDetailDto> GetProductsDetail() => _ProductService.GetAvailableDetail();
 
     public bool CancelSell(SellDto reqDto)
     {
@@ -86,12 +91,6 @@ public class SellService
 
     private bool IsCorrectReqDto(SellDto reqDto)
     {
-        #region Проверка полученных параметров
-
-        if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-        #endregion
-
         #region Проверка области допустимых значений
 
         if (reqDto.DateOfSell < DateMinValue || reqDto.DateOfSell > DateMaxValue) return false;

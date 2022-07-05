@@ -18,7 +18,6 @@ namespace DiscRental73.Domain.BusinessLogic
         {
             #region Проверка пустых/нулевых значений обязательных полей
 
-            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
             if (string.IsNullOrEmpty(reqDto.Title)) return false;
             if (string.IsNullOrEmpty(reqDto.Publisher)) return false;
 

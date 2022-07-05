@@ -1,4 +1,5 @@
-﻿using DiscRental73.Domain.DtoModels.Dto;
+﻿using DiscRental73.Domain.DtoModels.DetailDto;
+using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.Domain.BusinessLogic
@@ -7,13 +8,13 @@ namespace DiscRental73.Domain.BusinessLogic
     {
         #region readonly fields
 
-        private readonly IRepository<ProductDto> _Repository;
+        private readonly IRepository<ProductDto, ProductDetailDto> _Repository;
 
         #endregion
 
         #region constructors
 
-        public ProductService(IRepository<ProductDto> repository)
+        public ProductService(IRepository<ProductDto, ProductDetailDto> repository)
         {
             _Repository = repository;
         }
@@ -100,6 +101,7 @@ namespace DiscRental73.Domain.BusinessLogic
 
         public int Create(ProductDto reqDto)
         {
+            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
             if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
             try
             {
@@ -123,19 +125,25 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
-        public IEnumerable<ProductDto> GetAvailable()
+        public IEnumerable<ProductDetailDto> GetAllDetail()
         {
             try
             {
-                return _Repository.GetAll()
-                    .Where(rec => rec.IsAvailable && rec.Quantity >= AvailableQuantityMinValue);
+                return _Repository.GetAllDetail();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception("Ошибка получения доступных продуктов : " + e.Message, e.InnerException);
+                throw new Exception("Ошибка получения продуктов: " + ex.Message, ex.InnerException);
             }
-
         }
+
+        public IEnumerable<ProductDto> GetAvailable() => GetAll()
+            .Where(rec => rec.IsAvailable
+            && rec.Quantity >= AvailableQuantityMinValue);
+
+        public IEnumerable<ProductDetailDto> GetAvailableDetail() => GetAllDetail()
+            .Where(rec => rec.IsAvailable
+                          && rec.Quantity >= AvailableQuantityMinValue);
 
         public ProductDto? GetById(int id)
         {
@@ -149,18 +157,24 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
+        public ProductDetailDto? GetByIdDetail(int id)
+        {
+            try
+            {
+                return _Repository.GetByIdDetail(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message, ex.InnerException);
+            }
+        }
+
         #endregion
 
         #region override template-methods
 
         private bool IsCorrectReqDto(ProductDto reqDto)
         {
-            #region Проверка полученных аргументов
-
-            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-            #endregion
-
             #region Проверка области допустимых значений
 
             if (reqDto.Cost < CostMinValue || reqDto.Cost > CostMaxValue) return false;

@@ -1,4 +1,5 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
+using DiscRental73.Interfaces.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.Domain.BusinessLogic.Base
@@ -49,6 +50,7 @@ namespace DiscRental73.Domain.BusinessLogic.Base
 
         public int Save(TDto reqDto)
         {
+            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
             if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при сохранении записи: модель некорректна");
             try
             {
@@ -84,6 +86,54 @@ namespace DiscRental73.Domain.BusinessLogic.Base
         /// <param name="reqDto">Модель для сохранения</param>
         /// <returns>bool - Результат валидации</returns>
         protected abstract bool IsCorrectReqDto(TDto reqDto);
+
+        #endregion
+    }
+
+    public abstract class CrudService<TDto, TDetailDto> : CrudService<TDto>
+        where TDto : DtoBase
+        where TDetailDto : DtoBase, IDetailDto
+    {
+        #region readonly fields
+
+        protected new readonly IRepository<TDto, TDetailDto> Repository;
+
+        #endregion
+
+        #region constructors
+
+        protected CrudService(IRepository<TDto, TDetailDto> repository) : base(repository)
+        {
+            Repository = repository;
+        }
+
+        #endregion
+
+        #region public methods
+
+        public TDetailDto? GetByIdDetail(int id)
+        {
+            try
+            {
+                return Repository.GetByIdDetail(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message, ex.InnerException);
+            }
+        }
+
+        public IEnumerable<TDetailDto> GetAllDetail()
+        {
+            try
+            {
+                return Repository.GetAllDetail();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записей:" + ex.Message, ex.InnerException);
+            }
+        }
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using DiscRental73.Domain.DtoModels.Dto;
+﻿using DiscRental73.Domain.DtoModels.DetailDto;
+using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.Domain.BusinessLogic
@@ -8,13 +9,13 @@ namespace DiscRental73.Domain.BusinessLogic
         #region readonly fields
 
         private readonly ProductService _ProductService;
-        private readonly IRepository<RentalDto> _Repository;
+        private readonly IRepository<RentalDto, RentalDetailDto> _Repository;
 
         #endregion
 
         #region constuctors
 
-        public RentalService(IRepository<RentalDto> repository, ProductService productService)
+        public RentalService(IRepository<RentalDto, RentalDetailDto> repository, ProductService productService)
         {
             _Repository = repository;
             _ProductService = productService;
@@ -24,15 +25,14 @@ namespace DiscRental73.Domain.BusinessLogic
 
         #region public methods
 
-        public bool IssueRental(RentalDto reqDto)
+        public int IssueRental(RentalDto reqDto)
         {
             if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
             if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при создании записи: модель некорректна");
             try
             {
                 _ProductService.EditProductQuantity(reqDto.ProductId, -1);
-                _Repository.Insert(reqDto);
-                return true;
+                return _Repository.Insert(reqDto);
             }
             catch (Exception ex)
             {
@@ -42,10 +42,11 @@ namespace DiscRental73.Domain.BusinessLogic
 
         public bool IssueReturn(int rentalId, decimal returnSum)
         {
+            if (!rentalId.Equals(default)) throw new Exception("Ошибка возврата проката: Id не указан");
             try
             {
                 var item = _Repository.GetById(rentalId);
-                if (item == null) throw new Exception("Ошибка возврата проката: Прокат не найден");
+                if (item is null) throw new Exception("Ошибка возврата проката: Прокат не найден");
                 var issueReturnReqDto = new RentalDto
                 {
                     Id = item.Id,
@@ -69,35 +70,32 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts()
-        {
-            try
-            {
-                return _ProductService.GetAvailable();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения продуктов : " + ex.Message, ex.InnerException);
-            }
-        }
+        public IEnumerable<ProductDto> GetProducts() => _ProductService.GetAvailable();
 
-        public IEnumerable<RentalDto> GetInRental()
-        {
-            try
-            {
-                return _Repository.GetAll().Where(rec => rec.ReturnSum is null);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения прокатных записей : " + ex.Message, ex.InnerException);
-            }
-        }
+        public IEnumerable<ProductDetailDto> GetProductsDetail() => _ProductService.GetAvailableDetail();
+
+        public IEnumerable<RentalDto> GetInRental() => GetAll()
+            .Where(rec => rec.ReturnSum is null);
+        public IEnumerable<RentalDetailDto> GetInRentalDetail() => GetAllDetail()
+            .Where(rec => rec.ReturnSum is null);
 
         public IEnumerable<RentalDto> GetAll()
         {
             try
             {
                 return _Repository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
+            }
+        }
+
+        public IEnumerable<RentalDetailDto> GetAllDetail()
+        {
+            try
+            {
+                return _Repository.GetAllDetail();
             }
             catch (Exception ex)
             {
@@ -112,7 +110,7 @@ namespace DiscRental73.Domain.BusinessLogic
             try
             {
                 var item = _Repository.GetById(reqDto.Id);
-                if (item == null) throw new Exception("Ошибка отмены проката: Прокат не найден");
+                if (item is null) throw new Exception("Ошибка отмены проката: Прокат не найден");
                 _ProductService.EditProductQuantity(item.ProductId, 1);
                 return _Repository.DeleteById(reqDto.Id);
             }
@@ -128,12 +126,6 @@ namespace DiscRental73.Domain.BusinessLogic
 
         private bool IsCorrectReqDto(RentalDto reqDto)
         {
-            #region Проверка полученных параметров
-
-            if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
-
-            #endregion
-
             #region Проверка области допустимых значений
 
             if (reqDto.DateOfIssue < DateMinValue || reqDto.DateOfIssue > DateMaxValue) return false;

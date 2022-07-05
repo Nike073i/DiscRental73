@@ -1,14 +1,25 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
+using DiscRental73.Interfaces.Dto;
 using DiscRental73.Interfaces.Repositories;
 
 namespace DiscRental73.Domain.BusinessLogic.Base
 {
-    public abstract class PersonCrudService<TDto> : CrudService<TDto>
+    public abstract class PersonCrudService<TDto, TDetailDto> : CrudService<TDto, TDetailDto>
         where TDto : PersonDto
+        where TDetailDto : PersonDto, IDetailDto
     {
+        #region readonly fields
+
+        protected new IPersonRepository<TDto, TDetailDto> Repository;
+
+        #endregion
+
         #region constructors
 
-        protected PersonCrudService(IPersonRepository<TDto> repository) : base(repository) { }
+        protected PersonCrudService(IPersonRepository<TDto, TDetailDto> repository) : base(repository)
+        {
+            Repository = repository;
+        }
 
         #endregion
 
@@ -17,11 +28,24 @@ namespace DiscRental73.Domain.BusinessLogic.Base
         public TDto? GetByContactNumber(string contactNumber)
         {
             if (string.IsNullOrEmpty(contactNumber))
-                throw new Exception("Ошибка получения записи по номеру: Номер не указан");
+                throw new ArgumentNullException(nameof(contactNumber), "Ошибка получения записи по номеру: Номер не указан");
             try
             {
-                if (Repository is not IPersonRepository<TDto> repos) throw new Exception("Неверный тип репозитория!");
-                return repos.GetByContactNumber(contactNumber);
+                return Repository.GetByContactNumber(contactNumber);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по номеру:" + ex.Message);
+            }
+        }
+
+        public TDetailDto? GetByContactNumberDetail(string contactNumber)
+        {
+            if (string.IsNullOrEmpty(contactNumber))
+                throw new ArgumentNullException(nameof(contactNumber), "Ошибка получения записи по номеру: Номер не указан");
+            try
+            {
+                return Repository.GetByContactNumberDetail(contactNumber);
             }
             catch (Exception ex)
             {
