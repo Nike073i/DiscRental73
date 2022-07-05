@@ -13,9 +13,22 @@ namespace DiscRental73.DAL.Repositories
 
         #endregion
 
-        #region override template-methods
+        #region override properties
 
-        protected override int DoInsert(Product newProduct)
+        protected override IQueryable<Product> Items => Set
+            .Include(rec => rec.Disc)
+            .Include(rec => rec.Sells)
+            .ThenInclude(rec => rec.Employee)
+            .Include(rec => rec.Rentals)
+            .ThenInclude(rec => rec.Client)
+            .Include(rec => rec.Rentals)
+            .ThenInclude(rec => rec.Employee);
+
+        #endregion
+
+        #region override methods
+
+        public override int Insert(Product newProduct)
         {
             var storedProduct = Set.IgnoreQueryFilters().FirstOrDefault(rec => rec.DiscId.Equals(newProduct.DiscId));
             if (storedProduct is not null && !storedProduct.IsDeleted)
@@ -24,19 +37,8 @@ namespace DiscRental73.DAL.Repositories
             var entity = storedProduct ?? new Product();
             entity.IsDeleted = false;
 
-            Set.Add(entity);
-            Db.SaveChanges();
-            return entity.Id;
+            return base.Insert(entity);
         }
-
-        protected override IEnumerable<Product> DoGetAll() => Set
-            .Include(rec => rec.Disc)
-            .Include(rec => rec.Sells)
-            .ThenInclude(rec => rec.Employee)
-            .Include(rec => rec.Rentals)
-            .ThenInclude(rec => rec.Client)
-            .Include(rec => rec.Rentals)
-            .ThenInclude(rec => rec.Employee);
 
         #endregion
     }

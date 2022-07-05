@@ -3,13 +3,14 @@ using DiscRental73.DAL.DomainRepositories.Mappers;
 using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
     public class ProductRepository : DbRepository<ProductDto, Product>,
-        IRepository<ProductDto>
+        IRepository<ProductDto, ProductDetailDto>
     {
         #region readonly fields
 
@@ -31,6 +32,20 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         internal override IDbMapper<ProductDto, Product> Mapper => _Mapper;
         internal override DAL.Repositories.ProductRepository DbRepos { get; }
+
+        #endregion
+
+        #region public methods
+
+        public ProductDetailDto? GetDetailById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductDetailDto> GetDetailAll()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }

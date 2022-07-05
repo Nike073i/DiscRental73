@@ -15,9 +15,9 @@ namespace DiscRental73.DAL.Repositories.Base
 
         #region override template-methods
 
-        protected override bool DoDeleteById(int id)
+        public override bool DeleteById(int id)
         {
-            var entity = Set.Find(id);
+            var entity = GetByIdLazy(id);
             if (entity is null) throw new Exception("Ошибка удаления по Id: Запись не найдена");
 
             using var transaction = Db.Database.BeginTransaction();

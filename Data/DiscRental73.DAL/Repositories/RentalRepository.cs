@@ -13,9 +13,9 @@ namespace DiscRental73.DAL.Repositories
 
         #endregion
 
-        #region override template-methods
+        #region override properties
 
-        protected override IEnumerable<Rental> DoGetAll() => Set
+        protected override IQueryable<Rental> Items => Set
             .Include(rec => rec.Client)
             .Include(rec => rec.Employee)
             .Include(rec => rec.Product)

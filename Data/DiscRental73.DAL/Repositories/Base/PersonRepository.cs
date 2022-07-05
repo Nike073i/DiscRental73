@@ -1,6 +1,5 @@
 ﻿using DiscRental73.DAL.Context;
 using DiscRental73.DAL.Entities.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace DiscRental73.DAL.Repositories.Base
 {
@@ -13,50 +12,37 @@ namespace DiscRental73.DAL.Repositories.Base
 
         #endregion
 
-        #region methods
+        #region public methods
 
-        public virtual T? GetByContactNumber(string contactNumber)
-        {
-            try
-            {
-                return Set.FirstOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения записи по н.телефона : " + ex.Message, ex.InnerException);
-            }
-        }
+        public T? GetByContactNumber(string contactNumber) => Items
+            .FirstOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
+
+        public T? GetByContactNumberLazy(string contactNumber) => Set
+            .FirstOrDefault(rec => rec.ContactNumber.Equals(contactNumber));
 
         #endregion
 
         #region private methods
 
-        private bool IsAvailableToInsert(T entity) =>
+        private bool IsUniqueInsert(T entity) =>
             !Db.Persons.Any(rec => rec.ContactNumber.Equals(entity.ContactNumber) && !rec.Id.Equals(entity.Id));
 
         #endregion
 
-        #region override template-methods
+        #region override methods
 
-        protected override void DoUpdate(T newEntity)
+        public override void Update(T newEntity)
         {
-            if (!Set.Any(rec => rec.Id.Equals(newEntity.Id)))
-                throw new Exception("Ошибка обновления записи: Запись не найдена");
-
-            if (!IsAvailableToInsert(newEntity))
+            if (!IsUniqueInsert(newEntity))
                 throw new Exception("Ошибка обновления записи: Номер уже занят");
-
-            Set.Update(newEntity).State = EntityState.Modified;
-            Db.SaveChanges();
+            base.Update(newEntity);
         }
 
-        protected override int DoInsert(T newEntity)
+        public override int Insert(T newEntity)
         {
-            if (!IsAvailableToInsert(newEntity)) throw new Exception("Ошибка добавления записи: Номер уже занят");
-
-            Set.Add(newEntity);
-            Db.SaveChanges();
-            return newEntity.Id;
+            if (!IsUniqueInsert(newEntity))
+                throw new Exception("Ошибка добавления записи: Номер уже занят");
+            return base.Insert(newEntity);
         }
 
         #endregion

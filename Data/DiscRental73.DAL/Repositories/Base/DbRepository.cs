@@ -14,6 +14,12 @@ namespace DiscRental73.DAL.Repositories.Base
 
         #endregion
 
+        #region properties
+
+        protected virtual IQueryable<T> Items => Set;
+
+        #endregion
+
         #region constructors
 
         protected DbRepository(DiscRentalDb db)
@@ -26,84 +32,26 @@ namespace DiscRental73.DAL.Repositories.Base
 
         #region public methods
 
-        public IEnumerable<T> GetAll()
+        public bool Exist(int id) => Set.Find(id) is not null;
+
+        public IEnumerable<T> GetAllLazy() => Set.ToList();
+
+        public IEnumerable<T> GetAll() => Items.ToList();
+
+        public T? GetById(int id) => Items.FirstOrDefault(rec => rec.Id.Equals(id));
+
+        public T? GetByIdLazy(int id) => Set.Find(id);
+
+        public virtual int Insert(T entity)
         {
-            try
-            {
-                return DoGetAll();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения записей : " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public T? GetById(int id)
-        {
-            try
-            {
-                return DoGetById(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения записи : " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public int Insert(T entity)
-        {
-            try
-            {
-                return DoInsert(entity);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка добавления записи: " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public bool DeleteById(int id)
-        {
-            try
-            {
-                return DoDeleteById(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка удаления по Id: " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public void Update(T entity)
-        {
-            try
-            {
-                DoUpdate(entity);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка обновления записи: " + ex.Message, ex.InnerException);
-            }
-        }
-
-        #endregion
-
-        #region template-methods
-
-        protected virtual IEnumerable<T> DoGetAll() => Set;
-
-        protected virtual T? DoGetById(int id) => DoGetAll().AsQueryable().FirstOrDefault(rec => rec.Id.Equals(id));
-
-        protected virtual int DoInsert(T newEntity)
-        {
-            Set.Add(newEntity);
+            Set.Add(entity);
             Db.SaveChanges();
-            return newEntity.Id;
+            return entity.Id;
         }
 
-        protected virtual bool DoDeleteById(int id)
+        public virtual bool DeleteById(int id)
         {
-            var entity = Set.Find(id);
+            var entity = GetByIdLazy(id);
             if (entity is null) throw new Exception("Ошибка удаления по Id: Запись не найдена");
             entity.IsDeleted = true;
             Set.Update(entity).State = EntityState.Modified;
@@ -111,11 +59,11 @@ namespace DiscRental73.DAL.Repositories.Base
             return true;
         }
 
-        protected virtual void DoUpdate(T newEntity)
+        public virtual void Update(T entity)
         {
-            if (!Set.Any(rec => rec.Id.Equals(newEntity.Id)))
+            if (!Exist(entity.Id))
                 throw new Exception("Ошибка обновления записи: Запись не найдена");
-            Set.Update(newEntity).State = EntityState.Modified;
+            Set.Update(entity).State = EntityState.Modified;
             Db.SaveChanges();
         }
 
