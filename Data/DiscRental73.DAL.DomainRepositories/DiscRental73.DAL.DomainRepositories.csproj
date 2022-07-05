@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiscRental73.DAL\DiscRental73.DAL.csproj" />
+    <ProjectReference Include="..\..\Common\DiscRental73.Domain\DiscRental73.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\DiscRental73.Enums\DiscRental73.Enums.csproj" />
+    <ProjectReference Include="..\..\Common\DiscRental73.Interfaces\DiscRental73.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

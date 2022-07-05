@@ -15,6 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DiscRental73.Enums\DiscRental73.Enums.csproj" />
+	  <ProjectReference Include="..\..\Common\DiscRental73.Domain\DiscRental73.Domain.csproj" />
 	</ItemGroup>
 </Project>
