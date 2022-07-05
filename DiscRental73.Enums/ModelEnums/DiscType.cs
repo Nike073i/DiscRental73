@@ -1,4 +1,4 @@
-﻿namespace DiscRental73.Domain.Enums
+﻿namespace DiscRental73.Enums.ModelEnums
 {
     public enum DiscType
     {

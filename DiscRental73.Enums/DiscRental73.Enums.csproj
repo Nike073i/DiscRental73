@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DiscRental73.Enums\DiscRental73.Enums.csproj" />
-    <ProjectReference Include="..\DiscRental73.Interfaces\DiscRental73.Interfaces.csproj" />
-  </ItemGroup>
-
 </Project>

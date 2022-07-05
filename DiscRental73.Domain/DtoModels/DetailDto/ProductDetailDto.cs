@@ -1,5 +1,5 @@
 ﻿using DiscRental73.Domain.DtoModels.Dto;
-using DiscRental73.Domain.Enums;
+using DiscRental73.Enums.ModelEnums;
 
 namespace DiscRental73.Domain.DtoModels.DetailDto
 {
