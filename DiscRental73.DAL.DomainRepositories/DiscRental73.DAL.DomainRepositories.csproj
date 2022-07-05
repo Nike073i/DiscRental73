@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscRental73.DAL\DiscRental73.DAL.csproj" />
+    <ProjectReference Include="..\DiscRental73.Domain\DiscRental73.Domain.csproj" />
+    <ProjectReference Include="..\DiscRental73.Enums\DiscRental73.Enums.csproj" />
+    <ProjectReference Include="..\DiscRental73.Interfaces\DiscRental73.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
