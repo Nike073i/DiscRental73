@@ -3,17 +3,18 @@ using DiscRental73.DAL.DomainRepositories.Mappers;
 using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
-    public class SellRepository : DbRepository<SellDto, Sell>,
-        IRepository<SellDto>
+    public class SellRepository : DbRepository<SellDto, SellDetailDto, Sell>,
+        IRepository<SellDto, SellDetailDto>
     {
         #region readonly fields
 
-        private readonly SellMapper _Mapper;
+        private readonly IDbMapper<SellDto, SellDetailDto, Sell> _DetailMapper;
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         public SellRepository(DiscRentalDb db)
         {
-            _Mapper = new SellMapper();
+            _DetailMapper = new SellMapper();
             DbRepos = new DAL.Repositories.SellRepository(db);
         }
 
@@ -29,7 +30,8 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<SellDto, Sell> Mapper => _Mapper;
+        internal override IDbMapper<SellDto, Sell> Mapper => _DetailMapper;
+        internal override IDbMapper<SellDto, SellDetailDto, Sell> DetailMapper => _DetailMapper;
         internal override DAL.Repositories.SellRepository DbRepos { get; }
 
         #endregion

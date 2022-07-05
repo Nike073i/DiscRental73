@@ -1,10 +1,11 @@
 ﻿using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.Entities;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73.DAL.DomainRepositories.Mappers
 {
-    public class RentalMapper : IDbMapper<RentalDto, Rental>
+    public class RentalMapper : IDbMapper<RentalDto, RentalDetailDto, Rental>
     {
         public Rental MapToEntity(in RentalDto reqDto)
         {
@@ -27,18 +28,28 @@ namespace DiscRental73.DAL.DomainRepositories.Mappers
             var resDto = new RentalDto
             {
                 Id = entity.Id,
-                //ClientCNumber = entity.Client.ContactNumber,
                 DateOfIssue = entity.DateOfIssue,
                 DateOfRental = entity.DateOfRental,
                 PledgeSum = entity.PledgeSum,
                 ReturnSum = entity.ReturnSum,
-                //DiscTitle = entity.Product.Disc.Title,
-                //EmployeeFName = string.Concat(entity.Employee.SecondName, " ", entity.Employee.FirstName),
                 ProductId = entity.ProductId,
                 ClientId = entity.ClientId,
                 EmployeeId = entity.EmployeeId
             };
             return resDto;
+        }
+
+        public RentalDetailDto MapToDetailDto(in Rental entity)
+        {
+            if (entity.Product is null) throw new ArgumentNullException(nameof(entity.Product));
+            if (entity.Employee is null) throw new ArgumentNullException(nameof(entity.Employee));
+            if (entity.Client is null) throw new ArgumentNullException(nameof(entity.Client));
+            var dto = this.MapToDto(entity);
+            if (dto is not RentalDetailDto detailDto) throw new InvalidCastException("Ошибка приведения типа dto к detailDto");
+            detailDto.ClientCNumber = entity.Client.ContactNumber;
+            detailDto.DiscTitle = entity.Product.Disc.Title;
+            detailDto.EmployeeFName = string.Concat(entity.Employee.SecondName, " ", entity.Employee.FirstName);
+            return detailDto;
         }
     }
 }

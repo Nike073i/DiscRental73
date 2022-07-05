@@ -3,17 +3,18 @@ using DiscRental73.DAL.DomainRepositories.Mappers;
 using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
-    public class EmployeeRepository : DbRepository<EmployeeDto, Employee>,
-        IPersonRepository<EmployeeDto>
+    public class EmployeeRepository : DbRepository<EmployeeDto, EmployeeDetailDto, Employee>,
+        IPersonRepository<EmployeeDto, EmployeeDetailDto>
     {
         #region readonly fields
 
-        private readonly EmployeeMapper _Mapper;
+        private readonly IDbMapper<EmployeeDto, EmployeeDetailDto, Employee> _DetailMapper;
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         public EmployeeRepository(DiscRentalDb db)
         {
-            _Mapper = new EmployeeMapper();
+            _DetailMapper = new EmployeeMapper();
             DbRepos = new DAL.Repositories.EmployeeRepository(db);
         }
 
@@ -29,7 +30,8 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<EmployeeDto, Employee> Mapper => _Mapper;
+        internal override IDbMapper<EmployeeDto, Employee> Mapper => _DetailMapper;
+        internal override IDbMapper<EmployeeDto, EmployeeDetailDto, Employee> DetailMapper => _DetailMapper;
         internal override DAL.Repositories.EmployeeRepository DbRepos { get; }
 
         #endregion
@@ -38,8 +40,14 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         public EmployeeDto? GetByContactNumber(string contactNumber)
         {
-            var entity = DbRepos.GetByContactNumber(contactNumber);
+            var entity = DbRepos.GetByContactNumberLazy(contactNumber);
             return entity is null ? null : Mapper.MapToDto(entity);
+        }
+
+        public EmployeeDetailDto? GetByContactNumberDetail(string contactNumber)
+        {
+            var entity = DbRepos.GetByContactNumber(contactNumber);
+            return entity is null ? null : DetailMapper.MapToDetailDto(entity);
         }
 
         #endregion

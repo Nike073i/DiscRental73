@@ -13,6 +13,6 @@ namespace DiscRental73.Interfaces.Repositories
         where TDto : IDto
         where TDetailDto : IDto
     {
-        TDetailDto? GetByContactNumber(string contactNumber);
+        TDetailDto? GetByContactNumberDetail(string contactNumber);
     }
 }

@@ -3,17 +3,18 @@ using DiscRental73.DAL.DomainRepositories.Mappers;
 using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
+using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
-    public class ClientRepository : DbRepository<ClientDto, Client>,
-        IPersonRepository<ClientDto>
+    public class ClientRepository : DbRepository<ClientDto, ClientDetailDto, Client>,
+        IPersonRepository<ClientDto, ClientDetailDto>
     {
         #region readonly fields
 
-        private readonly ClientMapper _Mapper;
+        private readonly IDbMapper<ClientDto, ClientDetailDto, Client> _DetailMapper;
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         public ClientRepository(DiscRentalDb db)
         {
-            _Mapper = new ClientMapper();
+            _DetailMapper = new ClientMapper();
             DbRepos = new DAL.Repositories.ClientRepository(db);
         }
 
@@ -29,16 +30,24 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<ClientDto, Client> Mapper => _Mapper;
+        internal override IDbMapper<ClientDto, Client> Mapper => _DetailMapper;
+        internal override IDbMapper<ClientDto, ClientDetailDto, Client> DetailMapper => _DetailMapper;
         internal override DAL.Repositories.ClientRepository DbRepos { get; }
 
         #endregion
 
         #region public methods
+
         public ClientDto? GetByContactNumber(string contactNumber)
         {
-            var entity = DbRepos.GetByContactNumber(contactNumber);
+            var entity = DbRepos.GetByContactNumberLazy(contactNumber);
             return entity is null ? null : Mapper.MapToDto(entity);
+        }
+
+        public ClientDetailDto? GetByContactNumberDetail(string contactNumber)
+        {
+            var entity = DbRepos.GetByContactNumber(contactNumber);
+            return entity is null ? null : DetailMapper.MapToDetailDto(entity);
         }
 
         #endregion

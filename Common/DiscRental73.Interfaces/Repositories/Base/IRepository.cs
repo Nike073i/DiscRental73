@@ -19,7 +19,7 @@ namespace DiscRental73.Interfaces.Repositories.Base
         where TDto : IDto
         where TDetailDto : IDto
     {
-        TDetailDto? GetDetailById(int id);
-        IEnumerable<TDetailDto> GetDetailAll();
+        TDetailDto? GetByIdDetail(int id);
+        IEnumerable<TDetailDto> GetAllDetail();
     }
 }
