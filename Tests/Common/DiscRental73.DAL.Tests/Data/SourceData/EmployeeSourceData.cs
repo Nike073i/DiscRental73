@@ -1,9 +1,9 @@
-﻿using DiscRental73.DAL.Entities;
-using DiscRental73.Enums.ModelEnums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using DiscRental73.DAL.Entities;
+using DiscRental73.Enums.ModelEnums;
 
-namespace DiscRental73.DAL.Tests.Data;
+namespace DiscRental73.DAL.Tests.Data.SourceData;
 
 internal class EmployeeSourceData
 {

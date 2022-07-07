@@ -1,8 +1,8 @@
-﻿using DiscRental73.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using DiscRental73.DAL.Entities;
 
-namespace DiscRental73.DAL.Tests.Data
+namespace DiscRental73.DAL.Tests.Data.SourceData
 {
     internal class ProductSourceData
     {

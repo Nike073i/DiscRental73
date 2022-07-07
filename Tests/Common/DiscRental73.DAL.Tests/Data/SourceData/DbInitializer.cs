@@ -1,6 +1,6 @@
 ﻿using DiscRental73.DAL.Context;
 
-namespace DiscRental73.DAL.Tests.Data
+namespace DiscRental73.DAL.Tests.Data.SourceData
 {
     internal class DbInitializer
     {

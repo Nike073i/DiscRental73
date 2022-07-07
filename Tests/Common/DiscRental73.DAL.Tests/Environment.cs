@@ -9,11 +9,7 @@ namespace DiscRental73.DAL.Tests
         [OneTimeSetUp]
         public void OnStart()
         {
-            // Подключение к тестовой БД (Пересоздание, в случае отсутствия и инициализация БД тестовыми значениями)
-            // [DataTestMethod]
-            // [DynamicData(nameof(ProjectTestData), DynamicDataSourceType.Method)]
-            //
-            var test = DatabaseContext.Instance;
+
         }
 
         [OneTimeTearDown]

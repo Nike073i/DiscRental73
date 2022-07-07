@@ -1,5 +1,5 @@
 ﻿using DiscRental73.DAL.Context;
-using DiscRental73.DAL.Tests.Data;
+using DiscRental73.DAL.Tests.Data.SourceData;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiscRental73.DAL.Tests.Context
