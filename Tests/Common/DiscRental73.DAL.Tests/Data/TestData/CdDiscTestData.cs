@@ -1,4 +1,8 @@
-﻿using DiscRental73.DAL.Tests.Data.SourceData;
+﻿using DiscRental73.DAL.Entities;
+using DiscRental73.DAL.Tests.Data.SourceData;
+using DiscRental73.Enums.ModelEnums;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DiscRental73.DAL.Tests.Data.TestData
@@ -33,6 +37,79 @@ namespace DiscRental73.DAL.Tests.Data.TestData
                 -1,
                 null
             },
+        };
+
+        public static object[] GetAllDataObjects =
+        {
+            CdDiscSourceData.GetCdDiscs()
+        };
+
+        public static object[] InsertBadData =
+        {
+            new object[]
+            {
+                new CdDisc(),
+                typeof(DbUpdateException)
+            },
+            new object[]
+            {
+                new CdDisc
+                {
+                    IsDeleted = true,
+                    DiscType = DiscType.Cd,
+                    DateOfRelease = DateTime.Now,
+                    Performer = "Тестовый диск. Исполнитель",
+                    Genre = "Тестовый диск. Жанр",
+                    NumberOfTracks = 100
+                },
+                typeof(DbUpdateException)
+            },
+            new object[]
+            {
+                new CdDisc
+                {
+                    Id = 100,
+                    Title = "Тестовый диск. Название",
+                    IsDeleted = true,
+                    DiscType = DiscType.Cd,
+                    DateOfRelease = DateTime.Now,
+                    Performer = "Тестовый диск. Исполнитель",
+                    Genre = "Тестовый диск. Жанр",
+                    NumberOfTracks = 100
+                },
+                typeof(DbUpdateException)
+            }
+        };
+
+        public static object[] InsertCorrectData =
+        {
+            new CdDisc
+            {
+                IsDeleted = true,
+                Title = "Тестовый диск. Название1",
+                DiscType = DiscType.Cd,
+                DateOfRelease = DateTime.Now,
+                Performer = "Тестовый диск. Исполнитель1",
+                Genre = "Тестовый диск. Жанр1",
+                NumberOfTracks = 100
+            },
+            new CdDisc
+            {
+                IsDeleted = true,
+                Title = "Тестовый диск. Название2",
+                DiscType = DiscType.Cd,
+                DateOfRelease = DateTime.Now.AddDays(1),
+                Performer = "Тестовый диск. Исполнитель2",
+                NumberOfTracks = 200
+            },
+            new CdDisc
+            {
+                IsDeleted = true,
+                Title = "Тестовый диск. Название3",
+                DiscType = DiscType.Cd,
+                DateOfRelease = DateTime.Now.AddDays(2),
+                Performer = "Тестовый диск. Исполнитель3",
+            }
         };
     }
 }

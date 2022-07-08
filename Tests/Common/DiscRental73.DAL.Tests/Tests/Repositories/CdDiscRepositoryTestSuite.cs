@@ -4,7 +4,10 @@ using DiscRental73.DAL.Repositories;
 using DiscRental73.DAL.Tests.Context;
 using DiscRental73.DAL.Tests.Data.TestData;
 using NUnit.Framework;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DiscRental73.DAL.Tests.Tests.Repositories
 {
@@ -35,7 +38,13 @@ namespace DiscRental73.DAL.Tests.Tests.Repositories
                 if (ReferenceEquals(awaitValue, responseValue)) continue;
                 if (awaitValue is null || responseValue is null) return false;
                 if (propertyType.IsGenericType &&
-                    propertyType.GetGenericTypeDefinition() == typeof(ICollection<>)) continue;
+                    propertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                {
+                    var awaitCount = (awaitValue as ICollection)?.Count;
+                    var responseCount = (responseValue as ICollection)?.Count;
+                    if (awaitCount != responseCount) return false;
+                    continue;
+                }
                 if (!awaitValue.Equals(responseValue)) return false;
             }
 
@@ -46,6 +55,7 @@ namespace DiscRental73.DAL.Tests.Tests.Repositories
         #region Test TestGetById-method
 
         [TestCaseSource(typeof(CdDiscTestData), nameof(CdDiscTestData.GetByIdDataObjects))]
+        [Test]
         public void TestGetById(int id, CdDisc awaitData) =>
             Assert.IsTrue(IsEqualsEntities(awaitData, _Repository?.GetById(id)));
 
@@ -53,16 +63,48 @@ namespace DiscRental73.DAL.Tests.Tests.Repositories
 
         #region Test GetAll-method
 
+        [TestCaseSource(typeof(CdDiscTestData), nameof(CdDiscTestData.GetAllDataObjects))]
+        public void TestGetAll(CdDisc[]? awaitData)
+        {
+            var dataFromDb = _Repository?.GetAll();
+            if (ReferenceEquals(awaitData, dataFromDb)) Assert.Pass();
+            if (awaitData is null || dataFromDb is null)
+            {
+                Assert.Fail();
+                return;
+            }
 
+            var cdDiscs = dataFromDb.ToList();
+            if (cdDiscs.Count() != awaitData.Length)
+            {
+                Assert.Fail();
+                return;
+            }
+            for (var i = 0; i < cdDiscs.Count(); i++)
+            {
+                Assert.IsTrue(IsEqualsEntities(awaitData[i], cdDiscs[i]));
+            }
+        }
 
         #endregion
 
         #region Test Insert-method
 
+        [TestCaseSource(typeof(CdDiscTestData), nameof(CdDiscTestData.InsertCorrectData))]
+        public void TestInsertCorrect(CdDisc newEntity)
+        {
+            var id = _Repository?.Insert(newEntity);
+            Assert.IsTrue(id != default(int));
+        }
 
+        [TestCaseSource(typeof(CdDiscTestData), nameof(CdDiscTestData.InsertBadData))]
+        public void TestInsertBadModel(CdDisc badModel, Type exceptionType)
+        {
+            var ex = Assert.Throws(exceptionType, () => _Repository?.Insert(badModel));
+            Assert.IsTrue(ex is not null);
+        }
 
         #endregion
-
 
         #region Test Delete-method
 
@@ -70,9 +112,12 @@ namespace DiscRental73.DAL.Tests.Tests.Repositories
 
         #endregion
 
+        //public void TestDeleteById(int id, bool awaitData)
+        //{
+
+        //}
 
         #region Test Update-method
-
 
 
         #endregion
