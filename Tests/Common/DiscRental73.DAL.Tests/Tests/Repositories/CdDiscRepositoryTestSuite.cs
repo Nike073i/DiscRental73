@@ -1,10 +1,10 @@
 ﻿using DiscRental73.DAL.Context;
+using DiscRental73.DAL.Entities;
 using DiscRental73.DAL.Repositories;
 using DiscRental73.DAL.Tests.Context;
+using DiscRental73.DAL.Tests.Data.TestData;
 using NUnit.Framework;
 using System.Collections.Generic;
-using DiscRental73.DAL.Entities;
-using DiscRental73.DAL.Tests.Data.TestData;
 
 namespace DiscRental73.DAL.Tests.Tests.Repositories
 {
@@ -43,14 +43,11 @@ namespace DiscRental73.DAL.Tests.Tests.Repositories
         }
 
 
-        #region Test GetById-method
+        #region Test TestGetById-method
 
-        [TestCaseSource(typeof(CdDiscTestData))]
-        public void GetById(int id, CdDisc awaitData)
-        {
-            var data = _Repository?.GetById(id);
-            Assert.IsTrue(IsEqualsEntities(awaitData, data));
-        }
+        [TestCaseSource(typeof(CdDiscTestData), nameof(CdDiscTestData.GetByIdDataObjects))]
+        public void TestGetById(int id, CdDisc awaitData) =>
+            Assert.IsTrue(IsEqualsEntities(awaitData, _Repository?.GetById(id)));
 
         #endregion
 

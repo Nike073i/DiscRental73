@@ -1,39 +1,38 @@
 ﻿using DiscRental73.DAL.Tests.Data.SourceData;
-using System.Collections;
 using System.Linq;
 
 namespace DiscRental73.DAL.Tests.Data.TestData
 {
-    internal class CdDiscTestData : IEnumerable
+    internal class CdDiscTestData
     {
-        public IEnumerator GetEnumerator()
+        public static object[] GetByIdDataObjects =
         {
-            yield return new object[]
+            new object[]
             {
                 1,
                 CdDiscSourceData.GetCdDiscs().First()
-            };
+            },
 
-            yield return new object?[]
+            new object?[]
             {
                 0,
                 null
-            };
-            yield return new object?[]
+            },
+            new object?[]
             {
                 CdDiscSourceData.GetCdDiscs().Count() + 1,
                 null
-            };
-            yield return new object?[]
+            },
+            new object?[]
             {
                 CdDiscSourceData.GetCdDiscs().Count(),
                 CdDiscSourceData.GetCdDiscs().Last()
-            };
-            yield return new object?[]
+            },
+            new object?[]
             {
                 -1,
                 null
-            };
-        }
+            },
+        };
     }
 }
