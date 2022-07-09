@@ -1,17 +1,17 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.ViewModels.Base;
+﻿using DiscRental73TestWpf.ViewModels.Base;
 using System;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class CdDiscFormationViewModel : FormationViewModel
     {
-        #region FormationData - CdDiscResDto - модель сд-диска
+        #region FormationData - CdDiscDto - модель сд-диска
 
-        private CdDiscResDto _CdDisc;
+        private CdDiscDto _CdDisc;
 
         /// <summary>Модель сд-диска</summary>
-        public CdDiscResDto CdDisc
+        public CdDiscDto CdDisc
         {
             get => _CdDisc;
             set => Set(ref _CdDisc, value);

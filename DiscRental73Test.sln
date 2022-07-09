@@ -5,13 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73TestWpf", "DiscRental73TestWpf\DiscRental73TestWpf.csproj", "{75540ED3-D3F7-4D21-9D9D-CBB756A87BC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{FA2CB423-81E7-4D3A-80AC-AA32EB1653FF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseStorage", "DatabaseStorage\DatabaseStorage.csproj", "{3C027657-1880-4F1B-919D-603B1B2DB984}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminWpfPlugin", "AdminWpfPlugin\AdminWpfPlugin.csproj", "{66902065-9BC5-45E4-AD93-9D327029A0AF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTestData", "ConsoleTestData\ConsoleTestData.csproj", "{AF795F55-E1A5-4187-81C2-4E79D6331E4C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignDebugStorage", "DesignDebugStorage\DesignDebugStorage.csproj", "{677DEA3D-EC72-4442-9C2C-A7E09D47A2DC}"
 EndProject
@@ -39,13 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73.DAL.SqlServer"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73.Wpf", "UI\DiscRental73.Wpf\DiscRental73.Wpf.csproj", "{54CAA4BC-7A47-4091-B262-1181BF9501E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.ConsoleTest", "DiscRental73.ConsoleTest\DiscRental73.ConsoleTest.csproj", "{B9EAA781-037C-45DE-88F9-C6ECADFD2CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73.ConsoleTest", "DiscRental73.ConsoleTest\DiscRental73.ConsoleTest.csproj", "{B9EAA781-037C-45DE-88F9-C6ECADFD2CE0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2C0C4E13-E1D7-4198-AC43-FB9819D24E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.DAL.Tests", "Tests\Common\DiscRental73.DAL.Tests\DiscRental73.DAL.Tests.csproj", "{A7B032B6-E561-4C1B-8E16-837063BE6EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73.DAL.Tests", "Tests\Common\DiscRental73.DAL.Tests\DiscRental73.DAL.Tests.csproj", "{A7B032B6-E561-4C1B-8E16-837063BE6EF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscRental73.DAL.DomainRepositories.Tests", "Tests\Common\DiscRental73.DAL.DomainRepositories.Tests\DiscRental73.DAL.DomainRepositories.Tests.csproj", "{0DD52899-67BB-4A7A-8C56-642CE9FD7153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscRental73.DAL.DomainRepositories.Tests", "Tests\Common\DiscRental73.DAL.DomainRepositories.Tests\DiscRental73.DAL.DomainRepositories.Tests.csproj", "{0DD52899-67BB-4A7A-8C56-642CE9FD7153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,22 +51,10 @@ Global
 		{75540ED3-D3F7-4D21-9D9D-CBB756A87BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75540ED3-D3F7-4D21-9D9D-CBB756A87BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75540ED3-D3F7-4D21-9D9D-CBB756A87BC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA2CB423-81E7-4D3A-80AC-AA32EB1653FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA2CB423-81E7-4D3A-80AC-AA32EB1653FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA2CB423-81E7-4D3A-80AC-AA32EB1653FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA2CB423-81E7-4D3A-80AC-AA32EB1653FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C027657-1880-4F1B-919D-603B1B2DB984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C027657-1880-4F1B-919D-603B1B2DB984}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C027657-1880-4F1B-919D-603B1B2DB984}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C027657-1880-4F1B-919D-603B1B2DB984}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66902065-9BC5-45E4-AD93-9D327029A0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66902065-9BC5-45E4-AD93-9D327029A0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66902065-9BC5-45E4-AD93-9D327029A0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66902065-9BC5-45E4-AD93-9D327029A0AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF795F55-E1A5-4187-81C2-4E79D6331E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF795F55-E1A5-4187-81C2-4E79D6331E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF795F55-E1A5-4187-81C2-4E79D6331E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF795F55-E1A5-4187-81C2-4E79D6331E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{677DEA3D-EC72-4442-9C2C-A7E09D47A2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{677DEA3D-EC72-4442-9C2C-A7E09D47A2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{677DEA3D-EC72-4442-9C2C-A7E09D47A2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU

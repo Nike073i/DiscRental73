@@ -1,7 +1,4 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Services;
-using DesignDebugStorage.Repositories;
+﻿using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
@@ -10,14 +7,16 @@ using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
+using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels;
 
-public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto, DvdDiscResDto>
+public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscDto>
 {
     #region readonly fields
 
-    private readonly IDvdDiscService _Service;
+    private readonly DvdDiscService _Service;
     private readonly EntityFormationWindowViewModel _WindowVm;
     private readonly DvdDiscFormationViewModel _FormationVm;
 
@@ -36,7 +35,7 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
         Items = new DvdDiscDebugRepository().GetAll();
     }
 
-    public DvdDiscManagementViewModel(IDvdDiscService service,
+    public DvdDiscManagementViewModel(DvdDiscService service,
         IFormationService dialogService,
         EntityFormationWindowViewModel
             formationWindowVm,
@@ -59,7 +58,7 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
 
     //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
     //{
-    //    if (!(E.Item is DvdDiscResDto dto))
+    //    if (!(E.Item is DvdDiscDto dto))
     //    {
     //        E.Accepted = false;
     //        return;
@@ -73,33 +72,6 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
     //    E.Accepted = false;
     //}
 
-    protected override DvdDiscReqDto CreateReqDtoToCreate(DvdDiscResDto resDto)
-    {
-        var reqDto = new DvdDiscReqDto
-        {
-            Title = resDto.Title,
-            DateOfRelease = resDto.DateOfRelease,
-            Director = resDto.Director,
-            Info = resDto.Info,
-            Plot = resDto.Plot
-        };
-        return reqDto;
-    }
-
-    protected override DvdDiscReqDto CreateReqDtoToUpdate(DvdDiscResDto resDto)
-    {
-        var reqDto = new DvdDiscReqDto
-        {
-            Id = resDto.Id,
-            Title = resDto.Title,
-            DateOfRelease = resDto.DateOfRelease,
-            Director = resDto.Director,
-            Info = resDto.Info,
-            Plot = resDto.Plot
-        };
-        return reqDto;
-    }
-
     #region DeleteCommand - удаление элемента
 
     private ICommand? _DeleteCommand;
@@ -108,7 +80,7 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
 
     private bool CanDeleteCommand(object? p)
     {
-        return p is DvdDiscResDto && IsLoginUser(p);
+        return p is DvdDiscDto && IsLoginUser(p);
     }
 
     private void OnDeleteCommand(object? p)
@@ -116,9 +88,8 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
         if (!DialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
         try
         {
-            var resDto = p as DvdDiscResDto;
-            var reqDto = CreateReqDtoToDelete(resDto);
-            _Service.DeleteById(reqDto.Id.Value);
+            if (p is not DvdDiscDto dto) return;
+            _Service.DeleteById(dto.Id);
             DialogService.ShowInformation("Запись удалена", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -138,7 +109,7 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
 
     private bool CanEditItemCommand(object? p)
     {
-        return p is DvdDiscResDto && IsLoginUser(p);
+        return p is DvdDiscDto && IsLoginUser(p);
     }
 
     private void OnEditItemCommand(object? p)
@@ -146,9 +117,8 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
         if (!DialogService.ShowContent(ref p, ShowStrategy)) return;
         try
         {
-            var resDto = p as DvdDiscResDto;
-            var reqDto = CreateReqDtoToUpdate(resDto);
-            _Service.Save(reqDto);
+            if (p is not DvdDiscDto dto) return;
+            _Service.Save(dto);
             DialogService.ShowInformation("Запись отредактирована", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -169,12 +139,12 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscReqDto,
 
     private void OnCreateNewItemCommand(object? p)
     {
-        object item = new DvdDiscResDto();
+        object item = new DvdDiscDto();
         if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
         try
         {
-            var reqDto = CreateReqDtoToCreate(item as DvdDiscResDto);
-            _Service.Save(reqDto);
+            if (p is not DvdDiscDto dto) return;
+            _Service.Save(dto);
             DialogService.ShowInformation("Запись создана", "Успех");
             OnPropertyChanged(nameof(Items));
         }

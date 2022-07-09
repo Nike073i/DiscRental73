@@ -1,4 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
+﻿using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.ViewModels.Base;
 using System;
 
@@ -6,12 +6,12 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class DvdDiscFormationViewModel : FormationViewModel
     {
-        #region FormationData - DvdDiscResDto - модель Dvd-диска
+        #region FormationData - DvdDiscDto - модель Dvd-диска
 
-        private DvdDiscResDto _DvdDisc;
+        private DvdDiscDto _DvdDisc;
 
         /// <summary>Модель Dvd-диска</summary>
-        public DvdDiscResDto DvdDisc
+        public DvdDiscDto DvdDisc
         {
             get => _DvdDisc;
             set => Set(ref _DvdDisc, value);

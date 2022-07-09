@@ -32,7 +32,7 @@
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата возврата:"/>
 
         <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Rentals}" SelectedItem="{Binding SelectedRental}" SelectedValuePath="Id"/>
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRental.EmployeeFName}"/>
+        <!--<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRental.EmployeeFName}"/>-->
         <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRental.PledgeSum}"/>
         <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding SelectedRental.DateOfIssue, StringFormat=dd.MM.yyyy}"/>
         <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SelectedRental.DateOfRental, StringFormat=dd.MM.yyyy}"/>

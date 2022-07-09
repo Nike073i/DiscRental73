@@ -1,7 +1,6 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Services;
-using DesignDebugStorage.Repositories;
+﻿using DesignDebugStorage.Repositories;
+using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
@@ -13,11 +12,11 @@ using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
-    public class BluRayDiscManagementViewModel : CrudManagementViewModel<BluRayDiscReqDto, BluRayDiscResDto>
+    public class BluRayDiscManagementViewModel : CrudManagementViewModel<BluRayDiscDto>
     {
         #region readonly fields
 
-        private readonly IBluRayDiscService _Service;
+        private readonly BluRayDiscService _Service;
         private readonly EntityFormationWindowViewModel _WindowVm;
         private readonly BluRayDiscFormationViewModel _FormationVm;
 
@@ -36,7 +35,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             Items = new BluRayDiscDebugRepository().GetAll();
         }
 
-        public BluRayDiscManagementViewModel(IBluRayDiscService service,
+        public BluRayDiscManagementViewModel(BluRayDiscService service,
             IFormationService dialogService,
             EntityFormationWindowViewModel
                 formationWindowVm,
@@ -57,7 +56,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
         //{
-        //    if (!(E.Item is BluRayDiscResDto dto))
+        //    if (!(E.Item is BluRayDiscDto dto))
         //    {
         //        E.Accepted = false;
         //        return;
@@ -73,33 +72,6 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         protected override ShowBluRayDiscStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
 
-        protected override BluRayDiscReqDto CreateReqDtoToCreate(BluRayDiscResDto resDto)
-        {
-            var reqDto = new BluRayDiscReqDto
-            {
-                Title = resDto.Title,
-                DateOfRelease = resDto.DateOfRelease,
-                Publisher = resDto.Publisher,
-                Info = resDto.Info,
-                SystemRequirements = resDto.SystemRequirements
-            };
-            return reqDto;
-        }
-
-        protected override BluRayDiscReqDto CreateReqDtoToUpdate(BluRayDiscResDto resDto)
-        {
-            var reqDto = new BluRayDiscReqDto
-            {
-                Id = resDto.Id,
-                Title = resDto.Title,
-                DateOfRelease = resDto.DateOfRelease,
-                Publisher = resDto.Publisher,
-                Info = resDto.Info,
-                SystemRequirements = resDto.SystemRequirements
-            };
-            return reqDto;
-        }
-
         #region DeleteCommand - удаление элемента
 
         private ICommand? _DeleteCommand;
@@ -108,7 +80,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private bool CanDeleteCommand(object? p)
         {
-            return p is BluRayDiscResDto && IsLoginUser(p);
+            return p is BluRayDiscDto && IsLoginUser(p);
         }
 
         private void OnDeleteCommand(object? p)
@@ -116,9 +88,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             if (!DialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
             try
             {
-                var resDto = p as BluRayDiscResDto;
-                var reqDto = CreateReqDtoToDelete(resDto);
-                _Service.DeleteById(reqDto.Id.Value);
+                if (p is not BluRayDiscDto dto) return;
+                _Service.DeleteById(dto.Id);
                 DialogService.ShowInformation("Запись удалена", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -138,7 +109,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private bool CanEditItemCommand(object? p)
         {
-            return p is BluRayDiscResDto && IsLoginUser(p);
+            return p is BluRayDiscDto && IsLoginUser(p);
         }
 
         private void OnEditItemCommand(object? p)
@@ -146,9 +117,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             if (!DialogService.ShowContent(ref p, ShowStrategy)) return;
             try
             {
-                var resDto = p as BluRayDiscResDto;
-                var reqDto = CreateReqDtoToUpdate(resDto);
-                _Service.Save(reqDto);
+                if (p is not BluRayDiscDto dto) return;
+                _Service.Save(dto);
                 DialogService.ShowInformation("Запись отредактирована", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -169,12 +139,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnCreateNewItemCommand(object? p)
         {
-            object item = new BluRayDiscResDto();
+            object item = new BluRayDiscDto();
             if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
             try
             {
-                var reqDto = CreateReqDtoToCreate(item as BluRayDiscResDto);
-                _Service.Save(reqDto);
+                if (p is not BluRayDiscDto dto) return;
+                _Service.Save(dto);
                 DialogService.ShowInformation("Запись создана", "Успех");
                 OnPropertyChanged(nameof(Items));
             }

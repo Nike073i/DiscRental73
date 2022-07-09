@@ -1,40 +1,39 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storage;
+﻿using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Enums.ModelEnums;
+using DiscRental73.Interfaces.Repositories.Base;
 
-namespace DesignDebugStorage.Repositories;
-
-public class DvdDiscDebugRepository : IDvdDiscRepository
+namespace DesignDebugStorage.Repositories
 {
-    private IEnumerable<DvdDiscResDto> _discs = Enumerable.Range(1, 10).Select(i => new DvdDiscResDto
+    public class DvdDiscDebugRepository : IRepository<DvdDiscDto>
     {
-        Id = i,
-        Title = $"DVD-диск {i}",
-        DiscType = DiscType.DVD,
-        DateOfRelease = DateTime.Now,
-        Director = $"Режиссер - {i}",
-    });
+        private readonly IEnumerable<DvdDiscDto> _Discs = Enumerable.Range(1, 10).Select(i => new DvdDiscDto
+        {
+            Id = i,
+            Title = $"DVD-диск {i}",
+            DiscType = DiscType.Dvd,
+            DateOfRelease = DateTime.Now,
+            Director = $"Режиссер - {i}",
+        });
 
-    public DvdDiscResDto GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+        public int Insert(DvdDiscDto reqDto)
+        {
+            throw new NotImplementedException();
+        }
 
-    public IEnumerable<DvdDiscResDto> GetAll() => _discs.ToList();
+        public void Update(DvdDiscDto dto)
+        {
+            throw new NotImplementedException();
+        }
 
-    public int Insert(DvdDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
+        public DvdDiscDto? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-    public bool DeleteById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(DvdDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
+        public IEnumerable<DvdDiscDto> GetAll() => _Discs;
+        public bool DeleteById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

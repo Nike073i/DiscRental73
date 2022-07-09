@@ -1,11 +1,11 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.ViewModels;
 using System;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 
@@ -48,7 +48,7 @@ public class ShowCdDiscStrategy : IShowContentStrategy
 
     public bool ShowDialog(ref object formationData)
     {
-        if (formationData is not CdDiscResDto item) return false;
+        if (formationData is not CdDiscDto item) return false;
 
         if (item.Id.Equals(0))
             item.DateOfRelease = DateTime.Now;

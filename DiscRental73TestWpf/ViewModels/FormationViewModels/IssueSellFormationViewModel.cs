@@ -1,8 +1,8 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.HelperModels;
+﻿using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
@@ -29,10 +29,10 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #endregion
 
-        #region ProductResDto SelectedProduct - выбранный продукт
+        #region ProductDto SelectedProduct - выбранный продукт
 
-        private ProductResDto _SelectedProduct;
-        public ProductResDto SelectedProduct
+        private ProductDto _SelectedProduct;
+        public ProductDto SelectedProduct
         {
             get => _SelectedProduct;
             set => Set(ref _SelectedProduct, value);
@@ -42,9 +42,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Products IEnumerable - список доступных продуктов 
 
-        private IEnumerable<ProductResDto> _Products;
+        private IEnumerable<ProductDto> _Products;
 
-        public IEnumerable<ProductResDto> Products
+        public IEnumerable<ProductDto> Products
         {
             get => _Products;
             set => Set(ref _Products, value);

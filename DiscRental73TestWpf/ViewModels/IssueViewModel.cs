@@ -1,16 +1,14 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Services;
+﻿using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Enums.ModelEnums;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
-using DiscRental73TestWpf.Infrastructure.Plugins;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -22,10 +20,10 @@ public class IssueViewModel : ViewModel
     #region readonly fields
 
     private readonly IFormationService _DialogService;
-    private readonly ISellService _SellService;
-    private readonly IRentalService _RentalService;
-    private readonly IClientService _ClientService;
-    private readonly IEmployeeService _EmployeeService;
+    private readonly SellService _SellService;
+    private readonly RentalService _RentalService;
+    private readonly ClientService _ClientService;
+    private readonly EmployeeService _EmployeeService;
 
     private readonly ShowIssueRentalStrategy _IssueRentalStrategy;
     private readonly ShowIssueReturnStrategy _IssueReturnStrategy;
@@ -36,10 +34,10 @@ public class IssueViewModel : ViewModel
     #endregion
 
     public IssueViewModel(IFormationService dialogService,
-        ISellService sellService,
-        IClientService clientService,
-        IRentalService rentalService,
-        IEmployeeService employeeService,
+        SellService sellService,
+        ClientService clientService,
+        RentalService rentalService,
+        EmployeeService employeeService,
         EntityFormationWindowViewModel windowVm,
         CancelRentalFormationViewModel cancelRentalFormationVm,
         CancelSellFormationViewModel cancelSellFormationVm,
@@ -78,7 +76,7 @@ public class IssueViewModel : ViewModel
             var employeeId = App.CurrentUser.Id;
 
             var model = item as IssueRentalBindingModel;
-            _RentalService.IssueRental(new RentalReqDto
+            _RentalService.IssueRental(new RentalDto
             {
                 ProductId = model.ProductId,
                 ClientId = model.ClientId,
@@ -111,12 +109,9 @@ public class IssueViewModel : ViewModel
         if (!_DialogService.ShowContent(ref item, strategy)) return;
         try
         {
-            var model = item as IssueReturnBindingModel;
-            _RentalService.IssueReturn(new IssueReturnReqDto
-            {
-                RentalId = model.RentalId,
-                ReturnSum = model.ReturnSum
-            });
+            if (item is not IssueReturnBindingModel data) return;
+            _RentalService.IssueReturn(data.RentalId,
+                data.ReturnSum);
             _DialogService.ShowInformation("Прокат возвращен", "Успех");
         }
         catch (Exception ex)
@@ -143,7 +138,7 @@ public class IssueViewModel : ViewModel
         try
         {
             var model = item as CancelRentalBindingModel;
-            _RentalService.CancelRental(new RentalReqDto
+            _RentalService.CancelRental(new RentalDto
             {
                 Id = model.RentalId,
             });
@@ -173,7 +168,7 @@ public class IssueViewModel : ViewModel
         {
             var employeeId = App.CurrentUser.Id;
             var model = item as IssueSellBindingModel;
-            _SellService.SellProduct(new SellReqDto()
+            _SellService.SellProduct(new SellDto()
             {
                 ProductId = model.ProductId,
                 EmployeeId = employeeId,
@@ -205,7 +200,7 @@ public class IssueViewModel : ViewModel
         try
         {
             var model = item as CancelSellBindingModel;
-            _SellService.CancelSell(new SellReqDto
+            _SellService.CancelSell(new SellDto
             {
                 Id = model.SellId,
             });
@@ -247,11 +242,11 @@ public class IssueViewModel : ViewModel
 
     private void OnShowAdminViewCommand(object? p)
     {
-        var manager = App.Host.Services.GetRequiredService<AdminPluginManager>();
-        if (manager.AdminPlugin is null) return;
-        var plugin = manager.AdminPlugin;
-        plugin.RegisterService(_RentalService, _EmployeeService, _SellService);
-        plugin.ShowAdminView();
+        //var manager = App.Host.Services.GetRequiredService<AdminPluginManager>();
+        //if (manager.AdminPlugin is null) return;
+        //var plugin = manager.AdminPlugin;
+        //plugin.RegisterService(_RentalService, _EmployeeService, _SellService);
+        //plugin.ShowAdminView();
     }
 
     #endregion

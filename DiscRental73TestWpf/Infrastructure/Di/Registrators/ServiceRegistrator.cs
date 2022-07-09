@@ -1,5 +1,4 @@
-﻿using BusinessLogic.BusinessLogics;
-using BusinessLogic.Interfaces.Services;
+﻿using DiscRental73.Domain.BusinessLogic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
@@ -8,15 +7,17 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddTransient<ICdDiscService, CdDiscService>();
-            services.AddTransient<IDvdDiscService, DvdDiscService>();
-            services.AddTransient<IBluRayDiscService, BluRayDiscService>();
-            services.AddTransient<IClientService, ClientService>();
-            services.AddTransient<IEmployeeService, EmployeeService>();
-            services.AddTransient<IDiscService, DiscService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ISellService, SellService>();
-            services.AddTransient<IRentalService, RentalService>();
+            //services.AddTransient(typeof(CrudService<>));
+            //services.AddTransient(typeof(DiscCrudService<>));
+            services.AddTransient<CdDiscService>();
+            services.AddTransient<DvdDiscService>();
+            services.AddTransient<BluRayDiscService>();
+            services.AddTransient<ClientService>();
+            services.AddTransient<EmployeeService>();
+            services.AddTransient<DiscService>();
+            services.AddTransient<ProductService>();
+            services.AddTransient<SellService>();
+            services.AddTransient<RentalService>();
 
             return services;
         }

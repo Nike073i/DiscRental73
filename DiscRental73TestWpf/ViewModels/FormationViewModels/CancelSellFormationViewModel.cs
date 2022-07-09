@@ -1,4 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
+﻿using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
 using System;
@@ -9,10 +9,10 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class CancelSellFormationViewModel : FormationViewModel
     {
-        #region SellResDto SelectedSell - выбранная продажа
+        #region SellDto SelectedSell - выбранная продажа
 
-        private SellResDto _SelectedSell;
-        public SellResDto SelectedSell
+        private SellDto _SelectedSell;
+        public SellDto SelectedSell
         {
             get => _SelectedSell;
             set => Set(ref _SelectedSell, value);
@@ -22,9 +22,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Sells IEnumerable - список всех доступных продаж 
 
-        private IEnumerable<SellResDto> _Sells;
+        private IEnumerable<SellDto> _Sells;
 
-        public IEnumerable<SellResDto> Sells
+        public IEnumerable<SellDto> Sells
         {
             get => _Sells;
             set => Set(ref _Sells, value);
@@ -34,9 +34,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region DailySells IEnumerable - список продаж по дате 
 
-        private IEnumerable<SellResDto> _DailySells;
+        private IEnumerable<SellDto> _DailySells;
 
-        public IEnumerable<SellResDto> DailySells
+        public IEnumerable<SellDto> DailySells
         {
             get => _DailySells;
             set => Set(ref _DailySells, value);

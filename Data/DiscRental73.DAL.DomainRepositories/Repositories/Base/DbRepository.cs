@@ -3,10 +3,11 @@ using DiscRental73.DAL.Entities.Base;
 using DiscRental73.DAL.Repositories.Base;
 using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Interfaces.Dto;
+using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories.Base
 {
-    public abstract class DbRepository<TDto, TEntity>
+    public abstract class DbRepository<TDto, TEntity> : IRepository<TDto>
         where TDto : DtoBase, new()
         where TEntity : Entity, new()
     {
@@ -36,7 +37,7 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories.Base
         #endregion
     }
 
-    public abstract class DbRepository<TDto, TDetailDto, TEntity> : DbRepository<TDto, TEntity>
+    public abstract class DbRepository<TDto, TDetailDto, TEntity> : DbRepository<TDto, TEntity>, IRepository<TDto, TDetailDto>
         where TDto : DtoBase, new()
         where TDetailDto : DtoBase, IDetailDto, new()
         where TEntity : Entity, new()

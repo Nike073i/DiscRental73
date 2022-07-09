@@ -8,19 +8,7 @@
     <StartupObject>DiscRental73TestWpf.Program</StartupObject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Infrastructure\Assets\**" />
-    <EmbeddedResource Remove="Infrastructure\Assets\**" />
-    <None Remove="Infrastructure\Assets\**" />
-    <Page Remove="Infrastructure\Assets\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Views\IconDisc.png" />
-    <None Remove="Views\Windows\music-cd.png" />
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="FontAwesome5" Version="2.1.6" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.6" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
@@ -37,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
-    <ProjectReference Include="..\DatabaseStorage\DatabaseStorage.csproj" />
+    <ProjectReference Include="..\Common\DiscRental73.Domain\DiscRental73.Domain.csproj" />
+    <ProjectReference Include="..\Data\DiscRental73.DAL.DomainRepositories\DiscRental73.DAL.DomainRepositories.csproj" />
+    <ProjectReference Include="..\Data\DiscRental73.DAL.SqlServer\DiscRental73.DAL.SqlServer.csproj" />
     <ProjectReference Include="..\DesignDebugStorage\DesignDebugStorage.csproj" />
   </ItemGroup>
 

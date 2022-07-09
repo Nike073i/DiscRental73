@@ -1,5 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
@@ -7,6 +6,8 @@ using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Base;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 
@@ -41,16 +42,16 @@ public class ShowProductStrategy : IShowContentStrategy
 
     #endregion
 
-    public IEnumerable<DiscResDto>? Discs { get; set; }
+    public IEnumerable<DiscDto>? Discs { get; set; }
 
     public bool ShowDialog(ref object formationData)
     {
-        if (formationData is not ProductResDto item) return false;
+        if (formationData is not ProductDto item) return false;
 
         if (item.Id.Equals(0)) item.IsAvailable = true;
 
         _FormationVm.Product = item;
-        _FormationVm.Discs = Discs ?? Enumerable.Empty<DiscResDto>();
+        _FormationVm.Discs = Discs ?? Enumerable.Empty<DiscDto>();
 
         var dlg = new EntityFormationWindow
         {

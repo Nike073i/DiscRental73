@@ -1,7 +1,7 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.HelperModels;
+﻿using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
 using System.Collections.Generic;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
@@ -14,10 +14,10 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #endregion
 
-        #region RentalResDto SelectedRental- выбранный прокат
+        #region RentalDto SelectedRental- выбранный прокат
 
-        private RentalResDto _SelectedRental;
-        public RentalResDto SelectedRental
+        private RentalDto _SelectedRental;
+        public RentalDto SelectedRental
         {
             get => _SelectedRental;
             set => Set(ref _SelectedRental, value);
@@ -27,9 +27,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Rentals IEnumerable - список доступных прокатов 
 
-        private IEnumerable<RentalResDto> _Rentals;
+        private IEnumerable<RentalDto> _Rentals;
 
-        public IEnumerable<RentalResDto> Rentals
+        public IEnumerable<RentalDto> Rentals
         {
             get => _Rentals;
             set => Set(ref _Rentals, value);

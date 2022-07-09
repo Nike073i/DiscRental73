@@ -1,5 +1,8 @@
-﻿using BusinessLogic.Interfaces.Storage;
-using DatabaseStorage.RepositoriesImpl.BusinessLogic;
+﻿using DiscRental73.DAL.DomainRepositories.Repositories;
+using DiscRental73.Domain.DtoModels.DetailDto;
+using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Interfaces.Repositories;
+using DiscRental73.Interfaces.Repositories.Base;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
@@ -8,16 +11,14 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IClientRepository, ClientRepository>();
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-
-            services.AddTransient<ICdDiscRepository, CdDiscRepository>();
-            services.AddTransient<IDvdDiscRepository, DvdDiscRepository>();
-            services.AddTransient<IBluRayDiscRepository, BluRayDiscRepository>();
-
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ISellRepository, SellRepository>();
-            services.AddTransient<IRentalRepository, RentalRepository>();
+            services.AddScoped<IPersonRepository<ClientDto, ClientDetailDto>, ClientRepository>();
+            services.AddScoped<IPersonRepository<EmployeeDto, EmployeeDetailDto>, EmployeeRepository>();
+            services.AddScoped<IRepository<CdDiscDto>, CdDiscRepository>();
+            services.AddScoped<IRepository<DvdDiscDto>, DvdDiscRepository>();
+            services.AddScoped<IRepository<BluRayDiscDto>, BluRayDiscRepository>();
+            services.AddScoped<IRepository<ProductDto, ProductDetailDto>, ProductRepository>();
+            services.AddScoped<IRepository<SellDto, SellDetailDto>, SellRepository>();
+            services.AddScoped<IRepository<RentalDto, RentalDetailDto>, RentalRepository>();
 
             return services;
         }

@@ -1,4 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
+﻿using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.Infrastructure.Di.Registrators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,7 +28,7 @@ namespace DiscRental73TestWpf
             await host.StopAsync();
         }
 
-        public static EmployeeResDto? CurrentUser { get; set; }
+        public static EmployeeDto? CurrentUser { get; set; }
 
         private static IHost _Host;
 

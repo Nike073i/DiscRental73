@@ -39,6 +39,6 @@
         </DatePicker>
 
         <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding DailySells}" SelectedItem="{Binding SelectedSell}" SelectedValuePath="Id"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedSell.EmployeeFName}"/>
+        <!--<TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedSell.EmployeeFName}"/>-->
     </Grid>
 </UserControl>

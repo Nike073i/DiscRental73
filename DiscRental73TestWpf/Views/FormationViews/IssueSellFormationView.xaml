@@ -3,11 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:m="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic"
              xmlns:vr="clr-namespace:DiscRental73TestWpf.Infrastructure.ValidateRules"
              mc:Ignorable="d"
              d:DesignWidth="400"
              xmlns:vm="clr-namespace:DiscRental73TestWpf.ViewModels.FormationViewModels"
+             xmlns:dto="clr-namespace:DiscRental73.Domain.DtoModels.Dto;assembly=DiscRental73.Domain"
              d:DataContext="{d:DesignInstance vm:IssueSellFormationViewModel}">
     <Grid Margin="3" Background="White">
         <Grid.Resources>
@@ -31,7 +31,7 @@
 
         <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" SelectedValuePath="Id">
             <ComboBox.ItemTemplate>
-                <DataTemplate DataType="m:ProductResDto">
+                <DataTemplate DataType="dto:ProductDto">
                     <TextBlock>
                         <TextBlock Text="{Binding DiscTitle}"/>
                         <TextBlock Text="{Binding DiscType}"/>

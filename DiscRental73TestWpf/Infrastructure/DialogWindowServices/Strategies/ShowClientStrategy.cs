@@ -1,10 +1,10 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.ViewModels;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 {
@@ -43,7 +43,7 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies
 
         public bool ShowDialog(ref object formationData)
         {
-            if (formationData is not ClientResDto item) return false;
+            if (formationData is not ClientDto item) return false;
 
             _FormationVm.Client = item;
 

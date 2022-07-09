@@ -1,16 +1,16 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
+﻿using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.ViewModels.Base;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class ClientFormationViewModel : FormationViewModel
     {
-        #region FormationData - ClientResDto - модель клиента
+        #region FormationData - ClientDto - модель клиента
 
-        private ClientResDto _Client;
+        private ClientDto _Client;
 
         /// <summary>Модель сд-диска</summary>
-        public ClientResDto Client
+        public ClientDto Client
         {
             get => _Client;
             set => Set(ref _Client, value);

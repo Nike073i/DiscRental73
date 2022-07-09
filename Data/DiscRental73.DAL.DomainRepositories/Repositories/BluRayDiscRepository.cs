@@ -4,12 +4,10 @@ using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
 using DiscRental73.Domain.DtoModels.Dto;
-using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
-    public class BluRayDiscRepository : DbRepository<BluRayDiscDto, BluRayDisc>,
-        IRepository<BluRayDiscDto>
+    public class BluRayDiscRepository : DbRepository<BluRayDiscDto, BluRayDisc>
     {
         #region readonly fields
 

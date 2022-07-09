@@ -1,17 +1,17 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.ViewModels.Base;
+﻿using DiscRental73TestWpf.ViewModels.Base;
 using System;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class BluRayDiscFormationViewModel : FormationViewModel
     {
-        #region FormationData - BluRayDiscResDto - модель BluRay-диска
+        #region FormationData - BluRayDiscDto - модель BluRay-диска
 
-        private BluRayDiscResDto _BluRayDisc;
+        private BluRayDiscDto _BluRayDisc;
 
         /// <summary>Модель BluRay-диска</summary>
-        public BluRayDiscResDto BluRayDisc
+        public BluRayDiscDto BluRayDisc
         {
             get => _BluRayDisc;
             set => Set(ref _BluRayDisc, value);

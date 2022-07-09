@@ -5,12 +5,10 @@ using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
 using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
-using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
-    public class ProductRepository : DbRepository<ProductDto, ProductDetailDto, Product>,
-        IRepository<ProductDto, ProductDetailDto>
+    public class ProductRepository : DbRepository<ProductDto, ProductDetailDto, Product>
     {
         #region readonly fields
 

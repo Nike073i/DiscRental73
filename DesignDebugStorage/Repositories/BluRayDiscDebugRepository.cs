@@ -1,43 +1,40 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Enums;
-using BusinessLogic.Interfaces.Storage;
+﻿using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Enums.ModelEnums;
+using DiscRental73.Interfaces.Repositories.Base;
 
-namespace DesignDebugStorage.Repositories;
-
-public class BluRayDiscDebugRepository : IBluRayDiscRepository
+namespace DesignDebugStorage.Repositories
 {
-    private readonly IEnumerable<BluRayDiscResDto> _discs = Enumerable.Range(1, 10).Select(i => new BluRayDiscResDto
+    public class BluRayDiscDebugRepository : IRepository<BluRayDiscDto>
     {
-        Id = i,
-        Title = $"BluRay-диск {i}",
-        DiscType = DiscType.BluRay,
-        DateOfRelease = DateTime.Now,
-        Publisher = $"Издатель - {i}"
-    });
+        private readonly IEnumerable<BluRayDiscDto> _Discs = Enumerable.Range(1, 10).Select(i => new BluRayDiscDto
+        {
+            Id = i,
+            Title = $"BluRay-диск {i}",
+            DiscType = DiscType.BluRay,
+            DateOfRelease = DateTime.Now,
+            Publisher = $"Издатель - {i}"
+        });
 
-    public BluRayDiscResDto? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+        public bool DeleteById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-    public IEnumerable<BluRayDiscResDto> GetAll()
-    {
-        return _discs.ToList();
-    }
+        public int Insert(BluRayDiscDto reqDto)
+        {
+            throw new NotImplementedException();
+        }
 
-    public int Insert(BluRayDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
+        public void Update(BluRayDiscDto dto)
+        {
+            throw new NotImplementedException();
+        }
 
-    public bool DeleteById(int id)
-    {
-        throw new NotImplementedException();
-    }
+        public BluRayDiscDto? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-    public void Update(BluRayDiscReqDto reqDto)
-    {
-        throw new NotImplementedException();
+        public IEnumerable<BluRayDiscDto> GetAll() => _Discs;
     }
 }

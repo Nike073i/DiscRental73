@@ -1,5 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 
@@ -33,13 +33,13 @@ public class ShowCancelSellStrategy : IShowContentStrategy
 
     #endregion
 
-    public IEnumerable<SellResDto>? Sells { get; set; }
+    public IEnumerable<SellDto>? Sells { get; set; }
 
     public bool ShowDialog(ref object formationData)
     {
         if (formationData is not CancelSellBindingModel item) return false;
 
-        _FormationVm.Sells = Sells ?? Enumerable.Empty<SellResDto>();
+        _FormationVm.Sells = Sells ?? Enumerable.Empty<SellDto>();
         _FormationVm.DateOfSell = DateTime.Now;
         _FormationVm.CancelSellBindingModel = item;
 

@@ -1,7 +1,6 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Services;
-using DesignDebugStorage.Repositories;
+﻿using DesignDebugStorage.Repositories;
+using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
@@ -13,11 +12,11 @@ using System.Windows.Input;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 {
-    public class CdDiscManagementViewModel : CrudManagementViewModel<CdDiscReqDto, CdDiscResDto>
+    public class CdDiscManagementViewModel : CrudManagementViewModel<CdDiscDto>
     {
         #region readonly fields
 
-        private readonly ICdDiscService _Service;
+        private readonly CdDiscService _Service;
         private readonly EntityFormationWindowViewModel _WindowVm;
         private readonly CdDiscFormationViewModel _FormationVm;
 
@@ -36,7 +35,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             Items = new CdDiscDebugRepository().GetAll();
         }
 
-        public CdDiscManagementViewModel(ICdDiscService service,
+        public CdDiscManagementViewModel(CdDiscService service,
             IFormationService dialogService,
             EntityFormationWindowViewModel formationWindowVm,
             CdDiscFormationViewModel formationVm) : base(dialogService)
@@ -56,36 +55,9 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         protected override ShowCdDiscStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
 
-        protected override CdDiscReqDto CreateReqDtoToCreate(CdDiscResDto resDto)
-        {
-            var reqDto = new CdDiscReqDto
-            {
-                Title = resDto.Title,
-                DateOfRelease = resDto.DateOfRelease,
-                Performer = resDto.Performer,
-                Genre = resDto.Genre,
-                NumberOfTracks = resDto.NumberOfTracks
-            };
-            return reqDto;
-        }
-
-        protected override CdDiscReqDto CreateReqDtoToUpdate(CdDiscResDto resDto)
-        {
-            var reqDto = new CdDiscReqDto
-            {
-                Id = resDto.Id,
-                Title = resDto.Title,
-                DateOfRelease = resDto.DateOfRelease,
-                Performer = resDto.Performer,
-                Genre = resDto.Genre,
-                NumberOfTracks = resDto.NumberOfTracks
-            };
-            return reqDto;
-        }
-
         //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
         //{
-        //    if (!(E.Item is CdDiscResDto dto))
+        //    if (!(E.Item is CdDiscDto dto))
         //    {
         //        E.Accepted = false;
         //        return;
@@ -107,7 +79,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private bool CanDeleteCommand(object? p)
         {
-            return p is CdDiscResDto && IsLoginUser(p);
+            return p is CdDiscDto && IsLoginUser(p);
         }
 
         private void OnDeleteCommand(object? p)
@@ -115,9 +87,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             if (!DialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
             try
             {
-                var resDto = p as CdDiscResDto;
-                var reqDto = CreateReqDtoToDelete(resDto);
-                _Service.DeleteById(reqDto.Id.Value);
+                if (p is not CdDiscDto dto) return;
+                _Service.DeleteById(dto.Id);
                 DialogService.ShowInformation("Запись удалена", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -137,7 +108,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private bool CanEditItemCommand(object? p)
         {
-            return p is CdDiscResDto && IsLoginUser(p);
+            return p is CdDiscDto && IsLoginUser(p);
         }
 
         private void OnEditItemCommand(object? p)
@@ -145,9 +116,8 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             if (!DialogService.ShowContent(ref p, ShowStrategy)) return;
             try
             {
-                var resDto = p as CdDiscResDto;
-                var reqDto = CreateReqDtoToUpdate(resDto);
-                _Service.Save(reqDto);
+                if (p is not CdDiscDto dto) return;
+                _Service.Save(dto);
                 DialogService.ShowInformation("Запись отредактирована", "Успех");
                 OnPropertyChanged(nameof(Items));
             }
@@ -168,12 +138,12 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
 
         private void OnCreateNewItemCommand(object? p)
         {
-            object item = new CdDiscResDto();
+            object item = new CdDiscDto();
             if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
             try
             {
-                var reqDto = CreateReqDtoToCreate(item as CdDiscResDto);
-                _Service.Save(reqDto);
+                if (p is not CdDiscDto dto) return;
+                _Service.Save(dto);
                 DialogService.ShowInformation("Запись создана", "Успех");
                 OnPropertyChanged(nameof(Items));
             }

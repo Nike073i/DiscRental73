@@ -1,7 +1,4 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Services;
-using DesignDebugStorage.Repositories;
+﻿using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
@@ -11,6 +8,8 @@ using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
+using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels;
 
@@ -18,8 +17,8 @@ public class ProductManagementViewModel : EntityManagementViewModel
 {
     #region readonly fields
 
-    private readonly IProductService _Service;
-    private readonly IDiscService _DiscService;
+    private readonly ProductService _Service;
+    private readonly DiscService _DiscService;
     private readonly ShowProductStrategy _ProductStrategy;
     private readonly ShowProductCostStrategy _ProductCostStrategy;
     private readonly ShowProductQuantityStrategy _ProductQuantityStrategy;
@@ -41,8 +40,8 @@ public class ProductManagementViewModel : EntityManagementViewModel
         Items = new ClientDebugRepository().GetAll();
     }
 
-    public ProductManagementViewModel(IProductService service,
-        IDiscService discService,
+    public ProductManagementViewModel(ProductService service,
+        DiscService discService,
         IFormationService dialogService,
         EntityFormationWindowViewModel formationWindowVm,
         ProductFormationViewModel formationVm,
@@ -62,7 +61,7 @@ public class ProductManagementViewModel : EntityManagementViewModel
 
     //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
     //{
-    //    if (!(E.Item is ProductResDto dto))
+    //    if (!(E.Item is ProductDto dto))
     //    {
     //        E.Accepted = false;
     //        return;
@@ -88,15 +87,15 @@ public class ProductManagementViewModel : EntityManagementViewModel
 
     private void OnCreateNewProductCommand(object? p)
     {
-        object item = new ProductResDto();
+        object item = new ProductDto();
         var strategy = _ProductStrategy;
         strategy.Discs = _DiscService.GetDiscs();
 
         if (!DialogService.ShowContent(ref item, strategy)) return;
         try
         {
-            var reqDto = CreateReqDtoToCreate(item as ProductResDto);
-            _Service.Create(reqDto);
+            if (item is not ProductDto dto) return;
+            _Service.Create(dto);
             DialogService.ShowInformation("Запись создана", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -114,14 +113,14 @@ public class ProductManagementViewModel : EntityManagementViewModel
 
     public ICommand ChangeAvailableProductCommand => _ChangeAvailableProductCommand ??= new LambdaCommand(OnChangeAvailableProduct, CanChangeAvailableProduct);
 
-    private bool CanChangeAvailableProduct(object? p) => p is ProductResDto && IsLoginUser(p);
+    private bool CanChangeAvailableProduct(object? p) => p is ProductDto && IsLoginUser(p);
 
     private void OnChangeAvailableProduct(object? p)
     {
         try
         {
-            var resDto = p as ProductResDto;
-            _Service.ChangeAvailable(resDto.Id, !resDto.IsAvailable);
+            if (p is not ProductDto dto) return;
+            _Service.ChangeAvailable(dto.Id, !dto.IsAvailable);
             DialogService.ShowInformation("Доступность изменена", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -139,16 +138,16 @@ public class ProductManagementViewModel : EntityManagementViewModel
 
     public ICommand EditQuantityCommand => _EditQuantityCommand ??= new LambdaCommand(OnEditQuantityCommand, CanEditQuantityCommand);
 
-    private bool CanEditQuantityCommand(object? p) => p is ProductResDto && IsLoginUser(p);
+    private bool CanEditQuantityCommand(object? p) => p is ProductDto && IsLoginUser(p);
 
     private void OnEditQuantityCommand(object? p)
     {
-        var product = p as ProductResDto;
+        if (p is not ProductDto dto) return;
         object model = new EditProductQuantityModel
         {
-            ProductId = product.Id,
-            DiscTitle = product.DiscTitle,
-            CurrentQuantity = product.Quantity,
+            ProductId = dto.Id,
+            //DiscTitle = dto.DiscTitle,
+            CurrentQuantity = dto.Quantity,
             EditQuantity = 5
         };
         if (!DialogService.ShowContent(ref model, _ProductQuantityStrategy)) return;
@@ -173,16 +172,16 @@ public class ProductManagementViewModel : EntityManagementViewModel
 
     public ICommand ChangeCostCommand => _ChangeCostCommand ??= new LambdaCommand(OnChangeCostCommand, CanChangeCostCommand);
 
-    private bool CanChangeCostCommand(object? p) => p is ProductResDto && IsLoginUser(p);
+    private bool CanChangeCostCommand(object? p) => p is ProductDto && IsLoginUser(p);
 
     private void OnChangeCostCommand(object? p)
     {
-        var product = p as ProductResDto;
+        if (p is not ProductDto dto) return;
         object model = new EditProductCostModel
         {
-            ProductId = product.Id,
-            DiscTitle = product.DiscTitle,
-            CurrentCost = product.Cost,
+            ProductId = dto.Id,
+            //DiscTitle = dto.DiscTitle,
+            CurrentCost = dto.Cost,
         };
         if (!DialogService.ShowContent(ref model, _ProductCostStrategy)) return;
         try
@@ -199,16 +198,4 @@ public class ProductManagementViewModel : EntityManagementViewModel
     }
 
     #endregion
-
-    private ProductReqDto CreateReqDtoToCreate(ProductResDto resDto)
-    {
-        var reqDto = new ProductReqDto
-        {
-            DiscId = resDto.DiscId,
-            Cost = resDto.Cost,
-            Quantity = resDto.Quantity,
-            IsAvailable = resDto.IsAvailable,
-        };
-        return reqDto;
-    }
 }

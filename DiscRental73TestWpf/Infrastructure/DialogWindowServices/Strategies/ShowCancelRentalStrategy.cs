@@ -1,5 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
@@ -8,6 +7,7 @@ using MathCore.WPF.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 
@@ -32,13 +32,13 @@ public class ShowCancelRentalStrategy : IShowContentStrategy
 
     #endregion
 
-    public IEnumerable<RentalResDto>? Rentals { get; set; }
+    public IEnumerable<RentalDto>? Rentals { get; set; }
 
     public bool ShowDialog(ref object formationData)
     {
         if (formationData is not CancelRentalBindingModel item) return false;
 
-        _FormationVm.Rentals = Rentals ?? Enumerable.Empty<RentalResDto>();
+        _FormationVm.Rentals = Rentals ?? Enumerable.Empty<RentalDto>();
         _FormationVm.CancelRentalBindingModel = item;
 
         var dlg = new EntityFormationWindow

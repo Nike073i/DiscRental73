@@ -1,7 +1,4 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Services;
-using DesignDebugStorage.Repositories;
+﻿using DesignDebugStorage.Repositories;
 using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 using DiscRental73TestWpf.Infrastructure.Interfaces;
 using DiscRental73TestWpf.ViewModels.Base;
@@ -10,14 +7,16 @@ using DiscRental73TestWpf.ViewModels.WindowViewModels;
 using MathCore.WPF.Commands;
 using System;
 using System.Windows.Input;
+using DiscRental73.Domain.BusinessLogic;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.ManagementViewModels;
 
-public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, ClientResDto>
+public class ClientManagementViewModel : CrudManagementViewModel<ClientDto>
 {
     #region readonly fields
 
-    private readonly IClientService _Service;
+    private readonly ClientService _Service;
     private readonly EntityFormationWindowViewModel _WindowVm;
     private readonly ClientFormationViewModel _FormationVm;
 
@@ -36,7 +35,7 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
         Items = new ClientDebugRepository().GetAll();
     }
 
-    public ClientManagementViewModel(IClientService service,
+    public ClientManagementViewModel(ClientService service,
         IFormationService dialogService,
         EntityFormationWindowViewModel formationWindowVm,
         ClientFormationViewModel formationVm) : base(dialogService)
@@ -56,34 +55,9 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
 
     protected override ShowClientStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
 
-    protected override ClientReqDto CreateReqDtoToCreate(ClientResDto resDto)
-    {
-        var reqDto = new ClientReqDto
-        {
-            ContactNumber = resDto.ContactNumber,
-            FirstName = resDto.FirstName,
-            SecondName = resDto.SecondName,
-            Address = resDto.Address,
-        };
-        return reqDto;
-    }
-
-    protected override ClientReqDto CreateReqDtoToUpdate(ClientResDto resDto)
-    {
-        var reqDto = new ClientReqDto
-        {
-            Id = resDto.Id,
-            ContactNumber = resDto.ContactNumber,
-            FirstName = resDto.FirstName,
-            SecondName = resDto.SecondName,
-            Address = resDto.Address,
-        };
-        return reqDto;
-    }
-
     //protected override void OnItemsFiltered(object sender, FilterEventArgs E)
     //{
-    //    if (!(E.Item is ClientResDto dto))
+    //    if (!(E.Item is ClientDto dto))
     //    {
     //        E.Accepted = false;
     //        return;
@@ -105,7 +79,7 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
 
     private bool CanDeleteCommand(object? p)
     {
-        return p is ClientResDto && IsLoginUser(p);
+        return p is ClientDto && IsLoginUser(p);
     }
 
     private void OnDeleteCommand(object? p)
@@ -113,9 +87,8 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
         if (!DialogService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
         try
         {
-            var resDto = p as ClientResDto;
-            var reqDto = CreateReqDtoToDelete(resDto);
-            _Service.DeleteById(reqDto.Id.Value);
+            if (p is not ClientDto dto) return;
+            _Service.DeleteById(dto.Id);
             DialogService.ShowInformation("Запись удалена", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -135,7 +108,7 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
 
     private bool CanEditItemCommand(object? p)
     {
-        return p is ClientResDto && IsLoginUser(p);
+        return p is ClientDto && IsLoginUser(p);
     }
 
     private void OnEditItemCommand(object? p)
@@ -143,9 +116,8 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
         if (!DialogService.ShowContent(ref p, ShowStrategy)) return;
         try
         {
-            var resDto = p as ClientResDto;
-            var reqDto = CreateReqDtoToUpdate(resDto);
-            _Service.Save(reqDto);
+            if (p is not ClientDto dto) return;
+            _Service.Save(dto);
             DialogService.ShowInformation("Запись отредактирована", "Успех");
             OnPropertyChanged(nameof(Items));
         }
@@ -166,12 +138,12 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientReqDto, C
 
     private void OnCreateNewItemCommand(object? p)
     {
-        object item = new ClientResDto();
+        object item = new ClientDto();
         if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
         try
         {
-            var reqDto = CreateReqDtoToCreate(item as ClientResDto);
-            _Service.Save(reqDto);
+            if (p is not ClientDto dto) return;
+            _Service.Save(dto);
             DialogService.ShowInformation("Запись создана", "Успех");
             OnPropertyChanged(nameof(Items));
         }

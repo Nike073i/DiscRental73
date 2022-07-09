@@ -2,6 +2,7 @@
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.ManagementViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
+using MathCore.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
@@ -10,6 +11,7 @@ namespace DiscRental73TestWpf.Infrastructure.Di.Registrators
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
+            //services.AddTransient(typeof(ViewModel));
             services.AddTransient<CdDiscManagementViewModel>();
             services.AddTransient<DvdDiscManagementViewModel>();
             services.AddTransient<BluRayDiscManagementViewModel>();

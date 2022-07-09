@@ -1,17 +1,18 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.ViewModels.Base;
+﻿using DiscRental73TestWpf.ViewModels.Base;
 using System.Collections.Generic;
+using DiscRental73.Domain.DtoModels.Base;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
     public class ProductFormationViewModel : FormationViewModel
     {
-        #region FormationData ProductResDto - модель продукта
+        #region FormationData ProductDto - модель продукта
 
-        private ProductResDto _Product;
+        private ProductDto _Product;
 
         /// <summary>Модель продукта</summary>
-        public ProductResDto Product
+        public ProductDto Product
         {
             get => _Product;
             set => Set(ref _Product, value);
@@ -21,9 +22,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Discs IEnumerable - список доступных дисков 
 
-        private IEnumerable<DiscResDto> _Discs;
+        private IEnumerable<DiscDto> _Discs;
 
-        public IEnumerable<DiscResDto> Discs
+        public IEnumerable<DiscDto> Discs
         {
             get => _Discs;
             set => Set(ref _Discs, value);

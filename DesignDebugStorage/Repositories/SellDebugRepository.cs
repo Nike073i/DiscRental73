@@ -1,36 +1,37 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storage;
+﻿using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Interfaces.Repositories.Base;
 
 namespace DesignDebugStorage.Repositories;
 
-public class SellDebugRepository : ISellRepository
+public class SellDebugRepository : IRepository<SellDto>
 {
-    private IEnumerable<SellResDto> _sells => Enumerable.Range(1, 10).Select(i => new SellResDto
+    private readonly IEnumerable<SellDto> _Sells = Enumerable.Range(1, 10).Select(i => new SellDto
     {
         Id = i,
         DateOfSell = DateTime.Now,
-        DiscTitle = $"Диск - {i}",
-        EmployeeFName = $"Сотрудник - {i}",
+        //DiscTitle = $"Диск - {i}",
+        //EmployeeFName = $"Сотрудник - {i}",
         EmployeeId = i,
         ProductId = i,
         Price = i
     });
 
-    public SellResDto GetById(int id)
+    public int Insert(SellDto reqDto)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<SellResDto> GetAll()
-    {
-        return _sells;
-    }
-
-    public int Insert(SellReqDto reqDto)
+    public void Update(SellDto dto)
     {
         throw new NotImplementedException();
     }
+
+    public SellDto? GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<SellDto> GetAll() => _Sells;
 
     public bool DeleteById(int id)
     {

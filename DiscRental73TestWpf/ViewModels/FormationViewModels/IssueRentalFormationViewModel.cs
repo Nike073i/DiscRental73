@@ -1,4 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
+﻿using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.Base;
 using System;
@@ -20,10 +20,10 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #endregion
 
-        #region ProductResDto SelectedProduct - выбранный продукт
+        #region ProductDto SelectedProduct - выбранный продукт
 
-        private ProductResDto _SelectedProduct;
-        public ProductResDto SelectedProduct
+        private ProductDto _SelectedProduct;
+        public ProductDto SelectedProduct
         {
             get => _SelectedProduct;
             set => Set(ref _SelectedProduct, value);
@@ -31,10 +31,10 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #endregion
 
-        #region ClientResDto SelectedClient- выбранный клиент
+        #region ClientDto SelectedClient- выбранный клиент
 
-        private ClientResDto _SelectedClient;
-        public ClientResDto SelectedClient
+        private ClientDto _SelectedClient;
+        public ClientDto SelectedClient
         {
             get => _SelectedClient;
             set => Set(ref _SelectedClient, value);
@@ -57,9 +57,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Products IEnumerable - список доступных продуктов 
 
-        private IEnumerable<ProductResDto> _Products;
+        private IEnumerable<ProductDto> _Products;
 
-        public IEnumerable<ProductResDto> Products
+        public IEnumerable<ProductDto> Products
         {
             get => _Products;
             set => Set(ref _Products, value);
@@ -69,9 +69,9 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 
         #region Clients IEnumerable - список клиентов
 
-        private IEnumerable<ClientResDto> _Clients;
+        private IEnumerable<ClientDto> _Clients;
 
-        public IEnumerable<ClientResDto> Clients
+        public IEnumerable<ClientDto> Clients
         {
             get => _Clients;
             set => Set(ref _Clients, value);

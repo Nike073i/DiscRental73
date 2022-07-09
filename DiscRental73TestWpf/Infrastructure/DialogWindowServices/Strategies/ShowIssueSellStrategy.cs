@@ -1,5 +1,4 @@
-﻿using BusinessLogic.DtoModels.ResponseDto;
-using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
+﻿using DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base;
 using DiscRental73TestWpf.Infrastructure.HelperModels;
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
 
@@ -42,7 +42,7 @@ public class ShowIssueSellStrategy : IShowContentStrategy
 
     #endregion
 
-    public IEnumerable<ProductResDto>? Products { get; set; }
+    public IEnumerable<ProductDto>? Products { get; set; }
 
     public bool ShowDialog(ref object formationData)
     {
@@ -50,7 +50,7 @@ public class ShowIssueSellStrategy : IShowContentStrategy
 
         item.DateOfSell = DateTime.Now;
 
-        _FormationVm.Products = Products ?? Enumerable.Empty<ProductResDto>();
+        _FormationVm.Products = Products ?? Enumerable.Empty<ProductDto>();
         _FormationVm.IssueSellBindingModel = item;
 
         var dlg = new EntityFormationWindow

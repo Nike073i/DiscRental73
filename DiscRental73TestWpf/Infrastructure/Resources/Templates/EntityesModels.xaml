@@ -1,51 +1,52 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:responseDto="clr-namespace:BusinessLogic.DtoModels.ResponseDto;assembly=BusinessLogic">
-    <DataTemplate DataType="{x:Type responseDto:BluRayDiscResDto}">
+                    xmlns:dto="clr-namespace:DiscRental73.Domain.DtoModels.Dto;assembly=DiscRental73.Domain"
+                    xmlns:base="clr-namespace:DiscRental73.Domain.DtoModels.Base;assembly=DiscRental73.Domain">
+    <DataTemplate DataType="{x:Type dto:BluRayDiscDto}">
         <TextBlock>
             <TextBlock Text="{Binding Publisher}"/>
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:CdDiscResDto}">
+    <DataTemplate DataType="{x:Type dto:CdDiscDto}">
         <TextBlock>
             <TextBlock Text="{Binding Performer}"/>
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:ClientResDto}">
+    <DataTemplate DataType="{x:Type dto:ClientDto}">
         <TextBlock>
             <TextBlock Text="{Binding SecondName}"/>
             <TextBlock Text="{Binding ContactNumber}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:DvdDiscResDto}">
+    <DataTemplate DataType="{x:Type dto:DvdDiscDto}">
         <TextBlock>
             <TextBlock Text="{Binding Director}"/>
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:ProductResDto}">
+    <DataTemplate DataType="{x:Type dto:ProductDto}">
         <TextBlock>
             <TextBlock Text="{Binding DiscTitle}"/>
             <TextBlock Text="{Binding Cost}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:RentalResDto}">
+    <DataTemplate DataType="{x:Type dto:RentalDto}">
         <TextBlock>
             <TextBlock Text="{Binding DateOfIssue, StringFormat=dd.MM.yyyy}"/>
             <TextBlock Text="{Binding DiscTitle}"/>
             <TextBlock Text="{Binding ClientCNumber}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:SellResDto}">
+    <DataTemplate DataType="{x:Type dto:SellDto}">
         <TextBlock>
             <TextBlock Text="{Binding DateOfSell, StringFormat=dd.MM.yyyy}"/>
             <TextBlock Text="{Binding DiscTitle}"/>
             <TextBlock Text="{Binding Price}"/>
         </TextBlock>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type responseDto:DiscResDto}">
+    <DataTemplate DataType="{x:Type base:DiscDto}">
         <TextBlock>
             <TextBlock Text="{Binding Title}"/>
             <TextBlock Text="{Binding DiscType}"/>

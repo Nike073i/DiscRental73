@@ -1,48 +1,47 @@
-﻿using BusinessLogic.DtoModels.RequestDto;
-using BusinessLogic.DtoModels.ResponseDto;
-using BusinessLogic.Interfaces.Storage;
+﻿using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73.Interfaces.Repositories.Base;
 
-namespace DesignDebugStorage.Repositories;
-
-public class RentalDebugRepository : IRentalRepository
+namespace DesignDebugStorage.Repositories
 {
-    private readonly IEnumerable<RentalResDto> _rentals = Enumerable.Range(1, 10).Select(i => new RentalResDto
+    public class RentalDebugRepository : IRepository<RentalDto>
     {
-        Id = i,
-        ClientCNumber = $"н.т - {i}",
-        ClientId = i,
-        DateOfIssue = DateTime.Now,
-        DateOfRental = DateTime.Now,
-        DiscTitle = $"Диск - {i}",
-        EmployeeFName = $"Сотрудник - {i}",
-        EmployeeId = i,
-        PledgeSum = i,
-        ProductId = i
-    });
+        private readonly IEnumerable<RentalDto> _Rentals = Enumerable.Range(1, 10).Select(i => new RentalDto
+        {
+            Id = i,
+            //ClientCNumber = $"н.т - {i}",
+            ClientId = i,
+            DateOfIssue = DateTime.Now,
+            DateOfRental = DateTime.Now,
+            //DiscTitle = $"Диск - {i}",
+            //EmployeeFName = $"Сотрудник - {i}",
+            EmployeeId = i,
+            PledgeSum = i,
+            ProductId = i
+        });
 
-    public RentalResDto GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+        public int Insert(RentalDto reqDto)
+        {
+            throw new NotImplementedException();
+        }
 
-    public IEnumerable<RentalResDto> GetAll()
-    {
-        return _rentals.ToList();
-    }
+        public void Update(RentalDto dto)
+        {
+            throw new NotImplementedException();
+        }
 
+        public RentalDto GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-    public int Insert(RentalReqDto reqDto)
-    {
-        throw new NotImplementedException();
-    }
+        public IEnumerable<RentalDto> GetAll()
+        {
+            return _Rentals.ToList();
+        }
 
-    public bool DeleteById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(RentalReqDto reqDto)
-    {
-        throw new NotImplementedException();
+        public bool DeleteById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
