@@ -13,7 +13,6 @@ namespace DiscRental73.DAL.DomainRepositories.Mappers
             {
                 Id = reqDto.Id,
                 Title = reqDto.Title,
-                DiscType = DiscType.Cd,
                 DateOfRelease = reqDto.DateOfRelease,
                 Performer = reqDto.Performer,
                 Genre = reqDto.Genre,

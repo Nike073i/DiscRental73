@@ -1,7 +1,6 @@
 ﻿using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.Entities;
 using DiscRental73.Domain.DtoModels.Dto;
-using DiscRental73.Enums.ModelEnums;
 
 namespace DiscRental73.DAL.DomainRepositories.Mappers
 {
@@ -13,7 +12,6 @@ namespace DiscRental73.DAL.DomainRepositories.Mappers
             {
                 Id = reqDto.Id,
                 Title = reqDto.Title,
-                DiscType = DiscType.Dvd,
                 DateOfRelease = reqDto.DateOfRelease,
                 Director = reqDto.Director,
                 Info = reqDto.Info,

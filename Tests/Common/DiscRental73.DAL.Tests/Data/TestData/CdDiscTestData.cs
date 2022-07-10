@@ -1,6 +1,5 @@
 ﻿using DiscRental73.DAL.Entities;
 using DiscRental73.DAL.Tests.Data.SourceData;
-using DiscRental73.Enums.ModelEnums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -56,7 +55,6 @@ namespace DiscRental73.DAL.Tests.Data.TestData
                 new CdDisc
                 {
                     IsDeleted = true,
-                    DiscType = DiscType.Cd,
                     DateOfRelease = DateTime.Now,
                     Performer = "Тестовый диск. Исполнитель",
                     Genre = "Тестовый диск. Жанр",
@@ -71,7 +69,6 @@ namespace DiscRental73.DAL.Tests.Data.TestData
                     Id = 100,
                     Title = "Тестовый диск. Название",
                     IsDeleted = true,
-                    DiscType = DiscType.Cd,
                     DateOfRelease = DateTime.Now,
                     Performer = "Тестовый диск. Исполнитель",
                     Genre = "Тестовый диск. Жанр",
@@ -87,7 +84,6 @@ namespace DiscRental73.DAL.Tests.Data.TestData
             {
                 IsDeleted = true,
                 Title = "Тестовый диск. Название1",
-                DiscType = DiscType.Cd,
                 DateOfRelease = DateTime.Now,
                 Performer = "Тестовый диск. Исполнитель1",
                 Genre = "Тестовый диск. Жанр1",
@@ -97,7 +93,6 @@ namespace DiscRental73.DAL.Tests.Data.TestData
             {
                 IsDeleted = true,
                 Title = "Тестовый диск. Название2",
-                DiscType = DiscType.Cd,
                 DateOfRelease = DateTime.Now.AddDays(1),
                 Performer = "Тестовый диск. Исполнитель2",
                 NumberOfTracks = 200
@@ -106,7 +101,6 @@ namespace DiscRental73.DAL.Tests.Data.TestData
             {
                 IsDeleted = true,
                 Title = "Тестовый диск. Название3",
-                DiscType = DiscType.Cd,
                 DateOfRelease = DateTime.Now.AddDays(2),
                 Performer = "Тестовый диск. Исполнитель3",
             }

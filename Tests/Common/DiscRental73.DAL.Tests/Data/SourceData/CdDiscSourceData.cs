@@ -1,5 +1,4 @@
 ﻿using DiscRental73.DAL.Entities;
-using DiscRental73.Enums.ModelEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,6 @@ internal class CdDiscSourceData
         new()
         {
             Title = "Театръ Теней",
-            DiscType = DiscType.Cd,
             DateOfRelease = new DateTime(2008, 08, 07),
             Performer = "Король и Шут",
             Genre = "Хоррор-панк",
@@ -22,7 +20,6 @@ internal class CdDiscSourceData
         new()
         {
             Title = "Пропавший без вести",
-            DiscType = DiscType.Cd,
             DateOfRelease = new DateTime(2006, 04, 03),
             Performer = "ДДТ",
             Genre = "Рок",
@@ -31,7 +28,6 @@ internal class CdDiscSourceData
         new()
         {
             Title = "Алхимия",
-            DiscType = DiscType.Cd,
             DateOfRelease = new DateTime(2016, 01, 07),
             Performer = "Мельница",
             Genre = null,
@@ -40,7 +36,6 @@ internal class CdDiscSourceData
         new()
         {
             Title = "Альтависта",
-            DiscType = DiscType.Cd,
             DateOfRelease = new DateTime(2001, 03, 02),
             Performer = "Сплин",
             Genre = "Рок",
@@ -49,7 +44,6 @@ internal class CdDiscSourceData
         new()
         {
             Title = "Армагедон",
-            DiscType = DiscType.Cd,
             DateOfRelease = new DateTime(1999, 10, 10),
             Performer = "Ария",
             Genre = "Металл",

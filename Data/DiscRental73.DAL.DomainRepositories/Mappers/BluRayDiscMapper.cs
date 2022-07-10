@@ -13,7 +13,6 @@ namespace DiscRental73.DAL.DomainRepositories.Mappers
             {
                 Id = reqDto.Id,
                 Title = reqDto.Title,
-                DiscType = DiscType.BluRay,
                 DateOfRelease = reqDto.DateOfRelease,
                 Publisher = reqDto.Publisher,
                 Info = reqDto.Info,
