@@ -142,7 +142,7 @@ public class ClientManagementViewModel : CrudManagementViewModel<ClientDto>
         if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
         try
         {
-            if (p is not ClientDto dto) return;
+            if (item is not ClientDto dto) return;
             _Service.Save(dto);
             DialogService.ShowInformation("Запись создана", "Успех");
             OnPropertyChanged(nameof(Items));

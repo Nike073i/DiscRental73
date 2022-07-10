@@ -28,9 +28,9 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<RentalDto, Rental> Mapper => _DetailMapper;
-        internal override IDbMapper<RentalDto, RentalDetailDto, Rental> DetailMapper => _DetailMapper;
-        internal override DAL.Repositories.RentalRepository DbRepos { get; }
+        protected override IDbMapper<RentalDto, Rental> Mapper => _DetailMapper;
+        protected override IDbMapper<RentalDto, RentalDetailDto, Rental> DetailMapper => _DetailMapper;
+        protected override DAL.Repositories.RentalRepository DbRepos { get; }
 
         #endregion
     }

@@ -13,8 +13,8 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories.Base
     {
         #region properties
 
-        internal abstract DbRepository<TEntity> DbRepos { get; }
-        internal abstract IDbMapper<TDto, TEntity> Mapper { get; }
+        protected abstract DbRepository<TEntity> DbRepos { get; }
+        protected abstract IDbMapper<TDto, TEntity> Mapper { get; }
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories.Base
     {
         #region properties
 
-        internal abstract IDbMapper<TDto, TDetailDto, TEntity> DetailMapper { get; }
+        protected abstract IDbMapper<TDto, TDetailDto, TEntity> DetailMapper { get; }
 
         #endregion
 

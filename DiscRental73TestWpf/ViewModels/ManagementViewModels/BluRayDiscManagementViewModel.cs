@@ -143,7 +143,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
             if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
             try
             {
-                if (p is not BluRayDiscDto dto) return;
+                if (item is not BluRayDiscDto dto) return;
                 _Service.Save(dto);
                 DialogService.ShowInformation("Запись создана", "Успех");
                 OnPropertyChanged(nameof(Items));

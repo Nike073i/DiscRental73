@@ -54,7 +54,7 @@ namespace DiscRental73.Domain.BusinessLogic.Base
             if (!IsCorrectReqDto(reqDto)) throw new Exception("Ошибка при сохранении записи: модель некорректна");
             try
             {
-                if (!reqDto.Id.Equals(default)) return Repository.Insert(reqDto);
+                if (reqDto.Id.Equals(default)) return Repository.Insert(reqDto);
                 Repository.Update(reqDto);
                 return reqDto.Id;
             }

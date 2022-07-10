@@ -30,9 +30,9 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<ClientDto, Client> Mapper => _DetailMapper;
-        internal override IDbMapper<ClientDto, ClientDetailDto, Client> DetailMapper => _DetailMapper;
-        internal override DAL.Repositories.ClientRepository DbRepos { get; }
+        protected override IDbMapper<ClientDto, Client> Mapper => _DetailMapper;
+        protected override IDbMapper<ClientDto, ClientDetailDto, Client> DetailMapper => _DetailMapper;
+        protected override DAL.Repositories.ClientRepository DbRepos { get; }
 
         #endregion
 

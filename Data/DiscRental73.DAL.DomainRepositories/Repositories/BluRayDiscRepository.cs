@@ -1,5 +1,4 @@
 ﻿using DiscRental73.DAL.Context;
-using DiscRental73.DAL.DomainRepositories.Mappers;
 using DiscRental73.DAL.DomainRepositories.Mappers.Base;
 using DiscRental73.DAL.DomainRepositories.Repositories.Base;
 using DiscRental73.DAL.Entities;
@@ -9,17 +8,11 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 {
     public class BluRayDiscRepository : DbRepository<BluRayDiscDto, BluRayDisc>
     {
-        #region readonly fields
-
-        private readonly BluRayDiscMapper _Mapper;
-
-        #endregion
-
         #region constructors
 
         public BluRayDiscRepository(DiscRentalDb db)
         {
-            _Mapper = new BluRayDiscMapper();
+            Mapper = new DbMapper<BluRayDiscDto, BluRayDisc>();
             DbRepos = new DAL.Repositories.BluRayDiscRepository(db);
         }
 
@@ -27,8 +20,9 @@ namespace DiscRental73.DAL.DomainRepositories.Repositories
 
         #region override abstract methods
 
-        internal override IDbMapper<BluRayDiscDto, BluRayDisc> Mapper => _Mapper;
-        internal override DAL.Repositories.BluRayDiscRepository DbRepos { get; }
+        protected override DbMapper<BluRayDiscDto, BluRayDisc> Mapper { get; }
+
+        protected override DAL.Repositories.BluRayDiscRepository DbRepos { get; }
 
         #endregion
     }

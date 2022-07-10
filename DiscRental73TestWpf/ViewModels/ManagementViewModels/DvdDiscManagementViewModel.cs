@@ -143,7 +143,7 @@ public class DvdDiscManagementViewModel : CrudManagementViewModel<DvdDiscDto>
         if (!DialogService.ShowContent(ref item, ShowStrategy)) return;
         try
         {
-            if (p is not DvdDiscDto dto) return;
+            if (item is not DvdDiscDto dto) return;
             _Service.Save(dto);
             DialogService.ShowInformation("Запись создана", "Успех");
             OnPropertyChanged(nameof(Items));
