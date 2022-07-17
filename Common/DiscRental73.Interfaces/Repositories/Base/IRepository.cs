@@ -17,7 +17,7 @@ namespace DiscRental73.Interfaces.Repositories.Base
 
     public interface IRepository<TDto, out TDetailDto> : IRepository<TDto>
         where TDto : IDto
-        where TDetailDto : IDto
+        where TDetailDto : IDetailDto
     {
         TDetailDto? GetByIdDetail(int id);
         IEnumerable<TDetailDto> GetAllDetail();

@@ -1,10 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
+using DiscRental73.Interfaces.Services.Base;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class SellService
+    public class SellService : IService<SellDto, SellDetailDto>
     {
         #region readonly fields
 
@@ -52,6 +53,11 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
+        public SellDto? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<SellDetailDto> GetAllDetail()
         {
             try
@@ -62,6 +68,11 @@ namespace DiscRental73.Domain.BusinessLogic
             {
                 throw new Exception("Ошибка получения продаж : " + ex.Message, ex.InnerException);
             }
+        }
+
+        public SellDetailDto? GetByIdDetail(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<ProductDto> GetProducts() => _ProductService.GetAvailable();

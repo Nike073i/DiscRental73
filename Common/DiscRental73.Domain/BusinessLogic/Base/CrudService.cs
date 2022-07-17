@@ -1,10 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Interfaces.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
+using DiscRental73.Interfaces.Services.Base;
 
 namespace DiscRental73.Domain.BusinessLogic.Base
 {
-    public abstract class CrudService<TDto>
+    public abstract class CrudService<TDto> : ICrudService<TDto>
         where TDto : DtoBase
     {
         #region readonly fields
@@ -90,7 +91,7 @@ namespace DiscRental73.Domain.BusinessLogic.Base
         #endregion
     }
 
-    public abstract class CrudService<TDto, TDetailDto> : CrudService<TDto>
+    public abstract class CrudService<TDto, TDetailDto> : CrudService<TDto>, ICrudService<TDto, TDetailDto>
         where TDto : DtoBase
         where TDetailDto : DtoBase, IDetailDto
     {

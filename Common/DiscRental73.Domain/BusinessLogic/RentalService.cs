@@ -1,10 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
+using DiscRental73.Interfaces.Services.Base;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class RentalService
+    public class RentalService : IService<RentalDto, RentalDetailDto>
     {
         #region readonly fields
 
@@ -91,6 +92,11 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
+        public RentalDto? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<RentalDetailDto> GetAllDetail()
         {
             try
@@ -101,6 +107,11 @@ namespace DiscRental73.Domain.BusinessLogic
             {
                 throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
             }
+        }
+
+        public RentalDetailDto? GetByIdDetail(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CancelRental(RentalDto reqDto)
