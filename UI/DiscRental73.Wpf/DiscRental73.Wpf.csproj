@@ -5,6 +5,69 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject>DiscRental73.Wpf.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\FormationViews\**" />
+    <EmbeddedResource Remove="Views\FormationViews\**" />
+    <None Remove="Views\FormationViews\**" />
+    <Page Remove="Views\FormationViews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DiscRental73.Domain\DiscRental73.Domain.csproj" />
+    <ProjectReference Include="..\..\Data\DiscRental73.DAL.DomainRepositories\DiscRental73.DAL.DomainRepositories.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MathCore.WPF" Version="0.0.25" />
+		<PackageReference Include="FontAwesome5" Version="2.1.6" />
+		<PackageReference Include="MaterialDesignColors" Version="2.0.6" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+            <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.15" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Infrastructure\Resources\Styles\ButtonStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\CheckBoxStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\ComboBoxStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\DatePickerStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\ListBoxStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\TextBlockStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Styles\TextBoxStyle.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Infrastructure\Resources\Templates\ManagementModelView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	</ItemGroup>
 
 </Project>

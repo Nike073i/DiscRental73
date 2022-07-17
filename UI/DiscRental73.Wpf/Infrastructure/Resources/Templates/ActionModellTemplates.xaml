@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:avm="clr-namespace:DiscRental73.Wpf.ViewModels.ActionViewModels"
+                    xmlns:controls="clr-namespace:DiscRental73.Wpf.Views.Controls">
+    <DataTemplate DataType="{x:Type avm:BluRayDiscActionViewModel}">
+        <controls:CrudActionViewControl DataContext="{Binding}"/>
+    </DataTemplate>
+</ResourceDictionary>
