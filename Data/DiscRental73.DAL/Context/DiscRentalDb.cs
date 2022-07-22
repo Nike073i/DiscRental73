@@ -9,10 +9,7 @@ public class DiscRentalDb : DbContext
 
     #region constructors
 
-    public DiscRentalDb(DbContextOptions<DiscRentalDb> options) : base(options)
-    {
-        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-    }
+    public DiscRentalDb(DbContextOptions<DiscRentalDb> options) : base(options) { }
 
     #endregion
 
@@ -39,6 +36,7 @@ public class DiscRentalDb : DbContext
         modelBuilder.Entity<Product>().HasQueryFilter(e => !e.IsDeleted);
         modelBuilder.Entity<Disc>().HasQueryFilter(e => !e.IsDeleted);
     }
+
     public virtual DbSet<Disc> Discs { get; set; }
     public virtual DbSet<CdDisc> CdDiscs { get; set; }
     public virtual DbSet<DvdDisc> DvdDiscs { get; set; }

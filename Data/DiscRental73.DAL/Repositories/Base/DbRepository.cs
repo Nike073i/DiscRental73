@@ -61,8 +61,9 @@ namespace DiscRental73.DAL.Repositories.Base
 
         public virtual void Update(T entity)
         {
-            if (!Exist(entity.Id))
-                throw new Exception("Ошибка обновления записи: Запись не найдена");
+            var originalEntity = GetByIdLazy(entity.Id);
+            if (originalEntity is null) throw new Exception("Ошибка обновления записи: Запись не найдена");
+            Db.Entry(originalEntity).State = EntityState.Detached;
             Set.Update(entity).State = EntityState.Modified;
             Db.SaveChanges();
         }
