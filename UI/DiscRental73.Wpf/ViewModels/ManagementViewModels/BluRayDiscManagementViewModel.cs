@@ -10,7 +10,7 @@ namespace DiscRental73.Wpf.ViewModels.ManagementViewModels
         public BluRayDiscManagementViewModel(BluRayDiscActionViewModel actionViewModel) : base(actionViewModel)
         {
             actionViewModel.OnChangedSelectedItemAction = dto =>
-                EntityViewModel = dto is null ? new BluRayDiscViewModel() : new BluRayDiscViewModel(dto);
+                EntityViewModel = dto is null ? null : new BluRayDiscViewModel(dto);
         }
     }
 }

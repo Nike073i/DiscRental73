@@ -2,7 +2,9 @@
 {
     public interface IFormationService
     {
-        //bool ShowContent(ref object formationData, IShowContentStrategy strategy);
+        public IEntityEditStrategy? EditStrategy { get; set; }
+
+        bool EditEntity(ref object entity);
 
         void ShowInformation(string information, string caption);
 

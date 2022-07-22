@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:evm="clr-namespace:DiscRental73.Wpf.ViewModels.EntityViewModels"
-                    xmlns:controls="clr-namespace:DiscRental73.Wpf.Views.Controls">
+                    xmlns:eiv="clr-namespace:DiscRental73.Wpf.Views.EntityInfoViews">
     <DataTemplate DataType="{x:Type evm:BluRayDiscViewModel}">
-        <controls:BluRayDiscViewControl DataContext="{Binding}"/>
+        <eiv:BluRayDiscInfoView DataContext="{Binding}"/>
     </DataTemplate>
 </ResourceDictionary>

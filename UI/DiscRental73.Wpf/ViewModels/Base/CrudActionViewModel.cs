@@ -18,10 +18,11 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         #region constructors
 
-        protected CrudActionViewModel(ICrudService<TDto> service, IFormationService formationService)
+        protected CrudActionViewModel(ICrudService<TDto> service, IFormationService formationService, IEntityEditStrategy editStrategy)
             : base(service, formationService)
         {
             _CrudService = service;
+            formationService.EditStrategy = editStrategy;
         }
 
         #endregion
@@ -32,11 +33,13 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         private ICommand? _DeleteCommand;
 
-        public ICommand DeleteCommand => _DeleteCommand ??= new LambdaCommand(OnExecutedDeleteCommand);
+        public ICommand DeleteCommand => _DeleteCommand ??= new LambdaCommand(OnExecutedDeleteCommand, CanExecuteDeleteCommand);
+
+        private bool CanExecuteDeleteCommand(object? p) => p is TDto;
 
         private void OnExecutedDeleteCommand(object? p)
         {
-            if (!(FormationService).Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
+            if (!FormationService.Confirm("Вы действительно хотите удалить?", "Удаление записи")) return;
             try
             {
                 if (p is not TDto dto) return;
@@ -56,11 +59,12 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         private ICommand? _EditCommand;
 
-        public ICommand EditCommand => _EditCommand ??= new LambdaCommand(OnExecutedEditCommand);
+        public ICommand EditCommand => _EditCommand ??= new LambdaCommand(OnExecutedEditCommand, CanExecuteEditCommand);
 
+        public bool CanExecuteEditCommand(object? p) => p is TDto;
         private void OnExecutedEditCommand(object? p)
         {
-            //if (!FormationService.ShowContent(ref p, ShowStrategy)) return;
+            if (!FormationService.EditEntity(ref p!)) return;
             try
             {
                 if (p is not TDto dto) return;
@@ -85,11 +89,12 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         private void OnExecutedCreateCommand(object? p)
         {
-            var item = new TDto();
-            //if (!FormationService.ShowContent(ref item, ShowStrategy)) return;
+            object dtoWrapper = new TDto();
+            if (!FormationService.EditEntity(ref dtoWrapper)) return;
+            if (dtoWrapper is not TDto dto) return;
             try
             {
-                _CrudService.Save(item);
+                _CrudService.Save(dto);
                 FormationService.ShowInformation("Запись создана", "Успех");
                 RefreshItems();
             }

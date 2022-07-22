@@ -13,6 +13,7 @@ namespace DiscRental73.Wpf.ViewModels.EntityViewModels
 
         public BluRayDiscViewModel(BluRayDiscDto bluRayDisc)
         {
+            Id = bluRayDisc.Id;
             _Title = bluRayDisc.Title;
             _DateOfRelease = bluRayDisc.DateOfRelease;
             DiscType = bluRayDisc.DiscType;
@@ -24,6 +25,25 @@ namespace DiscRental73.Wpf.ViewModels.EntityViewModels
         #endregion
 
         #region properties
+
+        #region Dto : BluRayDiscDto - сформированный dto по введенной информации
+
+        public override BluRayDiscDto Dto =>
+            new()
+            {
+                Id = Id,
+                Title = Title,
+                DiscType = DiscType,
+                DateOfRelease = DateOfRelease,
+                Publisher = Publisher,
+                Info = Info,
+                SystemRequirements = SystemRequirements,
+            };
+
+        #endregion
+
+        /// <summary>Идентификатор BluRay-диска</summary>
+        private int Id { get; }
 
         #region Title : string - Название диска
 

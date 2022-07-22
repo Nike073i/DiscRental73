@@ -1,87 +1,16 @@
 ﻿<UserControl x:Class="DiscRental73.Wpf.Views.ManagementView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
-             xmlns:fa="http://schemas.fontawesome.com/icons/"
-             d:DesignHeight="450" d:DesignWidth="800"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:vm="clr-namespace:DiscRental73.Wpf.ViewModels.ManagementViewModels">
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 mc:Ignorable="d">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" MinWidth="200"/>
             <ColumnDefinition MinWidth ="200"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Content="{Binding ActionViewModel }"/>
+        <ContentControl Grid.Column="0" Content="{Binding ActionViewModel}"/>
         <ContentControl Grid.Column="1" Content="{Binding EntityViewModel}"/>
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"/>
-        <!--<GroupBox Grid.Column="0" Header="BluRay-диски" Margin="3">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding RefreshCommand }"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DockPanel>
-                <Grid DockPanel.Dock="Bottom">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Button fa:Awesome.Content="Solid_Plus" Grid.Column="0" Grid.Row="0" Foreground="Green"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Grid.Column="1" Grid.Row="0" Foreground="Blue"/>
-                    <Button fa:Awesome.Content="Solid_Ban" Grid.Column="0" Grid.Row="1" Foreground="Red"/>
-                    <Button fa:Awesome.Content="Solid_Retweet" Grid.Column="1" Grid.Row="1" Foreground="Orange" 
-                            Command="{Binding RefreshCommand}"/>
-                </Grid>
-                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" 
-                         VirtualizingPanel.IsVirtualizing="True"
-                         VirtualizingPanel.IsContainerVirtualizable="True"
-                         VirtualizingPanel.VirtualizationMode="Recycling">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-            </DockPanel>
-        </GroupBox>
-        <GroupBox Margin="6"  Grid.Column="1" Header="Информация">
-            <Grid Margin="3" DataContext="{Binding SelectedItem}">
-                <Grid.Resources>
-                    --><!--<Style TargetType="TextBlock" BasedOn="{StaticResource GridInfoTextBlocks}"/>--><!--
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Название:"/>
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Тип диска:"/>
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата выпуска:"/>
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Издатель"/>
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Информация:"/>
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Системные требования:"/>
-
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding DiscType}"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding DateOfRelease, StringFormat=dd.MM.yyyy}"/>
-                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Publisher}"/>
-                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Info, TargetNullValue='Не указана'}" Height="100" TextWrapping="Wrap"/>
-                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding SystemRequirements, TargetNullValue='Не указаны'}" Height="100" TextWrapping="Wrap"/>
-            </Grid>
-        </GroupBox>-->
+        <GridSplitter Grid.Column="0" Width="3" Margin="-3,0"/>
     </Grid>
 </UserControl>

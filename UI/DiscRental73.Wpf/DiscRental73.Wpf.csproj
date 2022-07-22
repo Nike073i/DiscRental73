@@ -64,9 +64,16 @@
 	  <Page Update="Infrastructure\Resources\Styles\TextBoxStyle.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  </Page>
+	  <Page Update="Infrastructure\Resources\Templates\EntityEditModelTemplates.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
 	  <Page Update="Infrastructure\Resources\Templates\ManagementModelView.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="Views\EntityEditViews\BluRayDiscEditView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  </Page>
 	</ItemGroup>
 

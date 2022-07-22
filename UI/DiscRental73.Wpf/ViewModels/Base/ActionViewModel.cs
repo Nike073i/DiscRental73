@@ -52,6 +52,20 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         #endregion
 
+        #region ActionHeader : string - Заголовок представления действий с сущностью
+
+        /// <summary>Заголовок представления действий с сущностью</summary>
+        private string _ActionHeader;
+
+        /// <summary>Заголовок представления действий с сущностью</summary>
+        public string ActionHeader
+        {
+            get => _ActionHeader;
+            set => Set(ref _ActionHeader, value);
+        }
+
+        #endregion
+
         #region items
 
         private IEnumerable<TDto>? _Items;

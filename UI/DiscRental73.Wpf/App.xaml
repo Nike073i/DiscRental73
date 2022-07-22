@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Infrastructure/Resources/Templates/ManagementModelView.xaml"/>
-                <ResourceDictionary Source="Infrastructure/Resources/Templates/EntityModelTemplates.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Resources/Templates/EntityInfoModelTemplates.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Templates/ActionModellTemplates.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Templates/DtoModelTemplates.xaml"/>
 
@@ -16,13 +16,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml"/>
 
-                <!--<ResourceDictionary Source="Infrastructure/Resources/Styles/TextBlockStyle.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Resources/Styles/TextBlockStyle.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Styles/ListBoxStyle.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Styles/ComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Styles/CheckBoxStyle.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Styles/ButtonStyle.xaml"/>
                 <ResourceDictionary Source="Infrastructure/Resources/Styles/TextBoxStyle.xaml"/>
-                <ResourceDictionary Source="Infrastructure/Resources/Styles/DatePickerStyle.xaml"/>-->
+                <ResourceDictionary Source="Infrastructure/Resources/Styles/DatePickerStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <gvm:ViewModelLocator x:Key="Locator"/>
         </ResourceDictionary>
