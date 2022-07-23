@@ -9,7 +9,7 @@
     <!--Icon="/Views/Windows/music-cd.png"-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ShowBluRayManagementViewCommand}"/>
+            <i:InvokeCommandAction Command="{Binding ShowDvdDiscManagementViewCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel>

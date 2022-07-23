@@ -5,4 +5,10 @@
     <DataTemplate DataType="{x:Type mvm:BluRayDiscManagementViewModel}">
         <views:ManagementView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type mvm:CdDiscManagementViewModel}">
+        <views:ManagementView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvm:DvdDiscManagementViewModel}">
+        <views:ManagementView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

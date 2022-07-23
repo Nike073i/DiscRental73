@@ -7,4 +7,16 @@
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type dto:CdDiscDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Performer}"/>
+            <TextBlock Text="{Binding Title}"/>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type dto:DvdDiscDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding Director}"/>
+            <TextBlock Text="{Binding Title}"/>
+        </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>

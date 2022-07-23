@@ -1,5 +1,4 @@
 ﻿using DiscRental73.Wpf.Infrastructure.ValidateRules.Base;
-using System;
 using System.Globalization;
 using System.Windows.Controls;
 

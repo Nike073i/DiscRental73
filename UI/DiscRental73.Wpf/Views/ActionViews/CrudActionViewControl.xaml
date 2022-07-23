@@ -39,11 +39,6 @@
                          VirtualizingPanel.IsVirtualizing="True"
                          VirtualizingPanel.IsContainerVirtualizable="True"
                          VirtualizingPanel.VirtualizationMode="Recycling">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
                 </ListBox>
             </DockPanel>
         </GroupBox>

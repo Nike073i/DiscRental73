@@ -5,4 +5,10 @@
     <DataTemplate DataType="{x:Type evm:BluRayDiscViewModel}">
         <eev:BluRayDiscEditView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type evm:CdDiscViewModel}">
+        <eev:CdDiscEditView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evm:DvdDiscViewModel}">
+        <eev:DvdDiscEditView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -6,10 +6,8 @@
 
     <Style x:Key="ValidationDatePicker" TargetType="DatePicker" BasedOn="{StaticResource DatePickerBase}">
         <Style.Triggers>
-            <Trigger Property="Validation.HasError"
-                         Value="True">
-                <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"></Setter>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

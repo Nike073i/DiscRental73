@@ -12,6 +12,8 @@ namespace DiscRental73.Wpf.Infrastructure.Di
         {
             services.AddTransient<IFormationService, WindowFormationService>();
             services.AddTransient<ICrudService<BluRayDiscDto>, BluRayDiscService>();
+            services.AddTransient<ICrudService<CdDiscDto>, CdDiscService>();
+            services.AddTransient<ICrudService<DvdDiscDto>, DvdDiscService>();
             return services;
         }
     }

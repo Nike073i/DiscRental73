@@ -5,4 +5,10 @@
     <DataTemplate DataType="{x:Type avm:BluRayDiscActionViewModel}">
         <av:CrudActionViewControl DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type avm:CdDiscActionViewModel}">
+        <av:CrudActionViewControl DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type avm:DvdDiscActionViewModel}">
+        <av:CrudActionViewControl DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>
