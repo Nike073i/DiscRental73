@@ -19,4 +19,10 @@
             <TextBlock Text="{Binding Title}"/>
         </TextBlock>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type dto:ClientDto}">
+        <TextBlock>
+            <TextBlock Text="{Binding SecondName}"/>
+            <TextBlock Text="{Binding ContactNumber}"/>
+        </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>

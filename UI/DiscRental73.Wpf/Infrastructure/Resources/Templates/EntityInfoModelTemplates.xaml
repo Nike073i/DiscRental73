@@ -11,4 +11,7 @@
     <DataTemplate DataType="{x:Type evm:DvdDiscViewModel}">
         <eiv:DvdDiscInfoView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type evm:ClientViewModel}">
+        <eiv:ClientInfoView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -12,16 +12,20 @@ namespace DiscRental73.Wpf.ViewModels.WindowViewModels
         private readonly BluRayDiscManagementViewModel _BluRayDiscManagementViewModel;
         private readonly CdDiscManagementViewModel _CdDiscManagementViewModel;
         private readonly DvdDiscManagementViewModel _DvdDiscManagementViewModel;
+        private readonly ClientManagementViewModel _ClientManagementViewModel;
 
         #endregion
 
         #region constructors
 
-        public MainWindowViewModel(BluRayDiscManagementViewModel bluRayManagementViewModel, CdDiscManagementViewModel cdManagementViewModel, DvdDiscManagementViewModel dvdDiscManagementViewModel)
+        public MainWindowViewModel(BluRayDiscManagementViewModel bluRayManagementViewModel,
+            CdDiscManagementViewModel cdManagementViewModel, DvdDiscManagementViewModel dvdDiscManagementViewModel,
+            ClientManagementViewModel clientManagementViewModel)
         {
             _BluRayDiscManagementViewModel = bluRayManagementViewModel;
             _CdDiscManagementViewModel = cdManagementViewModel;
             _DvdDiscManagementViewModel = dvdDiscManagementViewModel;
+            _ClientManagementViewModel = clientManagementViewModel;
         }
 
         #endregion
@@ -86,6 +90,17 @@ namespace DiscRental73.Wpf.ViewModels.WindowViewModels
             new LambdaCommand(OnExecutedShowDvdDiscManagementViewCommand);
 
         private void OnExecutedShowDvdDiscManagementViewCommand(object? p) => CurrentModel = _DvdDiscManagementViewModel;
+
+        #endregion
+
+        #region ShowClientManagementViewCommand : ICommand - команда показа окна управления Dvd-дисками
+
+        private ICommand? _ShowClientManagementViewCommand;
+
+        public ICommand ShowClientManagementViewCommand => _ShowClientManagementViewCommand ??=
+            new LambdaCommand(OnExecutedShowClientManagementViewCommand);
+
+        private void OnExecutedShowClientManagementViewCommand(object? p) => CurrentModel = _ClientManagementViewModel;
 
         #endregion
 
