@@ -2,10 +2,11 @@
 using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories;
+using DiscRental73.Interfaces.Services;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class EmployeeService : PersonCrudService<EmployeeDto, EmployeeDetailDto>
+    public class EmployeeService : PersonCrudService<EmployeeDto, EmployeeDetailDto>, IEmployeeService<EmployeeDto, EmployeeDetailDto>
     {
         #region constructors
 

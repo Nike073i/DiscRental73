@@ -1,10 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Interfaces.Dto;
 using DiscRental73.Interfaces.Repositories;
+using DiscRental73.Interfaces.Services.Base;
 
 namespace DiscRental73.Domain.BusinessLogic.Base
 {
-    public abstract class PersonCrudService<TDto, TDetailDto> : CrudService<TDto, TDetailDto>
+    public abstract class PersonCrudService<TDto, TDetailDto> : CrudService<TDto, TDetailDto>, IPersonService<TDto, TDetailDto>
         where TDto : PersonDto
         where TDetailDto : PersonDto, IDetailDto
     {

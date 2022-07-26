@@ -1,11 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
-using DiscRental73.Interfaces.Services.Base;
+using DiscRental73.Interfaces.Services;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class ProductService : IService<ProductDto, ProductDetailDto>
+    public class ProductService : IProductService<ProductDto, ProductDetailDto>
     {
         #region readonly fields
 

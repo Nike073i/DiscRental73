@@ -1,5 +1,6 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Interfaces.Repositories.Base;
+using DiscRental73.Interfaces.Services;
 
 namespace DiscRental73.Domain.BusinessLogic.Base
 {

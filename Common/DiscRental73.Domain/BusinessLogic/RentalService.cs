@@ -1,11 +1,11 @@
 ﻿using DiscRental73.Domain.DtoModels.DetailDto;
 using DiscRental73.Domain.DtoModels.Dto;
 using DiscRental73.Interfaces.Repositories.Base;
-using DiscRental73.Interfaces.Services.Base;
+using DiscRental73.Interfaces.Services;
 
 namespace DiscRental73.Domain.BusinessLogic
 {
-    public class RentalService : IService<RentalDto, RentalDetailDto>
+    public class RentalService : IRentalService<RentalDto, RentalDetailDto>
     {
         #region readonly fields
 
@@ -71,49 +71,6 @@ namespace DiscRental73.Domain.BusinessLogic
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts() => _ProductService.GetAvailable();
-
-        public IEnumerable<ProductDetailDto> GetProductsDetail() => _ProductService.GetAvailableDetail();
-
-        public IEnumerable<RentalDto> GetInRental() => GetAll()
-            .Where(rec => rec.ReturnSum is null);
-        public IEnumerable<RentalDetailDto> GetInRentalDetail() => GetAllDetail()
-            .Where(rec => rec.ReturnSum is null);
-
-        public IEnumerable<RentalDto> GetAll()
-        {
-            try
-            {
-                return _Repository.GetAll();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public RentalDto? GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<RentalDetailDto> GetAllDetail()
-        {
-            try
-            {
-                return _Repository.GetAllDetail();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
-            }
-        }
-
-        public RentalDetailDto? GetByIdDetail(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool CancelRental(RentalDto reqDto)
         {
             if (reqDto is null) throw new ArgumentNullException(nameof(reqDto));
@@ -128,6 +85,60 @@ namespace DiscRental73.Domain.BusinessLogic
             catch (Exception ex)
             {
                 throw new Exception("Ошибка при отмене проката :" + ex.Message, ex.InnerException);
+            }
+        }
+
+        public IEnumerable<RentalDto> GetAll()
+        {
+            try
+            {
+                return _Repository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
+            }
+        }
+
+        public IEnumerable<RentalDetailDto> GetAllDetail()
+        {
+            try
+            {
+                return _Repository.GetAllDetail();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка получения прокатов : " + ex.Message, ex.InnerException);
+            }
+        }
+
+        public IEnumerable<RentalDto> GetInRental() => GetAll()
+            .Where(rec => rec.ReturnSum is null);
+
+        public IEnumerable<RentalDetailDto> GetInRentalDetail() => GetAllDetail()
+            .Where(rec => rec.ReturnSum is null);
+
+        public RentalDto? GetById(int id)
+        {
+            try
+            {
+                return _Repository.GetById(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message, ex.InnerException);
+            }
+        }
+
+        public RentalDetailDto? GetByIdDetail(int id)
+        {
+            try
+            {
+                return _Repository.GetByIdDetail(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при получении записи по Id:" + ex.Message, ex.InnerException);
             }
         }
 
