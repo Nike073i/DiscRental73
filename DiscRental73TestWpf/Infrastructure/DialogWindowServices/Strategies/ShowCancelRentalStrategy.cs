@@ -34,7 +34,7 @@ public class ShowCancelRentalStrategy : IShowContentStrategy
 
     public IEnumerable<RentalDto>? Rentals { get; set; }
 
-    public bool ShowDialog(ref object formationData)
+    public bool ShowDialog<T>(ref T formationData)
     {
         if (formationData is not CancelRentalBindingModel item) return false;
 

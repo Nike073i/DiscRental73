@@ -1,4 +1,4 @@
-﻿using DiscRental73TestWpf.ViewModels;
+﻿using DiscRental73TestWpf.ViewModels;Registrator
 using DiscRental73TestWpf.ViewModels.FormationViewModels;
 using DiscRental73TestWpf.ViewModels.ManagementViewModels;
 using DiscRental73TestWpf.ViewModels.WindowViewModels;

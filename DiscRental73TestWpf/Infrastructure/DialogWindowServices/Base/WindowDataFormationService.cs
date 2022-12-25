@@ -1,13 +1,12 @@
 ﻿using DiscRental73TestWpf.Infrastructure.Interfaces;
 using System;
-using System.Linq;
 using System.Windows;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
 {
     public class WindowDataFormationService : IFormationService
     {
-        protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
+        //protected static Window ActiveWindow => Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
         //public IShowContentStrategy? ShowStrategy { get; set; }
 
         public bool ShowContent(ref object formationData, IShowContentStrategy strategy)
@@ -19,28 +18,28 @@ namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
             return strategy.ShowDialog(ref formationData);
         }
 
-        public void ShowInformation(string Information, string Caption)
+        public void ShowInformation(string information, string caption)
         {
-            MessageBox.Show(Information, Caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(information, caption, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void ShowWarning(string Message, string Caption)
+        public void ShowWarning(string message, string caption)
         {
-            MessageBox.Show(Message, Caption, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        public void ShowError(string Message, string Caption)
+        public void ShowError(string message, string caption)
         {
-            MessageBox.Show(Message, Caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        public bool Confirm(string Message, string Caption, bool Exclamation = false)
+        public bool Confirm(string message, string caption, bool exclamation = false)
         {
             return MessageBox.Show(
-                Message,
-                Caption,
+                message,
+                caption,
                 MessageBoxButton.YesNo,
-                Exclamation ? MessageBoxImage.Exclamation : MessageBoxImage.Question)
+                exclamation ? MessageBoxImage.Exclamation : MessageBoxImage.Question)
                 == MessageBoxResult.Yes;
         }
     }

@@ -13,15 +13,17 @@ namespace DiscRental73.Wpf.ViewModels.Base
         #region fields
 
         private readonly ICrudService<TDto> _CrudService;
+        protected IFormationService FormationService { get; }
 
         #endregion
 
         #region constructors
 
         protected CrudActionViewModel(ICrudService<TDto> service, IFormationService formationService, IEntityEditStrategy editStrategy)
-            : base(service, formationService)
+            : base(service)
         {
             _CrudService = service;
+            FormationService = formationService;
             formationService.EditStrategy = editStrategy;
         }
 

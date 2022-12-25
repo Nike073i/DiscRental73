@@ -70,7 +70,7 @@ namespace DiscRental73TestWpf.ViewModels.ManagementViewModels
         //    E.Accepted = false;
         //}
 
-        protected override ShowBluRayDiscStrategy CreateContentStrategy() => new(_WindowVm, _FormationVm);
+        protected override ShowBluRayDiscStrategy CreateContentStrategy() => null /*new(_WindowVm, _FormationVm)*/;
 
         #region DeleteCommand - удаление элемента
 

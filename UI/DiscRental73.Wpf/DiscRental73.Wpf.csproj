@@ -35,6 +35,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\EntityInfoViews\ProductInfoView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\EntityInfoViews\ClientInfoView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
@@ -98,6 +101,10 @@
 	  </Page>
 	  <Page Update="Views\EntityEditViews\BluRayDiscEditView.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Views\EntityInfoViews\ProductInfoView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
 	  </Page>
 	  <Page Update="Views\EntityInfoViews\ClientInfoView.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

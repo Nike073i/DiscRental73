@@ -5,6 +5,7 @@ using DiscRental73TestWpf.Views.Windows;
 using MathCore.WPF.ViewModels;
 using System;
 using System.Windows;
+using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Strategies;
@@ -30,44 +31,41 @@ public class ShowBluRayDiscStrategy : IShowContentStrategy
     #region readonly fields
 
     private readonly EntityFormationWindowViewModel _WindowVm;
-    private readonly BluRayDiscFormationViewModel _FormationVm;
 
     #endregion
 
     #region constructors
 
-    public ShowBluRayDiscStrategy(EntityFormationWindowViewModel windowVm, BluRayDiscFormationViewModel formationVm)
+    public ShowBluRayDiscStrategy(EntityFormationWindowViewModel windowVm)
     {
         _WindowVm = windowVm;
-        _FormationVm = formationVm;
-        InitializeWindow(_FormationVm, "Окно формирования BluRay-диска", "BluRay-диск");
-        SetValueRange(_FormationVm);
     }
 
     #endregion
 
-    public bool ShowDialog(ref object formationData)
+    public bool ShowDialog<T>(T? formationData) where T : DtoBase
     {
-        if (formationData is not BluRayDiscDto item) return false;
+        //if (formationData is null)
+        //if (item.Id.Equals(0))
+        //    item.DateOfRelease = DateTime.Now;
 
-        if (item.Id.Equals(0))
-            item.DateOfRelease = DateTime.Now;
+        //var formVm = new BluRayDiscFormationViewModel(formationData);
+        //InitializeWindow(formVm, "Окно формирования BluRay-диска", "BluRay-диск");
+        //SetValueRange(formVm);
 
-        _FormationVm.BluRayDisc = item;
+        //var dlg = new EntityFormationWindow
+        //{
+        //    DataContext = _WindowVm,
+        //    //Owner = ActiveWindow,
+        //    WindowStartupLocation = WindowStartupLocation.CenterOwner
+        //};
 
-        var dlg = new EntityFormationWindow
-        {
-            DataContext = _WindowVm,
-            //Owner = ActiveWindow,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner
-        };
+        //if (dlg.ShowDialog() is not true) return false;
 
-        if (dlg.ShowDialog() is not true) return false;
+        //if (string.IsNullOrEmpty(item.Info)) item.Info = null;
+        //if (string.IsNullOrEmpty(item.SystemRequirements)) item.SystemRequirements = null;
 
-        if (string.IsNullOrEmpty(item.Info)) item.Info = null;
-        if (string.IsNullOrEmpty(item.SystemRequirements)) item.SystemRequirements = null;
-
-        formationData = item;
+        //formationData = item;
         return true;
     }
 

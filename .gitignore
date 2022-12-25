@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /.idea/.idea.DiscRental73Test/.idea
 /AdminWpfPlugin/.idea
 /Tests/DiscRental73.TestProject
+/Tests/Common/DiscRental73.DAL.Tests/RepositoryTests

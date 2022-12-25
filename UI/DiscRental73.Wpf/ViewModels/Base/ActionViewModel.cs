@@ -1,7 +1,6 @@
 ﻿using DiscRental73.Domain.DtoModels.Base;
 using DiscRental73.Interfaces.Dto;
 using DiscRental73.Interfaces.Services.Base;
-using DiscRental73.Wpf.Infrastructure.FormationServices;
 using DiscRental73.Wpf.ViewModels.Interfaces;
 using MathCore.ViewModels;
 using MathCore.WPF.Commands;
@@ -22,10 +21,9 @@ namespace DiscRental73.Wpf.ViewModels.Base
 
         #region constructors
 
-        protected ActionViewModel(IService<TDto> service, IFormationService formationService)
+        protected ActionViewModel(IService<TDto> service)
         {
             _Service = service;
-            FormationService = formationService;
         }
 
         #endregion
@@ -33,8 +31,6 @@ namespace DiscRental73.Wpf.ViewModels.Base
         #region properties
 
         public Action<TDto?>? OnChangedSelectedItemAction { get; set; }
-
-        protected IFormationService FormationService { get; }
 
         #region selected items
 
@@ -55,7 +51,7 @@ namespace DiscRental73.Wpf.ViewModels.Base
         #region ActionHeader : string - Заголовок представления действий с сущностью
 
         /// <summary>Заголовок представления действий с сущностью</summary>
-        private string _ActionHeader;
+        private string _ActionHeader = "Список действий";
 
         /// <summary>Заголовок представления действий с сущностью</summary>
         public string ActionHeader
@@ -105,8 +101,8 @@ namespace DiscRental73.Wpf.ViewModels.Base
         where TDetailDto : DtoBase, IDetailDto
     {
         private readonly IService<TDto, TDetailDto> _DetailService;
-        protected ActionViewModel(IService<TDto, TDetailDto> service, IFormationService formationService)
-            : base(service, formationService)
+        protected ActionViewModel(IService<TDto, TDetailDto> service)
+            : base(service)
         {
             _DetailService = service;
         }

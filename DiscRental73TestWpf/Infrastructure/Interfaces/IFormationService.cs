@@ -6,12 +6,12 @@ namespace DiscRental73TestWpf.Infrastructure.Interfaces
     {
         bool ShowContent(ref object formationData, IShowContentStrategy strategy);
 
-        void ShowInformation(string Information, string Caption);
+        void ShowInformation(string information, string caption);
 
-        void ShowWarning(string Message, string Caption);
+        void ShowWarning(string message, string caption);
 
-        void ShowError(string Message, string Caption);
+        void ShowError(string message, string caption);
 
-        bool Confirm(string Message, string Caption, bool Exclamation = false);
+        bool Confirm(string message, string caption, bool exclamation = false);
     }
 }

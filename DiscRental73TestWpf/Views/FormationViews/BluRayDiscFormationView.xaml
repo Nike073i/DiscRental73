@@ -34,7 +34,7 @@
 
         <TextBox Grid.Column="1" Grid.Row="0">
             <TextBox.Text>
-                <Binding Path="BluRayDisc.Title" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="Title" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:StringLengthValidationRule MinLength="1" MaxLength="50" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -44,7 +44,7 @@
 
         <DatePicker Grid.Column="1" Grid.Row="1">
             <DatePicker.SelectedDate>
-                <Binding Path="BluRayDisc.DateOfRelease" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="DateOfRelease" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:DateValueValidationRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -54,7 +54,7 @@
 
         <TextBox Grid.Column="1" Grid.Row="2">
             <TextBox.Text>
-                <Binding Path="BluRayDisc.Publisher" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="Publisher" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:StringLengthValidationRule MinLength="1" MaxLength="50" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -64,7 +64,7 @@
 
         <TextBox Grid.Column="1" Grid.Row="3" MinHeight="100" TextWrapping="Wrap">
             <TextBox.Text>
-                <Binding Path="BluRayDisc.Info" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="Info" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:StringLengthValidationRule IsNullable="True" MinLength="1" MaxLength="1023" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -74,7 +74,7 @@
 
         <TextBox Grid.Column="1" Grid.Row="4" MinHeight="100" TextWrapping="Wrap">
             <TextBox.Text>
-                <Binding Path="BluRayDisc.SystemRequirements" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding Path="SystemRequirements" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
                         <vr:StringLengthValidationRule IsNullable="True" MinLength="1" MaxLength="1023" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>

@@ -7,11 +7,23 @@ namespace DiscRental73.Wpf.Infrastructure.FormationServices.EntityEditStrategies
 {
     public abstract class EntityEditStrategy : IEntityEditStrategy
     {
+        #region fields
+
+        private EntityFormationWindowViewModel? _FormationVm;
+
+        #endregion
+
+        #region public methods
+
         public abstract bool EditDialog(ref object formationData);
+
+        #endregion
+
+        #region protected methods
 
         protected Window CreateFormationWindow(string title, string caption, EntityViewModel vm)
         {
-            var windowVm = new EntityFormationWindowViewModel
+            _FormationVm = new EntityFormationWindowViewModel
             {
                 Title = title,
                 Caption = caption,
@@ -20,8 +32,10 @@ namespace DiscRental73.Wpf.Infrastructure.FormationServices.EntityEditStrategies
             return new EntityFormationWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                DataContext = windowVm
+                DataContext = _FormationVm,
             };
         }
+
+        #endregion
     }
 }

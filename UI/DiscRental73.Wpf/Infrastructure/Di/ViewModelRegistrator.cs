@@ -17,6 +17,7 @@ namespace DiscRental73.Wpf.Infrastructure.Di
             services.AddTransient<DvdDiscManagementViewModel>();
             services.AddTransient<ClientActionViewModel>();
             services.AddTransient<ClientManagementViewModel>();
+            services.AddTransient<ProductActionViewModel>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<EntityFormationWindowViewModel>();
             return services;

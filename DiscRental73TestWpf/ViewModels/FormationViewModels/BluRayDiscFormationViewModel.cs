@@ -1,6 +1,6 @@
-﻿using DiscRental73TestWpf.ViewModels.Base;
+﻿using DiscRental73.Domain.DtoModels.Dto;
+using DiscRental73TestWpf.ViewModels.Base;
 using System;
-using DiscRental73.Domain.DtoModels.Dto;
 
 namespace DiscRental73TestWpf.ViewModels.FormationViewModels
 {
@@ -8,14 +8,25 @@ namespace DiscRental73TestWpf.ViewModels.FormationViewModels
     {
         #region FormationData - BluRayDiscDto - модель BluRay-диска
 
-        private BluRayDiscDto _BluRayDisc;
-
         /// <summary>Модель BluRay-диска</summary>
-        public BluRayDiscDto BluRayDisc
+        private readonly BluRayDiscDto _BluRayDisc;
+
+        public string Title { get => GetData(_BluRayDisc.Title); set => SetData(value); }
+        public DateTime DateOfRelease { get => GetData(_BluRayDisc.DateOfRelease); set => SetData(value); }
+        public string Publisher { get => GetData(_BluRayDisc.Publisher); set => SetData(value); }
+        public string? Info { get => GetData(_BluRayDisc.Info); set => SetData(value!); }
+        public string? SystemRequirements { get => GetData(_BluRayDisc.SystemRequirements); set => SetData(value!); }
+
+        #endregion
+
+        #region constructors
+
+        public BluRayDiscFormationViewModel(BluRayDiscDto dto)
         {
-            get => _BluRayDisc;
-            set => Set(ref _BluRayDisc, value);
+            _BluRayDisc = dto;
         }
+
+        public BluRayDiscFormationViewModel() : this(new BluRayDiscDto()) { }
 
         #endregion
 

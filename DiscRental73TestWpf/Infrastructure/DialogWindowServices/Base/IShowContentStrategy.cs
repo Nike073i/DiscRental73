@@ -1,7 +1,9 @@
-﻿namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
+﻿using DiscRental73.Domain.DtoModels.Base;
+
+namespace DiscRental73TestWpf.Infrastructure.DialogWindowServices.Base
 {
     public interface IShowContentStrategy
     {
-        bool ShowDialog(ref object formationData);
+        bool ShowDialog<T>(T? formationData) where T : DtoBase;
     }
 }
